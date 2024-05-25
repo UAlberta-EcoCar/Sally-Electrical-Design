@@ -5,6 +5,9 @@
 	(uuid "fce11a9d-893b-40a9-82c7-637cac32540a")
 	(paper "A4")
 	(title_block
+		(title "Trinamic RTMI Diagnostic Interface")
+		(date "2024-05-16")
+		(rev "1")
 		(company "University of Alberta EcoCar Team")
 	)
 	(lib_symbols
@@ -3095,7 +3098,7 @@
 	)
 	(wire
 		(pts
-			(xy 184.15 50.8) (xy 196.85 50.8)
+			(xy 184.15 50.8) (xy 215.9 50.8)
 		)
 		(stroke
 			(width 0)
@@ -3235,7 +3238,7 @@
 	)
 	(wire
 		(pts
-			(xy 184.15 53.34) (xy 196.85 53.34)
+			(xy 184.15 53.34) (xy 215.9 53.34)
 		)
 		(stroke
 			(width 0)
@@ -3505,7 +3508,7 @@
 	)
 	(wire
 		(pts
-			(xy 184.15 55.88) (xy 196.85 55.88)
+			(xy 184.15 55.88) (xy 215.9 55.88)
 		)
 		(stroke
 			(width 0)
@@ -3954,6 +3957,42 @@
 		)
 		(uuid "ff7429a6-2dbb-4eed-b460-fd7c2fc9dc77")
 	)
+	(hierarchical_label "RTMI_MOSI"
+		(shape input)
+		(at 215.9 53.34 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1fc79121-876c-4b2d-b5bb-48758da7183b")
+	)
+	(hierarchical_label "RTMI_SCK"
+		(shape input)
+		(at 215.9 50.8 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8385db59-fbaa-4409-8b16-e26f799595fa")
+	)
+	(hierarchical_label "RTMI_MISO"
+		(shape input)
+		(at 215.9 55.88 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e490d107-066b-4106-bac7-65bbdff7cd0d")
+	)
 	(symbol
 		(lib_id "Device:C")
 		(at 116.84 123.19 0)
@@ -4010,10 +4049,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "49977908-43b9-4bb5-a133-94f95ea5a592")
+			(uuid "16f4c72e-6902-485b-b705-bdd0870b224a")
 		)
 		(pin "2"
-			(uuid "bdf87f4a-cec2-4741-acd6-0abd9d3c1164")
+			(uuid "2c675ebf-2db5-4703-868f-32dbc617821d")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4078,7 +4117,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "9752d206-5067-4ffa-9a54-4e87aec91fa3")
+			(uuid "55de6046-0f8e-412d-b281-2c6459fdde4d")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4142,10 +4181,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "b88e2ea4-067e-4f54-8246-ee554ae6d934")
+			(uuid "fc4334b7-e8ee-4887-8e9f-1666c3ffe3e5")
 		)
 		(pin "2"
-			(uuid "668983dd-f958-4297-9522-c0f97360fac5")
+			(uuid "b762917e-bdb1-4984-a298-ff6c4b0d1694")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4210,7 +4249,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "b86268cc-2bfd-4abb-9cbd-21515d388a0e")
+			(uuid "3f15100b-0e59-4b16-afc1-76354186f320")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4276,10 +4315,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "b27fb050-dfa0-4b67-8f33-54c8361cbe8f")
+			(uuid "497fd164-a789-4975-9c20-0fa48f64499b")
 		)
 		(pin "2"
-			(uuid "0c49785e-8526-4722-9d8e-fc86423d55ed")
+			(uuid "b85d47d1-1441-4907-a18a-005be568f25c")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4345,10 +4384,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "d401471d-672c-4b61-badc-9a2db18e6839")
+			(uuid "c838f743-5072-4606-b580-1dd89b6f67a8")
 		)
 		(pin "1"
-			(uuid "77b2df97-fbc4-451d-bada-72eb795952b5")
+			(uuid "c5b3217f-fe08-4560-8e31-9e0da735d3e6")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4413,7 +4452,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "2bcd75a8-e460-4464-bb52-31e725bae71b")
+			(uuid "0e0b3121-5a6f-4a0f-9811-ae1765ef3067")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4479,103 +4518,103 @@
 			)
 		)
 		(pin "17"
-			(uuid "ada309b4-100e-4dcd-b740-a6a985273ebf")
+			(uuid "7360222c-ac5d-4f32-86a5-db4efc52fd3e")
 		)
 		(pin "5"
-			(uuid "ba6263b2-97fd-4b65-8dbb-1737c6733a5f")
+			(uuid "e73764e1-af0d-499a-bbc5-c8bda287db95")
 		)
 		(pin "19"
-			(uuid "c30addf9-8a50-4620-93eb-96b04598b501")
+			(uuid "303ca52f-f3ae-459c-b635-6c5fc3bc647b")
 		)
 		(pin "15"
-			(uuid "ddb13f01-1ae9-48d7-b3c0-0290ffb2e658")
+			(uuid "05e73612-1bbf-4520-a12f-e80e5beefde6")
 		)
 		(pin "23"
-			(uuid "3c52bdd8-1d60-487b-91f7-56b7e033ea8a")
+			(uuid "8d22bf8c-6db6-4f61-b6a8-db3919b616ed")
 		)
 		(pin "22"
-			(uuid "8134be43-3fa7-46c7-a3bf-9e204b14f250")
+			(uuid "49ee751d-fb2d-4b56-bcad-42044c24ea90")
 		)
 		(pin "18"
-			(uuid "2cd102ed-4af3-45b8-9123-641e10e2da15")
+			(uuid "8b8fdbf5-47f8-4abb-bad4-a90fda2dce60")
 		)
 		(pin "21"
-			(uuid "e7a6ea10-776c-4179-a7f8-2b74c2ce4eef")
+			(uuid "630418fb-a08d-43bc-81e4-e7078c0aa05d")
 		)
 		(pin "20"
-			(uuid "932c6749-c583-4135-9321-04b4d06114a5")
+			(uuid "5132f1a7-30c9-436c-8378-f764c4921228")
 		)
 		(pin "27"
-			(uuid "ced5d242-b467-4742-a1fb-919c2dc5f9d7")
+			(uuid "1e4fb679-713e-47d7-a3d0-a9bd056e3422")
 		)
 		(pin "7"
-			(uuid "631e2f26-3991-4e7c-956f-0635cb5472ed")
+			(uuid "ad4e473b-4f1f-4d61-93df-eb3ae2b6a545")
 		)
 		(pin "13"
-			(uuid "ac8f49b5-3a20-49ca-9308-4b3f029eb98d")
+			(uuid "ca63104f-9197-441b-b2c1-9afa1090876b")
 		)
 		(pin "11"
-			(uuid "0f553bf9-98e0-4b03-8f35-e219d759dfd6")
+			(uuid "5eebe887-0283-42d6-8a7c-8eca04180aff")
 		)
 		(pin "28"
-			(uuid "599fc7df-0441-46fe-b9cf-62d2cf69539a")
+			(uuid "71e338cf-139b-408a-9e3e-103766e21fbd")
 		)
 		(pin "30"
-			(uuid "cc7d3f1a-70f9-42d3-a920-87fe3522a548")
+			(uuid "1992db73-90f8-4c9b-9b67-eedd52128292")
 		)
 		(pin "8"
-			(uuid "fc0d55f4-5d6c-47d5-8f68-6126bbf525f8")
+			(uuid "f82a29bf-3787-4a1c-a3fb-43c87ddfffc5")
 		)
 		(pin "26"
-			(uuid "19a905fe-6214-40ff-8e4c-4097860880ac")
+			(uuid "130cb48d-ec6c-4efb-8da1-dc4552a797d8")
 		)
 		(pin "32"
-			(uuid "bb00fa13-71f3-4121-a42b-e6b7c87af22c")
+			(uuid "6eaf99a6-0551-4d70-8af6-721de2122593")
 		)
 		(pin "1"
-			(uuid "d211d0cf-8815-4c2e-9b18-f28f7f5cdfd1")
+			(uuid "de9b751c-4e56-47d7-8118-2154b8085e6d")
 		)
 		(pin "2"
-			(uuid "76ed98eb-f0cf-4f9f-844d-f72615ca5fd5")
+			(uuid "6c8417f1-2c0b-4627-8dac-09674232b611")
 		)
 		(pin "33"
-			(uuid "d1d27124-4c5d-478c-94cd-9a37fea23118")
+			(uuid "1e05378b-4d20-4ad5-8274-592809f2dcf8")
 		)
 		(pin "31"
-			(uuid "e3799ac9-3291-47b9-aae5-2079c21a0c5a")
+			(uuid "ef1547b8-6eed-405b-8e27-0134e15083b7")
 		)
 		(pin "9"
-			(uuid "d1bafac9-ea5e-4f15-a038-65c4dac87f65")
+			(uuid "c709113a-40a5-4a3c-8544-4384a1a106bd")
 		)
 		(pin "12"
-			(uuid "c795b38f-a317-414c-bfe7-e90830322460")
+			(uuid "f2558d0f-403d-4e1b-8bef-36ce99a4f83f")
 		)
 		(pin "16"
-			(uuid "4019036d-6de5-48ea-bb98-76604b9f12a5")
+			(uuid "686f9836-cb50-469b-9e1e-51c501592831")
 		)
 		(pin "29"
-			(uuid "ab8ff5d1-7b5f-4362-9ba3-85e6369dcf5a")
+			(uuid "6206dc8e-bddf-4cd7-870d-98db1d232be5")
 		)
 		(pin "6"
-			(uuid "2f3ba61e-1fa0-442b-a2dd-5db27bc48d2e")
+			(uuid "bee94cb0-d766-4da3-b880-f38cf7e135e3")
 		)
 		(pin "4"
-			(uuid "a84f888c-0f7b-4ed8-8469-90e7c8eb7ec2")
+			(uuid "c8a90d21-f5c5-4b8d-ab7e-24c1ad1f2f80")
 		)
 		(pin "24"
-			(uuid "c4cf21ca-59fc-4329-bb4d-3a0f65cef470")
+			(uuid "06b74cce-01a1-4e17-9c62-040c40028624")
 		)
 		(pin "10"
-			(uuid "16ec1071-4984-4f94-a095-2c9df5007804")
+			(uuid "25203801-02e4-4d02-a17f-7fdbb7c5a011")
 		)
 		(pin "25"
-			(uuid "46907349-c4e1-429f-a73d-6165efe60730")
+			(uuid "4606848e-76a9-44dc-801a-ad894e433cc5")
 		)
 		(pin "3"
-			(uuid "236fa72a-4ae3-46cd-a3fb-48fb322ec0c1")
+			(uuid "20bd3f27-c562-42f0-a961-0e963d8a16ae")
 		)
 		(pin "14"
-			(uuid "6cf86d25-e67f-483b-801d-1d0b07b34818")
+			(uuid "23369997-7616-4372-9111-7842dd1246e9")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4642,10 +4681,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "1de6ea1a-98c2-4feb-9389-0489cc2f9206")
+			(uuid "c236db1d-0035-42f0-a19b-3d86e7856a32")
 		)
 		(pin "1"
-			(uuid "008ce1d4-933b-4857-ba4c-39de998b006c")
+			(uuid "31814044-224b-4009-920f-ed07d0cf1762")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4712,10 +4751,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0fdab24e-8af4-4d96-a0f1-3330ff34c8a5")
+			(uuid "ba8b0ea3-a32c-40a0-9a86-86f78ea71cc8")
 		)
 		(pin "2"
-			(uuid "955392bc-9885-4e74-bca4-c00d56b9a53d")
+			(uuid "3afabe0f-1ad1-4ab5-814c-6066b2ba4edf")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4781,7 +4820,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "6749939b-b9fe-4353-bb60-754db9f5c915")
+			(uuid "4f1c1c3b-5d5f-46ef-9c64-63d93c7a68e0")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4848,10 +4887,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "31cfa2ab-2cf4-408f-b3c7-b5d9a6c0dfce")
+			(uuid "5307dfad-32de-461c-b839-24a322aa06b2")
 		)
 		(pin "2"
-			(uuid "5f7cc5a1-afcf-4e60-ab23-b388c68cddfd")
+			(uuid "c7b669e9-4f62-496a-9e13-78378dffbc6e")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4915,16 +4954,16 @@
 			)
 		)
 		(pin "1"
-			(uuid "49a92ff7-6518-4710-bf1d-597daa8783a2")
+			(uuid "4eb5dfa4-f5fb-4fe3-90a4-b1f040709a35")
 		)
 		(pin "2"
-			(uuid "affbf843-ffbe-44ca-9d5c-e100dfd41f9a")
+			(uuid "05b009a5-07b5-4692-af2c-e1e91fea0bf1")
 		)
 		(pin "3"
-			(uuid "b6c44e57-f99a-4317-8e32-4ebb42d1982c")
+			(uuid "7823b9b8-a6ae-47be-93a5-6ea8fcdacea9")
 		)
 		(pin "4"
-			(uuid "5cbb8043-3a28-4ea7-a8d7-3f4623ea36da")
+			(uuid "31eda4cd-9dc9-4070-90b8-a4cdafea8e93")
 		)
 		(instances
 			(project "Motor Controller"
@@ -4990,7 +5029,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "48ede209-52fb-4f24-9533-d53749e43852")
+			(uuid "b196d531-139f-4c83-93d0-6673b5da3a66")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5055,7 +5094,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "d072ee34-0d2e-4587-bd17-11805cb9016c")
+			(uuid "5fad73f2-5b8c-4dfe-9f42-72adf125b07f")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5120,10 +5159,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "a20ac75f-d015-469a-99c4-6d223c7ee04b")
+			(uuid "73904d68-a317-40c0-a776-3777411413a4")
 		)
 		(pin "1"
-			(uuid "7c4fa0fa-8dfd-4115-b857-77f4425c8aae")
+			(uuid "fd640732-fee4-433d-9c3e-46e05b05fd32")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5188,22 +5227,22 @@
 			)
 		)
 		(pin "2"
-			(uuid "c331fc61-4863-4e90-8896-30a415b51163")
+			(uuid "dc67f4cf-e4b2-42b4-a9e8-df40e240fab2")
 		)
 		(pin "1"
-			(uuid "04269c6c-be68-41db-8a0c-fff8fa6149f1")
+			(uuid "cc089f32-fe15-4ab3-9aae-1cced8dcc476")
 		)
 		(pin "5"
-			(uuid "2e000085-65c4-4cb4-b981-74b421980d90")
+			(uuid "136c915c-e5c6-43e3-8047-d045259306f6")
 		)
 		(pin "6"
-			(uuid "490dc227-022d-406f-bc5c-01df8b125b57")
+			(uuid "28de77be-d7aa-46f3-8f07-16f44f358594")
 		)
 		(pin "4"
-			(uuid "5f40da79-962b-4434-a320-b95685bb8ed8")
+			(uuid "2af83704-763e-4e4b-87d0-e32c439ffbd3")
 		)
 		(pin "3"
-			(uuid "b703aa35-a560-4fb1-a4ef-33c88c767de0")
+			(uuid "ee81a84e-660b-45a8-9e51-eb067a5e0bae")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5268,7 +5307,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ddf0b168-731d-4ab7-b742-cffc528685a9")
+			(uuid "09031dd5-df47-4e72-a4bc-727bd2244469")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5337,22 +5376,22 @@
 			)
 		)
 		(pin "4"
-			(uuid "c224b8ea-3efc-4e0c-a11b-700119f668cf")
+			(uuid "4264f8b5-ea45-4670-b8af-c750aecb6505")
 		)
 		(pin "3"
-			(uuid "7b98af4d-a9b9-4b25-b85e-0ad8386e2120")
+			(uuid "c408c6cf-06f8-47f1-9e0a-786e5e1a336a")
 		)
 		(pin "1"
-			(uuid "c28197af-6543-4bda-ba5a-eacd3d870b09")
+			(uuid "91d2ad47-71b1-482e-8e8a-3fd23b50c029")
 		)
 		(pin "2"
-			(uuid "f6dbcc77-7002-4f7c-8b35-fd288cc75ef5")
+			(uuid "93137fff-2f8c-4035-8401-2e5aae58a44e")
 		)
 		(pin "5"
-			(uuid "dec8b541-62aa-47e7-9edb-ceb25e2f9b32")
+			(uuid "2fd65ecb-7e8d-4f66-9901-96c9da08d3a4")
 		)
 		(pin "6"
-			(uuid "26552a49-c428-4cb0-ac03-5697eeb49cc1")
+			(uuid "49785603-88f7-4cf2-9485-815112cd9534")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5419,10 +5458,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "c310c835-d168-4b96-af00-64dd02e23267")
+			(uuid "e78c23e5-a291-487e-b249-6083c5cf197f")
 		)
 		(pin "1"
-			(uuid "69d72b21-8413-4e97-911e-453056d7b300")
+			(uuid "0f31b5d4-9bec-4c1a-90db-33c6da6c8169")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5489,10 +5528,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0451c45b-a829-477b-8c26-3ea35645d0c0")
+			(uuid "3e4eb8a5-7789-4779-953c-2127de4f900f")
 		)
 		(pin "2"
-			(uuid "52f11d30-61cb-4a0b-bc7c-f14b3e7e64be")
+			(uuid "4a480519-9f30-4637-b235-4bfb43b95762")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5557,7 +5596,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "1075de2c-c551-478d-a1ed-ea031ef30d25")
+			(uuid "15b89578-6001-4749-9ba7-ce86a5a0c67a")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5622,7 +5661,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "5c68e0ab-efd5-4a4d-a6b6-a179df4adfff")
+			(uuid "feae245e-3dae-4485-9925-447838210d13")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5687,7 +5726,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "dd5ebaec-8beb-4ebc-b345-79f97a201c5f")
+			(uuid "ac16a12f-b7ea-4fd3-a3cc-425d05ac8943")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5751,10 +5790,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e6b8aded-fdf4-45a8-8b6b-656613f74880")
+			(uuid "d678c226-9526-46ba-a459-0bfc365ae407")
 		)
 		(pin "2"
-			(uuid "18b4f931-2d8a-4e54-afe9-a3bf3c3b5b05")
+			(uuid "1d1c678b-0297-400a-830a-f751e493dd1f")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5820,10 +5859,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "2099da56-aa3d-40d9-b3f4-24b81f7857f8")
+			(uuid "e1795631-6ee7-4192-8da0-98e73928635d")
 		)
 		(pin "2"
-			(uuid "e72c8bf7-a9b7-4e4b-9983-12560ed42058")
+			(uuid "d9850369-d6e6-43c3-a59b-83ca7397f091")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5889,10 +5928,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0c6c12a0-400d-4d65-870d-21a58a917830")
+			(uuid "c5bf1c22-801f-4198-a652-d3d305be7b32")
 		)
 		(pin "2"
-			(uuid "4b22a7db-2356-4529-899c-af6341388292")
+			(uuid "29806e7d-4fe0-44b4-86ff-bb3952443e43")
 		)
 		(instances
 			(project "Motor Controller"
@@ -5957,10 +5996,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a8c0fd0c-a358-4329-8448-995ea7aa9588")
+			(uuid "60356ee7-ef48-4f3e-b453-de4855213827")
 		)
 		(pin "2"
-			(uuid "767f417a-b994-481e-b5f8-1d45f917a070")
+			(uuid "d64905dc-db82-4826-9b74-85c4d6b932aa")
 		)
 		(instances
 			(project "Motor Controller"
@@ -6025,7 +6064,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "bf9fae07-25d9-4bae-b454-5c3881cb9781")
+			(uuid "97c6d6b5-8034-4820-9473-3547bbea11dc")
 		)
 		(instances
 			(project "Motor Controller"
@@ -6092,10 +6131,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "f17940ed-8cfa-4bd9-9fb3-fbfcd76c38e1")
+			(uuid "76efb899-01cb-4f94-b963-22e6688dca99")
 		)
 		(pin "1"
-			(uuid "10118421-6311-4f13-8f9c-546ae5f6d875")
+			(uuid "3eca692f-410e-4330-b52a-47d12ef353ed")
 		)
 		(instances
 			(project "Motor Controller"
@@ -6160,7 +6199,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "185ac8ee-7ae5-4d79-adfb-c11564d90335")
+			(uuid "398c9e6e-b365-42fa-a2bc-cde274d96523")
 		)
 		(instances
 			(project "Motor Controller"

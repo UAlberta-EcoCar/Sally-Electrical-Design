@@ -11,9 +11,28 @@
 		(company "University of Alberta EcoCar Team")
 	)
 	(lib_symbols)
+	(text_box "@Application Note\nDigital Signal Jumpers must be pin headers to allow for on the fly EN/DIS"
+		(exclude_from_sim no)
+		(at 48.26 147.955 0)
+		(size 50.165 22.225)
+		(stroke
+			(width 0.5)
+			(type dash)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "95230150-af43-47c0-a0bc-9063f26a80ca")
+	)
 	(sheet
 		(at 110.49 49.53)
-		(size 34.29 24.13)
+		(size 34.29 36.83)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -33,7 +52,7 @@
 			)
 		)
 		(property "Sheetfile" "Motor Interface Controller.kicad_sch"
-			(at 110.49 74.2446 0)
+			(at 110.49 86.9446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -50,9 +69,8 @@
 		)
 	)
 	(sheet
-		(at 110.49 92.71)
+		(at 110.49 102.87)
 		(size 34.29 24.13)
-		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -62,7 +80,7 @@
 		)
 		(uuid "6ad1cc71-da87-4814-be84-3c7a7f59eef6")
 		(property "Sheetname" "Power Delivery"
-			(at 110.49 91.9984 0)
+			(at 110.49 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -71,7 +89,7 @@
 			)
 		)
 		(property "Sheetfile" "Power Delivery.kicad_sch"
-			(at 110.49 117.4246 0)
+			(at 110.49 127.5846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -88,9 +106,8 @@
 		)
 	)
 	(sheet
-		(at 53.34 92.71)
+		(at 53.34 102.87)
 		(size 34.29 24.13)
-		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -100,7 +117,7 @@
 		)
 		(uuid "a73556af-4a0a-4f39-81a1-981562f53eaf")
 		(property "Sheetname" "Microcontroller"
-			(at 53.34 91.9984 0)
+			(at 53.34 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -109,7 +126,7 @@
 			)
 		)
 		(property "Sheetfile" "Microcontroller.kicad_sch"
-			(at 53.34 117.4246 0)
+			(at 53.34 127.5846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -127,7 +144,7 @@
 	)
 	(sheet
 		(at 165.1 49.53)
-		(size 34.29 24.13)
+		(size 34.29 36.83)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -137,7 +154,7 @@
 			(color 0 0 0 0.0000)
 		)
 		(uuid "c39e9a42-301a-4d13-bc72-bf7c010c94d6")
-		(property "Sheetname" "Motor Gate Driver and Power Stage"
+		(property "Sheetname" "Motor Gate Driver"
 			(at 165.1 48.8184 0)
 			(effects
 				(font
@@ -147,13 +164,133 @@
 			)
 		)
 		(property "Sheetfile" "Motor Gate Driver and Power Stage.kicad_sch"
-			(at 165.1 74.2446 0)
+			(at 165.1 86.9446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
 			)
+		)
+		(pin "WL" bidirectional
+			(at 165.1 54.61 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "27c0d47d-9133-4dcf-b5a2-3083652e4d54")
+		)
+		(pin "~{CS_DRIVER}" bidirectional
+			(at 165.1 67.31 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "4364344d-4b91-4ba9-8d49-c1cb36999d9a")
+		)
+		(pin "~{SCK_DRIVER}" bidirectional
+			(at 165.1 69.85 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "02b57d3d-51ce-4fc9-ada6-773dc52a59c3")
+		)
+		(pin "MISO_DRIVER" bidirectional
+			(at 165.1 72.39 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "d93d1c0e-f976-4628-8665-eb7f072adc55")
+		)
+		(pin "MOSI_DRIVER" bidirectional
+			(at 165.1 74.93 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "cb1ef9b4-edaf-4004-b170-527f4bef9dca")
+		)
+		(pin "VH" bidirectional
+			(at 165.1 62.23 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "37d4cba1-7cb0-4646-a5db-0b12cba579dd")
+		)
+		(pin "UH" bidirectional
+			(at 165.1 57.15 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "b7670a9d-a18e-4e0d-968b-96e60c82d29e")
+		)
+		(pin "VL" bidirectional
+			(at 165.1 64.77 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "391cbddb-1928-420c-b8bf-a9d4cc827b44")
+		)
+		(pin "UL" bidirectional
+			(at 165.1 59.69 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "03c8adab-aaa3-4f74-8896-8feb1c79ce48")
+		)
+		(pin "WH" bidirectional
+			(at 165.1 52.07 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "d0acab22-3979-4f3d-965a-6df04039d05f")
+		)
+		(pin "FAULT" bidirectional
+			(at 165.1 77.47 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "f8202881-a250-4ce3-8287-0158bc13c3ac")
+		)
+		(pin "DRV_EN" bidirectional
+			(at 165.1 80.01 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "0fe65f7c-4039-40f5-9955-0752ceb22a22")
 		)
 		(instances
 			(project "Motor Controller"
@@ -164,8 +301,8 @@
 		)
 	)
 	(sheet
-		(at 53.34 48.26)
-		(size 34.29 25.4)
+		(at 53.34 49.53)
+		(size 34.29 36.83)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -176,7 +313,7 @@
 		)
 		(uuid "cc55016d-07da-47f8-aba5-70c2adab3b6f")
 		(property "Sheetname" "Comunications"
-			(at 53.34 47.5484 0)
+			(at 53.34 48.8184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -185,7 +322,7 @@
 			)
 		)
 		(property "Sheetfile" "Communication.kicad_sch"
-			(at 53.34 74.2446 0)
+			(at 53.34 86.9446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -194,7 +331,7 @@
 			)
 		)
 		(property "Field2" ""
-			(at 53.34 48.26 0)
+			(at 53.34 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
