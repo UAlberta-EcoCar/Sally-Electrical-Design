@@ -10,3 +10,10 @@
 - [ ] Add 270uF caps per amp of coil current
 - [ ] place leds in a cool arangement maybe a ccircle that represents the rotation of the motor. or along the side to make a cool animation to represnt the hyper drive
 - [ ] add a beeper to indicate the power on.
+- [ ] Add IO isolation on everything
+- [ ] Figure out RTMI interface
+- [ ] Add a SPI EEPROM speratly for Controller A and B
+- [ ] Go through this document and implement the cutoff switch https://www.ti.com/lit/an/slva991a/slva991a.pdf?ts=1717129503448
+- [ ] Go through this and check everything https://www.ti.com/lit/an/slvaf66/slvaf66.pdf?ts=1717067722270&ref_url=https%253A%252F%252Fwww.google.com%252F
+- [ ] https://www.ti.com/lit/an/slva835a/slva835a.pdf?ts=1717129584988
+- [ ] https://www.ti.com/lit/an/slva321a/slva321a.pdf?ts=1717054301018

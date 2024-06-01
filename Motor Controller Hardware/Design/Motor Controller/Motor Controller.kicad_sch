@@ -5,12 +5,784 @@
 	(uuid "480a1464-7c70-42e1-b2f7-69e659e11383")
 	(paper "A4")
 	(title_block
-		(title "Motor Controller Trinamic Control")
-		(date "2024-05-13")
-		(rev "1")
+		(title "HyperDrive Motor Controller")
+		(date "2024-05-30")
+		(rev "Mk. 1")
 		(company "University of Alberta EcoCar Team")
 	)
-	(lib_symbols)
+	(lib_symbols
+		(symbol "Connector:Conn_01x03_Pin"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x03_Pin"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x03, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x03_Pin_1_1"
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.54) (xy 0.8636 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 233.68 33.02) (xy 238.76 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06223c2f-c49f-4150-8b2f-101bac442606")
+	)
+	(wire
+		(pts
+			(xy 233.68 58.42) (xy 238.76 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0cbc3a00-d24a-4912-a679-5c8a57649e76")
+	)
+	(wire
+		(pts
+			(xy 233.68 76.2) (xy 238.76 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ce717bb-46dc-419b-9d52-9e4a9224a294")
+	)
+	(wire
+		(pts
+			(xy 124.46 68.58) (xy 127 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ef67067-baf2-41b9-b4bd-8298e68c8a81")
+	)
+	(wire
+		(pts
+			(xy 127 115.57) (xy 124.46 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11ae65bc-fd56-4ca8-8fe6-d21eb9bb3e63")
+	)
+	(wire
+		(pts
+			(xy 124.46 59.69) (xy 127 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "13d34a37-fe2c-48be-bbfd-eb9a256ec3b5")
+	)
+	(wire
+		(pts
+			(xy 233.68 81.28) (xy 238.76 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16646523-704c-44f4-9e5d-b3cbf910e544")
+	)
+	(wire
+		(pts
+			(xy 124.46 132.08) (xy 127 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17d3c1f5-a081-4898-916b-fcaaa46435b7")
+	)
+	(wire
+		(pts
+			(xy 233.68 83.82) (xy 238.76 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1ab58ea4-c2d8-4b60-b637-cc202b60bdba")
+	)
+	(wire
+		(pts
+			(xy 233.68 53.34) (xy 238.76 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1b1688ab-3586-40d1-9c03-5eca8b6bf689")
+	)
+	(wire
+		(pts
+			(xy 233.68 73.66) (xy 238.76 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cfda3ca-b8fb-426c-9f74-5dbc11f10f89")
+	)
+	(wire
+		(pts
+			(xy 124.46 129.54) (xy 127 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22d51383-d64f-41c3-b1ea-34baf265df89")
+	)
+	(wire
+		(pts
+			(xy 233.68 22.86) (xy 238.76 22.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "233a2257-6873-479c-a785-613bf64b1cf8")
+	)
+	(wire
+		(pts
+			(xy 233.68 25.4) (xy 238.76 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24eda7f3-35b8-48ce-9a6c-8c26ece44d0c")
+	)
+	(wire
+		(pts
+			(xy 233.68 86.36) (xy 238.76 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2aa4cf9d-7c82-4251-afb0-0f14db737b7a")
+	)
+	(wire
+		(pts
+			(xy 124.46 124.46) (xy 127 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fb52241-d892-41be-b89b-3919b558f2bb")
+	)
+	(wire
+		(pts
+			(xy 124.46 62.23) (xy 127 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3017fda6-edf6-4519-8204-cbeeda234ce4")
+	)
+	(wire
+		(pts
+			(xy 233.68 63.5) (xy 238.76 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3c9add15-b227-4d5d-bd74-20b35dd1dfdf")
+	)
+	(wire
+		(pts
+			(xy 124.46 134.62) (xy 127 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d2ddd26-4440-46a7-b771-dbe293fe33b8")
+	)
+	(wire
+		(pts
+			(xy 124.46 86.36) (xy 127 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "527d27e0-fd57-4e27-9345-35b24a1b027a")
+	)
+	(wire
+		(pts
+			(xy 233.68 71.12) (xy 238.76 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56644441-8093-4c05-b2be-defac781a531")
+	)
+	(wire
+		(pts
+			(xy 233.68 30.48) (xy 238.76 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a5f36a4-cc69-4d4a-b4e3-9a57ce7e0ba2")
+	)
+	(wire
+		(pts
+			(xy 124.46 81.28) (xy 127 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5acbd570-5a7d-4ef5-a65f-334afcc2fa03")
+	)
+	(wire
+		(pts
+			(xy 127 102.87) (xy 124.46 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5fe5f6cb-09e9-4157-9313-0c0def4f06ea")
+	)
+	(wire
+		(pts
+			(xy 124.46 66.04) (xy 127 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "615bb296-56d7-4990-b642-af83872f5ca2")
+	)
+	(wire
+		(pts
+			(xy 233.68 48.26) (xy 238.76 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6237ec61-3b5f-488f-84bd-1bd80d8b73a0")
+	)
+	(wire
+		(pts
+			(xy 124.46 78.74) (xy 127 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "627b362b-b557-4065-8b89-5fba5833e90d")
+	)
+	(wire
+		(pts
+			(xy 124.46 76.2) (xy 127 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6721077f-1127-41cb-9511-f9ec9b6f958a")
+	)
+	(wire
+		(pts
+			(xy 124.46 49.53) (xy 127 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70535b94-7dde-4784-afc3-1b42be0d9a05")
+	)
+	(wire
+		(pts
+			(xy 127 113.03) (xy 124.46 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74355bf4-e08b-457a-b7c4-030b3094da1e")
+	)
+	(wire
+		(pts
+			(xy 63.5 54.61) (xy 66.04 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74d6f406-0e1d-4038-b83c-fe823654b00d")
+	)
+	(wire
+		(pts
+			(xy 233.68 45.72) (xy 238.76 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7db59f35-5ce7-488e-8a1a-d424440b64d7")
+	)
+	(wire
+		(pts
+			(xy 233.68 43.18) (xy 238.76 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7dcbbb93-391f-4d71-a10a-0cf47d8c5906")
+	)
+	(wire
+		(pts
+			(xy 233.68 35.56) (xy 238.76 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80d65331-2fff-4d12-b6d1-53cb6fd78373")
+	)
+	(wire
+		(pts
+			(xy 124.46 83.82) (xy 127 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83215baf-8cfe-450c-963e-b3c847b05859")
+	)
+	(wire
+		(pts
+			(xy 124.46 127) (xy 127 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9549fa6e-07dc-4dd8-97db-dd762ff82287")
+	)
+	(wire
+		(pts
+			(xy 124.46 73.66) (xy 127 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "972aa8d2-4d39-4fc6-bf3b-bedc7e437600")
+	)
+	(wire
+		(pts
+			(xy 233.68 60.96) (xy 238.76 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9de0d594-013a-4044-8cbe-9eb2f72f71de")
+	)
+	(wire
+		(pts
+			(xy 124.46 121.92) (xy 127 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ea3a92c-8f54-41af-afaa-4eacd84dd0cb")
+	)
+	(wire
+		(pts
+			(xy 127 107.95) (xy 124.46 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa07bb89-c7dc-4781-b08a-af46385f1c07")
+	)
+	(wire
+		(pts
+			(xy 127 110.49) (xy 124.46 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa8c333c-7b42-4376-814d-b71c4e7bad6d")
+	)
+	(wire
+		(pts
+			(xy 124.46 54.61) (xy 127 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "afe0681a-acbe-4672-bf7c-2f094012e544")
+	)
+	(wire
+		(pts
+			(xy 124.46 71.12) (xy 127 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b04ba8ca-7264-4cdf-ad94-d39d6643d39f")
+	)
+	(wire
+		(pts
+			(xy 233.68 50.8) (xy 238.76 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b25927f9-f697-481d-bfca-24bcdd92c1ee")
+	)
+	(wire
+		(pts
+			(xy 233.68 40.64) (xy 238.76 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4136401-42e3-4058-aedc-29439ff78179")
+	)
+	(wire
+		(pts
+			(xy 233.68 66.04) (xy 238.76 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfe9c2ec-f365-49c5-a33b-2350e01b3f54")
+	)
+	(wire
+		(pts
+			(xy 127 105.41) (xy 124.46 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c35334ed-7e8d-4ed4-a27c-9565932db2f3")
+	)
+	(wire
+		(pts
+			(xy 124.46 57.15) (xy 127 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8f4856a-eaa6-4bd1-9052-19024507808e")
+	)
+	(wire
+		(pts
+			(xy 63.5 57.15) (xy 66.04 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d40369df-6b73-4b8c-a8dd-a843646d78fc")
+	)
+	(wire
+		(pts
+			(xy 233.68 27.94) (xy 238.76 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4209c49-ebf9-4a11-9403-c500801608c2")
+	)
+	(wire
+		(pts
+			(xy 233.68 78.74) (xy 238.76 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6ce0b0c-e96f-42e1-a473-c0e503ffe789")
+	)
+	(wire
+		(pts
+			(xy 233.68 38.1) (xy 238.76 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d946507c-e05b-41c8-a2de-cc804e47e152")
+	)
+	(wire
+		(pts
+			(xy 124.46 119.38) (xy 127 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd7d2ff5-5d89-499c-adba-0a29f6fc6e76")
+	)
+	(wire
+		(pts
+			(xy 233.68 55.88) (xy 238.76 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec8edbde-468a-4e5f-9e89-e22d08f2ea69")
+	)
+	(wire
+		(pts
+			(xy 233.68 68.58) (xy 238.76 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f3dc8102-1422-45c1-af41-e6cf3699b90a")
+	)
+	(wire
+		(pts
+			(xy 124.46 52.07) (xy 127 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f63b1503-fe95-40f3-b0fb-2134faa7858b")
+	)
+	(wire
+		(pts
+			(xy 63.5 52.07) (xy 66.04 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd647f88-89f1-4c6a-8c05-74a08e2a3dfe")
+	)
 	(text_box "@Application Note\nDigital Signal Jumpers must be pin headers to allow for on the fly EN/DIS"
 		(exclude_from_sim no)
 		(at 48.26 147.955 0)
@@ -30,9 +802,1294 @@
 		)
 		(uuid "95230150-af43-47c0-a0bc-9063f26a80ca")
 	)
+	(label "FT_SPI_RTMI_TRG"
+		(at 233.68 55.88 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "06b27c2d-6d4f-4eb0-b63e-f4858f855cc6")
+	)
+	(label "SPI_MISO"
+		(at 127 81.28 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "08e28c47-26da-4454-9dd1-8b274a47e7f9")
+	)
+	(label "Controller_A_ENO"
+		(at 233.68 63.5 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0b4ec549-6c11-4412-84b5-92b41dcd39ee")
+	)
+	(label "V_{M}"
+		(at 127 119.38 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1084eff0-55b2-4da4-9736-0993b20ffc11")
+	)
+	(label "PWM_WY1_L"
+		(at 127 113.03 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "15f10ea8-4e9c-4a7b-9328-f8c4f48b725a")
+	)
+	(label "PWM_UX1_H_A"
+		(at 248.92 118.11 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1a2eb314-9175-4a7e-9881-0bddc53a2f40")
+	)
+	(label "PWM_VX2_H_B"
+		(at 248.92 130.81 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1af52358-335e-4826-aaff-34f8cf7841a2")
+	)
+	(label "FT_SPI_RTMI_IO3"
+		(at 207.01 54.61 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1e9f5802-b456-4631-88eb-cd3bab9714f6")
+	)
+	(label "Controller_A_DIR"
+		(at 233.68 40.64 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "21842fb2-24d9-4db1-8d9c-6f48926705f7")
+	)
+	(label "FT_SPI_RTMI_MOSI"
+		(at 66.04 54.61 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "23a30bd2-1b7c-4c01-9de4-0a94ece74071")
+	)
+	(label "Controller_A_STATUS"
+		(at 233.68 38.1 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "23b50ef6-2f53-44f6-b377-dfd97ed43580")
+	)
+	(label "PWM_VX2_L"
+		(at 127 107.95 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "240b4bb0-43f0-4d79-a297-ffb6d9c17548")
+	)
+	(label "SPI_SCK"
+		(at 233.68 68.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "27580f1a-bf18-4b6a-b136-0758fe0e046b")
+	)
+	(label "PWM_VX2_L_A"
+		(at 233.68 27.94 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2b52e025-2ece-4796-8842-e0be59790b4e")
+	)
+	(label "FT_SPI_RTMI_MISO"
+		(at 233.68 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2ec3e57f-75f0-44ce-9a9a-5dc7cf2d17cd")
+	)
+	(label "PWM_UX1_L"
+		(at 248.92 106.68 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "35785633-09d4-40e4-8876-ee302f8213a0")
+	)
+	(label "PWM_WY1_H_B"
+		(at 127 62.23 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3ff9dd8c-814f-4932-836c-cc2e0b41f418")
+	)
+	(label "PWM_VX2_H_A"
+		(at 233.68 30.48 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "40a3527d-a3c3-4a4d-bc28-54eaf2328ad0")
+	)
+	(label "FAULT"
+		(at 127 68.58 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "44dc8823-ddef-479a-8bd9-459920628722")
+	)
+	(label "FT_SPI_RTMI_SCK"
+		(at 66.04 57.15 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4602b283-c471-489d-91d1-d6e8a069c578")
+	)
+	(label "SPI_MOSI"
+		(at 127 129.54 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "460d719d-bce0-4e2e-a588-81fff0506a27")
+	)
+	(label "PWM_VX2_H"
+		(at 248.92 133.35 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "46b97fa6-2d0f-40c8-a702-0cfbad6c1d20")
+	)
+	(label "PWM_WY1_L"
+		(at 248.92 142.24 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "48e1a4de-ad96-49dc-a95e-0d999d34fa02")
+	)
+	(label "FT_SPI_RTMI_SCK"
+		(at 233.68 50.8 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4aee5e0c-f44d-4e64-85fd-0a7cebcfdaed")
+	)
+	(label "PWM_VX2_H"
+		(at 127 110.49 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4d4729e5-1905-4d0c-ad83-181dd9690f39")
+	)
+	(label "PWM_UX1_L"
+		(at 127 102.87 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "53fe82fb-4afa-4ae0-a821-96329fe88170")
+	)
+	(label "SPI_NSCS_DRIVER"
+		(at 127 121.92 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5b0f1ecd-22f0-4651-9f9b-2a9b046225aa")
+	)
+	(label "EXT_NRST_Controller_A"
+		(at 233.68 86.36 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5cb70b08-962e-4716-be71-4161d14a599f")
+	)
+	(label "PWM_WY1_H_B"
+		(at 248.92 148.59 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "63294666-3897-467b-9d2d-6e8692a4dfba")
+	)
+	(label "Controller_A_UART_RXD"
+		(at 233.68 43.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "64c6f647-ccaa-406d-a821-f560f3fa69e3")
+	)
+	(label "PWM_UX1_H_A"
+		(at 233.68 25.4 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "67728bbf-33de-4393-95c1-c8c325a18613")
+	)
+	(label "Controller_A_UART_TXD"
+		(at 233.68 45.72 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6893c5b4-b0c7-44e0-98cc-099a2dd2e1d9")
+	)
+	(label "PWM_VX2_L_B"
+		(at 127 54.61 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7208714a-d0f3-4ed9-bdc4-6640b47efcc5")
+	)
+	(label "PWM_VX2_L_A"
+		(at 248.92 127 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "72c610ac-d35a-4ba9-be8a-b131c394a6cc")
+	)
+	(label "SPI_NSCS_CONTROLLER_A"
+		(at 233.68 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "73564b7d-a7ae-4f13-b27b-6c9f1226b4dd")
+	)
+	(label "SPI_MOSI"
+		(at 127 83.82 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "736261bf-6bec-49d3-9cfc-9e28bc3cfde6")
+	)
+	(label "FT_SPI_RTMI_IO2"
+		(at 207.01 57.15 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "737c4608-5443-4dc5-81e8-7e638e7f1440")
+	)
+	(label "PWM_VX2_H_A"
+		(at 248.92 135.89 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "75fb096b-7c26-475b-a4c9-d97d93c9cf0e")
+	)
+	(label "FT_SPI_RTMI_MISO"
+		(at 66.04 52.07 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7922473a-c00d-4dc7-93b6-09ec73ead0f9")
+	)
+	(label "SPI_MISO"
+		(at 127 127 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7ddf0b88-8a0d-4d82-a34c-f48fdb1b6d9f")
+	)
+	(label "PWM_WY1_L_A"
+		(at 248.92 144.78 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7e91cbba-6535-45b3-b0e8-93fb3d32fed6")
+	)
+	(label "Controller_A_STP"
+		(at 233.68 83.82 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "829f18f7-7ff2-4dc9-ad46-383945f562c5")
+	)
+	(label "PWM_WY1_L_B"
+		(at 127 59.69 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "89e9b1ba-55b9-4666-93bf-a5a36ef2fab4")
+	)
+	(label "SPI_MOSI"
+		(at 233.68 76.2 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8a541469-fcd4-402b-8471-95020d802f1c")
+	)
+	(label "Controller_A_ENI"
+		(at 233.68 66.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "912f93ac-1645-4f72-906c-c92e3bff2aad")
+	)
+	(label "PWM_UX1_L_B"
+		(at 248.92 104.14 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "95b63a06-0b13-4a11-8ed1-7480fce0449e")
+	)
+	(label "V_{M}"
+		(at 127 73.66 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "980c6105-41a0-415b-8af0-5e5f85f77d2d")
+	)
+	(label "Controller_A_PWM_I"
+		(at 233.68 73.66 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9a785c68-7031-4ad3-93ee-47a2a0bd8e82")
+	)
+	(label "PWM_WY1_L_A"
+		(at 233.68 33.02 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a33c26bf-40ab-43f7-8475-9f068e152f79")
+	)
+	(label "SPI_NSCS_DRIVER"
+		(at 127 76.2 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a5982de1-66ec-4e39-a2b0-a4414dac9aa6")
+	)
+	(label "EXT_NRST_Controller_A"
+		(at 127 66.04 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a97cf488-6de5-4f3c-9d39-42b1477c58b8")
+	)
+	(label "PWM_VX2_L"
+		(at 248.92 124.46 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "aca51d51-984b-468d-8b68-73d5ab347fc5")
+	)
+	(label "DRV_EN"
+		(at 127 71.12 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ad71830a-b666-4dff-9226-874bc4cc71ad")
+	)
+	(label "PWM_UX1_L_A"
+		(at 233.68 22.86 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b3fcf872-c3aa-4158-8805-1579a55496f8")
+	)
+	(label "FAULT"
+		(at 127 132.08 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b4901f5a-e9c8-461b-a061-5ae9698538b1")
+	)
+	(label "PWM_UX1_H_B"
+		(at 248.92 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bbdb9c61-0671-49ba-afa6-608e72b5df4d")
+	)
+	(label "SPI_MISO"
+		(at 233.68 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bdc08301-7718-49ac-97b4-9ecca56342e5")
+	)
+	(label "DRV_EN"
+		(at 127 134.62 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "be6c6663-129f-4b13-8afc-962c9bda0857")
+	)
+	(label "Controller_A_BRAKE"
+		(at 233.68 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "be8a7a13-a662-41f1-ab9a-cd3f35b8537d")
+	)
+	(label "FT_SPI_RTMI_MOSI"
+		(at 233.68 53.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c359a898-15b1-4207-894e-9ad18c0198d0")
+	)
+	(label "PWM_WY1_H_A"
+		(at 248.92 153.67 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c48d9a9a-701c-4d97-b2b7-30d933d56e40")
+	)
+	(label "SPI_SCK"
+		(at 127 124.46 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ccdad9c2-af72-4386-ba09-0a9452927c3a")
+	)
+	(label "PWM_VX2_H_B"
+		(at 127 57.15 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cea169b5-23d5-4876-9342-3b0ab7723b21")
+	)
+	(label "SPI_NSCS_CONTROLLER_A"
+		(at 127 86.36 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cfa34cc4-10f2-4340-8b21-0971d81905a1")
+	)
+	(label "PWM_UX1_H"
+		(at 248.92 115.57 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d04829a7-4f4d-4393-9ee9-dc7069e97ab9")
+	)
+	(label "PWM_WY1_L_B"
+		(at 248.92 139.7 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d3662d43-b140-4a93-af75-31ba9d20bae5")
+	)
+	(label "PWM_UX1_H_B"
+		(at 127 52.07 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d78bf883-03a8-461f-b25c-a6a3c9a4aaec")
+	)
+	(label "PWM_WY1_H"
+		(at 127 115.57 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dfdf4790-9fd6-465a-b49c-6508b030ea88")
+	)
+	(label "PWM_VX2_L_B"
+		(at 248.92 121.92 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e34cc1af-f0f1-4252-8d82-e39ae0bb4beb")
+	)
+	(label "PWM_UX1_L_A"
+		(at 248.92 109.22 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e3eb7ead-e66b-43b5-8f9c-c7c105486445")
+	)
+	(label "PWM_WY1_H_A"
+		(at 233.68 35.56 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ea888012-3a03-48fc-9d40-61bf667b950d")
+	)
+	(label "PWM_UX1_L_B"
+		(at 127 49.53 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f15cb05f-25e3-4fcd-9153-17318fdb2b4e")
+	)
+	(label "SPI_SCK"
+		(at 127 78.74 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f53fc5ec-65fd-4834-9a6a-d222219d42f5")
+	)
+	(label "V_{M}"
+		(at 233.68 81.28 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f771c9ac-3443-4b6b-ad76-a02ebbe19ed6")
+	)
+	(label "PWM_WY1_H"
+		(at 248.92 151.13 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fe535860-7b1a-4f4c-8042-c80afa093554")
+	)
+	(label "FT_SPI_RTMI_SS0O"
+		(at 233.68 48.26 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fe71145d-ae61-4d18-b8cd-92899b363096")
+	)
+	(label "PWM_UX1_H"
+		(at 127 105.41 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ff634b3a-f933-48de-ad5f-8a5d5df5e86d")
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 254 133.35 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1bc52aa2-1ca7-489a-b975-d28de263930c")
+		(property "Reference" "J12"
+			(at 255.27 132.0799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x03_Pin"
+			(at 255.27 134.6199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 254 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 254 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "cae1c3b7-caa1-4506-893b-06362dc6db6b")
+		)
+		(pin "1"
+			(uuid "88c409fb-dd7f-438d-b598-abf8ce783de7")
+		)
+		(pin "2"
+			(uuid "361bee6a-55ae-497f-9edf-f5d6833d588e")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(reference "J12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 254 142.24 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "47319ff4-0dfb-4f75-bcad-83a82c613111")
+		(property "Reference" "J13"
+			(at 255.27 140.9699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x03_Pin"
+			(at 255.27 143.5099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 254 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 254 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "b479d087-096c-4bc6-b78c-8c4e59065311")
+		)
+		(pin "1"
+			(uuid "fa49b177-e35c-4ff4-9c3c-294cbced5825")
+		)
+		(pin "2"
+			(uuid "5cfe77f6-eeae-45ed-82b7-9c8d9d59342a")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(reference "J13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 254 115.57 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8f416a52-c738-4e6e-aabc-37f415193e92")
+		(property "Reference" "J8"
+			(at 255.27 114.2999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x03_Pin"
+			(at 255.27 116.8399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 254 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 254 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "7c62fa7b-fd52-4b84-b457-713adce16d59")
+		)
+		(pin "1"
+			(uuid "f72f1758-0ace-4b24-83a7-678ecbb0be83")
+		)
+		(pin "2"
+			(uuid "29481af7-5629-41a6-a281-90796a0b52f2")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(reference "J8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 254 151.13 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ad039745-4a83-487e-8462-fad2c12ee3f6")
+		(property "Reference" "J14"
+			(at 255.27 149.8599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x03_Pin"
+			(at 255.27 152.3999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 254 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 254 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "dc94d824-a90f-4453-beac-986aa7f56058")
+		)
+		(pin "1"
+			(uuid "49d72128-6319-4d8d-97e8-e2e9c63052c7")
+		)
+		(pin "2"
+			(uuid "987fafbc-3c34-4932-bd04-d073b5a9edb8")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(reference "J14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 254 124.46 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cbc6722c-49db-4c24-ace0-685e6cff2521")
+		(property "Reference" "J11"
+			(at 255.27 123.1899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x03_Pin"
+			(at 255.27 125.7299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "3cac7024-b37b-41fb-bbc2-8744bd277563")
+		)
+		(pin "1"
+			(uuid "e9bc2c3a-5f56-48d0-a02d-9e44d792420c")
+		)
+		(pin "2"
+			(uuid "846cbc86-de89-4ddc-8ebd-24cf326e0836")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(reference "J11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 254 106.68 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ccc3fe8a-7cdc-400a-a516-31b2c1a7029a")
+		(property "Reference" "J7"
+			(at 255.27 105.4099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x03_Pin"
+			(at 255.27 107.9499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 254 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 254 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "4d3eaab0-9ff5-4275-b14b-823adfac4996")
+		)
+		(pin "1"
+			(uuid "534f12ec-82ec-4034-ac40-ca596718e433")
+		)
+		(pin "2"
+			(uuid "918577ea-4157-4120-8dbb-1d31d1f56aa5")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(reference "J7")
+					(unit 1)
+				)
+			)
+		)
+	)
 	(sheet
-		(at 110.49 49.53)
-		(size 34.29 36.83)
+		(at 238.76 20.32)
+		(size 28.575 67.31)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -43,7 +2100,7 @@
 		)
 		(uuid "61655235-6b41-44b9-81da-f6727ca7c811")
 		(property "Sheetname" "Motor Interface Controller"
-			(at 110.49 48.8184 0)
+			(at 238.76 19.6084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -52,13 +2109,273 @@
 			)
 		)
 		(property "Sheetfile" "Motor Interface Controller.kicad_sch"
-			(at 110.49 86.9446 0)
+			(at 238.76 88.2146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
 			)
+		)
+		(pin "Controller_A_UL" output
+			(at 238.76 22.86 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "08371f25-4635-42b1-920e-c309f70603d6")
+		)
+		(pin "Controller_A_UH" output
+			(at 238.76 25.4 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "195624b6-863f-4a17-8b69-4843f333f33c")
+		)
+		(pin "Controller_A_VL" output
+			(at 238.76 27.94 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "e26f0618-84a4-4f3c-a2b6-378f91609b6c")
+		)
+		(pin "Controller_A_VH" output
+			(at 238.76 30.48 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "bf67285f-10c8-4699-88ce-89b1672a606f")
+		)
+		(pin "Controller_A_WH" output
+			(at 238.76 35.56 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "c9e8dde3-256a-47fb-9215-085e50707af7")
+		)
+		(pin "Controller_A_WL" output
+			(at 238.76 33.02 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "94239e6f-dbad-4693-b495-030e3a6bed0c")
+		)
+		(pin "Controller_A_STATUS" output
+			(at 238.76 38.1 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "2713d82c-44cf-4518-8be9-7a8edce201dd")
+		)
+		(pin "Controller_A_DIR" input
+			(at 238.76 40.64 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "174df8e9-9d09-4f52-a1a0-63e59660e5ad")
+		)
+		(pin "Controller_A_UART_RXD" input
+			(at 238.76 43.18 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "486d8c98-7a54-4e34-bfad-85b6db96ab40")
+		)
+		(pin "Controller_A_DBGSPI_NSCS" input
+			(at 238.76 48.26 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "a66f4447-8d40-49e5-96f7-900445b07d1e")
+		)
+		(pin "Controller_A_UART_TXD" output
+			(at 238.76 45.72 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "fd603fb6-159a-43b3-9239-cad5b407d180")
+		)
+		(pin "Controller_A_DBGSPI_SCK" input
+			(at 238.76 50.8 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "01d2a222-2ca2-4ece-bdf6-f3cd9a7cc28c")
+		)
+		(pin "Controller_A_DBGSPI_MOSI" input
+			(at 238.76 53.34 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "57c92a17-5224-4b97-bdff-284b9cf7a551")
+		)
+		(pin "Controller_A_DBGSPI_TRG" bidirectional
+			(at 238.76 55.88 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "7a399d37-ca83-4151-91e5-ea262ba9f7ca")
+		)
+		(pin "Controller_A_DBGSPI_MISO" output
+			(at 238.76 58.42 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "6069bb9c-174a-4a9f-a14b-dfbf5a3e369c")
+		)
+		(pin "Controller_A_BRAKE" output
+			(at 238.76 60.96 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "9eb42a50-5503-42bb-98fe-db066d13c775")
+		)
+		(pin "Controller_A_ENO" output
+			(at 238.76 63.5 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1924bb7c-2cc0-4f75-b221-25407ed65a29")
+		)
+		(pin "Controller_A_ENI" input
+			(at 238.76 66.04 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "038ab6c1-11df-4a75-8da2-7ecf6233b2f3")
+		)
+		(pin "Controller_A_PWM_I" input
+			(at 238.76 73.66 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "4f2ae782-0053-44bd-a9b2-72909073d2bf")
+		)
+		(pin "Controller_A_SPI_SCK" input
+			(at 238.76 68.58 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "271cb2ef-7b70-4e2d-bc36-fef57a05b56e")
+		)
+		(pin "Controller_A_SPI_MISO" output
+			(at 238.76 71.12 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "0711eefa-1691-4dca-b2b5-e5997bb45118")
+		)
+		(pin "Controller_A_SPI_MOSI" input
+			(at 238.76 76.2 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "61916408-7b40-4dac-8118-5180269f8ed9")
+		)
+		(pin "Controller_A_SPI_NSCS" input
+			(at 238.76 78.74 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "50f5b47a-e771-4ea8-a0d5-35682516967f")
+		)
+		(pin "V_{M}" input
+			(at 238.76 81.28 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "5bfb78c8-033b-4796-bc78-e19ce30de2f1")
+		)
+		(pin "Controller_A_STP" input
+			(at 238.76 83.82 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "f4d8b7bc-fe56-489f-b290-265116a230de")
+		)
+		(pin "EXT_NRST" bidirectional
+			(at 238.76 86.36 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1ebeaa2e-1d75-4d89-b9ac-2a6014dad4d2")
 		)
 		(instances
 			(project "Motor Controller"
@@ -69,7 +2386,7 @@
 		)
 	)
 	(sheet
-		(at 110.49 102.87)
+		(at 27.94 109.22)
 		(size 34.29 24.13)
 		(stroke
 			(width 0.1524)
@@ -80,7 +2397,7 @@
 		)
 		(uuid "6ad1cc71-da87-4814-be84-3c7a7f59eef6")
 		(property "Sheetname" "Power Delivery"
-			(at 110.49 101.6 0)
+			(at 27.94 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -89,7 +2406,7 @@
 			)
 		)
 		(property "Sheetfile" "Power Delivery.kicad_sch"
-			(at 110.49 127.5846 0)
+			(at 27.94 133.9346 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -106,8 +2423,8 @@
 		)
 	)
 	(sheet
-		(at 53.34 102.87)
-		(size 34.29 24.13)
+		(at 90.17 48.26)
+		(size 34.29 41.91)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -117,7 +2434,7 @@
 		)
 		(uuid "a73556af-4a0a-4f39-81a1-981562f53eaf")
 		(property "Sheetname" "Microcontroller"
-			(at 53.34 101.6 0)
+			(at 90.17 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -126,13 +2443,163 @@
 			)
 		)
 		(property "Sheetfile" "Microcontroller.kicad_sch"
-			(at 53.34 127.5846 0)
+			(at 90.424 91.948 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
 			)
+		)
+		(pin "SPI_SCK" input
+			(at 124.46 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "87893aba-3228-445c-af56-4d4e0337033c")
+		)
+		(pin "SPI_MOSI" input
+			(at 124.46 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "cf4ad73e-9ba5-4113-adda-9c9aecdce62c")
+		)
+		(pin "SPI_MISO" input
+			(at 124.46 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "4aa55f20-b5b4-407f-9ef0-a3d329e8d5d6")
+		)
+		(pin "DRV_EN" input
+			(at 124.46 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "d647e09a-f9f5-4b61-9741-0c20236c59e6")
+		)
+		(pin "SPI_NSCS_CONTROLLER_A" input
+			(at 124.46 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "642f4ec4-7213-412b-ab11-4eec88fe46bd")
+		)
+		(pin "V_{M}" input
+			(at 124.46 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "3202ca28-65c9-4012-be56-5d64b7647f27")
+		)
+		(pin "SPI_NSCS_DRIVER" input
+			(at 124.46 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "23dde14e-7206-4973-9f78-e2a857faff87")
+		)
+		(pin "PWM_WY1_H_B" input
+			(at 124.46 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "338bf9af-0b08-4ebd-bb3e-5bef3b80b745")
+		)
+		(pin "PWM_UX1_H_B" input
+			(at 124.46 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "25a746e3-5356-4d41-b5fa-46d84d06fb88")
+		)
+		(pin "PWM_WY1_L_B" input
+			(at 124.46 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "a4a836ad-ecf2-4618-9e65-cb1936f55234")
+		)
+		(pin "FAULT" input
+			(at 124.46 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "2f455236-3937-40c0-8359-8667c373a107")
+		)
+		(pin "PWM_VX2_L_B" input
+			(at 124.46 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "42e72909-5682-4c80-b2fb-dba43bd3098c")
+		)
+		(pin "PWM_UX1_L_B" input
+			(at 124.46 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "3c9cfd84-f350-429c-b56f-309881dfbdb3")
+		)
+		(pin "EXT_NRST_Controller_A" input
+			(at 124.46 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "3dfa0f50-9394-4460-bacf-460b803eff83")
+		)
+		(pin "PWM_VX2_H_B" input
+			(at 124.46 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "08fa4074-85ba-41c7-87c9-531df86a7eb2")
 		)
 		(instances
 			(project "Motor Controller"
@@ -143,7 +2610,7 @@
 		)
 	)
 	(sheet
-		(at 165.1 49.53)
+		(at 90.17 99.06)
 		(size 34.29 36.83)
 		(fields_autoplaced yes)
 		(stroke
@@ -155,7 +2622,7 @@
 		)
 		(uuid "c39e9a42-301a-4d13-bc72-bf7c010c94d6")
 		(property "Sheetname" "Motor Gate Driver"
-			(at 165.1 48.8184 0)
+			(at 90.17 98.3484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -164,7 +2631,7 @@
 			)
 		)
 		(property "Sheetfile" "Motor Gate Driver and Power Stage.kicad_sch"
-			(at 165.1 86.9446 0)
+			(at 90.17 136.4746 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -173,124 +2640,134 @@
 			)
 		)
 		(pin "WL" bidirectional
-			(at 165.1 54.61 180)
+			(at 124.46 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "27c0d47d-9133-4dcf-b5a2-3083652e4d54")
 		)
 		(pin "~{CS_DRIVER}" bidirectional
-			(at 165.1 67.31 180)
+			(at 124.46 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "4364344d-4b91-4ba9-8d49-c1cb36999d9a")
 		)
 		(pin "~{SCK_DRIVER}" bidirectional
-			(at 165.1 69.85 180)
+			(at 124.46 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "02b57d3d-51ce-4fc9-ada6-773dc52a59c3")
 		)
 		(pin "MISO_DRIVER" bidirectional
-			(at 165.1 72.39 180)
+			(at 124.46 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "d93d1c0e-f976-4628-8665-eb7f072adc55")
 		)
 		(pin "MOSI_DRIVER" bidirectional
-			(at 165.1 74.93 180)
+			(at 124.46 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "cb1ef9b4-edaf-4004-b170-527f4bef9dca")
 		)
 		(pin "VH" bidirectional
-			(at 165.1 62.23 180)
+			(at 124.46 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "37d4cba1-7cb0-4646-a5db-0b12cba579dd")
 		)
 		(pin "UH" bidirectional
-			(at 165.1 57.15 180)
+			(at 124.46 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "b7670a9d-a18e-4e0d-968b-96e60c82d29e")
 		)
 		(pin "VL" bidirectional
-			(at 165.1 64.77 180)
+			(at 124.46 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "391cbddb-1928-420c-b8bf-a9d4cc827b44")
 		)
 		(pin "UL" bidirectional
-			(at 165.1 59.69 180)
+			(at 124.46 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "03c8adab-aaa3-4f74-8896-8feb1c79ce48")
 		)
 		(pin "WH" bidirectional
-			(at 165.1 52.07 180)
+			(at 124.46 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "d0acab22-3979-4f3d-965a-6df04039d05f")
 		)
 		(pin "FAULT" bidirectional
-			(at 165.1 77.47 180)
+			(at 124.46 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "f8202881-a250-4ce3-8287-0158bc13c3ac")
 		)
 		(pin "DRV_EN" bidirectional
-			(at 165.1 80.01 180)
+			(at 124.46 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 			(uuid "0fe65f7c-4039-40f5-9955-0752ceb22a22")
+		)
+		(pin "V_{M}" output
+			(at 124.46 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "1b09a3aa-8d94-460a-860d-4df7fd5ed18e")
 		)
 		(instances
 			(project "Motor Controller"
@@ -301,8 +2778,8 @@
 		)
 	)
 	(sheet
-		(at 53.34 49.53)
-		(size 34.29 36.83)
+		(at 27.94 48.26)
+		(size 35.56 36.83)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -313,7 +2790,7 @@
 		)
 		(uuid "cc55016d-07da-47f8-aba5-70c2adab3b6f")
 		(property "Sheetname" "Comunications"
-			(at 53.34 48.8184 0)
+			(at 27.94 47.5484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -322,7 +2799,7 @@
 			)
 		)
 		(property "Sheetfile" "Communication.kicad_sch"
-			(at 53.34 86.9446 0)
+			(at 27.94 85.6746 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -331,13 +2808,93 @@
 			)
 		)
 		(property "Field2" ""
-			(at 53.34 49.53 0)
+			(at 27.94 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
+		)
+		(pin "RTMI_SCK" input
+			(at 63.5 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "42ab3f8e-5248-4836-b3ef-1333acb9717d")
+		)
+		(pin "RTMI_MOSI" input
+			(at 63.5 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "3d7ee6d0-1d3d-4d5c-974f-7a7a22fa01bb")
+		)
+		(pin "RTMI_MISO" input
+			(at 63.5 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "d5931847-253d-4cc3-9826-98c1b4aab66a")
+		)
+		(pin "RXD" input
+			(at 63.5 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "1037dcd6-3105-4fa7-a744-b0c8b38300ad")
+		)
+		(pin "TXD" input
+			(at 63.5 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "18681a86-4732-4b87-99c6-72e35a46525b")
+		)
+		(pin "CAN_STBY" bidirectional
+			(at 63.5 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "da711b5e-2535-405d-bbd7-46e7c413c790")
+		)
+		(pin "CAN_TXD" bidirectional
+			(at 63.5 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "3dfe894e-be83-4af7-bddd-be32206469dc")
+		)
+		(pin "CAN_RXD" bidirectional
+			(at 63.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "ae566665-cf0a-4910-8342-edaa707ac1f7")
 		)
 		(instances
 			(project "Motor Controller"
