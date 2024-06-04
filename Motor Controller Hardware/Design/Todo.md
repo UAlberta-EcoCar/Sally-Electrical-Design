@@ -17,3 +17,5 @@
 - [ ] Go through this and check everything https://www.ti.com/lit/an/slvaf66/slvaf66.pdf?ts=1717067722270&ref_url=https%253A%252F%252Fwww.google.com%252F
 - [ ] https://www.ti.com/lit/an/slva835a/slva835a.pdf?ts=1717129584988
 - [ ] https://www.ti.com/lit/an/slva321a/slva321a.pdf?ts=1717054301018
+- [ ] Use a RC Snubber to reduce ringing on phases or RCD clamp both optional.
+- [ ] figure out a goot gate resistor value that minimizes the miller platoue
