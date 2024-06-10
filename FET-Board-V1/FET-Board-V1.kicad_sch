@@ -1,5 +1,252 @@
-(kicad_sch (version 20231120) (generator "eeschema") (generator_version "8.0")
-  (paper "A4")
-  (lib_symbols)
-  (symbol_instances)
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "49eeaae5-d819-4258-b051-773c4f6ae51f")
+	(paper "A4")
+	(title_block
+		(title "FET-Board")
+		(rev "V1")
+		(company "EcoCar")
+	)
+	(lib_symbols)
+	(polyline
+		(pts
+			(xy 17.78 25.4) (xy 58.42 25.4)
+		)
+		(stroke
+			(width 1)
+			(type default)
+		)
+		(uuid "8b8e3b43-9b6b-4789-89ea-87bdf55defa0")
+	)
+	(text "FET-Board"
+		(exclude_from_sim no)
+		(at 38.1 20.32 0)
+		(effects
+			(font
+				(size 5 5)
+				(thickness 1)
+				(bold yes)
+				(italic yes)
+			)
+		)
+		(uuid "56559c2a-b893-4b27-a55d-3d8deafa0c24")
+	)
+	(text "Important notes about this schematic:\n	- This is a multi-board project and so there are two sub\n	  root pages that define each board\n	- Do not use any global labels besides ground symbols so\n	  we can avoid any DRC issues when it comes to laying out\n	  the PCB. KiKit will allow us to extract each PCB as its\n	  own set of gerber files\n	- We will have to be careful with DRC in the PCB layout\n	  because the higher power traces will require different\n	  trace spacings (current and voltage specs)\n	- Connections between boards will be represented on the\n	  root page"
+		(exclude_from_sim no)
+		(at 17.78 48.26 0)
+		(effects
+			(font
+				(size 2 2)
+			)
+			(justify left)
+		)
+		(uuid "e32adf8e-cbea-43e8-8ea2-678508f992e9")
+	)
+	(sheet
+		(at 226.06 40.64)
+		(size 50.8 101.6)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 221 251 255 0.5000)
+		)
+		(uuid "24f9d253-4b9f-418b-b468-45d5562a11d1")
+		(property "Sheetname" "High Power Controls"
+			(at 226.06 39.9284 0)
+			(effects
+				(font
+					(size 2.54 2.54)
+					(bold yes)
+					(italic yes)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "high_side_power.kicad_sch"
+			(at 226.06 142.8246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "GATE_DRIVE_1_UP" input
+			(at 226.06 45.72 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "79db6ce7-5976-4a75-8b38-8b148ddb45a6")
+		)
+		(pin "GATE_DRIVE_1_DN" input
+			(at 226.06 48.26 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1e254b11-7e83-4f7e-ab56-57759acfa1a1")
+		)
+		(pin "GATE_DRIVE_2_UP" input
+			(at 226.06 50.8 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1bc9e31f-9452-4813-b1a7-f0a80c648851")
+		)
+		(pin "GATE_DRIVE_2_DN" input
+			(at 226.06 53.34 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "ca030f59-9ad7-47d9-b7b0-6863876e610d")
+		)
+		(pin "GATE_DRIVE_3_UP" input
+			(at 226.06 55.88 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "220abd06-fe9c-4417-8a1f-bcc1f42687e1")
+		)
+		(pin "GATE_DRIVE_3_DN" input
+			(at 226.06 58.42 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "227e3cdd-5fd4-4c74-909e-aecb010aaad7")
+		)
+		(pin "GATE_DRIVE_4_DN" input
+			(at 226.06 63.5 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "41bdb2a3-056f-4d8c-b860-0eb1b4def0ec")
+		)
+		(pin "GATE_DRIVE_4_UP" input
+			(at 226.06 60.96 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "c4486575-437b-49e9-9e72-89c2cec76ed1")
+		)
+		(instances
+			(project "FET-Board-V1"
+				(path "/49eeaae5-d819-4258-b051-773c4f6ae51f"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 129.54 40.64)
+		(size 50.8 101.6)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 221 251 255 0.5000)
+		)
+		(uuid "d2bac254-794e-451e-931e-bd0a08d1c7bb")
+		(property "Sheetname" "Low Power Controls"
+			(at 129.54 39.2934 0)
+			(effects
+				(font
+					(size 2.54 2.54)
+					(bold yes)
+					(italic yes)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "low_side_signals.kicad_sch"
+			(at 129.54 142.8246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "pin1" input
+			(at 180.34 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "2b29d0e1-042c-4303-9350-74a87f64a672")
+		)
+		(pin "pin3" input
+			(at 180.34 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "b6f772fb-3c8d-4db4-bd11-c4c120673537")
+		)
+		(pin "pin2" input
+			(at 180.34 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "5077f2ee-6da0-4567-a7c5-ec1419af01d4")
+		)
+		(pin "pin4" input
+			(at 180.34 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "3dff7d7c-48d6-4eb9-929a-2b88630044f9")
+		)
+		(instances
+			(project "FET-Board-V1"
+				(path "/49eeaae5-d819-4258-b051-773c4f6ae51f"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
 )
