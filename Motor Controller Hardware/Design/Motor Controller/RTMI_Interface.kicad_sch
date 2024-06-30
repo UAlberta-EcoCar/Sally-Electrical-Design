@@ -171,6 +171,108 @@
 				)
 			)
 		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector:USB_C_Receptacle_USB2.0_14P"
 			(pin_names
 				(offset 1.016)
@@ -4019,6 +4121,16 @@
 	)
 	(wire
 		(pts
+			(xy 226.06 55.88) (xy 231.14 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1eae5ec1-5bd2-42db-bd22-4bbfbd676753")
+	)
+	(wire
+		(pts
 			(xy 40.64 147.32) (xy 40.64 149.86)
 		)
 		(stroke
@@ -4129,7 +4241,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 66.04) (xy 88.9 67.31)
+			(xy 88.9 66.04) (xy 88.9 68.58)
 		)
 		(stroke
 			(width 0)
@@ -4466,6 +4578,16 @@
 			(type default)
 		)
 		(uuid "6e845038-ee26-4166-838c-ba17cc0a4d47")
+	)
+	(wire
+		(pts
+			(xy 226.06 58.42) (xy 246.38 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7050cd3e-cee5-489b-83b2-4ff77be4b614")
 	)
 	(wire
 		(pts
@@ -12217,7 +12339,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 43.18 128.5748 0)
 			(effects
 				(font
@@ -12994,7 +13116,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_4x4.5"
 			(at 54.3052 127 0)
 			(effects
 				(font
@@ -13677,7 +13799,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_4x4.5"
 			(at 130.5052 127 0)
 			(effects
 				(font
@@ -14082,7 +14204,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_4x4.5"
 			(at 79.7052 127 0)
 			(effects
 				(font
@@ -14195,6 +14317,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 231.14 55.88 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b8972ebc-e6e3-4cf8-9b42-dfd33997ec67")
+		(property "Reference" "TP1"
+			(at 236.22 54.6099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GPIO2"
+			(at 236.22 57.1499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Loop_D1.80mm_Drill1.0mm_Beaded"
+			(at 231.14 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 231.14 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 231.14 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b2d23f7a-8ae9-434e-a68d-acd8b55e475c")
+		)
+		(instances
+			(project ""
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/cc55016d-07da-47f8-aba5-70c2adab3b6f/ff084b3e-17b6-4361-b6ba-b558d095637f"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:VBUS")
 		(at 76.2 96.52 0)
 		(unit 1)
@@ -14255,6 +14444,71 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/cc55016d-07da-47f8-aba5-70c2adab3b6f/ff084b3e-17b6-4361-b6ba-b558d095637f"
 					(reference "#PWR0191")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND1")
+		(at 88.9 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b971525c-ac7f-42e8-9b70-61c5c763f374")
+		(property "Reference" "#PWR065"
+			(at 88.9 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND1"
+			(at 93.472 70.358 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND1\" , ground"
+			(at 88.9 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9a6603ac-0220-4e7d-bcc6-cba4b54bc895")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/cc55016d-07da-47f8-aba5-70c2adab3b6f/ff084b3e-17b6-4361-b6ba-b558d095637f"
+					(reference "#PWR065")
 					(unit 1)
 				)
 			)
@@ -14724,6 +14978,73 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/cc55016d-07da-47f8-aba5-70c2adab3b6f/ff084b3e-17b6-4361-b6ba-b558d095637f"
 					(reference "FB3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 246.38 58.42 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d7d43da6-d5ed-40e6-b501-a8e207a3e1ec")
+		(property "Reference" "TP2"
+			(at 251.46 57.1499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GPIO3"
+			(at 251.46 59.6899 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Loop_D1.80mm_Drill1.0mm_Beaded"
+			(at 246.38 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 246.38 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a265ea8a-521b-4f04-852c-04067a9f96be")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/cc55016d-07da-47f8-aba5-70c2adab3b6f/ff084b3e-17b6-4361-b6ba-b558d095637f"
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -15302,71 +15623,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 88.9 67.31 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f2ebc3e1-dbcb-4c3a-b6cf-c0f9a3f27b72")
-		(property "Reference" "#PWR074"
-			(at 88.9 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 88.9 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 88.9 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 88.9 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 88.9 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "09031dd5-df47-4e72-a4bc-727bd2244469")
-		)
-		(instances
-			(project "Motor Controller"
-				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/cc55016d-07da-47f8-aba5-70c2adab3b6f/ff084b3e-17b6-4361-b6ba-b558d095637f"
-					(reference "#PWR074")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Polarized")
 		(at 104.14 123.19 0)
 		(unit 1)
@@ -15394,7 +15650,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_4x4.5"
 			(at 105.1052 127 0)
 			(effects
 				(font
