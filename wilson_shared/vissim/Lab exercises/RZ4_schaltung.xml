@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+
+<KonfigDateiSchaltung xmlns="http://www.ipec.ethz.ch">
+
+<!-- Leitungen -->
+<drawPolyline>
+  <x-Array>260,0,0,420</x-Array>
+  <y-Array>40,40,200,200</y-Array>
+</drawPolyline>
+<drawPolyline>
+  <x-Array>0,340</x-Array>
+  <y-Array>120,120</y-Array>
+</drawPolyline>
+<drawPolyline>
+  <x-Array>300,300,580,580</x-Array>
+  <y-Array>20,0,0,110</y-Array>
+</drawPolyline>
+<drawPolyline>
+  <x-Array>580,580,300,300</x-Array>
+  <y-Array>130,240,240,60</y-Array>
+</drawPolyline>
+<drawPolyline>
+  <x-Array>380,380</x-Array>
+  <y-Array>100,0</y-Array>
+</drawPolyline>
+<drawPolyline>
+  <x-Array>380,380</x-Array>
+  <y-Array>140,240</y-Array>
+</drawPolyline>
+<drawPolyline>
+  <x-Array>460,460</x-Array>
+  <y-Array>180,0</y-Array>
+</drawPolyline>
+<drawPolyline>
+  <x-Array>460,460</x-Array>
+  <y-Array>220,240</y-Array>
+</drawPolyline>
+
+<!-- Spulen -->
+<fillPolygon>
+  <x-Array>140,200,200,140</x-Array>
+  <y-Array>20,20,60,60</y-Array>
+</fillPolygon>
+<fillPolygon>
+  <x-Array>140,200,200,140</x-Array>
+  <y-Array>100,100,140,140</y-Array>
+</fillPolygon>
+<fillPolygon>
+  <x-Array>140,200,200,140</x-Array>
+  <y-Array>180,180,220,220</y-Array>
+</fillPolygon>
+
+<!-- Spg.Quelle -->
+<drawOval>
+  <parameter>40,10,60,60</parameter>
+</drawOval>
+<drawOval>
+  <parameter>40,90,60,60</parameter>
+</drawOval>
+<drawOval>
+  <parameter>40,170,60,60</parameter>
+</drawOval>
+
+<!-- Batterie -->
+<fillPolygon>
+  <x-Array>540,620,620,540</x-Array>
+  <y-Array>110,110,114,114</y-Array>
+</fillPolygon>
+<fillPolygon>
+  <x-Array>560,600,600,560</x-Array>
+  <y-Array>130,130,123,123</y-Array>
+</fillPolygon>
+
+<knoten>
+  <parameter>255,35,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>295,15,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>295,55,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>335,115,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>375,95,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>375,135,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>415,195,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>455,175,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>455,215,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>375,-5,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>455,-5,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>375,235,10,10</parameter>
+</knoten>
+<knoten>
+  <parameter>455,235,10,10</parameter>
+</knoten>
+
+<!-- Schalter 1 -->
+<Zustandselement>
+  <BauteilNummer>1</BauteilNummer>
+  <NachDiesenZustaendenZuenden>100</NachDiesenZustaendenZuenden>
+  <Zustand>  <!-- nach plus geschaltet  -->
+    <ZustandsNummer>14,15,16,17, 24,25,26,27, 34,35,36,37, 44,45,46,47, 54,55,56,57, 64,65,66,67</ZustandsNummer>
+    <fillPolygon>
+      <Farbe>0x000000</Farbe>
+      <x-Array>260,300,300,260</x-Array>
+      <y-Array>38,18,22,42</y-Array>
+    </fillPolygon>
+  </Zustand>
+  <Zustand>  <!-- nach minus geschaltet  -->
+    <ZustandsNummer>10,11,12,13, 20,21,22,23, 30,31,32,33, 40,41,42,43, 50,51,52,53, 60,61,62,63</ZustandsNummer>
+    <fillPolygon>
+      <Farbe>0x000000</Farbe>
+      <x-Array>260,300,300,260</x-Array>
+      <y-Array>38,58,62,42</y-Array>
+    </fillPolygon>
+  </Zustand>
+</Zustandselement>
+
+<!-- Schalter 2 -->
+<Zustandselement>
+  <BauteilNummer>2</BauteilNummer>
+  <NachDiesenZustaendenZuenden>100</NachDiesenZustaendenZuenden>
+  <Zustand>  <!-- nach plus geschaltet  -->
+    <ZustandsNummer>12,13,16,17, 22,23,26,27, 32,33,36,37, 42,43,46,47, 52,53,56,57, 62,63,66,67</ZustandsNummer>
+    <fillPolygon>
+      <Farbe>0x000000</Farbe>
+      <x-Array>340,380,380,340</x-Array>
+      <y-Array>118,98,102,122</y-Array>
+    </fillPolygon>
+  </Zustand>
+  <Zustand>  <!-- nach minus geschaltet  -->
+    <ZustandsNummer>10,11,14,15, 20,21,24,25, 30,31,34,35, 40,41,44,45, 50,51,54,55, 60,61,64,65</ZustandsNummer>
+    <fillPolygon>
+      <Farbe>0x000000</Farbe>
+      <x-Array>340,380,380,340</x-Array>
+      <y-Array>118,138,142,122</y-Array>
+    </fillPolygon>
+  </Zustand>
+</Zustandselement>
+
+<!-- Schalter 3 -->
+<Zustandselement>
+  <BauteilNummer>3</BauteilNummer>
+  <NachDiesenZustaendenZuenden>100</NachDiesenZustaendenZuenden>
+  <Zustand>  <!-- nach plus geschaltet  -->
+    <ZustandsNummer>11,13,15,17, 21,23,25,27, 31,33,35,37, 41,43,45,47, 51,53,55,57, 61,63,65,67</ZustandsNummer>
+    <fillPolygon>
+      <Farbe>0x000000</Farbe>
+      <x-Array>420,460,460,420</x-Array>
+      <y-Array>198,178,182,202</y-Array>
+    </fillPolygon>
+  </Zustand>
+  <Zustand>  <!-- nach minus geschaltet  -->
+    <ZustandsNummer>10,12,14,16, 20,22,24,26, 30,32,34,36, 40,42,44,46, 50,52,54,56, 60,62,64,66</ZustandsNummer>
+    <fillPolygon>
+      <Farbe>0x000000</Farbe>
+      <x-Array>420,460,460,420</x-Array>
+      <y-Array>198,218,222,202</y-Array>
+    </fillPolygon>
+  </Zustand>
+</Zustandselement>
+
+
+</KonfigDateiSchaltung>
+
