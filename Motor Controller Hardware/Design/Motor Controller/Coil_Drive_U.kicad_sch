@@ -1799,6 +1799,12 @@
 		(uuid "67d76a4f-0aac-4c76-bc51-c5542f3f507f")
 	)
 	(junction
+		(at 238.76 30.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "79debfbc-f046-4073-a6e9-9303acc535c9")
+	)
+	(junction
 		(at 228.6 71.12)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2432,6 +2438,16 @@
 	)
 	(wire
 		(pts
+			(xy 238.76 27.94) (xy 238.76 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8971397b-0a4f-4b33-a04c-6775ee4f5a25")
+	)
+	(wire
+		(pts
 			(xy 210.82 137.16) (xy 210.82 140.97)
 		)
 		(stroke
@@ -2539,6 +2555,16 @@
 			(type default)
 		)
 		(uuid "9f59275a-5ba6-468e-82f9-4837d85476b1")
+	)
+	(wire
+		(pts
+			(xy 255.27 30.48) (xy 238.76 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f6e7075-57aa-42b7-8b02-92255d3cce41")
 	)
 	(wire
 		(pts
@@ -2862,6 +2888,16 @@
 	)
 	(wire
 		(pts
+			(xy 255.27 35.56) (xy 255.27 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef63f063-4fdb-4c58-82ef-47db8ece6c7c")
+	)
+	(wire
+		(pts
 			(xy 269.24 135.89) (xy 274.32 135.89)
 		)
 		(stroke
@@ -2889,6 +2925,16 @@
 			(type default)
 		)
 		(uuid "f13ff678-7a9e-4410-8ac8-5606bc31708a")
+	)
+	(wire
+		(pts
+			(xy 255.27 43.18) (xy 255.27 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f174844a-2cfd-4f7a-b9a2-f93a3f4882e4")
 	)
 	(wire
 		(pts
@@ -3021,6 +3067,25 @@
 		)
 		(uuid "704075da-df59-4ca4-b212-0d9860073d35")
 	)
+	(text_box "Output is 5V tolerant but I am desinging for 3.3 to be max. The current will be 5A max."
+		(exclude_from_sim no)
+		(at 247.65 95.25 0)
+		(size 27.94 22.86)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "731db1c3-18f8-4597-a4d3-3459ba755feb")
+	)
 	(text_box "sbva002"
 		(exclude_from_sim no)
 		(at 187.96 58.42 0)
@@ -3074,7 +3139,7 @@
 		(uuid "17530097-a988-42ff-9818-ab9799b9baff")
 	)
 	(label "+3V3_Filtered"
-		(at 238.76 30.48 0)
+		(at 238.76 27.94 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4854,7 +4919,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "5k"
 			(at 194.31 100.33 90)
 			(effects
 				(font
@@ -5521,7 +5586,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "10k"
 			(at 203.962 78.486 0)
 			(effects
 				(font
@@ -5831,6 +5896,72 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/c39e9a42-301a-4d13-bc72-bf7c010c94d6/c385c3cf-b230-447d-8049-d4d244727510"
 					(reference "#PWR0107")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 255.27 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a2f04d3a-32af-4012-abec-467562aff24c")
+		(property "Reference" "#PWR0268"
+			(at 255.27 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 255.27 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 255.27 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 255.27 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 255.27 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8e94a94a-32a9-4ed6-a7b5-2d8a847305cd")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/c39e9a42-301a-4d13-bc72-bf7c010c94d6/c385c3cf-b230-447d-8049-d4d244727510"
+					(reference "#PWR0268")
 					(unit 1)
 				)
 			)
@@ -6376,6 +6507,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 255.27 39.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d676c09e-1f7c-48b1-82ac-2322bc4dfb17")
+		(property "Reference" "C154"
+			(at 259.08 38.0999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 259.08 40.6399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 256.2352 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 255.27 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 255.27 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "b3f0647a-f45f-4002-94d9-af8a13c33159")
+		)
+		(pin "1"
+			(uuid "a09a795d-5c91-4fac-88aa-720f3409ba12")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/c39e9a42-301a-4d13-bc72-bf7c010c94d6/c385c3cf-b230-447d-8049-d4d244727510"
+					(reference "C154")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 241.3 153.67 0)
 		(unit 1)
@@ -6594,7 +6795,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "9k76"
 			(at 193.802 111.506 0)
 			(effects
 				(font
@@ -7067,7 +7268,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "147k"
 			(at 204.47 67.31 90)
 			(effects
 				(font
