@@ -652,6 +652,16 @@
 	)
 	(wire
 		(pts
+			(xy 172.72 43.18) (xy 187.96 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "841c2537-90c6-40ef-92be-c2dd90133f7d")
+	)
+	(wire
+		(pts
 			(xy 85.09 52.07) (xy 85.09 43.18)
 		)
 		(stroke
@@ -679,6 +689,16 @@
 			(type default)
 		)
 		(uuid "ade937b5-0e8f-48fb-8376-3f9e1004fd03")
+	)
+	(wire
+		(pts
+			(xy 198.12 43.18) (xy 208.28 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d01da331-be1e-48f7-ac78-59292b67131f")
 	)
 	(wire
 		(pts
@@ -710,6 +730,16 @@
 		)
 		(uuid "f6694fb4-f4fc-4907-bc1b-4b5595e5bb27")
 	)
+	(text "One spare, One for purge control"
+		(exclude_from_sim no)
+		(at 147.066 25.908 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "a197be55-65b5-4f90-ba44-bcf33aab57ef")
+	)
 	(text "Link to ADC. Dedicated or MCU"
 		(exclude_from_sim no)
 		(at 72.644 76.2 0)
@@ -729,6 +759,16 @@
 			)
 		)
 		(uuid "d9110d79-36e4-4df3-bc98-8a32c7d61188")
+	)
+	(text "Replace with MCU input after"
+		(exclude_from_sim no)
+		(at 172.72 34.036 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "dc4c2263-c2b4-4a71-bfe4-9cd1f7424935")
 	)
 	(symbol
 		(lib_id "Device:R_Potentiometer")
@@ -1010,6 +1050,72 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 208.28 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c359758-2326-4b4f-af80-f32a751dfb8d")
+		(property "Reference" "#PWR013"
+			(at 208.28 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 208.28 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 208.28 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 208.28 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 208.28 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1f550be6-d9b9-45cf-adc6-a3a12efed5fc")
+		)
+		(instances
+			(project "FC_Test_Board"
+				(path "/21b0a3a8-fa74-4a0f-885a-81412622d601/cf5dda0f-db71-4bf3-9a7c-e329f47b2f91"
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 153.67 43.18 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1069,6 +1175,72 @@
 			(project "FC_Test_Board"
 				(path "/21b0a3a8-fa74-4a0f-885a-81412622d601/cf5dda0f-db71-4bf3-9a7c-e329f47b2f91"
 					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 172.72 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8867c24c-5fee-4a40-b916-c0b08b58b034")
+		(property "Reference" "#PWR012"
+			(at 172.72 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 172.72 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 172.72 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 172.72 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 172.72 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "519d2eb5-2f59-4d66-907d-433126d7752c")
+		)
+		(instances
+			(project "FC_Test_Board"
+				(path "/21b0a3a8-fa74-4a0f-885a-81412622d601/cf5dda0f-db71-4bf3-9a7c-e329f47b2f91"
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -1344,6 +1516,74 @@
 			(project "FC_Test_Board"
 				(path "/21b0a3a8-fa74-4a0f-885a-81412622d601/cf5dda0f-db71-4bf3-9a7c-e329f47b2f91"
 					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 193.04 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f49a0cff-6ac8-4bc9-abc9-38d3ddb077aa")
+		(property "Reference" "SW2"
+			(at 193.04 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push"
+			(at 193.04 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 193.04 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.04 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 193.04 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "50b2ec71-2d45-467c-9904-a6055202b893")
+		)
+		(pin "2"
+			(uuid "07051ed1-76fa-4670-86e5-2742ef86591c")
+		)
+		(instances
+			(project "FC_Test_Board"
+				(path "/21b0a3a8-fa74-4a0f-885a-81412622d601/cf5dda0f-db71-4bf3-9a7c-e329f47b2f91"
+					(reference "SW2")
 					(unit 1)
 				)
 			)
