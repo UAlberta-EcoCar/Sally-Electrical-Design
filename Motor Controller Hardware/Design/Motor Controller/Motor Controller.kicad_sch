@@ -737,6 +737,16 @@
 	)
 	(wire
 		(pts
+			(xy 121.92 165.1) (xy 132.08 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d7395803-7187-4094-99d5-8c1190898740")
+	)
+	(wire
+		(pts
 			(xy 182.88 104.14) (xy 187.96 104.14)
 		)
 		(stroke
@@ -1234,6 +1244,17 @@
 			(justify right bottom)
 		)
 		(uuid "4aee5e0c-f44d-4e64-85fd-0a7cebcfdaed")
+	)
+	(label "Controller_A_BRAKE"
+		(at 132.08 165.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4f830995-6fc5-46bb-b86c-c8066d28f520")
 	)
 	(label "SPI_NSCS_DRIVER"
 		(at 124.46 139.7 0)
@@ -3182,6 +3203,26 @@
 				)
 				(justify left top)
 			)
+		)
+		(pin "Brake_Chopper_H" input
+			(at 121.92 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "c7015219-b700-425a-8d3c-ffae51bdc957")
+		)
+		(pin "Brake_Chopper_L" input
+			(at 121.92 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "82d427bf-1185-4b66-8d67-f833af4b908d")
 		)
 		(instances
 			(project "Motor Controller"
