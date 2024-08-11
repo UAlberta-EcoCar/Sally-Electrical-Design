@@ -1606,12 +1606,6 @@
 		(uuid "57543db3-21fa-49c1-b4d6-2aa76c96805f")
 	)
 	(junction
-		(at 76.2 29.21)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6cee68ca-50ee-49df-9bac-880447fc53c2")
-	)
-	(junction
 		(at 62.23 29.21)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1634,6 +1628,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a2674234-7222-4d32-ad34-e37e61179462")
+	)
+	(junction
+		(at 81.28 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b2be72bd-db30-45b4-9580-e0ec27e01bf3")
 	)
 	(junction
 		(at 46.99 36.83)
@@ -1738,6 +1738,16 @@
 			(type default)
 		)
 		(uuid "4544866f-75fa-4383-8d62-f9c8491fcbd9")
+	)
+	(wire
+		(pts
+			(xy 81.28 29.21) (xy 91.44 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4cca8471-d509-44c3-a408-854440df0808")
 	)
 	(wire
 		(pts
@@ -1851,7 +1861,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 29.21) (xy 76.2 29.21)
+			(xy 62.23 29.21) (xy 81.28 29.21)
 		)
 		(stroke
 			(width 0)
@@ -1921,16 +1931,6 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 29.21) (xy 91.44 29.21)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f208dc8b-4911-49c7-b7c9-5262a72fb2cd")
-	)
-	(wire
-		(pts
 			(xy 40.64 36.83) (xy 46.99 36.83)
 		)
 		(stroke
@@ -1968,7 +1968,7 @@
 		)
 		(uuid "361bd485-7d30-45e0-8ba6-76fd095014e2")
 	)
-	(text "input voltage (6-65V Input) to 5V out"
+	(text "input voltage 6-65V to 5V out"
 		(exclude_from_sim no)
 		(at 105.41 18.542 0)
 		(effects
@@ -1998,7 +1998,7 @@
 		)
 		(uuid "a36775a0-191b-422f-9e78-934c1f927f9e")
 	)
-	(text "LMR516XX to be used instead"
+	(text "LMR516XX to be used "
 		(exclude_from_sim no)
 		(at 105.156 16.002 0)
 		(effects
@@ -2452,7 +2452,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 76.2 36.83 0)
+		(at 81.28 36.83 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2461,7 +2461,7 @@
 		(fields_autoplaced yes)
 		(uuid "57073c1e-4e15-4c62-be1e-4c24174832be")
 		(property "Reference" "#PWR031"
-			(at 76.2 43.18 0)
+			(at 81.28 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2470,7 +2470,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 76.2 41.91 0)
+			(at 81.28 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2478,7 +2478,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 76.2 36.83 0)
+			(at 81.28 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2487,7 +2487,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.2 36.83 0)
+			(at 81.28 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2496,7 +2496,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 76.2 36.83 0)
+			(at 81.28 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3152,7 +3152,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 76.2 33.02 0)
+		(at 81.28 33.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3160,7 +3160,7 @@
 		(dnp no)
 		(uuid "d754617c-883a-482c-bf28-36b52007b600")
 		(property "Reference" "C7"
-			(at 79.502 31.75 0)
+			(at 84.582 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3169,7 +3169,7 @@
 			)
 		)
 		(property "Value" "2.2 uF"
-			(at 78.994 34.29 0)
+			(at 84.074 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3178,7 +3178,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 77.1652 36.83 0)
+			(at 82.2452 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3187,7 +3187,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 76.2 33.02 0)
+			(at 81.28 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3196,7 +3196,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 76.2 33.02 0)
+			(at 81.28 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
