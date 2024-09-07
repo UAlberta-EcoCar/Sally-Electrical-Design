@@ -1,0 +1,19 @@
+CMakeFiles/FET_SRC_V1.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj: \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/lib/gcc/arm-none-eabi/10.3.1/include/stddef.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/stdint.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/machine/_default_types.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/sys/features.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/_newlib_version.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/sys/_intsup.h \
+ /usr/local/share/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/sys/_stdint.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Core/Inc/FreeRTOSConfig.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FET-Board/FET_SRC_V1/cmake/stm32cubemx/../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
