@@ -2086,16 +2086,6 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 152.4) (xy 66.04 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0b635205-eafc-420c-a710-792000a4e871")
-	)
-	(wire
-		(pts
 			(xy 156.21 76.2) (xy 156.21 78.74)
 		)
 		(stroke
@@ -2323,6 +2313,16 @@
 			(type default)
 		)
 		(uuid "77aae628-1355-48c6-920a-898bb1ce871c")
+	)
+	(wire
+		(pts
+			(xy 60.96 157.48) (xy 66.04 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "794356f5-e4b8-4e1b-ad65-300d655bc6f5")
 	)
 	(wire
 		(pts
@@ -2825,18 +2825,7 @@
 		)
 		(uuid "05cf8934-e1c1-4f95-9dae-8e3a06a9bc46")
 	)
-	(label "CAN_STBY"
-		(at 66.04 152.4 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "09291762-6635-46af-b7aa-ade9cf74babf")
-	)
-	(label "CAN_RXD"
+	(label "CAN_RXD_SYS"
 		(at 144.78 144.78 180)
 		(fields_autoplaced yes)
 		(effects
@@ -2891,7 +2880,7 @@
 		)
 		(uuid "54aff0f9-9ebb-41c3-9ee1-0b6f6ebd1339")
 	)
-	(label "CAN_RXD"
+	(label "CAN_RXD_SYS"
 		(at 66.04 147.32 0)
 		(fields_autoplaced yes)
 		(effects
@@ -2912,6 +2901,17 @@
 			(justify left bottom)
 		)
 		(uuid "62dc01b0-f278-4cbd-b742-9883c9223e0e")
+	)
+	(label "5V"
+		(at 125.73 137.16 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "63e4cc82-e25f-495c-8124-516710705104")
 	)
 	(label "RTMI_SCK1"
 		(at 148.59 53.34 180)
@@ -2946,7 +2946,7 @@
 		)
 		(uuid "86a76fb4-5774-4bfd-90c6-374dca0d189e")
 	)
-	(label "CAN_TXD"
+	(label "CAN_TXD_SYS"
 		(at 144.78 142.24 180)
 		(fields_autoplaced yes)
 		(effects
@@ -2956,6 +2956,17 @@
 			(justify right bottom)
 		)
 		(uuid "8af2cadf-3807-4e55-bd9f-feae8d02142e")
+	)
+	(label "5V"
+		(at 66.04 157.48 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "94d6c4de-a2ad-44b3-804d-012552779972")
 	)
 	(label "FT_3V3"
 		(at 156.21 25.4 180)
@@ -3023,7 +3034,7 @@
 		)
 		(uuid "b595c038-a118-4e0f-80c6-823135c1123b")
 	)
-	(label "CAN_TXD"
+	(label "CAN_TXD_SYS"
 		(at 66.04 149.86 0)
 		(fields_autoplaced yes)
 		(effects
@@ -3113,18 +3124,6 @@
 			(justify left)
 		)
 		(uuid "7ba1b434-9f6e-4064-bf8d-b41a0065df9f")
-	)
-	(hierarchical_label "CAN_STBY"
-		(shape bidirectional)
-		(at 81.28 152.4 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a2ebb9e9-38a8-4856-b2f8-8113e4e3371f")
 	)
 	(hierarchical_label "FT_SPI_RTMI_GPIO1"
 		(shape input)
@@ -5260,6 +5259,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 196.85 137.16 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fcaae566-9887-4ceb-be53-e047b70ed35d")
+		(property "Reference" "#PWR0102"
+			(at 196.85 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 196.85 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 196.85 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 196.85 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 196.85 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a5f541bd-4444-40e7-8c0c-44f486d76bf1")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/cc55016d-07da-47f8-aba5-70c2adab3b6f"
+					(reference "#PWR0102")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 181.61 40.64 0)
 		(unit 1)
@@ -5445,15 +5510,15 @@
 			)
 			(uuid "750375e9-6b0d-4b5f-9baf-e674b9911350")
 		)
-		(pin "CAN_STBY" bidirectional
-			(at 60.96 152.4 0)
+		(pin "5V" input
+			(at 60.96 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "9dd6c5c1-5fef-433a-aad6-93065b9c2033")
+			(uuid "982093ca-8e75-44a7-881e-d3ac45822771")
 		)
 		(instances
 			(project "Motor Controller"

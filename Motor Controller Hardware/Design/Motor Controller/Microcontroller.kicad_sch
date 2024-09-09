@@ -3769,6 +3769,260 @@
 				)
 			)
 		)
+		(symbol "Sensor_Temperature:MCP9700Ax-ETT"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -6.35 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MCP9700Ax-ETT"
+				(at 1.27 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://ww1.microchip.com/downloads/en/devicedoc/20001942g.pdf"
+				(at -3.81 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Low power, analog thermistor temperature sensor, ±2C accuracy, -40C to +125C, in SOT-23-3"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "temperature sensor thermistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MCP9700Ax-ETT_0_1"
+				(rectangle
+					(start -7.62 5.08)
+					(end 7.62 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(circle
+					(center -4.445 -2.54)
+					(radius 1.27)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start -3.81 -1.905)
+					(end -5.08 0)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(arc
+					(start -3.81 3.175)
+					(mid -4.445 3.8073)
+					(end -5.08 3.175)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 0.635) (xy -4.445 0.635)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 1.27) (xy -4.445 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 1.905) (xy -4.445 1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 2.54) (xy -4.445 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 3.175) (xy -5.08 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 3.175) (xy -4.445 3.175)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 3.175) (xy -3.81 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MCP9700Ax-ETT_1_1"
+				(pin power_in line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "V_{DD}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "V_{OUT}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Simulation_SPICE:NPN"
 			(pin_numbers hide)
 			(pin_names
@@ -5036,6 +5290,16 @@
 	)
 	(wire
 		(pts
+			(xy -49.53 115.57) (xy -49.53 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c407797-cc2d-44e3-8e3b-0b6c2afb027a")
+	)
+	(wire
+		(pts
 			(xy 248.92 45.72) (xy 251.46 45.72)
 		)
 		(stroke
@@ -5716,6 +5980,16 @@
 	)
 	(wire
 		(pts
+			(xy -39.37 162.56) (xy -36.83 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70acfcc6-99ee-4844-a220-5f8b8590ed8e")
+	)
+	(wire
+		(pts
 			(xy 25.4 130.81) (xy 25.4 132.08)
 		)
 		(stroke
@@ -6326,6 +6600,16 @@
 	)
 	(wire
 		(pts
+			(xy -49.53 133.35) (xy -49.53 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6981985-91a5-4872-9020-ed1171718b31")
+	)
+	(wire
+		(pts
 			(xy 124.46 22.86) (xy 144.78 22.86)
 		)
 		(stroke
@@ -6516,6 +6800,16 @@
 	)
 	(wire
 		(pts
+			(xy -49.53 152.4) (xy -49.53 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e8c6b811-e8e1-4563-8e38-d5fc738281cf")
+	)
+	(wire
+		(pts
 			(xy 58.42 33.02) (xy 58.42 35.56)
 		)
 		(stroke
@@ -6593,6 +6887,16 @@
 			(type default)
 		)
 		(uuid "ef464215-14e7-4479-9f15-6b8499aca7b9")
+	)
+	(wire
+		(pts
+			(xy -39.37 125.73) (xy -36.83 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef557172-7164-4c81-b724-1c85d4d7d396")
 	)
 	(wire
 		(pts
@@ -6713,6 +7017,16 @@
 			(type default)
 		)
 		(uuid "faaad165-208e-4c67-8917-5d6e4c79e1e2")
+	)
+	(wire
+		(pts
+			(xy -49.53 170.18) (xy -49.53 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc9c7c29-0a1b-4577-829d-a2be6a0e802a")
 	)
 	(wire
 		(pts
@@ -6851,6 +7165,17 @@
 			(justify right bottom)
 		)
 		(uuid "0ac65fa3-1149-4e38-b113-82f4871a157b")
+	)
+	(label "HV_TEMP"
+		(at -36.83 162.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1651a530-9caf-4503-acb9-ad918e09ba04")
 	)
 	(label "BOOT0"
 		(at 33.02 86.36 0)
@@ -7159,6 +7484,17 @@
 			(justify right bottom)
 		)
 		(uuid "de2a9e50-7d62-4008-a63f-0378db09b88c")
+	)
+	(label "LV_TEMP"
+		(at -36.83 125.73 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e3e4c6b1-1807-4ba3-8d75-45b2743f2cd5")
 	)
 	(label "NRST"
 		(at 187.96 83.82 180)
@@ -7614,6 +7950,72 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
 					(reference "#PWR052")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at -49.53 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "073deb00-e80a-4ed9-a281-f5771fad70d3")
+		(property "Reference" "#PWR0279"
+			(at -49.53 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at -49.53 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -49.53 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at -49.53 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at -49.53 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0c4bd038-14db-410c-9e8c-6b54f4537f61")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
+					(reference "#PWR0279")
 					(unit 1)
 				)
 			)
@@ -8238,7 +8640,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Buzzer_Beeper:Buzzer_12x9.5RM7.6"
 			(at 37.465 124.46 90)
 			(effects
 				(font
@@ -8708,6 +9110,72 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
 					(reference "#PWR049")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at -49.53 135.89 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "48c94965-aeb1-4470-ae40-1079a3e619ee")
+		(property "Reference" "#PWR0287"
+			(at -49.53 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at -49.53 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -49.53 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at -49.53 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at -49.53 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3c5b3e0e-73d4-48bd-86f8-7be588c95a92")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
+					(reference "#PWR0287")
 					(unit 1)
 				)
 			)
@@ -9638,6 +10106,97 @@
 		)
 	)
 	(symbol
+		(lib_id "Sensor_Temperature:MCP9700Ax-ETT")
+		(at -49.53 162.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "830129dd-6a84-4748-a39d-08be447cee76")
+		(property "Reference" "U33"
+			(at -58.42 161.2899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "MCP9700AT-ETT"
+			(at -58.42 163.8299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at -49.53 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://ww1.microchip.com/downloads/en/devicedoc/20001942g.pdf"
+			(at -53.34 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Low power, analog thermistor temperature sensor, ±2C accuracy, -40C to +125C, in SOT-23-3"
+			(at -49.53 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DK#" "MCP9700AT-E/TTCT-ND"
+			(at -49.53 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC#" "C42288"
+			(at -49.53 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "8daa75ce-3087-424d-aba8-7e39934817e6")
+		)
+		(pin "2"
+			(uuid "8ee68d2b-25e4-480e-ae38-b8306638f6e8")
+		)
+		(pin "1"
+			(uuid "7420367f-f529-48b1-9352-c875262a196f")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
+					(reference "U33")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 182.88 39.37 0)
 		(unit 1)
@@ -9777,6 +10336,72 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
 					(reference "#PWR0220")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at -49.53 152.4 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8a6faa6a-2591-48d4-9f39-3422ea1f2f05")
+		(property "Reference" "#PWR0288"
+			(at -49.53 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at -49.53 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -49.53 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at -49.53 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at -49.53 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6cdb73c0-bc96-4725-8789-ac2b104cbfb1")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
+					(reference "#PWR0288")
 					(unit 1)
 				)
 			)
@@ -11615,6 +12240,97 @@
 		)
 	)
 	(symbol
+		(lib_id "Sensor_Temperature:MCP9700Ax-ETT")
+		(at -49.53 125.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e442eb9f-79ea-4aa4-b237-b09b90931d5c")
+		(property "Reference" "U30"
+			(at -58.42 124.4599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "MCP9700AT-ETT"
+			(at -58.42 126.9999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at -49.53 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://ww1.microchip.com/downloads/en/devicedoc/20001942g.pdf"
+			(at -53.34 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Low power, analog thermistor temperature sensor, ±2C accuracy, -40C to +125C, in SOT-23-3"
+			(at -49.53 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DK#" "MCP9700AT-E/TTCT-ND"
+			(at -49.53 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC#" "C42288"
+			(at -49.53 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "23331c48-864e-488d-ae09-e101bfa20f77")
+		)
+		(pin "2"
+			(uuid "9cb01066-0b2e-45b7-9906-d87f5b1929e7")
+		)
+		(pin "1"
+			(uuid "8ec6c6c9-3e5e-4707-ad93-bc5a1e16dc17")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
+					(reference "U30")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 251.46 129.54 0)
 		(unit 1)
@@ -12337,6 +13053,72 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
 					(reference "#PWR051")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at -49.53 172.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fda552e8-49e6-4d7a-901a-ab914db2456d")
+		(property "Reference" "#PWR0289"
+			(at -49.53 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at -49.53 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -49.53 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at -49.53 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at -49.53 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5234f78e-7cdd-496e-bd7d-bc30e4b40715")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/a73556af-4a0a-4f39-81a1-981562f53eaf"
+					(reference "#PWR0289")
 					(unit 1)
 				)
 			)
