@@ -3386,6 +3386,12 @@
 		(uuid "13c1732f-d0e8-445c-ae30-5bfd5a93ed8b")
 	)
 	(junction
+		(at 96.52 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "19c5c347-0a4c-4632-bc15-3956db83402a")
+	)
+	(junction
 		(at 154.94 160.02)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3488,12 +3494,6 @@
 		(uuid "a2d550b2-7271-4b28-ba14-90acfad1fa02")
 	)
 	(junction
-		(at 99.06 58.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a4a24cb0-0acf-463d-bd9d-caddda9858e8")
-	)
-	(junction
 		(at 68.58 30.48)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3534,12 +3534,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d403413c-5584-4d1c-9130-77743721fb91")
-	)
-	(junction
-		(at 96.52 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e3f27e16-da90-4325-807a-e365f340a08d")
 	)
 	(junction
 		(at 59.69 119.38)
@@ -3842,7 +3836,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 134.62) (xy 185.42 134.62)
+			(xy 176.53 134.62) (xy 185.42 134.62)
 		)
 		(stroke
 			(width 0)
@@ -3952,16 +3946,6 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 58.42) (xy 99.06 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "404c7490-9014-4345-8db6-6bfa8ec1f9a7")
-	)
-	(wire
-		(pts
 			(xy 59.69 30.48) (xy 68.58 30.48)
 		)
 		(stroke
@@ -4049,16 +4033,6 @@
 			(type default)
 		)
 		(uuid "519402fe-86bd-471b-9ef3-3a1a558306a1")
-	)
-	(wire
-		(pts
-			(xy 93.98 73.66) (xy 93.98 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "549e6911-32a1-4c23-9d6d-56c3413cbafb")
 	)
 	(wire
 		(pts
@@ -4454,7 +4428,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 124.46) (xy 175.26 124.46)
+			(xy 139.7 124.46) (xy 176.53 124.46)
 		)
 		(stroke
 			(width 0)
@@ -4775,7 +4749,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 73.66) (xy 93.98 73.66)
+			(xy 73.66 76.2) (xy 96.52 76.2)
 		)
 		(stroke
 			(width 0)
@@ -5025,7 +4999,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 124.46) (xy 175.26 134.62)
+			(xy 176.53 124.46) (xy 176.53 134.62)
 		)
 		(stroke
 			(width 0)
@@ -5063,16 +5037,6 @@
 			(color 255 153 0 1)
 		)
 		(uuid "ef834a29-fd77-4065-9d0c-b29edb8995e5")
-	)
-	(wire
-		(pts
-			(xy 71.12 76.2) (xy 96.52 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f28b6ab3-20be-41e9-8fb5-7e3b8130b75a")
 	)
 	(polyline
 		(pts
@@ -12272,13 +12236,13 @@
 		(uuid "960312c5-0977-4b67-97e3-9e9732196702")
 	)
 	(label "IN_SYS"
-		(at 127 111.76 0)
+		(at 127 111.76 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "db0b1166-9090-4161-8d58-10fd9d023031")
 	)
@@ -12382,6 +12346,18 @@
 		)
 		(uuid "0636c1ab-f665-414e-bad9-9344dc85963f")
 	)
+	(hierarchical_label "External Power Stage Enable"
+		(shape input)
+		(at 73.66 76.2 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1765cd2f-ce6a-45e7-9ac1-ebe9e5c233dd")
+	)
 	(hierarchical_label "Low Power Current Monitor"
 		(shape input)
 		(at 142.24 137.16 0)
@@ -12394,7 +12370,7 @@
 		)
 		(uuid "3957a893-2757-4c4c-97b7-5cccf800b55a")
 	)
-	(hierarchical_label "Montor Controller Fault"
+	(hierarchical_label "Montor Controller Low Side Fault"
 		(shape input)
 		(at 142.24 132.08 0)
 		(fields_autoplaced yes)
@@ -13323,83 +13299,6 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
 					(reference "#PWR053")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 66.04 76.2 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3db31bc2-f5fe-478c-b171-8c695bc30c5c")
-		(property "Reference" "J20"
-			(at 66.04 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "EXT Power Stage EN"
-			(at 66.04 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-2-2.54_1x02_P2.54mm_Horizontal"
-			(at 66.04 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 66.04 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 66.04 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part#" ""
-			(at 66.04 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "77780f4c-2c4b-4b55-99fd-0001ae657f21")
-		)
-		(pin "2"
-			(uuid "78276ef3-b535-4522-8b1b-705527122e24")
-		)
-		(instances
-			(project ""
-				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
-					(reference "J20")
 					(unit 1)
 				)
 			)
