@@ -1,0 +1,535 @@
+{
+  "algorithm": "sixStep",
+  "description": "",
+  "checkList": {},
+  "hardwares": {
+    "type": "INVERTER",
+    "control": {
+      "mcu": {
+        "id": "STM32G474RETx"
+      },
+      "clockSource": "8_crystal",
+      "clockFrequency": 170,
+      "connectors": [],
+      "features": [
+        {
+          "type": "Potentiometer",
+          "name": "Potentiometer",
+          "hwVariants": [
+            {
+              "signals": {
+                "POTENTIOMETER_LEVEL": [
+                  {
+                    "name": "PB12",
+                    "help": {},
+                    "cost": 0
+                  }
+                ]
+              },
+              "type": "Potentiometer",
+              "cost": 0,
+              "potRmax": 10000,
+              "potVm": 3.3,
+              "potLevelMin": 0
+            }
+          ]
+        }
+      ],
+      "hardwareFamily": "CONTROL",
+      "id": "user.HyperDriveSTM_GENERATED_INVERTER_CONFIG.json",
+      "label": "HyperDriveSTM_GENERATED_INVERTER_CONFIG",
+      "description": "",
+      "descVersion": 4,
+      "contentVersion": "1.0",
+      "compatibility": [
+        "sixStep"
+      ]
+    },
+    "power": [
+      {
+        "motorDrives": [
+          {
+            "name": "M1",
+            "minRatedVoltage": 24,
+            "maxRatedVoltage": 60,
+            "maxRatedCurrent": 10,
+            "maxRatedPower": 400,
+            "connectorType": "None",
+            "features": [
+              {
+                "type": "SpeedAndPositionSensing",
+                "name": "SpeedAndPositionSensing",
+                "hwVariants": [
+                  {
+                    "signals": {
+                      "HALLSENSOR_H1": [
+                        {
+                          "name": "PA0",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "HALLSENSOR_H2": [
+                        {
+                          "name": "PA1",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "HALLSENSOR_H3": [
+                        {
+                          "name": "PA2",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ]
+                    },
+                    "type": "HallEffectSensor",
+                    "cost": 0
+                  }
+                ]
+              },
+              {
+                "type": "PhaseVoltageGeneration",
+                "name": "PhaseVoltageGeneration",
+                "driverName": "PowerMos",
+                "driverPN": "1",
+                "minDeadTime": 10,
+                "tNoise": 3,
+                "maxSwitchingFreq": 27,
+                "hwVariants": [
+                  {
+                    "signals": {
+                      "PWM_CHU_H": [
+                        {
+                          "name": "PA10",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "PWM_CHV_H": [
+                        {
+                          "name": "PA9",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "PWM_CHW_H": [
+                        {
+                          "name": "PA8",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "PWM_CHU_L": [
+                        {
+                          "name": "PB15",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "PWM_CHV_L": [
+                        {
+                          "name": "PB8-BOOT0",
+                          "help": {},
+                          "cost": 0
+                        },
+                        {
+                          "name": "PB14",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "PWM_CHW_L": [
+                        {
+                          "name": "PB9",
+                          "help": {},
+                          "cost": 0
+                        },
+                        {
+                          "name": "PB13",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ],
+                      "PWM_EN": [
+                        {
+                          "name": "PB5",
+                          "help": {},
+                          "cost": 0
+                        }
+                      ]
+                    },
+                    "type": "DrivingHighAndLowSidesAndMasterEnable",
+                    "cost": 0,
+                    "deadTime": 10,
+                    "highSideSwitchesDrivingPolarity": "Active high",
+                    "enableDrivingPolarity": "Active high",
+                    "lowSideSwitchesDrivingPolarity": "Active high"
+                  }
+                ]
+              }
+            ],
+            "compatibility": [
+              "FOC",
+              "sixStep"
+            ]
+          }
+        ],
+        "connectorTypes": [
+          "None"
+        ],
+        "hardwareFamily": "POWER",
+        "id": "user.HyperDriveSTM_GENERATED_INVERTER_CONFIG.json",
+        "label": "HyperDriveSTM_GENERATED_INVERTER_CONFIG",
+        "description": "",
+        "descVersion": 4,
+        "contentVersion": "1.0",
+        "compatibility": [
+          "sixStep"
+        ]
+      }
+    ],
+    "motor": [
+      {
+        "polePairs": 4,
+        "id": "I-PMSM Allen Bradley",
+        "label": "Allen Bradley I",
+        "hardwareFamily": "MOTOR",
+        "description": "I-PMSM Allen Bradley TL-A220P-HJ32AN",
+        "compatibility": [
+          "FOC",
+          "sixStep"
+        ],
+        "nominalCurrent": 2.950000047683716,
+        "nominalDCVoltage": 325,
+        "rs": 2.703650712966919,
+        "ls": 8.448909036815166,
+        "magneticStructure": {
+          "type": "I-PMSM",
+          "ld_lq_ratio": 0.5
+        },
+        "BEmfConstant": 24.707189559936523,
+        "inertia": 5.118735771247884,
+        "friction": 12.129706192354206,
+        "maxRatedSpeed": 5000,
+        "motorProfiler": {
+          "ctrl_board": "STM32303E-EVAL",
+          "pwr_board": "STEVAL-IPM05F",
+          "operating_condition": {
+            "cutoff_frequency": 3000,
+            "pwm_frequency": 16000,
+            "foc_rate": 1
+          },
+          "mechanical": {
+            "acceleration": 500,
+            "max_speed_startup": 1998
+          }
+        },
+        "status": "success"
+      }
+    ],
+    "connections": [
+      {
+        "motor": 0,
+        "power": 0,
+        "drive": 0,
+        "ctrlConn": 0
+      }
+    ],
+    "constrains": {
+      "connectAlgoVersion": 1,
+      "MCUParamVersion": 1,
+      "motors": [
+        {
+          "motor": "M1",
+          "features": [
+            {
+              "name": "SpeedAndPositionSensing",
+              "type": "SpeedAndPositionSensing",
+              "hwVariants": [
+                {
+                  "name": "HallEffectSensor",
+                  "swVariants": [
+                    {
+                      "name": "SingleTimer",
+                      "solutions": [
+                        {
+                          "ip": [
+                            "TIM2"
+                          ],
+                          "signals": [
+                            {
+                              "name": "HALLSENSOR_H1",
+                              "pin": "PA0",
+                              "peripheral": "TIM2_CH1",
+                              "help": ""
+                            },
+                            {
+                              "name": "HALLSENSOR_H2",
+                              "pin": "PA1",
+                              "peripheral": "TIM2_CH2",
+                              "help": ""
+                            },
+                            {
+                              "name": "HALLSENSOR_H3",
+                              "pin": "PA2",
+                              "peripheral": "TIM2_CH3",
+                              "help": ""
+                            }
+                          ],
+                          "cost": 0
+                        },
+                        {
+                          "ip": [
+                            "TIM5"
+                          ],
+                          "signals": [
+                            {
+                              "name": "HALLSENSOR_H1",
+                              "pin": "PA0",
+                              "peripheral": "TIM5_CH1",
+                              "help": ""
+                            },
+                            {
+                              "name": "HALLSENSOR_H2",
+                              "pin": "PA1",
+                              "peripheral": "TIM5_CH2",
+                              "help": ""
+                            },
+                            {
+                              "name": "HALLSENSOR_H3",
+                              "pin": "PA2",
+                              "peripheral": "TIM5_CH3",
+                              "help": ""
+                            }
+                          ],
+                          "cost": 0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "PhaseVoltageGeneration",
+              "type": "PhaseVoltageGeneration",
+              "hwVariants": [
+                {
+                  "swVariants": [
+                    {
+                      "solutions": [
+                        {
+                          "ip": [
+                            "TIM1"
+                          ],
+                          "signals": [
+                            {
+                              "name": "PWM_CHW_H",
+                              "pin": "PA8",
+                              "peripheral": "TIM1_CH1",
+                              "help": ""
+                            },
+                            {
+                              "name": "PWM_CHV_H",
+                              "pin": "PA9",
+                              "peripheral": "TIM1_CH2",
+                              "help": ""
+                            },
+                            {
+                              "name": "PWM_CHU_H",
+                              "pin": "PA10",
+                              "peripheral": "TIM1_CH3",
+                              "help": ""
+                            },
+                            {
+                              "name": "PWM_CHW_L",
+                              "pin": "PB13",
+                              "peripheral": "TIM1_CH1N",
+                              "help": ""
+                            },
+                            {
+                              "name": "PWM_CHV_L",
+                              "pin": "PB14",
+                              "peripheral": "TIM1_CH2N",
+                              "help": ""
+                            },
+                            {
+                              "name": "PWM_CHU_L",
+                              "pin": "PB15",
+                              "peripheral": "TIM1_CH3N",
+                              "help": ""
+                            }
+                          ],
+                          "cost": 0
+                        }
+                      ],
+                      "independentWires": {
+                        "PWM_EN": [
+                          {
+                            "ip": "GPIO",
+                            "pin": "PB5",
+                            "peripheral": "GPIO_Output",
+                            "help": "",
+                            "cost": 0
+                          }
+                        ]
+                      },
+                      "name": "SingleTimerAndGPIOs"
+                    }
+                  ],
+                  "name": "DrivingHighAndLowSidesAndMasterEnable"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "features": [
+        {
+          "name": "Potentiometer",
+          "type": "Potentiometer",
+          "hwVariants": [
+            {
+              "name": "Potentiometer",
+              "swVariants": [
+                {
+                  "name": "SingleWire",
+                  "solutions": [
+                    {
+                      "ip": [
+                        "ADC1"
+                      ],
+                      "signals": [
+                        {
+                          "name": "POTENTIOMETER_LEVEL",
+                          "pin": "PB12",
+                          "peripheral": "ADC1_IN11",
+                          "help": ""
+                        }
+                      ],
+                      "cost": 0
+                    },
+                    {
+                      "ip": [
+                        "ADC4"
+                      ],
+                      "signals": [
+                        {
+                          "name": "POTENTIOMETER_LEVEL",
+                          "pin": "PB12",
+                          "peripheral": "ADC4_IN3",
+                          "help": ""
+                        }
+                      ],
+                      "cost": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "info": []
+    },
+    "inverter": {
+      "hardwareFamily": "INVERTER",
+      "id": "user.HyperDriveSTM_GENERATED_INVERTER_CONFIG.json",
+      "label": "HyperDriveSTM_GENERATED_INVERTER_CONFIG",
+      "description": "",
+      "descVersion": 4,
+      "contentVersion": "1.0",
+      "compatibility": [
+        "sixStep"
+      ],
+      "status": "success"
+    }
+  },
+  "version": 13,
+  "workBenchVersion": "6.3.0",
+  "workBenchVersionFileCreation": "6.3.0",
+  "details": {
+    "steps": {
+      "motor_0": {
+        "label": "Allen Bradley I",
+        "description": "",
+        "polePairs": "Number.NaN",
+        "mmsType": "",
+        "rs": "Number.NaN",
+        "ls": "Number.NaN",
+        "mmsLd_lq_ratio": "Number.NaN",
+        "maxCurrent": 10,
+        "maxDCVoltage": 48,
+        "BEmfConstant": "Number.NaN",
+        "inertia": "Number.NaN",
+        "friction": "Number.NaN",
+        "maxRatedSpeed": "Number.NaN",
+        "hasHallSensor": true,
+        "hallSensor": {
+          "sensorsDisplacement": "Number.NaN",
+          "placementElectricalAngle": "Number.NaN"
+        },
+        "hasQuadratureEncoder": false,
+        "quadratureEncoder": {
+          "pulsesPerMechanicalRevolution": "Number.NaN",
+          "hasIndexPin": false
+        }
+      },
+      "powerSwitches_0": {
+        "setting": {
+          "PWMFrequency": 27000,
+          "chargeBootCapDuty": "Number.NaN",
+          "chargeBootCapMs": "Number.NaN",
+          "drivingTopology": ""
+        },
+        "modulationFlags": {
+          "fastDemag": false,
+          "quasiSynchronous": false
+        }
+      },
+      "driveManagement_0": {
+        "executionRate": "Number.NaN",
+        "speedReg": {
+          "executionRate": 1,
+          "targetSpeed": 1500,
+          "commutationTime": "Number.NaN",
+          "KpKi": {
+            "P": {
+              "num": "Number.NaN",
+              "den": "Number.NaN"
+            },
+            "I": {
+              "num": "Number.NaN",
+              "den": "Number.NaN"
+            }
+          },
+          "autoPI": true
+        },
+        "demag": {
+          "runTime": "Number.NaN",
+          "minTime": "Number.NaN",
+          "speedThresh": "Number.NaN",
+          "startUpTime": "Number.NaN"
+        },
+        "debugSettings": {
+          "openLoop": {
+            "enabled": false
+          }
+        }
+      },
+      "stageConfig_0": {
+        "potentiometer": {
+          "enable": true,
+          "samplingTime": "Number.NaN"
+        },
+        "esc": {
+          "enabled": false
+        }
+      }
+    }
+  }
+}
