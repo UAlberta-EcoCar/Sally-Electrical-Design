@@ -1084,16 +1084,6 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 114.3) (xy 86.36 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "189449d1-0d16-41b0-986d-d8f9965ffe11")
-	)
-	(wire
-		(pts
 			(xy 233.68 71.12) (xy 233.68 73.66)
 		)
 		(stroke
@@ -1204,16 +1194,6 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 111.76) (xy 63.5 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f3b1a7c-e021-43f3-853e-97988a08010a")
-	)
-	(wire
-		(pts
 			(xy 60.96 66.04) (xy 66.04 66.04)
 		)
 		(stroke
@@ -1294,16 +1274,6 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 109.22) (xy 60.96 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a9e60fd5-bb18-4262-b063-e018cf1e7036")
-	)
-	(wire
-		(pts
 			(xy 144.78 147.32) (xy 148.59 147.32)
 		)
 		(stroke
@@ -1311,16 +1281,6 @@
 			(type default)
 		)
 		(uuid "b2615e7e-5a62-49a7-bc90-6148cc391e63")
-	)
-	(wire
-		(pts
-			(xy 86.36 111.76) (xy 86.36 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c63509ec-96b9-4ff3-8508-344943342d8b")
 	)
 	(wire
 		(pts
@@ -1391,6 +1351,26 @@
 			(type default)
 		)
 		(uuid "ee8b2ad7-4283-4ca6-a40e-102759758b2c")
+	)
+	(wire
+		(pts
+			(xy 60.96 119.38) (xy 66.04 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0030fc3-3114-4460-913e-971820a0753b")
+	)
+	(wire
+		(pts
+			(xy 60.96 121.92) (xy 66.04 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7e535e6-a8e6-45da-bab4-0e6cbcea9c5f")
 	)
 	(wire
 		(pts
@@ -1475,17 +1455,6 @@
 		)
 		(uuid "63e4cc82-e25f-495c-8124-516710705104")
 	)
-	(label "FT_3V3"
-		(at 86.36 111.76 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "86a76fb4-5774-4bfd-90c6-374dca0d189e")
-	)
 	(label "CAN_TXD_SYS"
 		(at 144.78 142.24 180)
 		(fields_autoplaced yes)
@@ -1519,7 +1488,7 @@
 		)
 		(uuid "b979d0cb-37ba-43d0-8d64-6c0866c18734")
 	)
-	(hierarchical_label "RTMI_MOSI"
+	(hierarchical_label "FT_SPI_RTMI_MOSI"
 		(shape input)
 		(at 66.04 55.88 0)
 		(fields_autoplaced yes)
@@ -1531,7 +1500,7 @@
 		)
 		(uuid "0965aa6d-4822-4e54-bcfc-56ca3e2bca17")
 	)
-	(hierarchical_label "RTMI_SCK"
+	(hierarchical_label "FT_SPI_RTMI_SCK"
 		(shape input)
 		(at 66.04 58.42 0)
 		(fields_autoplaced yes)
@@ -1543,7 +1512,31 @@
 		)
 		(uuid "52bfd4d2-3d27-4b2f-bed4-e8a9322fa2e0")
 	)
-	(hierarchical_label "USB_TXD"
+	(hierarchical_label "USB_D-"
+		(shape input)
+		(at 66.04 121.92 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5a639d2f-bc34-445f-becd-f7537d00c3fc")
+	)
+	(hierarchical_label "USB_D+"
+		(shape input)
+		(at 66.04 119.38 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7ea12ff5-91c1-4a97-96be-22ea626a8883")
+	)
+	(hierarchical_label "FT_SPI_RTMI_GPIO0"
 		(shape input)
 		(at 66.04 63.5 0)
 		(fields_autoplaced yes)
@@ -1555,31 +1548,7 @@
 		)
 		(uuid "9bc93dd9-6260-4643-a324-757e86db23aa")
 	)
-	(hierarchical_label "USB_SERIAL_RXD"
-		(shape input)
-		(at 63.5 111.76 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a041ac89-8a59-4bae-8709-405c31c9d0b1")
-	)
-	(hierarchical_label "USB_SERIAL_TXD"
-		(shape input)
-		(at 63.5 109.22 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a194422e-38c7-4bcd-bc9c-1ba6125d7f71")
-	)
-	(hierarchical_label "FT_SPI_RTMI_GPIO0"
+	(hierarchical_label "FT_SPI_RTMI_GPIO1"
 		(shape input)
 		(at 66.04 66.04 0)
 		(fields_autoplaced yes)
@@ -1591,7 +1560,7 @@
 		)
 		(uuid "b6f1d3e0-09de-4dda-9092-3a78d6af056e")
 	)
-	(hierarchical_label "FT_SPI_RTMI_GPIO1"
+	(hierarchical_label "FT_SPI_RTMI_SS"
 		(shape input)
 		(at 66.04 68.58 0)
 		(fields_autoplaced yes)
@@ -1615,7 +1584,7 @@
 		)
 		(uuid "c75fc6da-ec27-4bd4-bd20-8ad3808fa10d")
 	)
-	(hierarchical_label "RTMI_MISO"
+	(hierarchical_label "FT_SPI_RTMI_MISO"
 		(shape input)
 		(at 66.04 60.96 0)
 		(fields_autoplaced yes)
@@ -2452,35 +2421,25 @@
 				(hide yes)
 			)
 		)
-		(pin "3V3OUT" input
-			(at 60.96 114.3 0)
+		(pin "USB_D+" input
+			(at 60.96 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "02f9a965-3be1-45f2-a2a5-57dc18010da0")
+			(uuid "f7ba96c1-5375-40d1-870b-7b519b14bac5")
 		)
-		(pin "FT_RXD" input
-			(at 60.96 111.76 0)
+		(pin "USB_D-" input
+			(at 60.96 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "a6448355-8a00-4b4d-917b-4162bf1c5c1f")
-		)
-		(pin "FT_TXD" input
-			(at 60.96 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "c8fac6e7-cb2a-490e-9e7e-baf660399aef")
+			(uuid "beb03db0-d7ae-4f6a-a927-03a394b3f1fc")
 		)
 		(instances
 			(project "Motor Controller"
