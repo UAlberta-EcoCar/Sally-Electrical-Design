@@ -553,9 +553,9 @@
         "name": "Power",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.16,
-        "via_diameter": 0.6,
-        "via_drill": 0.3,
+        "track_width": 0.5,
+        "via_diameter": 0.8,
+        "via_drill": 0.5,
         "wire_width": 6
       }
     ],
@@ -570,8 +570,11 @@
       "/Motor Gate Driver/COIL_{U}": "rgb(234, 32, 39)",
       "/Motor Gate Driver/COIL_{V}": "rgb(163, 203, 56)",
       "/Motor Gate Driver/COIL_{W}": "rgb(6, 82, 221)",
+      "/Motor Gate Driver/Coil Drive U/COIL_{U}": "rgb(234, 32, 39)",
       "/Motor Gate Driver/Coil Drive U/V_{SENSE, U, 1}": "rgb(234, 32, 39)",
+      "/Motor Gate Driver/Coil Drive V/COIL_{V}": "rgb(163, 203, 56)",
       "/Motor Gate Driver/Coil Drive V/V_{SENSE, V, 1}": "rgb(163, 203, 56)",
+      "/Motor Gate Driver/Coil Drive W/COIL_{W}": "rgb(6, 82, 221)",
       "/Motor Gate Driver/Coil Drive W/VD+": "rgb(6, 82, 221)",
       "/Motor Gate Driver/Coil Drive W/V_{SENSE, W}": "rgb(6, 82, 221)",
       "/Power Delivery/IN_SYS": "rgb(116, 200, 255)",
@@ -613,6 +616,18 @@
       {
         "netclass": "Digital",
         "pattern": "/PWM_UX1_H"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "GND"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "+5V"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "+3V3"
       }
     ]
   },

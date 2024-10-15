@@ -494,6 +494,140 @@
 				)
 			)
 		)
+		(symbol "Connector:Screw_Terminal_01x01"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Screw_Terminal_01x01"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "screw terminal"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TerminalBlock*:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Screw_Terminal_01x01_1_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -1.27)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.5334 0.3302) (xy 0.3302 -0.508)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.3556 0.508) (xy 0.508 -0.3302)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 0)
+					(radius 0.635)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:C"
 			(pin_numbers hide)
 			(pin_names
@@ -2217,6 +2351,12 @@
 		(uuid "113a4bbb-87a6-4919-abe1-28c2ace08881")
 	)
 	(junction
+		(at 165.1 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "23167621-1dba-4fbe-bb09-4c0f65f7bbb6")
+	)
+	(junction
 		(at 46.99 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2263,12 +2403,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "739a888b-cd6f-47fc-b2e8-9db029515859")
-	)
-	(junction
-		(at 166.37 96.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "74c7428a-30f1-40d0-91a6-29ce6e559259")
 	)
 	(junction
 		(at 215.9 124.46)
@@ -2784,6 +2918,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 96.52) (xy 170.18 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36060161-3b2d-4e02-9791-23c72e6b8a45")
+	)
+	(wire
+		(pts
 			(xy 256.54 144.78) (xy 256.54 147.32)
 		)
 		(stroke
@@ -2851,16 +2995,6 @@
 			(type default)
 		)
 		(uuid "47ee282c-81fa-4a4a-b44e-e4b31a03c279")
-	)
-	(wire
-		(pts
-			(xy 153.67 38.1) (xy 161.29 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4851133a-a5d9-4bc1-8056-e9abb6b5213a")
 	)
 	(wire
 		(pts
@@ -3054,7 +3188,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 92.71) (xy 166.37 96.52)
+			(xy 165.1 92.71) (xy 165.1 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3404,7 +3538,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 96.52) (xy 166.37 96.52)
+			(xy 160.02 96.52) (xy 165.1 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3491,16 +3625,6 @@
 			(type default)
 		)
 		(uuid "b620ce1e-181b-42c5-8977-80a7c63c4b6b")
-	)
-	(wire
-		(pts
-			(xy 153.67 35.56) (xy 161.29 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b852084d-f478-4248-9ded-5475022f019d")
 	)
 	(wire
 		(pts
@@ -3621,16 +3745,6 @@
 			(type default)
 		)
 		(uuid "cc3fe2bf-c899-416c-a8fa-b3dcdec1afce")
-	)
-	(wire
-		(pts
-			(xy 166.37 96.52) (xy 172.72 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cddf28fb-17de-4425-b7b6-b23c99f9086f")
 	)
 	(wire
 		(pts
@@ -4081,17 +4195,6 @@
 		)
 		(uuid "5fd4e68f-0317-4d4c-8e66-2d88d62a05ec")
 	)
-	(label "V_{SENSE, W, BUFFERED}"
-		(at 161.29 35.56 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "60f2fa2f-ca06-4e6f-b7ec-3568305c5e4f")
-	)
 	(label "VD+"
 		(at 134.62 88.9 180)
 		(fields_autoplaced yes)
@@ -4114,19 +4217,8 @@
 		)
 		(uuid "7662d0b6-59d2-4870-8c31-d525623c08f1")
 	)
-	(label "I_{W, BUFFERED}"
-		(at 161.29 38.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7dfe833d-1793-4494-96ed-81578c46d205")
-	)
 	(label "COIL_{W}"
-		(at 166.37 92.71 0)
+		(at 165.1 92.71 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4157,17 +4249,6 @@
 			(justify right bottom)
 		)
 		(uuid "8ea828bc-90f8-4e0e-94b4-4a04f59add89")
-	)
-	(label "V_{SENSE, W, BUFFERED}"
-		(at 260.35 69.85 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8ef94d18-481b-4727-8e62-10e0429e4263")
 	)
 	(label "W"
 		(at 46.99 95.25 0)
@@ -4246,17 +4327,6 @@
 		)
 		(uuid "f9a1bd66-5004-46b7-8d5a-8735c0d1b01b")
 	)
-	(label "I_{W, BUFFERED}"
-		(at 260.35 100.33 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ffd8931c-4fff-4ed3-93cd-3e4f1ad15333")
-	)
 	(global_label "REF_2.5"
 		(shape input)
 		(at 248.92 156.21 0)
@@ -4323,21 +4393,9 @@
 			)
 		)
 	)
-	(hierarchical_label "V_{SENSE,_W,_BUFFERED}"
-		(shape bidirectional)
-		(at 153.67 35.56 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "0ebf4508-97f0-49cc-a4dc-db5ffca29970")
-	)
-	(hierarchical_label "COIL_{W}"
-		(shape input)
-		(at 172.72 96.52 0)
+	(hierarchical_label "I_{W,_BUFFERED}"
+		(shape output)
+		(at 260.35 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4345,19 +4403,19 @@
 			)
 			(justify left)
 		)
-		(uuid "47bbdae0-3355-44ea-8b22-6272b223451a")
+		(uuid "28a679b7-d127-40db-9959-9e6523dca897")
 	)
-	(hierarchical_label "I_{W, BUFFERED}"
-		(shape bidirectional)
-		(at 153.67 38.1 180)
+	(hierarchical_label "V_{SENSE,_W,_BUFFERED}"
+		(shape output)
+		(at 260.35 69.85 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
-		(uuid "576cd4a7-5c56-40cd-8f47-b433d80d4b7f")
+		(uuid "28f232ed-0e2a-48df-bce7-68896d71f9a4")
 	)
 	(hierarchical_label "W"
 		(shape bidirectional)
@@ -8316,6 +8374,73 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/c39e9a42-301a-4d13-bc72-bf7c010c94d6/81b46ac7-8e96-42db-8f57-146d75d2a4c9"
 					(reference "FB13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x01")
+		(at 175.26 96.52 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e4557536-5095-46f8-8b14-ad66b5eaea9f")
+		(property "Reference" "J17"
+			(at 177.8 95.2499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "COIL_{W}"
+			(at 177.8 97.7899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:KEYSTONE_7691"
+			(at 175.26 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 175.26 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 175.26 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a9728fa5-2ef7-4a6b-ada0-eec01195f649")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/c39e9a42-301a-4d13-bc72-bf7c010c94d6/81b46ac7-8e96-42db-8f57-146d75d2a4c9"
+					(reference "J17")
 					(unit 1)
 				)
 			)
