@@ -211,6 +211,140 @@
 				)
 			)
 		)
+		(symbol "Connector:Screw_Terminal_01x01"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Screw_Terminal_01x01"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "screw terminal"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TerminalBlock*:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Screw_Terminal_01x01_1_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -1.27)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.5334 0.3302) (xy 0.3302 -0.508)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.3556 0.508) (xy 0.508 -0.3302)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 0)
+					(radius 0.635)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector:Screw_Terminal_01x02"
 			(pin_names
 				(offset 1.016) hide)
@@ -3476,6 +3610,12 @@
 		(uuid "89340c6f-76c0-4836-a578-a83640db970f")
 	)
 	(junction
+		(at 30.48 30.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8a8dbb6c-69a1-4a9c-86e5-672ab1333673")
+	)
+	(junction
 		(at 109.22 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4337,6 +4477,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 30.48) (xy 49.53 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90a0ca5a-783b-435d-b092-0595fd912cbc")
+	)
+	(wire
+		(pts
 			(xy 205.74 119.38) (xy 205.74 121.92)
 		)
 		(stroke
@@ -4759,7 +4909,7 @@
 	)
 	(wire
 		(pts
-			(xy 27.94 30.48) (xy 49.53 30.48)
+			(xy 27.94 30.48) (xy 30.48 30.48)
 		)
 		(stroke
 			(width 0)
@@ -12214,7 +12364,7 @@
 		(uuid "84aed5dc-7680-4034-b83c-c7fc0269f0d6")
 	)
 	(label "Motor Supply Unprotected"
-		(at 29.21 30.48 0)
+		(at 34.29 30.48 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14457,6 +14607,73 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
 					(reference "#PWR070")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x01")
+		(at 30.48 25.4 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7e1f0a2b-5316-4f14-a63e-74ebb77563fb")
+		(property "Reference" "J19"
+			(at 33.02 24.1299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "GND"
+			(at 33.02 26.6699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:KEYSTONE_7691"
+			(at 30.48 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 30.48 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "74edb621-d8c9-4d2f-a4be-45aff9cf1abd")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
+					(reference "J19")
 					(unit 1)
 				)
 			)
@@ -16836,7 +17053,8 @@
 	)
 	(symbol
 		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 22.86 33.02 180)
+		(at 22.86 30.48 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16844,7 +17062,7 @@
 		(dnp no)
 		(uuid "ee2fbd1f-4676-448d-b457-bba75cf12b0a")
 		(property "Reference" "J9"
-			(at 24.892 23.876 0)
+			(at 24.13 18.796 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16852,7 +17070,7 @@
 			)
 		)
 		(property "Value" "Motor Supply Input"
-			(at 24.892 26.416 0)
+			(at 24.13 21.336 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16860,7 +17078,7 @@
 			)
 		)
 		(property "Footprint" "ecocad_lib_footprints:PHOENIX_1017503"
-			(at 22.86 33.02 0)
+			(at 22.86 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16869,7 +17087,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 22.86 33.02 0)
+			(at 22.86 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16878,7 +17096,7 @@
 			)
 		)
 		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 22.86 33.02 0)
+			(at 22.86 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16887,7 +17105,7 @@
 			)
 		)
 		(property "LCSC Part#" ""
-			(at 22.86 33.02 0)
+			(at 22.86 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
