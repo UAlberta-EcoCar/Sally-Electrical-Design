@@ -10,6 +10,126 @@
 		(company "University of Alberta EcoCar Team")
 	)
 	(lib_symbols
+		(symbol "Connector:Conn_01x01_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x01_Socket"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x01, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x01_Socket_1_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector:Screw_Terminal_01x01"
 			(pin_names
 				(offset 1.016) hide)
@@ -3668,12 +3788,6 @@
 		(uuid "2a5c95e1-ea5d-4364-8692-0b2e5bea78bb")
 	)
 	(junction
-		(at 238.76 134.62)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "30cc6d9a-8ac6-498e-8e92-d7357bfcc86f")
-	)
-	(junction
 		(at 88.9 144.78)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4244,7 +4358,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 132.08) (xy 144.78 132.08)
+			(xy 139.7 132.08) (xy 160.02 132.08)
 		)
 		(stroke
 			(width 0)
@@ -4351,6 +4465,16 @@
 			(type default)
 		)
 		(uuid "47218dd7-3fc9-43f7-9a46-a233237715c6")
+	)
+	(wire
+		(pts
+			(xy 213.36 160.02) (xy 205.74 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48a9c52e-7167-4ecb-a22d-da3a8da6e893")
 	)
 	(wire
 		(pts
@@ -4514,7 +4638,7 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 132.08) (xy 238.76 134.62)
+			(xy 238.76 129.54) (xy 238.76 134.62)
 		)
 		(stroke
 			(width 0)
@@ -4664,7 +4788,7 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 119.38) (xy 238.76 124.46)
+			(xy 238.76 119.38) (xy 238.76 121.92)
 		)
 		(stroke
 			(width 0)
@@ -4785,6 +4909,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 185.42) (xy 127 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90e070e7-9229-4ee9-b2e8-ec80afaae7ed")
+	)
+	(wire
+		(pts
 			(xy 205.74 119.38) (xy 205.74 121.92)
 		)
 		(stroke
@@ -4852,16 +4986,6 @@
 			(type default)
 		)
 		(uuid "96861925-9319-45b4-8e1a-8f626b3db4bf")
-	)
-	(wire
-		(pts
-			(xy 238.76 134.62) (xy 243.84 134.62)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9813b6d7-7f4e-4a78-b868-a6a50f87be16")
 	)
 	(wire
 		(pts
@@ -5487,7 +5611,7 @@
 	)
 	(polyline
 		(pts
-			(xy 98.806 183.388) (xy 148.971 183.388)
+			(xy 98.806 175.133) (xy 148.971 175.133)
 		)
 		(stroke
 			(width 0.5)
@@ -5495,6 +5619,16 @@
 			(color 255 153 0 1)
 		)
 		(uuid "ef834a29-fd77-4065-9d0c-b29edb8995e5")
+	)
+	(wire
+		(pts
+			(xy 205.74 160.02) (xy 205.74 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f04ba772-952c-4fb6-a39e-9c86da917230")
 	)
 	(polyline
 		(pts
@@ -14006,7 +14140,7 @@
 	)
 	(text "OVLO, UVLO and Reverse Current and Polarity Protection with Power Limit"
 		(exclude_from_sim no)
-		(at 170.688 185.42 0)
+		(at 170.688 177.165 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14087,7 +14221,7 @@
 	)
 	(text "TPS2663 Industrial E-Fuse"
 		(exclude_from_sim no)
-		(at 130.81 181.61 0)
+		(at 130.81 173.355 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -14131,18 +14265,7 @@
 		)
 		(uuid "3ea4392f-2c23-4ee6-965a-c591a4edc2a6")
 	)
-	(label "MC_Low_Side_Fault"
-		(at 220.98 149.86 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "444a796a-375a-40a6-8b1d-5c54934911b2")
-	)
-	(label "MC_Low_Side_Fault"
+	(label "~{Low Side Fault}"
 		(at 144.78 132.08 0)
 		(fields_autoplaced yes)
 		(effects
@@ -14152,6 +14275,17 @@
 			(justify left bottom)
 		)
 		(uuid "4a77bf38-7d06-48af-8ef8-9bb5447923a0")
+	)
+	(label "~{Low Side Fault}"
+		(at 220.98 149.86 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "69157365-3d5a-4924-802f-00b56c8f8753")
 	)
 	(label "IN_SYS"
 		(at 78.74 144.78 180)
@@ -14185,6 +14319,28 @@
 			(justify left bottom)
 		)
 		(uuid "960312c5-0977-4b67-97e3-9e9732196702")
+	)
+	(label "Motor_Controller_Power_Good"
+		(at 205.74 157.48 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c37f7454-38f2-49d0-bd51-0a7ae6bf6fea")
+	)
+	(label "Low Power Current Monitor"
+		(at 124.46 185.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ca9dddbd-e3df-4be6-b78c-285480268802")
 	)
 	(label "IN_SYS"
 		(at 127 111.76 180)
@@ -14263,18 +14419,6 @@
 			)
 		)
 	)
-	(hierarchical_label "Motor Controller Power Good"
-		(shape output)
-		(at 205.74 157.48 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "0636c1ab-f665-414e-bad9-9344dc85963f")
-	)
 	(hierarchical_label "External Power Stage Enable"
 		(shape input)
 		(at 73.66 76.2 180)
@@ -14298,30 +14442,6 @@
 			(justify left)
 		)
 		(uuid "3957a893-2757-4c4c-97b7-5cccf800b55a")
-	)
-	(hierarchical_label "Montor Controller Low Side Fault"
-		(shape output)
-		(at 243.84 134.62 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4f9e4578-49bc-4c60-ace3-09d9abfd44b7")
-	)
-	(hierarchical_label "Extrernal Motor Controller Enable"
-		(shape input)
-		(at 50.8 185.42 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "d2c75122-f994-48dd-ad5d-76fe354bb1fe")
 	)
 	(symbol
 		(lib_id "Device:C_Polarized")
@@ -14496,6 +14616,72 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
 					(reference "U45")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x01_Socket")
+		(at 165.1 132.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1d93260f-c84b-4732-b9c1-cfc420b993e6")
+		(property "Reference" "J27"
+			(at 155.702 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01_Socket"
+			(at 155.702 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 165.1 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 165.1 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3b809a0e-9ae1-441d-bbc4-0fb969716888")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
+					(reference "J27")
 					(unit 1)
 				)
 			)
@@ -15379,7 +15565,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 238.76 128.27 0)
+		(at 238.76 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15387,7 +15573,7 @@
 		(dnp no)
 		(uuid "4540d372-89c1-4b88-970f-66366bbb78e0")
 		(property "Reference" "R4"
-			(at 243.332 127 0)
+			(at 243.332 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15396,7 +15582,7 @@
 			)
 		)
 		(property "Value" "24k"
-			(at 243.332 129.54 0)
+			(at 243.332 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15405,7 +15591,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 236.982 128.27 90)
+			(at 236.982 125.73 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15414,7 +15600,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 238.76 128.27 0)
+			(at 238.76 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15423,7 +15609,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 238.76 128.27 0)
+			(at 238.76 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15432,7 +15618,7 @@
 			)
 		)
 		(property "LCSC Part#" ""
-			(at 238.76 128.27 0)
+			(at 238.76 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17535,6 +17721,72 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x01_Socket")
+		(at 218.44 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "946746a9-49ca-48dd-9a3a-6d15fdd10511")
+		(property "Reference" "J29"
+			(at 189.992 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01_Socket"
+			(at 189.992 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 218.44 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 218.44 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 218.44 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7cca76fd-c5bb-450f-85b3-2e624b38fdb9")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
+					(reference "J29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Power_Management:TPS26631PWP")
 		(at 127 132.08 0)
 		(unit 1)
@@ -18137,6 +18389,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x01_Socket")
+		(at 132.08 185.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a33da586-87bc-425a-a44e-ef8aa3860b6c")
+		(property "Reference" "J25"
+			(at 133.35 184.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01_Socket"
+			(at 133.35 186.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 132.08 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 132.08 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 132.08 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1ce658a3-f545-4f48-a2ff-d2f529d81afe")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
+					(reference "J25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "NTMFS4D0N08XT1G_1")
 		(lib_id "ecocad_lib_symbols:NTMFS4D0N08XT1G")
 		(at 127 17.78 270)
@@ -18489,6 +18808,73 @@
 			(project "Motor Controller"
 				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
 					(reference "#PWR063")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x01_Socket")
+		(at 55.88 185.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ba9d78d5-656e-4775-9f46-f64df7ab2e09")
+		(property "Reference" "J13"
+			(at 57.15 184.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01_Socket"
+			(at 57.15 186.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 55.88 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 55.88 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 55.88 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "61f15df9-8c70-41fd-bd7d-13b742b24dda")
+		)
+		(instances
+			(project ""
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383/6ad1cc71-da87-4814-be84-3c7a7f59eef6"
+					(reference "J13")
 					(unit 1)
 				)
 			)
