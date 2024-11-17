@@ -814,126 +814,6 @@
 				)
 			)
 		)
-		(symbol "RF_Parts:+12V_UP"
-			(power)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+12V_UP"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+12V\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+12V_UP_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+12V_UP_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0) hide
-					(name "+12V"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Regulator_Linear:AZ1084-3.3"
 			(pin_names
 				(offset 0.254)
@@ -2415,6 +2295,18 @@
 		)
 		(uuid "feecb8f2-311b-4812-8781-40f3ef88dbeb")
 	)
+	(hierarchical_label "FuseIn_UnProtected"
+		(shape input)
+		(at 35.56 30.48 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "dff736b2-06c8-4e8d-80e4-d1e784418f69")
+	)
 	(symbol
 		(lib_id "power:GND")
 		(at 205.74 55.88 0)
@@ -2972,7 +2864,7 @@
 			(uuid "d987d5e9-923a-45d3-b87d-b24dcddfe69e")
 		)
 		(instances
-			(project ""
+			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/c1b98ccd-3646-442b-8cc5-bb6df45c2478"
 					(reference "#PWR05")
 					(unit 1)
@@ -3394,7 +3286,7 @@
 			(uuid "ba6e6799-7a20-4ad4-976c-8cdc024ed5e1")
 		)
 		(instances
-			(project ""
+			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/c1b98ccd-3646-442b-8cc5-bb6df45c2478"
 					(reference "U1")
 					(unit 1)
@@ -4804,72 +4696,6 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/c1b98ccd-3646-442b-8cc5-bb6df45c2478"
 					(reference "#PWR018")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "RF_Parts:+12V_UP")
-		(at 35.56 30.48 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e64d5c41-8322-41f2-98ca-da6aaa5186f8")
-		(property "Reference" "#PWR015"
-			(at 35.56 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+7V"
-			(at 35.56 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 35.56 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 35.56 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 35.56 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f02a470c-220a-4582-a1ed-f447518943c3")
-		)
-		(instances
-			(project "RF-Board-V1-2024"
-				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/c1b98ccd-3646-442b-8cc5-bb6df45c2478"
-					(reference "#PWR015")
 					(unit 1)
 				)
 			)
