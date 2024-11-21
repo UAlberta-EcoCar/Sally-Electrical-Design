@@ -58,6 +58,34 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 #define VDDA_APPLi 3300
+#define RST_868_Pin GPIO_PIN_13
+#define RST_868_GPIO_Port GPIOA
+#define DIO0_868_Pin GPIO_PIN_14
+#define DIO0_868_GPIO_Port GPIOA
+#define DIO1_868_Pin GPIO_PIN_15
+#define DIO1_868_GPIO_Port GPIOA
+#define DIO2_868_Pin GPIO_PIN_10
+#define DIO2_868_GPIO_Port GPIOC
+#define DIO3_868_Pin GPIO_PIN_11
+#define DIO3_868_GPIO_Port GPIOC
+#define DIO4_868_Pin GPIO_PIN_12
+#define DIO4_868_GPIO_Port GPIOC
+#define DIO5_868_Pin GPIO_PIN_2
+#define DIO5_868_GPIO_Port GPIOD
+#define RST_915_Pin GPIO_PIN_3
+#define RST_915_GPIO_Port GPIOB
+#define DIO0_915_Pin GPIO_PIN_4
+#define DIO0_915_GPIO_Port GPIOB
+#define DIO1_915_Pin GPIO_PIN_5
+#define DIO1_915_GPIO_Port GPIOB
+#define DIO2_915_Pin GPIO_PIN_6
+#define DIO2_915_GPIO_Port GPIOB
+#define DIO3_915_Pin GPIO_PIN_7
+#define DIO3_915_GPIO_Port GPIOB
+#define DIO4_915_Pin GPIO_PIN_8
+#define DIO4_915_GPIO_Port GPIOB
+#define DIO5_915_Pin GPIO_PIN_9
+#define DIO5_915_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
