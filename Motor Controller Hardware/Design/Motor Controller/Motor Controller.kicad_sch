@@ -939,16 +939,6 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 146.05) (xy 50.8 146.05)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b8e85e05-94da-415c-9a05-e231185fb3a5")
-	)
-	(wire
-		(pts
 			(xy 53.34 156.21) (xy 50.8 156.21)
 		)
 		(stroke
@@ -1106,6 +1096,16 @@
 			(type default)
 		)
 		(uuid "ede95bc6-97dc-4085-84ca-4428d51d6ff6")
+	)
+	(wire
+		(pts
+			(xy 83.82 68.58) (xy 86.36 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee216595-223a-4876-a36c-c97470843192")
 	)
 	(wire
 		(pts
@@ -1301,6 +1301,17 @@
 		)
 		(uuid "08e28c47-26da-4454-9dd1-8b274a47e7f9")
 	)
+	(label "EXT_NRST_Controllers"
+		(at 137.16 68.58 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1045367e-2b5d-44ab-b6a5-1792a8fd242f")
+	)
 	(label "I_{W,_BUFFERED}"
 		(at 83.82 83.82 180)
 		(fields_autoplaced yes)
@@ -1411,6 +1422,17 @@
 		)
 		(uuid "27580f1a-bf18-4b6a-b136-0758fe0e046b")
 	)
+	(label "EXT_NRST_Controllers"
+		(at 83.82 68.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2aa2b406-3d26-49db-a15c-1961c4bdeaee")
+	)
 	(label "PWM_VX2_L_A"
 		(at 185.42 93.98 180)
 		(fields_autoplaced yes)
@@ -1422,7 +1444,7 @@
 		)
 		(uuid "2b52e025-2ece-4796-8842-e0be59790b4e")
 	)
-	(label "EXT_NRST_Controller_A"
+	(label "EXT_NRST_Controllers"
 		(at 53.34 153.67 0)
 		(fields_autoplaced yes)
 		(effects
@@ -1598,7 +1620,7 @@
 		)
 		(uuid "5b1c8eec-3841-4260-806d-1a6efb7fafe5")
 	)
-	(label "EXT_NRST_Controller_A"
+	(label "EXT_NRST_Controllers"
 		(at 185.42 152.4 180)
 		(fields_autoplaced yes)
 		(effects
@@ -1928,17 +1950,6 @@
 		)
 		(uuid "aca51d51-984b-468d-8b68-73d5ab347fc5")
 	)
-	(label "EXT_NRST_Controller_B_IN"
-		(at 53.34 146.05 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ad4b708b-c552-4120-99ca-e612baed54d7")
-	)
 	(label "GATE_DRIVER_FAULT_OUT"
 		(at 121.92 149.86 0)
 		(fields_autoplaced yes)
@@ -2059,17 +2070,6 @@
 			(justify right bottom)
 		)
 		(uuid "beabc201-fea0-43c3-b0cd-924fc1ed1c01")
-	)
-	(label "EXT_NRST_Controller_B_IN"
-		(at 137.16 68.58 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c2dafd3d-a30e-4c03-af35-f702db3b0585")
 	)
 	(label "PWM_WY1_H_A"
 		(at 248.92 153.67 180)
@@ -3519,16 +3519,6 @@
 				(justify left top)
 			)
 		)
-		(pin "EXT_NRST_Controller_A_IN" input
-			(at 50.8 153.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "753faccd-7136-4ef3-8412-aa851adb749c")
-		)
 		(pin "EXT_DRV_EN_IN" input
 			(at 50.8 156.21 0)
 			(effects
@@ -3549,16 +3539,6 @@
 			)
 			(uuid "ccedc1d2-ca80-4a3d-b99c-74f62912f6ee")
 		)
-		(pin "EXT_NRST_Controller_B_IN" input
-			(at 50.8 146.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "7bda153c-f125-45ea-b52b-c57570dd828e")
-		)
 		(pin "CONTROLLER_STATUS_OUT" input
 			(at 50.8 160.02 0)
 			(effects
@@ -3578,6 +3558,16 @@
 				(justify right)
 			)
 			(uuid "db696b4c-c92e-4485-bd29-2fb48ab1f87f")
+		)
+		(pin "EXT_NRST_Controllers" input
+			(at 50.8 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "917e8b2d-6ab5-4c95-901d-56d670c3e1a0")
 		)
 		(instances
 			(project "Motor Controller"
@@ -3966,6 +3956,16 @@
 				(justify left)
 			)
 			(uuid "21449242-1bfc-4827-9839-ae0db5061ced")
+		)
+		(pin "Controller_A_RESET_OUT" output
+			(at 86.36 68.58 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "ab75b1cc-8593-4ce9-8fd3-95c9263f41f3")
 		)
 		(instances
 			(project "Motor Controller"
