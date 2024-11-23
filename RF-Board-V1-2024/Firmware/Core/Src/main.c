@@ -339,20 +339,20 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, NSS_915_Pin|NSS_868_Pin|NSS_915C4_Pin|NSS_868C5_Pin
-                          |DIO2_24_Pin|DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin
-                          |DIO4_868_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, NSS_915_Pin|NSS_868_Pin|TXEN_24_Pin|RXEN_24_Pin
+                          |XCLK_Pin|NSS_915C4_Pin|NSS_868C5_Pin|DIO2_24_Pin
+                          |DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin|DIO4_868_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|CAN_STBY_Pin
-                          |TXEN_24_Pin|RXEN_24_Pin|RST_915_Pin|DIO0_915_Pin
-                          |DIO1_915_Pin|DIO2_915_Pin|DIO3_915_Pin|DIO4_915_Pin
-                          |DIO5_915_Pin, GPIO_PIN_RESET);
+                          |RST_915_Pin|DIO0_915_Pin|DIO1_915_Pin|DIO2_915_Pin
+                          |DIO3_915_Pin|DIO4_915_Pin|DIO5_915_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, RST_24_Pin|RST_868_Pin|DIO0_868_Pin|DIO1_868_Pin, GPIO_PIN_RESET);
@@ -360,35 +360,55 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DIO5_868_GPIO_Port, DIO5_868_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : NSS_915_Pin NSS_868_Pin NSS_915C4_Pin NSS_868C5_Pin
-                           DIO2_24_Pin DIO1_24_Pin DIO2_868_Pin DIO3_868_Pin
-                           DIO4_868_Pin */
-  GPIO_InitStruct.Pin = NSS_915_Pin|NSS_868_Pin|NSS_915C4_Pin|NSS_868C5_Pin
-                          |DIO2_24_Pin|DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin
-                          |DIO4_868_Pin;
+  /*Configure GPIO pins : NSS_915_Pin NSS_868_Pin TXEN_24_Pin RXEN_24_Pin
+                           XCLK_Pin NSS_915C4_Pin NSS_868C5_Pin DIO2_24_Pin
+                           DIO1_24_Pin DIO2_868_Pin DIO3_868_Pin DIO4_868_Pin */
+  GPIO_InitStruct.Pin = NSS_915_Pin|NSS_868_Pin|TXEN_24_Pin|RXEN_24_Pin
+                          |XCLK_Pin|NSS_915C4_Pin|NSS_868C5_Pin|DIO2_24_Pin
+                          |DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin|DIO4_868_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : IMON_Pin DIO3_24_Pin */
+  GPIO_InitStruct.Pin = IMON_Pin|DIO3_24_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PF0 PF1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : FAULT_Pin */
+  GPIO_InitStruct.Pin = FAULT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(FAULT_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pins : NSS_24_Pin RST_GNSS_Pin EXTINT_GNSS_Pin CAN_STBY_Pin
-                           TXEN_24_Pin RXEN_24_Pin RST_915_Pin DIO0_915_Pin
-                           DIO1_915_Pin DIO2_915_Pin DIO3_915_Pin DIO4_915_Pin
-                           DIO5_915_Pin */
+                           RST_915_Pin DIO0_915_Pin DIO1_915_Pin DIO2_915_Pin
+                           DIO3_915_Pin DIO4_915_Pin DIO5_915_Pin */
   GPIO_InitStruct.Pin = NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|CAN_STBY_Pin
-                          |TXEN_24_Pin|RXEN_24_Pin|RST_915_Pin|DIO0_915_Pin
-                          |DIO1_915_Pin|DIO2_915_Pin|DIO3_915_Pin|DIO4_915_Pin
-                          |DIO5_915_Pin;
+                          |RST_915_Pin|DIO0_915_Pin|DIO1_915_Pin|DIO2_915_Pin
+                          |DIO3_915_Pin|DIO4_915_Pin|DIO5_915_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : DIO3_24_Pin */
-  GPIO_InitStruct.Pin = DIO3_24_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  /*Configure GPIO pins : PB14 PB15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(DIO3_24_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : BUSY_24_Pin */
   GPIO_InitStruct.Pin = BUSY_24_Pin;
