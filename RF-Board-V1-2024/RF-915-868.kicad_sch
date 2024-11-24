@@ -1340,6 +1340,139 @@
 				)
 			)
 		)
+		(symbol "Switch:SW_SPST"
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPST"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Single Pole Single Throw (SPST) switch"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch lever"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPST_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.254) (xy 1.524 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPST_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "ecocad_lib_symbols:RFPC-SMA29-F"
 			(pin_names
 				(offset 1.016)
@@ -1922,6 +2055,12 @@
 		(uuid "30d31300-3b0a-4b35-8323-539445d19385")
 	)
 	(junction
+		(at 208.28 133.35)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3f0bd011-4698-4501-aa56-0dfbda99ffa0")
+	)
+	(junction
 		(at 200.66 55.88)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2000,10 +2139,28 @@
 		(uuid "ba579387-0736-4dc6-8ac6-21eac8e00deb")
 	)
 	(junction
+		(at 101.6 132.08)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c8c9cb00-af52-44c7-a061-6e7da84f81c6")
+	)
+	(junction
+		(at 208.28 123.19)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "da80776e-bbf3-4685-93ec-2675ad079758")
+	)
+	(junction
 		(at 95.25 55.88)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "dc98c291-802c-442e-acf6-c3d114f60829")
+	)
+	(junction
+		(at 101.6 121.92)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eb26358d-00d9-49ac-867a-679b71d235e2")
 	)
 	(bus_entry
 		(at 86.36 57.15)
@@ -2215,6 +2372,56 @@
 	)
 	(wire
 		(pts
+			(xy 195.58 123.19) (xy 195.58 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "074e1d12-1b2a-4f17-b42b-f603140eaef4")
+	)
+	(wire
+		(pts
+			(xy 208.28 123.19) (xy 207.01 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "081883e2-121b-4be2-a215-76c5f2e9420e")
+	)
+	(wire
+		(pts
+			(xy 90.17 121.92) (xy 88.9 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0877bbb8-0de4-446e-84ba-840d8efc72bb")
+	)
+	(wire
+		(pts
+			(xy 208.28 123.19) (xy 208.28 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "091cb00d-0b18-470e-bef9-defa0fbf842f")
+	)
+	(wire
+		(pts
+			(xy 101.6 110.49) (xy 101.6 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0a388b98-13f5-4219-961d-5af10e09f14d")
+	)
+	(wire
+		(pts
 			(xy 54.61 29.21) (xy 63.5 29.21)
 		)
 		(stroke
@@ -2333,6 +2540,16 @@
 		)
 		(uuid "206a3e9c-b7b8-4ba4-a8f9-74bd4e50ae59")
 	)
+	(wire
+		(pts
+			(xy 196.85 123.19) (xy 195.58 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20e0ae60-5349-4faf-a550-f267d4d6ccd3")
+	)
 	(bus
 		(pts
 			(xy 142.24 54.61) (xy 142.24 57.15)
@@ -2352,6 +2569,16 @@
 			(type default)
 		)
 		(uuid "24c296bb-7453-4022-b744-c3d55cd522cf")
+	)
+	(wire
+		(pts
+			(xy 208.28 111.76) (xy 208.28 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25c2c717-43f4-462e-986e-02a5568bef79")
 	)
 	(bus
 		(pts
@@ -2412,6 +2639,16 @@
 			(type default)
 		)
 		(uuid "32a69151-e1a7-457f-a262-aef8b4f7c745")
+	)
+	(wire
+		(pts
+			(xy 101.6 130.81) (xy 101.6 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35058bd6-6706-404e-8ee5-61d0e9e511cd")
 	)
 	(wire
 		(pts
@@ -2575,6 +2812,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 121.92) (xy 100.33 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58144dec-4230-412f-9bba-31474689ad3a")
+	)
+	(wire
+		(pts
 			(xy 63.5 27.94) (xy 63.5 29.21)
 		)
 		(stroke
@@ -2602,6 +2849,16 @@
 			(type default)
 		)
 		(uuid "5eb782ae-b58d-44d1-a7b6-5492b27aa353")
+	)
+	(wire
+		(pts
+			(xy 208.28 120.65) (xy 208.28 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64c72c06-1d79-4f71-9f5e-eef4a93a80a9")
 	)
 	(wire
 		(pts
@@ -2663,6 +2920,16 @@
 		)
 		(uuid "6f81bc45-b1b1-4f41-8e82-c8b208e20f3b")
 	)
+	(wire
+		(pts
+			(xy 88.9 132.08) (xy 101.6 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70fc46cd-20c1-4380-aadd-ab36579e867b")
+	)
 	(bus
 		(pts
 			(xy 142.24 59.69) (xy 142.24 64.77)
@@ -2692,6 +2959,16 @@
 			(type default)
 		)
 		(uuid "78ff3ce4-49e8-4a57-91e0-69d7340371a7")
+	)
+	(wire
+		(pts
+			(xy 208.28 134.62) (xy 208.28 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7da0b776-41a6-4a43-a4ff-a17cc8360848")
 	)
 	(wire
 		(pts
@@ -2783,6 +3060,16 @@
 		)
 		(uuid "93c97529-98b7-4336-924b-b891ac88e482")
 	)
+	(wire
+		(pts
+			(xy 208.28 132.08) (xy 208.28 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "96fd6c90-2479-458c-90f6-9e6bd84d545d")
+	)
 	(bus
 		(pts
 			(xy 193.04 67.31) (xy 193.04 69.85)
@@ -2792,6 +3079,16 @@
 			(type default)
 		)
 		(uuid "995b7b72-4dbc-4b77-a089-1916a3b6115c")
+	)
+	(wire
+		(pts
+			(xy 101.6 133.35) (xy 101.6 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a2c224c-bd0d-4fdb-9474-54f281494deb")
 	)
 	(wire
 		(pts
@@ -2843,6 +3140,16 @@
 		)
 		(uuid "9ef5232b-2979-4375-880e-5dd8a7bd4d70")
 	)
+	(wire
+		(pts
+			(xy 101.6 121.92) (xy 101.6 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a07fc24e-405b-4dfa-9efd-97c782f7fee1")
+	)
 	(bus
 		(pts
 			(xy 88.9 57.15) (xy 88.9 59.69)
@@ -2872,6 +3179,16 @@
 			(type default)
 		)
 		(uuid "a56b9903-c609-4020-9de2-45154cef9da3")
+	)
+	(wire
+		(pts
+			(xy 101.6 119.38) (xy 101.6 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8a1f743-93c4-4b8a-ab99-ba1d9ab3ab47")
 	)
 	(wire
 		(pts
@@ -2932,6 +3249,16 @@
 			(type default)
 		)
 		(uuid "affb28a9-6042-4629-a987-3308b85f7958")
+	)
+	(wire
+		(pts
+			(xy 88.9 121.92) (xy 88.9 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b01ffd7d-7190-4057-a5a1-31a05181f1d2")
 	)
 	(wire
 		(pts
@@ -3172,6 +3499,16 @@
 			(type default)
 		)
 		(uuid "eaf83b70-f86a-46a7-837e-19b750e8c721")
+	)
+	(wire
+		(pts
+			(xy 195.58 133.35) (xy 208.28 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eed55fca-ea45-4586-bf43-d86270f81585")
 	)
 	(wire
 		(pts
@@ -3477,6 +3814,17 @@
 		)
 		(uuid "bcc62000-87b8-4881-b956-44abb4370b81")
 	)
+	(label "915.RST"
+		(at 101.6 121.92 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cc45f0f2-18f6-42c6-80b1-214fe866c7c4")
+	)
 	(label "868.NSS"
 		(at 123.19 111.76 0)
 		(fields_autoplaced yes)
@@ -3487,6 +3835,17 @@
 			(justify left bottom)
 		)
 		(uuid "db25bcdb-58e1-4c06-af78-d78c242a4388")
+	)
+	(label "868.RST"
+		(at 208.28 123.19 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e0a2d4da-c9e8-4cc7-ad23-860723b22f33")
 	)
 	(label "915.MISO"
 		(at 41.91 54.61 0)
@@ -3570,6 +3929,72 @@
 		(uuid "bb4af78e-2975-4201-aacb-949e6bf2169e")
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 101.6 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "02d3ac53-9718-4454-a60b-bb812aeb9bcf")
+		(property "Reference" "#PWR094"
+			(at 101.6 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 101.6 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 101.6 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ea59d3e3-9ac8-48d7-afca-8b1fc2d9143f")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "#PWR094")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 158.75 34.29 180)
 		(unit 1)
@@ -3587,7 +4012,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "100n"
 			(at 150.368 36.322 0)
 			(effects
 				(font
@@ -3596,7 +4021,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 157.7848 30.48 0)
 			(effects
 				(font
@@ -3615,6 +4040,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 158.75 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 158.75 34.29 0)
 			(effects
 				(font
@@ -3837,6 +4271,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 101.6 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "365cd30c-ca99-4e32-8bcd-e5ba50fe4e2f")
+		(property "Reference" "R28"
+			(at 104.14 114.2999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 104.14 116.8399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 99.822 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 101.6 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 101.6 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "bad6c111-7783-40bb-b569-a9466b15667d")
+		)
+		(pin "1"
+			(uuid "d7926272-fa18-4fda-8ad6-f958e175cc0a")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "R28")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:LED")
 		(at 123.19 128.27 90)
 		(unit 1)
@@ -3864,7 +4368,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 123.19 128.27 0)
 			(effects
 				(font
@@ -3891,6 +4395,15 @@
 				(hide yes)
 			)
 		)
+		(property "LSCS #" ""
+			(at 123.19 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7fc7ebbb-f36e-4815-90d1-7077f60e534e")
 		)
@@ -3901,6 +4414,72 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
 					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 208.28 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "49a19b1a-2a83-435b-9b53-b22e9fd2d19b")
+		(property "Reference" "#PWR076"
+			(at 208.28 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 208.28 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 208.28 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 208.28 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 208.28 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c334e1dd-7f16-4046-a163-1a5e7a63329c")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "#PWR076")
 					(unit 1)
 				)
 			)
@@ -3934,7 +4513,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "RF_Module:HOPERF_RFM9XW_THT"
+		(property "Footprint" "RF_Module:HOPERF_RFM9XW_SMD"
 			(at -20.32 15.24 0)
 			(effects
 				(font
@@ -3961,7 +4540,16 @@
 				(hide yes)
 			)
 		)
-		(property "LSCS #" " C2844478"
+		(property "LCSC #" " C2844478"
+			(at 63.5 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 63.5 57.15 0)
 			(effects
 				(font
@@ -4121,7 +4709,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
 			(at 121.412 118.11 90)
 			(effects
 				(font
@@ -4140,6 +4728,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 123.19 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 123.19 118.11 0)
 			(effects
 				(font
@@ -4199,7 +4796,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/6130/RFPC-SMA29-F.pdf"
 			(at 205.74 49.53 0)
 			(effects
 				(font
@@ -4257,6 +4854,15 @@
 				(hide yes)
 			)
 		)
+		(property "LSCS #" ""
+			(at 205.74 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "G1"
 			(uuid "18081a45-df2e-471a-854d-ea498e2f6b1b")
 		)
@@ -4309,7 +4915,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "RF_Module:HOPERF_RFM9XW_SMD"
 			(at 83.82 15.24 0)
 			(effects
 				(font
@@ -4336,7 +4942,25 @@
 				(hide yes)
 			)
 		)
-		(property "DK#" "1597-1488-ND"
+		(property "DK#" ""
+			(at 167.64 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DK #" "1597-1488-ND"
+			(at 167.64 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 167.64 57.15 0)
 			(effects
 				(font
@@ -4397,6 +5021,74 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
 					(reference "RF4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 95.25 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6f06e585-4b3e-413d-9d3c-f59b52698df6")
+		(property "Reference" "SW3"
+			(at 95.25 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 95.25 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx01_Slide_6.7x4.1mm_W6.73mm_P2.54mm_LowProfile_JPin"
+			(at 95.25 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 95.25 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 95.25 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "da7ff062-6953-493b-9610-f56be804dae1")
+		)
+		(pin "2"
+			(uuid "3690849e-e4e9-4640-99b0-c4d6e2700f0b")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "SW3")
 					(unit 1)
 				)
 			)
@@ -4495,7 +5187,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 30.7848 30.48 0)
 			(effects
 				(font
@@ -4522,6 +5214,15 @@
 				(hide yes)
 			)
 		)
+		(property "LSCS #" ""
+			(at 31.75 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d2313120-925f-494f-89d6-b4576680a81b")
 		)
@@ -4532,6 +5233,72 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
 					(reference "C16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 101.6 133.35 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7e402d7a-10c1-4f6a-a19a-8f4aa75f217b")
+		(property "Reference" "#PWR078"
+			(at 101.6 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 101.6 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 101.6 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c8db1347-b551-4651-b9d7-e384a3b794e7")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "#PWR078")
 					(unit 1)
 				)
 			)
@@ -4565,7 +5332,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 19.05 127 0)
 			(effects
 				(font
@@ -4584,6 +5351,15 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
+			(at 19.05 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 19.05 127 0)
 			(effects
 				(font
@@ -4635,7 +5411,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
 			(at 17.272 116.84 90)
 			(effects
 				(font
@@ -4654,6 +5430,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 19.05 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 19.05 116.84 0)
 			(effects
 				(font
@@ -4745,6 +5530,76 @@
 	)
 	(symbol
 		(lib_id "Device:C")
+		(at 208.28 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "97fc3468-077c-4527-809c-e12995fee923")
+		(property "Reference" "C45"
+			(at 212.09 126.9999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 212.09 129.5399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 209.2452 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 208.28 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 208.28 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1df7cd02-ed5c-4ffa-9aac-653e9594b076")
+		)
+		(pin "2"
+			(uuid "534fb2ef-4057-4f3a-b4b5-b49bbd746948")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "C45")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
 		(at 54.61 34.29 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4761,7 +5616,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "100n"
 			(at 46.228 36.322 0)
 			(effects
 				(font
@@ -4770,7 +5625,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 53.6448 30.48 0)
 			(effects
 				(font
@@ -4797,6 +5652,15 @@
 				(hide yes)
 			)
 		)
+		(property "LSCS #" ""
+			(at 54.61 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "62e07f50-939e-42d9-8422-c95c11f642b7")
 		)
@@ -4807,6 +5671,74 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
 					(reference "C19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 201.93 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a00751e4-848a-45c6-97f0-f4478cea262b")
+		(property "Reference" "SW6"
+			(at 201.93 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 201.93 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx01_Slide_6.7x4.1mm_W6.73mm_P2.54mm_LowProfile_JPin"
+			(at 201.93 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 201.93 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 201.93 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ee36aab7-8966-4aae-af6c-0dc4dda354f6")
+		)
+		(pin "2"
+			(uuid "10b196b1-3da9-47ba-b841-52f147e26a57")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "SW6")
 					(unit 1)
 				)
 			)
@@ -4848,7 +5780,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/6130/RFPC-SMA29-F.pdf"
 			(at 102.87 49.53 0)
 			(effects
 				(font
@@ -4903,6 +5835,15 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
+			(at 102.87 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -4991,6 +5932,142 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
 					(reference "#PWR032")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 208.28 134.62 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b874dd17-1d7f-4368-92a6-8bd74e39610a")
+		(property "Reference" "#PWR092"
+			(at 208.28 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 208.28 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 208.28 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 208.28 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 208.28 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "04bcd2c2-ae42-4f9e-a0cd-1b91ebaa14a8")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "#PWR092")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 101.6 127 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c9599dbc-0cf4-4a61-941f-5dec5730672d")
+		(property "Reference" "C38"
+			(at 105.41 125.7299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 105.41 128.2699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 102.5652 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 101.6 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 101.6 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1b2fd01e-100c-4d26-8065-44bbd2bdff14")
+		)
+		(pin "2"
+			(uuid "3517248b-215a-4d91-bdb4-da76b851290b")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "C38")
 					(unit 1)
 				)
 			)
@@ -5089,7 +6166,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 134.9248 30.48 0)
 			(effects
 				(font
@@ -5108,6 +6185,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 135.89 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 135.89 34.29 0)
 			(effects
 				(font
@@ -5353,6 +6439,15 @@
 				(hide yes)
 			)
 		)
+		(property "LSCS #" ""
+			(at 43.18 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "af24095e-97e0-48de-8ecf-c8572636312a")
 		)
@@ -5450,6 +6545,15 @@
 			)
 		)
 		(property "PCBA" ""
+			(at 147.32 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
 			(at 147.32 34.29 0)
 			(effects
 				(font
@@ -5666,6 +6770,76 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
 					(reference "#PWR035")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 208.28 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(fields_autoplaced yes)
+		(uuid "f1784299-7e9f-4923-b877-3f69d9472a91")
+		(property "Reference" "R29"
+			(at 210.82 115.5699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0"
+			(at 210.82 118.1099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 206.502 116.84 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 208.28 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 208.28 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "9553e3bb-baf8-4767-8ef2-2b6241373b1a")
+		)
+		(pin "1"
+			(uuid "cb1592a8-6167-4fc0-b946-d95d7c73d198")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8/ef30b984-327d-43e7-9497-3af27ce1fe78"
+					(reference "R29")
 					(unit 1)
 				)
 			)
