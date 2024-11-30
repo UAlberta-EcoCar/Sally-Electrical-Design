@@ -745,10 +745,9 @@
 				)
 			)
 		)
-		(symbol "Device:D_Schottky"
-			(pin_numbers hide)
+		(symbol "Device:D_Schottky_AAK"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -760,7 +759,7 @@
 					)
 				)
 			)
-			(property "Value" "D_Schottky"
+			(property "Value" "D_Schottky_AAK"
 				(at 0 -2.54 0)
 				(effects
 					(font
@@ -786,7 +785,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Schottky diode"
+			(property "Description" "Schottky diode, anode on pins 1 and 2"
 				(at 0 0 0)
 				(effects
 					(font
@@ -795,7 +794,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "diode Schottky"
+			(property "ki_keywords" "diode Schottky SCHDPAK"
 				(at 0 0 0)
 				(effects
 					(font
@@ -813,13 +812,13 @@
 					(hide yes)
 				)
 			)
-			(symbol "D_Schottky_0_1"
+			(symbol "D_Schottky_AAK_0_1"
 				(polyline
 					(pts
-						(xy 1.27 0) (xy -1.27 0)
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
 					)
 					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -828,10 +827,10 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+						(xy 3.81 2.54) (xy 2.54 2.54) (xy 2.54 0) (xy -1.27 0)
 					)
 					(stroke
-						(width 0.254)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -850,12 +849,23 @@
 						(type none)
 					)
 				)
+				(circle
+					(center 2.54 0)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 			)
-			(symbol "D_Schottky_1_1"
+			(symbol "D_Schottky_AAK_1_1"
 				(pin passive line
-					(at -3.81 0 0)
+					(at 5.08 2.54 180)
 					(length 2.54)
-					(name "K"
+					(name "A"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -871,7 +881,7 @@
 					)
 				)
 				(pin passive line
-					(at 3.81 0 180)
+					(at 5.08 0 180)
 					(length 2.54)
 					(name "A"
 						(effects
@@ -881,6 +891,24 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3037,6 +3065,12 @@
 		(uuid "19c5c347-0a4c-4632-bc15-3956db83402a")
 	)
 	(junction
+		(at 59.69 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "204a8d5c-01ee-4f1e-bec9-a92c8468759a")
+	)
+	(junction
 		(at 154.94 160.02)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3587,6 +3621,16 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 55.88) (xy 59.69 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ea11a39-1dbb-465a-8145-31c0caae1a61")
+	)
+	(wire
+		(pts
 			(xy 154.94 147.32) (xy 139.7 147.32)
 		)
 		(stroke
@@ -3998,6 +4042,16 @@
 	)
 	(wire
 		(pts
+			(xy 62.23 49.53) (xy 62.23 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90dd5795-fa88-462c-8715-f90ed4f07898")
+	)
+	(wire
+		(pts
 			(xy 124.46 185.42) (xy 127 185.42)
 		)
 		(stroke
@@ -4270,6 +4324,16 @@
 	)
 	(wire
 		(pts
+			(xy 62.23 55.88) (xy 59.69 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b83a0ad3-1a00-4b81-b6e7-c64acf4915f6")
+	)
+	(wire
+		(pts
 			(xy 59.69 138.43) (xy 59.69 137.16)
 		)
 		(stroke
@@ -4390,7 +4454,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 48.26) (xy 59.69 57.15)
+			(xy 59.69 49.53) (xy 59.69 55.88)
 		)
 		(stroke
 			(width 0)
@@ -17715,7 +17779,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D_Schottky")
+		(lib_id "Device:D_Schottky_AAK")
 		(at 59.69 44.45 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -17741,7 +17805,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_SMD:TO-277B"
 			(at 59.69 44.45 0)
 			(effects
 				(font
@@ -17759,7 +17823,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Schottky diode"
+		(property "Description" "Schottky diode, anode on pins 1 and 2"
 			(at 59.69 44.45 0)
 			(effects
 				(font
@@ -17786,7 +17850,7 @@
 				(hide yes)
 			)
 		)
-		(property "DK" ""
+		(property "DK" "1655-ST10200SCT-ND"
 			(at 59.69 44.45 0)
 			(effects
 				(font
@@ -17908,6 +17972,9 @@
 		)
 		(pin "1"
 			(uuid "6d967a3c-f547-4623-a62f-92f21688e13c")
+		)
+		(pin "3"
+			(uuid "faeebd7e-e846-42a5-8bb6-28c0d5c5ce8b")
 		)
 		(instances
 			(project ""
