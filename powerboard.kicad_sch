@@ -2519,12 +2519,6 @@
 		(uuid "2d809adb-ccc3-4c0f-9433-49accead417a")
 	)
 	(junction
-		(at 189.23 163.83)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2fd60719-89eb-414c-abfa-e7ab39afa0dd")
-	)
-	(junction
 		(at 87.63 45.72)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2829,6 +2823,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "87032ccd-0545-40bc-b4b0-1593bc06cb4f")
+	)
+	(junction
+		(at 189.23 163.83)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "893f5d6a-a94b-46a2-abc5-f04ed2b28447")
 	)
 	(junction
 		(at 287.02 69.85)
@@ -8222,6 +8222,89 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_FET:CSD18563Q5A")
+		(at 199.39 53.34 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4065892a-3390-4d16-99ca-5b0dfa4a305c")
+		(property "Reference" "Q2"
+			(at 204.724 53.594 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "NTMFS4D0N08XT1G"
+			(at 204.724 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:PowerMosDFNHybrid"
+			(at 204.47 51.435 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/csd18563q5a"
+			(at 204.47 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "100A Id, 60V Vds, NexFET N-Channel Power MOSFET, 6.8mOhm Ron, 15nC Qg(typ), SON8 5x6mm"
+			(at 199.39 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6d13eb1b-fc5f-44c0-a03d-28db1ad21c0f")
+		)
+		(pin "4"
+			(uuid "8352bc3c-8a77-472c-a650-04ff5e00f5cd")
+		)
+		(pin "5"
+			(uuid "0cc1827b-f3f9-436d-8b74-522bdfb34619")
+		)
+		(pin "2"
+			(uuid "ea2f0eb3-71eb-4098-ab46-f0a3303509ad")
+		)
+		(pin "3"
+			(uuid "08ab4057-de14-4f6f-8205-4f31b54efa93")
+		)
+		(instances
+			(project "Battery-Board"
+				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
+					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GNDPWR")
 		(at 325.12 170.18 0)
 		(unit 1)
@@ -8987,89 +9070,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_FET:CSD18563Q5A")
-		(at 199.39 53.34 0)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "52c112fa-d8c8-4781-b746-b3d3c5a231b8")
-		(property "Reference" "Q2"
-			(at 204.724 53.594 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "CSD18563Q5A"
-			(at 204.724 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:TDSON-8-1"
-			(at 204.47 51.435 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/csd18563q5a"
-			(at 204.47 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "100A Id, 60V Vds, NexFET N-Channel Power MOSFET, 6.8mOhm Ron, 15nC Qg(typ), SON8 5x6mm"
-			(at 199.39 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6ccb91f3-a829-41f4-99a2-036a802d233b")
-		)
-		(pin "4"
-			(uuid "2ca4cf41-ea21-4b31-bc3c-9ffd55b77ae4")
-		)
-		(pin "5"
-			(uuid "298182e7-d6a7-4939-ada9-e8dd95b8047c")
-		)
-		(pin "2"
-			(uuid "e9496c62-6f5d-4957-9217-c877ceb33440")
-		)
-		(pin "3"
-			(uuid "5e2255e6-3312-4e0a-a566-b6ff9a54abb8")
-		)
-		(instances
-			(project "Battery-Board"
-				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
-					(reference "Q2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 248.92 49.53 0)
 		(unit 1)
@@ -9394,88 +9394,6 @@
 			(project "Battery-Board"
 				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
 					(reference "C20")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_FET:CSD18563Q5A")
-		(at 186.69 168.91 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "57bd01c5-52d6-4153-a67b-8bc137e334bd")
-		(property "Reference" "Q1"
-			(at 192.024 169.164 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "CSD18563Q5A"
-			(at 192.278 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:TDSON-8-1"
-			(at 191.77 170.815 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/csd18563q5a"
-			(at 191.77 172.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "100A Id, 60V Vds, NexFET N-Channel Power MOSFET, 6.8mOhm Ron, 15nC Qg(typ), SON8 5x6mm"
-			(at 186.69 168.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "98f3fc3e-2959-4cb0-9b6a-84913a8f26fe")
-		)
-		(pin "4"
-			(uuid "549c10f4-c2a0-4d0b-9ff6-c27959ca35eb")
-		)
-		(pin "5"
-			(uuid "97a0c884-b73a-416a-b5e5-3733a6f41d15")
-		)
-		(pin "2"
-			(uuid "014bfc09-73ec-487a-9788-6795d04eb59d")
-		)
-		(pin "3"
-			(uuid "4b5facd8-eb0d-4fb4-bc1c-5be93faa652b")
-		)
-		(instances
-			(project "Battery-Board"
-				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
-					(reference "Q1")
 					(unit 1)
 				)
 			)
@@ -10113,88 +10031,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_FET:CSD18563Q5A")
-		(at 203.2 168.91 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "65a89538-76a3-46ae-a61f-35b3d85a2efa")
-		(property "Reference" "Q3"
-			(at 208.534 169.164 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "CSD18563Q5A"
-			(at 208.788 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:TDSON-8-1"
-			(at 208.28 170.815 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/csd18563q5a"
-			(at 208.28 172.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "100A Id, 60V Vds, NexFET N-Channel Power MOSFET, 6.8mOhm Ron, 15nC Qg(typ), SON8 5x6mm"
-			(at 203.2 168.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2f4432f6-a40c-451c-bd47-552b3f2dde40")
-		)
-		(pin "4"
-			(uuid "17545d0b-e793-4a89-bca8-9e296f9c8e8b")
-		)
-		(pin "5"
-			(uuid "264313fa-4407-46ed-bb71-99b2c2d7ee13")
-		)
-		(pin "2"
-			(uuid "e069e4b4-fefc-47c7-b164-cc86a80689e5")
-		)
-		(pin "3"
-			(uuid "ef918ecc-9516-4701-81f1-baf56a3ebb71")
-		)
-		(instances
-			(project "Battery-Board"
-				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
-					(reference "Q3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 325.12 49.53 0)
 		(unit 1)
@@ -10608,6 +10444,88 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_FET:CSD18563Q5A")
+		(at 186.69 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "752e70bd-1c5d-43ec-bb46-f5d6af734185")
+		(property "Reference" "Q1"
+			(at 192.024 169.164 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "NTMFS4D0N08XT1G"
+			(at 192.278 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:PowerMosDFNHybrid"
+			(at 191.77 170.815 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/csd18563q5a"
+			(at 191.77 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "100A Id, 60V Vds, NexFET N-Channel Power MOSFET, 6.8mOhm Ron, 15nC Qg(typ), SON8 5x6mm"
+			(at 186.69 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c580ebce-3c32-4d45-a606-555e6eb522fb")
+		)
+		(pin "4"
+			(uuid "65265f61-7519-4b04-bad8-d521aa5760cb")
+		)
+		(pin "5"
+			(uuid "6cf2d458-375f-46ad-9514-1fcfd818b710")
+		)
+		(pin "2"
+			(uuid "03c800f0-e617-4e01-9761-9b3b4f6a8e43")
+		)
+		(pin "3"
+			(uuid "ed9c2a82-adec-48bf-9214-f226687f0587")
+		)
+		(instances
+			(project "Battery-Board"
+				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
+					(reference "Q1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 92.71 163.83 270)
 		(unit 1)
@@ -10803,6 +10721,92 @@
 			(project "Battery-Board"
 				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
 					(reference "R23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "NTMFS4D0N08XT1G_1")
+		(lib_id "ecocad_lib_symbols:NTMFS4D0N08XT1G")
+		(at 205.74 168.91 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7f29a7f1-f9c2-4eb3-a5cb-c0667f1d503f")
+		(property "Reference" "U16"
+			(at 274.828 182.626 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "NTMFS4D0N08XT1G"
+			(at 274.828 185.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:PowerMosDFNHybrid"
+			(at 210.312 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/download/data-sheet/pdf/ntmfs4d0n08x-d.pdf"
+			(at 210.312 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "N-Channel 80 V 119A (Tc) 107W (Tc) Surface Mount 5-DFN (5x6) (8-SOFL)"
+			(at 210.312 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DK#" "488-NTMFS4D0N08XT1GCT-ND"
+			(at 274.066 187.198 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8b17b0d5-36a8-43b5-a368-83663eeecbc6")
+		)
+		(pin "4"
+			(uuid "8ee872cb-80ef-4a89-9fef-ceba79ff1eb5")
+		)
+		(pin "2"
+			(uuid "181be0d8-24be-4db5-8799-4450cbf2e1c0")
+		)
+		(pin "5"
+			(uuid "b6f4f29b-b0d2-4dec-b3ef-49a56c40e380")
+		)
+		(pin "3"
+			(uuid "80e37208-353c-4c64-9876-d628a2d21842")
+		)
+		(instances
+			(project "Battery-Board"
+				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
+					(reference "U16")
 					(unit 1)
 				)
 			)
@@ -13184,7 +13188,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "ecocad_lib_footprints:L_Bourns_SRR1208_12.7x12.7mm"
 			(at 219.71 69.85 0)
 			(effects
 				(font
@@ -14163,6 +14167,92 @@
 			(project "Battery-Board"
 				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
 					(reference "C53")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "NTMFS4D0N08XT1G_1")
+		(lib_id "ecocad_lib_symbols:NTMFS4D0N08XT1G")
+		(at 207.01 121.92 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d1d5cd48-5620-4295-92ab-0a2146accfe4")
+		(property "Reference" "U15"
+			(at 276.098 135.636 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "NTMFS4D0N08XT1G"
+			(at 276.098 138.176 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:PowerMosDFNHybrid"
+			(at 211.582 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/download/data-sheet/pdf/ntmfs4d0n08x-d.pdf"
+			(at 211.582 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "N-Channel 80 V 119A (Tc) 107W (Tc) Surface Mount 5-DFN (5x6) (8-SOFL)"
+			(at 211.582 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DK#" "488-NTMFS4D0N08XT1GCT-ND"
+			(at 275.336 140.208 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "dd38f152-533a-4759-a2a3-f6570c61ad59")
+		)
+		(pin "4"
+			(uuid "4f742cec-fff3-4eb4-95c8-649c26a2141e")
+		)
+		(pin "2"
+			(uuid "049b78d6-ba11-485e-b045-c0b0b96f0ea2")
+		)
+		(pin "5"
+			(uuid "da052566-ef47-4a2a-9e23-50fb12438a31")
+		)
+		(pin "3"
+			(uuid "fca8a0da-0be1-4dcf-aa66-cd60d7b05e0c")
+		)
+		(instances
+			(project "Battery-Board"
+				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339/0dba19d5-6515-47ba-b397-4a1e13f98b03"
+					(reference "U15")
 					(unit 1)
 				)
 			)
@@ -15506,7 +15596,7 @@
 				)
 			)
 		)
-		(property "Footprint" "ecocad_lib_footprints:IND_SPM7054VC-220M-D"
+		(property "Footprint" "ecocad_lib_footprints:L_Bourns_SRR1208_12.7x12.7mm"
 			(at 228.6 160.02 0)
 			(effects
 				(font
