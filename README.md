@@ -1,7 +1,6 @@
 # EcoCar Sally Prototype
-***This is the official repository for the 2024-2025 EcoCar prototype, Sally***
-
 # H2 Sensor Board - Sally
+***This is the official repository for the H2 Sensor Board of the 2024-2025 EcoCar prototype, Sally***
 
 ## Current revision: Rev 1.x (edit)
 
