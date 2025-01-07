@@ -17,7 +17,7 @@
 			(color 0 0 0 0.0000)
 		)
 		(uuid "0dba19d5-6515-47ba-b397-4a1e13f98b03")
-		(property "Sheetname" "Powerboard"
+		(property "Sheetname" "DC-DC-Converters"
 			(at 167.64 14.5284 0)
 			(effects
 				(font
@@ -26,7 +26,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "powerboard.kicad_sch"
+		(property "Sheetfile" "dc-dc-converters.kicad_sch"
 			(at 167.64 43.7646 0)
 			(effects
 				(font
@@ -82,6 +82,114 @@
 		)
 	)
 	(sheet
+		(at 55.88 66.04)
+		(size 66.04 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 255 194 1.0000)
+		)
+		(uuid "76085148-fc5c-4027-ae9d-c3dcdd1a49bf")
+		(property "Sheetname" "Power Sensor VI"
+			(at 55.88 65.3284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power-sensor-vi.kicad_sch"
+			(at 55.88 79.3246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "CURRENT_SENSOR_IN_{FLOW_IN}+" input
+			(at 55.88 68.58 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "8730f430-60ab-4833-986b-2720854a564b")
+		)
+		(pin "SENSOR_VCC" input
+			(at 121.92 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "9be15993-f7a9-4292-8c56-f884feacc952")
+		)
+		(pin "CURRENT_SENSOR_OUT_{FLOW_OUT}-" output
+			(at 55.88 71.12 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "bd10a906-170b-4b1e-89e3-3308e71881af")
+		)
+		(pin "CURRENT_SENSOR_OUT_{BUFFERED}" output
+			(at 121.92 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "6aee1705-466a-47bd-ba30-e9dacc32a21a")
+		)
+		(pin "SENSOR_GND" input
+			(at 55.88 76.2 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "9d772aa1-f83c-4b1e-9536-9fbe351c1199")
+		)
+		(pin "VOLTAGE_SENSOR_IN_{POST_DIVIDER}+" input
+			(at 55.88 73.66 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "02adff62-14f1-4292-a8fc-3ee7ec9c3ce5")
+		)
+		(pin "VOLTAGE_SENSOR_OUT_{BUFFERED}" output
+			(at 121.92 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "1b48bb8a-70f8-482d-89e3-04168fbf0fd3")
+		)
+		(instances
+			(project "Battery-Board"
+				(path "/7996c6a7-339e-40c9-8e7c-4c4bf8c43339"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 217.17 15.24)
 		(size 52.07 27.94)
 		(fields_autoplaced yes)
@@ -131,7 +239,7 @@
 			(color 0 0 0 0.0000)
 		)
 		(uuid "c53569bc-2254-4923-a084-f81c3781cda4")
-		(property "Sheetname" "Power Circuitry"
+		(property "Sheetname" "Power Sensors"
 			(at 15.24 14.5284 0)
 			(effects
 				(font
@@ -140,7 +248,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "power_circuitry.kicad_sch"
+		(property "Sheetfile" "power-sensors.kicad_sch"
 			(at 15.24 43.7646 0)
 			(effects
 				(font
