@@ -68,7 +68,27 @@
           "width": 0.3
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "clearance|88250000|111325002|c2b8c481-c799-43f9-a850-8f6d551f56a4|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "hole_clearance|144275000|160900000|b6fe10c3-683b-4a80-b47d-cc57f2fc7857|a348bd8e-87f3-4a0a-b27d-46175ca36ba7",
+        "hole_clearance|144275000|160900000|e401ffe2-977a-41b8-a6ee-1a25bdecb81d|a348bd8e-87f3-4a0a-b27d-46175ca36ba7",
+        "hole_clearance|150375000|160900000|7a51b04d-ea8c-4102-bdd4-373fed7d95dd|6d522056-9e05-456e-b46f-f0b07298706e",
+        "hole_clearance|150375000|160900000|d45aceff-c82d-4603-b390-1670f2732a9e|6d522056-9e05-456e-b46f-f0b07298706e",
+        "malformed_courtyard|101150000|124550000|735553f7-85ba-49d4-a6df-9dede1f2fdd7|00000000-0000-0000-0000-000000000000",
+        "malformed_courtyard|118297000|151995000|6d93fadf-cc84-412d-ad77-172e8c7bd0e1|00000000-0000-0000-0000-000000000000",
+        "malformed_courtyard|77200000|152122000|6d93fadf-cc84-412d-ad77-172e8c7bd0e1|00000000-0000-0000-0000-000000000000",
+        "malformed_courtyard|89950000|120950000|735553f7-85ba-49d4-a6df-9dede1f2fdd7|00000000-0000-0000-0000-000000000000",
+        "malformed_courtyard|89950000|124677000|735553f7-85ba-49d4-a6df-9dede1f2fdd7|00000000-0000-0000-0000-000000000000",
+        "shorting_items|87225001|112350001|11b3d0ab-a282-462c-a032-63900f17a5fc|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "shorting_items|88250000|111325002|2b54860d-76c3-4f6d-9f99-947af84fdc6c|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "shorting_items|88250000|113375000|c463e94b-af8d-4fce-87ec-29c40891c219|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "shorting_items|89274999|112350001|23f1d3cd-f39c-4d9e-8675-e97feaf71e73|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "solder_mask_bridge|87225001|112350001|11b3d0ab-a282-462c-a032-63900f17a5fc|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "solder_mask_bridge|88250000|111325002|2b54860d-76c3-4f6d-9f99-947af84fdc6c|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "solder_mask_bridge|88250000|111325002|c2b8c481-c799-43f9-a850-8f6d551f56a4|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "solder_mask_bridge|88250000|113375000|c463e94b-af8d-4fce-87ec-29c40891c219|28cd43fb-a529-45f0-8623-10e0c5216d38",
+        "solder_mask_bridge|89274999|112350001|23f1d3cd-f39c-4d9e-8675-e97feaf71e73|28cd43fb-a529-45f0-8623-10e0c5216d38"
+      ],
       "meta": {
         "version": 2
       },
@@ -230,6 +250,10 @@
         {
           "diameter": 0.35,
           "drill": 0.2
+        },
+        {
+          "diameter": 0.4,
+          "drill": 0.3
         },
         {
           "diameter": 0.6,
@@ -529,13 +553,13 @@
     "bom_export_filename": "",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
-      "field_delimiter": ",",
+      "field_delimiter": ";",
       "keep_line_breaks": false,
       "keep_tabs": false,
-      "name": "CSV",
+      "name": "Semicolons",
       "ref_delimiter": ",",
       "ref_range_delimiter": "",
-      "string_delimiter": "\""
+      "string_delimiter": "'"
     },
     "bom_presets": [],
     "bom_settings": {
@@ -701,6 +725,12 @@
           "group_by": false,
           "label": "Description",
           "name": "Description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "DK#",
+          "name": "DK#",
           "show": false
         }
       ],
