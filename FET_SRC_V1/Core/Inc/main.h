@@ -57,6 +57,32 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define CURR_SENS_1_Pin GPIO_PIN_0
+#define CURR_SENS_1_GPIO_Port GPIOA
+#define CURR_SENS_2_Pin GPIO_PIN_1
+#define CURR_SENS_2_GPIO_Port GPIOA
+#define CURR_SENS_3_Pin GPIO_PIN_2
+#define CURR_SENS_3_GPIO_Port GPIOA
+#define VOLT_IN_SENSE_Pin GPIO_PIN_3
+#define VOLT_IN_SENSE_GPIO_Port GPIOA
+#define VOLT_CAP_SENSE_Pin GPIO_PIN_4
+#define VOLT_CAP_SENSE_GPIO_Port GPIOA
+#define CNTRL_1_Pin GPIO_PIN_5
+#define CNTRL_1_GPIO_Port GPIOA
+#define CNTRL_2_Pin GPIO_PIN_6
+#define CNTRL_2_GPIO_Port GPIOA
+#define CNTRL_3_Pin GPIO_PIN_7
+#define CNTRL_3_GPIO_Port GPIOA
+#define LED3_Pin GPIO_PIN_0
+#define LED3_GPIO_Port GPIOB
+#define CNTRL_4_Pin GPIO_PIN_8
+#define CNTRL_4_GPIO_Port GPIOA
+#define LED1_Pin GPIO_PIN_9
+#define LED1_GPIO_Port GPIOA
+#define LED2_Pin GPIO_PIN_10
+#define LED2_GPIO_Port GPIOA
+#define LED4_Pin GPIO_PIN_15
+#define LED4_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

@@ -29,6 +29,8 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
+typedef StaticTask_t osStaticThreadDef_t;
+typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -49,10 +51,61 @@
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
+uint32_t defaultTaskBuffer[ 512 ];
+osStaticThreadDef_t defaultTaskControlBlock;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
+  .stack_mem = &defaultTaskBuffer[0],
+  .stack_size = sizeof(defaultTaskBuffer),
+  .cb_mem = &defaultTaskControlBlock,
+  .cb_size = sizeof(defaultTaskControlBlock),
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 128 * 4
+};
+/* Definitions for canReceiveMsg */
+osThreadId_t canReceiveMsgHandle;
+uint32_t CanReceiveMsgBuffer[ 512 ];
+osStaticThreadDef_t CanReceiveMsgControlBlock;
+const osThreadAttr_t canReceiveMsg_attributes = {
+  .name = "canReceiveMsg",
+  .stack_mem = &CanReceiveMsgBuffer[0],
+  .stack_size = sizeof(CanReceiveMsgBuffer),
+  .cb_mem = &CanReceiveMsgControlBlock,
+  .cb_size = sizeof(CanReceiveMsgControlBlock),
+  .priority = (osPriority_t) osPriorityNormal1,
+};
+/* Definitions for canSendMsg */
+osThreadId_t canSendMsgHandle;
+uint32_t CanSendMsgBuffer[ 512 ];
+osStaticThreadDef_t CanSendMsgControlBlock;
+const osThreadAttr_t canSendMsg_attributes = {
+  .name = "canSendMsg",
+  .stack_mem = &CanSendMsgBuffer[0],
+  .stack_size = sizeof(CanSendMsgBuffer),
+  .cb_mem = &CanSendMsgControlBlock,
+  .cb_size = sizeof(CanSendMsgControlBlock),
+  .priority = (osPriority_t) osPriorityNormal2,
+};
+/* Definitions for canReceiveQue */
+osMessageQueueId_t canReceiveQueHandle;
+uint8_t canReceiveQueBuffer[ 512 * sizeof( uint8_t ) ];
+osStaticMessageQDef_t canReceiveQueControlBlock;
+const osMessageQueueAttr_t canReceiveQue_attributes = {
+  .name = "canReceiveQue",
+  .cb_mem = &canReceiveQueControlBlock,
+  .cb_size = sizeof(canReceiveQueControlBlock),
+  .mq_mem = &canReceiveQueBuffer,
+  .mq_size = sizeof(canReceiveQueBuffer)
+};
+/* Definitions for canSendQue */
+osMessageQueueId_t canSendQueHandle;
+uint8_t canSendQueBuffer[ 512 * sizeof( uint8_t ) ];
+osStaticMessageQDef_t canSendQueControlBlock;
+const osMessageQueueAttr_t canSendQue_attributes = {
+  .name = "canSendQue",
+  .cb_mem = &canSendQueControlBlock,
+  .cb_size = sizeof(canSendQueControlBlock),
+  .mq_mem = &canSendQueBuffer,
+  .mq_size = sizeof(canSendQueBuffer)
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,6 +114,8 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
+void StartCanReceive(void *argument);
+void StartCanSend(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -86,6 +141,13 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* creation of canReceiveQue */
+  canReceiveQueHandle = osMessageQueueNew (512, sizeof(uint8_t), &canReceiveQue_attributes);
+
+  /* creation of canSendQue */
+  canSendQueHandle = osMessageQueueNew (512, sizeof(uint8_t), &canSendQue_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -93,6 +155,12 @@ void MX_FREERTOS_Init(void) {
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of canReceiveMsg */
+  canReceiveMsgHandle = osThreadNew(StartCanReceive, NULL, &canReceiveMsg_attributes);
+
+  /* creation of canSendMsg */
+  canSendMsgHandle = osThreadNew(StartCanSend, NULL, &canSendMsg_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -116,12 +184,51 @@ void StartDefaultTask(void *argument)
   /* init code for USB_Device */
   MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
+  UNUSED(argument);
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
+}
+
+/* USER CODE BEGIN Header_StartCanReceive */
+/**
+* @brief Function implementing the canReceiveMsg thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartCanReceive */
+void StartCanReceive(void *argument)
+{
+  /* USER CODE BEGIN StartCanReceive */
+  UNUSED(argument);
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartCanReceive */
+}
+
+/* USER CODE BEGIN Header_StartCanSend */
+/**
+* @brief Function implementing the canSendMsg thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartCanSend */
+void StartCanSend(void *argument)
+{
+  /* USER CODE BEGIN StartCanSend */
+  UNUSED(argument);
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartCanSend */
 }
 
 /* Private application code --------------------------------------------------*/
