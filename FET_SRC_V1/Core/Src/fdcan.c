@@ -61,6 +61,14 @@ void MX_FDCAN2_Init(void)
   }
   /* USER CODE BEGIN FDCAN2_Init 2 */
 
+  // Setup filters 
+  
+  /* START FDCAN PERIPHERAL */
+  if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
   /* USER CODE END FDCAN2_Init 2 */
 
 }

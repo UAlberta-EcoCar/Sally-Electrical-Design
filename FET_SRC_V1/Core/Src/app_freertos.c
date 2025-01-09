@@ -26,9 +26,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "fdcan.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
-#include "fdcan.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -163,7 +163,8 @@ int _write(int file, char *ptr, int len) {
  * will add 4 items from RxData when you pass the pointer
  * to it.
  */
-void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
+                               uint32_t RxFifo0ITs) {
   UNUSED(RxFifo0ITs);
   HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData);
   if (RxHeader.RxFrameType == FDCAN_RX_FIFO0) {
@@ -179,38 +180,34 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
   }
 }
 
-// void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan) {
-//   HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, RxData);
-//   osMessageQueuePut(canRxMsgQueueHandle, &RxHeader.StdId, 0U, 0UL);
-//   // need condition for either 4 byte or 8 byte
-//   if (RxHeader.DLC == 0UL) {
-//     // Data request, don't add anything else to queue
-//   } else if (RxHeader.DLC <= 4UL) {
-//     osMessageQueuePut(canRxMsgQueueHandle, RxData, 0U, 0UL);
-//   } else {
-//     osMessageQueuePut(canRxMsgQueueHandle, RxData, 0U, 0UL);
-//     osMessageQueuePut(canRxMsgQueueHandle, RxData + 4, 0U, 0UL);
-//   }
-// }
+HAL_StatusTypeDef HAL_CAN_SafeAddTxMessage(uint8_t *msg, uint32_t msg_id,
+                                           uint32_t msg_length,
+                                           uint32_t frame) {
+  uint32_t fc_tick;
+  HAL_StatusTypeDef hal_stat;
+  FDCAN_TxHeaderTypeDef TxHeader;
 
-/* Transmit Completed Callbacks for Message Sent Confirmations */
-void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan) {
-  if (TxMailboxCanTask == CAN_TX_MAILBOX0) {
-    osSemaphoreRelease(canMsgReceivedSemHandle);
-    TxMailboxCanTask = CAN_TX_MAILBOX_NONE;
-  }
-}
-void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan) {
-  if (TxMailboxCanTask == CAN_TX_MAILBOX1) {
-    osSemaphoreRelease(canMsgReceivedSemHandle);
-    TxMailboxCanTask = CAN_TX_MAILBOX_NONE;
-  }
-}
-void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan) {
-  if (TxMailboxCanTask == CAN_TX_MAILBOX2) {
-    osSemaphoreRelease(canMsgReceivedSemHandle);
-    TxMailboxCanTask = CAN_TX_MAILBOX_NONE;
-  }
+  // These will never change
+  TxHeader.Identifier = msg_id;
+  TxHeader.IdType = FDCAN_STANDARD_ID;
+  TxHeader.TxFrameType = frame;
+  TxHeader.DataLength = msg_length;
+  TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE; // Not really sure what this is
+  TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
+  TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+  TxHeader.TxEventFifoControl = FDCAN_STORE_TX_EVENTS; // Or this
+  TxHeader.MessageMarker = 0; // Not really sure what this is for
+
+  // Start a timer to check timeout conditions
+  fc_tick = HAL_GetTick();
+
+  /* Try to add a Tx message. Returns HAL_ERROR if there are no avail
+   * mailboxes or if the peripheral is not initialized. */
+  do {
+    hal_stat = HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader, msg);
+  } while (hal_stat != HAL_OK && ((HAL_GetTick() - fc_tick) < 500));
+
+  return hal_stat;
 }
 /* USER CODE END FunctionPrototypes */
 
@@ -290,8 +287,6 @@ void StartDefaultTask(void *argument) {
   UNUSED(argument);
   /* Infinite loop */
   for (;;) {
-	uint64_t newVariable;
-    UNUSED(newVariable);
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
