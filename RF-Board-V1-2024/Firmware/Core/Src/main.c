@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "usbpd.h"
+#include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -46,8 +48,6 @@ I2C_HandleTypeDef hi2c2;
 
 SPI_HandleTypeDef hspi1;
 
-PCD_HandleTypeDef hpcd_USB_FS;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -58,7 +58,7 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_FDCAN2_Init(void);
 static void MX_I2C2_Init(void);
-static void MX_USB_PCD_Init(void);
+static void MX_UCPD1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -99,16 +99,21 @@ int main(void)
   MX_SPI1_Init();
   MX_FDCAN2_Init();
   MX_I2C2_Init();
-  MX_USB_PCD_Init();
+  MX_UCPD1_Init();
+  MX_USB_Device_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
+
+  /* USBPD initialisation ---------------------------------*/
+  MX_USBPD_Init();
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
+    USBPD_DPM_Run();
 
     /* USER CODE BEGIN 3 */
   }
@@ -293,35 +298,43 @@ static void MX_SPI1_Init(void)
 }
 
 /**
-  * @brief USB Initialization Function
+  * @brief UCPD1 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USB_PCD_Init(void)
+static void MX_UCPD1_Init(void)
 {
 
-  /* USER CODE BEGIN USB_Init 0 */
+  /* USER CODE BEGIN UCPD1_Init 0 */
 
-  /* USER CODE END USB_Init 0 */
+  /* USER CODE END UCPD1_Init 0 */
 
-  /* USER CODE BEGIN USB_Init 1 */
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* USER CODE END USB_Init 1 */
-  hpcd_USB_FS.Instance = USB;
-  hpcd_USB_FS.Init.dev_endpoints = 8;
-  hpcd_USB_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_FS.Init.Sof_enable = DISABLE;
-  hpcd_USB_FS.Init.low_power_enable = DISABLE;
-  hpcd_USB_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_FS.Init.battery_charging_enable = DISABLE;
-  if (HAL_PCD_Init(&hpcd_USB_FS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_Init 2 */
+  /* Peripheral clock enable */
+  LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_UCPD1);
 
-  /* USER CODE END USB_Init 2 */
+  LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
+  /**UCPD1 GPIO Configuration
+  PB4   ------> UCPD1_CC2
+  PB6   ------> UCPD1_CC1
+  */
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_4;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_6;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN UCPD1_Init 1 */
+
+  /* USER CODE END UCPD1_Init 1 */
+  /* USER CODE BEGIN UCPD1_Init 2 */
+
+  /* USER CODE END UCPD1_Init 2 */
 
 }
 
@@ -345,27 +358,32 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, NSS_915_Pin|NSS_868_Pin|TXEN_24_Pin|RXEN_24_Pin
-                          |XCLK_Pin|NSS_915C4_Pin|NSS_868C5_Pin|DIO2_24_Pin
-                          |DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin|DIO4_868_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, BTN1_Pin|BTN2_Pin|TXEN_24_Pin|RXEN_24_Pin
+                          |XCLK_Pin|SWT1_Pin|NSS_915_Pin|NSS_868_Pin
+                          |DIO2_24_Pin|DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin
+                          |DIO4_868_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|CAN_STBY_Pin
-                          |RST_915_Pin|DIO0_915_Pin|DIO1_915_Pin|DIO2_915_Pin
-                          |DIO3_915_Pin|DIO4_915_Pin|DIO5_915_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
+                          |SWT2_Pin|RST_24_Pin|RST_868_Pin|DIO0_868_Pin
+                          |DIO1_868_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, RST_24_Pin|RST_868_Pin|DIO0_868_Pin|DIO1_868_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|LED5_Pin
+                          |CAN_STBY_Pin|RST_915_Pin|DIO1_915_Pin|DIO3_915_Pin
+                          |DIO4_915_Pin|DIO5_915_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DIO5_868_GPIO_Port, DIO5_868_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : NSS_915_Pin NSS_868_Pin TXEN_24_Pin RXEN_24_Pin
-                           XCLK_Pin NSS_915C4_Pin NSS_868C5_Pin DIO2_24_Pin
-                           DIO1_24_Pin DIO2_868_Pin DIO3_868_Pin DIO4_868_Pin */
-  GPIO_InitStruct.Pin = NSS_915_Pin|NSS_868_Pin|TXEN_24_Pin|RXEN_24_Pin
-                          |XCLK_Pin|NSS_915C4_Pin|NSS_868C5_Pin|DIO2_24_Pin
-                          |DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin|DIO4_868_Pin;
+  /*Configure GPIO pins : BTN1_Pin BTN2_Pin TXEN_24_Pin RXEN_24_Pin
+                           XCLK_Pin SWT1_Pin NSS_915_Pin NSS_868_Pin
+                           DIO2_24_Pin DIO1_24_Pin DIO2_868_Pin DIO3_868_Pin
+                           DIO4_868_Pin */
+  GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|TXEN_24_Pin|RXEN_24_Pin
+                          |XCLK_Pin|SWT1_Pin|NSS_915_Pin|NSS_868_Pin
+                          |DIO2_24_Pin|DIO1_24_Pin|DIO2_868_Pin|DIO3_868_Pin
+                          |DIO4_868_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -385,18 +403,29 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : FAULT_Pin */
-  GPIO_InitStruct.Pin = FAULT_Pin;
+  /*Configure GPIO pin : PG10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(FAULT_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : NSS_24_Pin RST_GNSS_Pin EXTINT_GNSS_Pin CAN_STBY_Pin
-                           RST_915_Pin DIO0_915_Pin DIO1_915_Pin DIO2_915_Pin
-                           DIO3_915_Pin DIO4_915_Pin DIO5_915_Pin */
-  GPIO_InitStruct.Pin = NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|CAN_STBY_Pin
-                          |RST_915_Pin|DIO0_915_Pin|DIO1_915_Pin|DIO2_915_Pin
-                          |DIO3_915_Pin|DIO4_915_Pin|DIO5_915_Pin;
+  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin LED4_Pin
+                           SWT2_Pin RST_24_Pin RST_868_Pin DIO0_868_Pin
+                           DIO1_868_Pin */
+  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
+                          |SWT2_Pin|RST_24_Pin|RST_868_Pin|DIO0_868_Pin
+                          |DIO1_868_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : NSS_24_Pin RST_GNSS_Pin EXTINT_GNSS_Pin LED5_Pin
+                           CAN_STBY_Pin RST_915_Pin DIO1_915_Pin DIO3_915_Pin
+                           DIO4_915_Pin DIO5_915_Pin */
+  GPIO_InitStruct.Pin = NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|LED5_Pin
+                          |CAN_STBY_Pin|RST_915_Pin|DIO1_915_Pin|DIO3_915_Pin
+                          |DIO4_915_Pin|DIO5_915_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -415,13 +444,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(BUSY_24_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : RST_24_Pin RST_868_Pin DIO0_868_Pin DIO1_868_Pin */
-  GPIO_InitStruct.Pin = RST_24_Pin|RST_868_Pin|DIO0_868_Pin|DIO1_868_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : DIO5_868_Pin */
   GPIO_InitStruct.Pin = DIO5_868_Pin;

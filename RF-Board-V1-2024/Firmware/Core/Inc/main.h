@@ -29,6 +29,18 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal.h"
 
+#include "stm32g4xx_ll_ucpd.h"
+#include "stm32g4xx_ll_bus.h"
+#include "stm32g4xx_ll_cortex.h"
+#include "stm32g4xx_ll_rcc.h"
+#include "stm32g4xx_ll_system.h"
+#include "stm32g4xx_ll_utils.h"
+#include "stm32g4xx_ll_pwr.h"
+#include "stm32g4xx_ll_gpio.h"
+#include "stm32g4xx_ll_dma.h"
+
+#include "stm32g4xx_ll_exti.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -58,30 +70,42 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 #define VDDA_APPLi 3300
-#define NSS_915_Pin GPIO_PIN_13
-#define NSS_915_GPIO_Port GPIOC
-#define NSS_868_Pin GPIO_PIN_14
-#define NSS_868_GPIO_Port GPIOC
+#define BTN1_Pin GPIO_PIN_13
+#define BTN1_GPIO_Port GPIOC
+#define BTN2_Pin GPIO_PIN_14
+#define BTN2_GPIO_Port GPIOC
 #define IMON_Pin GPIO_PIN_15
 #define IMON_GPIO_Port GPIOC
-#define FAULT_Pin GPIO_PIN_10
-#define FAULT_GPIO_Port GPIOG
 #define TXEN_24_Pin GPIO_PIN_0
 #define TXEN_24_GPIO_Port GPIOC
 #define RXEN_24_Pin GPIO_PIN_1
 #define RXEN_24_GPIO_Port GPIOC
 #define XCLK_Pin GPIO_PIN_2
 #define XCLK_GPIO_Port GPIOC
-#define NSS_915C4_Pin GPIO_PIN_4
-#define NSS_915C4_GPIO_Port GPIOC
-#define NSS_868C5_Pin GPIO_PIN_5
-#define NSS_868C5_GPIO_Port GPIOC
+#define SWT1_Pin GPIO_PIN_3
+#define SWT1_GPIO_Port GPIOC
+#define LED1_Pin GPIO_PIN_0
+#define LED1_GPIO_Port GPIOA
+#define LED2_Pin GPIO_PIN_1
+#define LED2_GPIO_Port GPIOA
+#define LED3_Pin GPIO_PIN_2
+#define LED3_GPIO_Port GPIOA
+#define LED4_Pin GPIO_PIN_3
+#define LED4_GPIO_Port GPIOA
+#define SWT2_Pin GPIO_PIN_4
+#define SWT2_GPIO_Port GPIOA
+#define NSS_915_Pin GPIO_PIN_4
+#define NSS_915_GPIO_Port GPIOC
+#define NSS_868_Pin GPIO_PIN_5
+#define NSS_868_GPIO_Port GPIOC
 #define NSS_24_Pin GPIO_PIN_0
 #define NSS_24_GPIO_Port GPIOB
 #define RST_GNSS_Pin GPIO_PIN_1
 #define RST_GNSS_GPIO_Port GPIOB
 #define EXTINT_GNSS_Pin GPIO_PIN_2
 #define EXTINT_GNSS_GPIO_Port GPIOB
+#define LED5_Pin GPIO_PIN_10
+#define LED5_GPIO_Port GPIOB
 #define CAN_STBY_Pin GPIO_PIN_11
 #define CAN_STBY_GPIO_Port GPIOB
 #define DIO3_24_Pin GPIO_PIN_6
