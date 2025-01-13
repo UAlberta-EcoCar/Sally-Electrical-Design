@@ -4,6 +4,11 @@
 	(generator_version "8.0")
 	(uuid "b98d4f3f-3a43-47fe-9499-ff21f79e7fd8")
 	(paper "A4")
+	(title_block
+		(title "UltraCom Telemetry")
+		(rev "Series. 1")
+		(company "University Of Alberta EcoCar Team")
+	)
 	(lib_symbols
 		(symbol "Device:C"
 			(pin_numbers hide)
@@ -4346,16 +4351,6 @@
 	)
 	(wire
 		(pts
-			(xy 186.69 48.26) (xy 201.93 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3b31bc9c-e184-4196-ac0d-cd16b7fc61fc")
-	)
-	(wire
-		(pts
 			(xy 186.69 101.6) (xy 201.93 101.6)
 		)
 		(stroke
@@ -4754,6 +4749,16 @@
 		)
 		(uuid "5d9993c1-5a20-436a-9a99-15e579d90c66")
 	)
+	(wire
+		(pts
+			(xy 172.72 48.26) (xy 175.26 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5f6c0d2c-c753-4b3f-8ea5-d8fc8d50ea4d")
+	)
 	(bus
 		(pts
 			(xy 25.4 55.88) (xy 25.4 58.42)
@@ -4783,6 +4788,16 @@
 			(type default)
 		)
 		(uuid "629b0535-78a9-4a6b-91db-fda03c306229")
+	)
+	(wire
+		(pts
+			(xy 185.42 48.26) (xy 201.93 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "687c792e-c28b-4f92-afd8-389c8cf41917")
 	)
 	(wire
 		(pts
@@ -7557,13 +7572,13 @@
 		(uuid "c9bfeee3-81e4-48b9-9f6f-5fc67da0dbaf")
 	)
 	(label "~{FAULT}"
-		(at 186.69 48.26 0)
+		(at 172.72 48.26 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "cbb87590-7bd7-4a23-bf6d-3a784405eb41")
 	)
@@ -8607,6 +8622,83 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8"
 					(reference "#PWR039")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Open")
+		(at 180.34 48.26 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "36e77d2f-c5f3-4218-8b25-3680ae3c289e")
+		(property "Reference" "JP3"
+			(at 180.34 44.958 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Jumper_2_Open"
+			(at 180.34 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:J_0603_Triangular"
+			(at 180.34 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 180.34 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, open"
+			(at 180.34 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
+			(at 180.34 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "845e116c-be0a-4d3b-84d4-1be7c2cf27b4")
+		)
+		(pin "2"
+			(uuid "15e5c82c-b630-4b7c-a254-034808892589")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8"
+					(reference "JP3")
 					(unit 1)
 				)
 			)
@@ -12046,7 +12138,7 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 255 194 1.0000)
 		)
 		(uuid "a0519fbc-812a-4c37-8410-fb2a44047957")
 		(property "Sheetname" "SD"
@@ -12094,7 +12186,7 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 255 194 1.0000)
 		)
 		(uuid "c1b98ccd-3646-442b-8cc5-bb6df45c2478")
 		(property "Sheetname" "Power_CAN"
@@ -12202,7 +12294,7 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 255 194 1.0000)
 		)
 		(uuid "dfd7c3c6-83b5-4c0d-bcff-c6956855cbbc")
 		(property "Sheetname" "RF-GNSS_2.4Lora"
@@ -12279,7 +12371,7 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 255 194 1.0000)
 		)
 		(uuid "ef30b984-327d-43e7-9497-3af27ce1fe78")
 		(property "Sheetname" "RF-915-868"
