@@ -735,16 +735,6 @@
 		)
 		(uuid "1660ed8b-8b21-40e7-bece-e742038c2d46")
 	)
-	(polyline
-		(pts
-			(xy 144.145 69.215) (xy 144.145 66.675)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2337b73e-cd80-4601-a173-8bbb5bfece9f")
-	)
 	(wire
 		(pts
 			(xy 182.88 99.695) (xy 180.975 99.695)
@@ -787,16 +777,6 @@
 	)
 	(polyline
 		(pts
-			(xy 146.685 66.675) (xy 146.685 69.215)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5dc3249e-e7a4-4c38-8201-6b463ac3f02c")
-	)
-	(polyline
-		(pts
 			(xy 130.81 66.675) (xy 130.81 69.215)
 		)
 		(stroke
@@ -835,16 +815,6 @@
 		)
 		(uuid "813d27dd-c50f-44fb-99c9-2449d979eef0")
 	)
-	(polyline
-		(pts
-			(xy 144.145 66.675) (xy 146.685 66.675)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "89a3831c-17d6-4a94-950d-5f151a5611d8")
-	)
 	(wire
 		(pts
 			(xy 117.475 117.475) (xy 128.27 117.475)
@@ -854,16 +824,6 @@
 			(type default)
 		)
 		(uuid "8c71c147-269f-4659-8be7-18bb2009e2f0")
-	)
-	(wire
-		(pts
-			(xy 130.81 80.01) (xy 144.145 80.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "95e9655f-a27e-4c4e-9f0d-5e3f9dd8a4b5")
 	)
 	(polyline
 		(pts
@@ -905,16 +865,6 @@
 		)
 		(uuid "b4c72fc1-dac8-415b-9ce4-2194fa40f3bf")
 	)
-	(wire
-		(pts
-			(xy 146.685 78.105) (xy 146.685 80.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b531eecd-95bb-41f5-b220-5b745a94b2f6")
-	)
 	(polyline
 		(pts
 			(xy 128.27 69.215) (xy 128.27 66.675)
@@ -934,16 +884,6 @@
 			(type default)
 		)
 		(uuid "c9f1fdb7-6f97-41ad-b62e-5c05980c10d6")
-	)
-	(wire
-		(pts
-			(xy 144.145 80.01) (xy 144.145 78.105)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d275fc7c-c4b2-4597-8bd6-09032165d475")
 	)
 	(wire
 		(pts
@@ -997,7 +937,7 @@
 	)
 	(text "When these buttons are pressed, I want power\nto the boards to stop. Therefore, power must\nbe applied to the relay to make the connection.\nWe will use the normally open (NO) contact to\ndeliver power to the boards. The emergency stop\nbuttons are then normally closed (NC)."
 		(exclude_from_sim no)
-		(at 137.795 59.69 0)
+		(at 130.81 56.515 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1035,7 +975,7 @@
 		)
 		(uuid "ff1df78a-42c5-4438-bbd1-9d3f685dc770")
 	)
-	(label "ESTOP1"
+	(label "ESTOP"
 		(at 133.985 92.075 0)
 		(fields_autoplaced yes)
 		(effects
@@ -1045,17 +985,6 @@
 			(justify left bottom)
 		)
 		(uuid "41bccb8f-63f4-446a-a44c-d21927639278")
-	)
-	(label "ESTOP2"
-		(at 133.985 80.01 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "65ced0e8-ac2f-4145-9090-660eed7993ee")
 	)
 	(label "BATTERY_IN"
 		(at 133.985 94.615 0)
@@ -1126,7 +1055,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "ecocad_lib_footprints:CONN2_1102030_OST"
 			(at 187.96 97.155 0)
 			(effects
 				(font
@@ -1170,7 +1099,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 146.685 80.01 0)
+		(at 130.81 80.01 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1179,7 +1108,7 @@
 		(fields_autoplaced yes)
 		(uuid "361ef093-9f88-459a-a6da-a905292fda5c")
 		(property "Reference" "#PWR0103"
-			(at 146.685 86.36 0)
+			(at 130.81 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1188,7 +1117,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 146.685 84.455 0)
+			(at 130.81 84.455 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1196,7 +1125,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 146.685 80.01 0)
+			(at 130.81 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1205,7 +1134,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 146.685 80.01 0)
+			(at 130.81 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1214,7 +1143,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 146.685 80.01 0)
+			(at 130.81 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1394,7 +1323,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "ecocad_lib_footprints:CONN2_1102030_OST"
 			(at 112.395 117.475 0)
 			(effects
 				(font
@@ -1581,7 +1510,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "ecocad_lib_footprints:CONN2_1102030_OST"
 			(at 112.395 102.235 0)
 			(effects
 				(font
@@ -1717,7 +1646,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "ecocad_lib_footprints:CONN2_1102030_OST"
 			(at 128.27 73.025 0)
 			(effects
 				(font
@@ -1754,76 +1683,6 @@
 			(project "emerg_stop_breakout"
 				(path "/ae88fa43-7fd6-489f-919a-8646302863f6"
 					(reference "J104")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 144.145 73.025 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f514ed54-3d65-44e5-91f7-e68b8126ed48")
-		(property "Reference" "J105"
-			(at 147.955 70.485 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Screw_Terminal_01x02"
-			(at 133.35 76.2 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 144.145 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 144.145 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 144.145 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "3865be17-4b68-46dc-a918-06740c6d49bd")
-		)
-		(pin "1"
-			(uuid "7d392a09-d6e9-48e9-8f22-04e15f43112e")
-		)
-		(instances
-			(project "emerg_stop_breakout"
-				(path "/ae88fa43-7fd6-489f-919a-8646302863f6"
-					(reference "J105")
 					(unit 1)
 				)
 			)
