@@ -1267,6 +1267,151 @@
 				)
 			)
 		)
+		(symbol "Jumper:Jumper_2_Open"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim yes)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at 0 2.794 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Jumper_2_Open"
+				(at 0 -2.286 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Jumper, 2-pole, open"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Jumper SPST"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Jumper_2_Open_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_0_1"
+				(arc
+					(start 1.524 1.27)
+					(mid 0 1.778)
+					(end -1.524 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "ecocad_lib_symbols:AZ1117IH-3.3"
 			(pin_names
 				(offset 0.254)
@@ -2755,6 +2900,16 @@
 	)
 	(wire
 		(pts
+			(xy 215.265 78.74) (xy 221.615 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10e5ecc8-0d08-49c0-b902-fae39668d24c")
+	)
+	(wire
+		(pts
 			(xy 66.04 46.99) (xy 66.04 58.42)
 		)
 		(stroke
@@ -2795,7 +2950,7 @@
 	)
 	(wire
 		(pts
-			(xy 199.39 78.74) (xy 194.31 78.74)
+			(xy 197.485 78.74) (xy 194.31 78.74)
 		)
 		(stroke
 			(width 0)
@@ -3315,6 +3470,16 @@
 	)
 	(wire
 		(pts
+			(xy 231.775 78.74) (xy 241.3 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5bc95c23-11ca-48dc-bb63-3e84c9d9d523")
+	)
+	(wire
+		(pts
 			(xy 34.29 169.545) (xy 36.195 169.545)
 		)
 		(stroke
@@ -3372,16 +3537,6 @@
 			(type default)
 		)
 		(uuid "7163c19a-449a-4f6f-a27a-8839c3ab5cf9")
-	)
-	(wire
-		(pts
-			(xy 219.71 78.74) (xy 226.695 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "72d95df9-0332-4495-9ba0-de121a8262a6")
 	)
 	(wire
 		(pts
@@ -4105,7 +4260,7 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 78.74) (xy 212.09 78.74)
+			(xy 205.105 78.74) (xy 207.645 78.74)
 		)
 		(stroke
 			(width 0)
@@ -4439,7 +4594,7 @@
 	)
 	(rectangle
 		(start 172.72 68.58)
-		(end 236.22 105.41)
+		(end 251.46 105.41)
 		(stroke
 			(width 1)
 			(type dash)
@@ -4532,9 +4687,9 @@
 		)
 		(uuid "7f2e2503-0ce1-4301-969a-bff424f6c557")
 	)
-	(text "things to add:\n- jumpers for testing 7v0, 5v0, 3v3\n"
+	(text "things to add?\n- jumpers for testing 7v0, 5v0, 3v3\n"
 		(exclude_from_sim no)
-		(at 193.675 128.905 0)
+		(at 196.215 121.285 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4547,7 +4702,7 @@
 	)
 	(text "Overvolt = 9.35 V\nUndervolt = 5.1 V"
 		(exclude_from_sim no)
-		(at 84.455 72.39 0)
+		(at 47.625 69.85 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4619,7 +4774,7 @@
 	)
 	(text "Overvolt = 13.2V\nUndervolt = 6.6 V"
 		(exclude_from_sim no)
-		(at 81.28 26.035 0)
+		(at 47.625 25.4 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4740,7 +4895,7 @@
 		(uuid "b14ebc82-1bb7-44e7-b892-6d72d641dd68")
 	)
 	(label "+7V0"
-		(at 226.695 78.74 0)
+		(at 241.3 78.74 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5387,6 +5542,82 @@
 			(project "H2-Sensor-Board_Sally-R1.0"
 				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/3bc5ea2f-35c7-4100-bf1f-fa9268f700b9"
 					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Open")
+		(at 226.695 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1f2091c0-8b4c-4ba8-97ed-a3c3963d5c81")
+		(property "Reference" "JP1"
+			(at 226.695 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Jumper_2_Open"
+			(at 227.33 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:J_0603_Triangular"
+			(at 226.695 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 226.695 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, open"
+			(at 226.695 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(optional)" ""
+			(at 226.695 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6a0d69f9-401e-43fb-bbdb-472ca08abcc3")
+		)
+		(pin "2"
+			(uuid "e7a26bc5-a3c9-49b7-9501-4d582a92d118")
+		)
+		(instances
+			(project "H2-Sensor-Board_Sally-R1.0"
+				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/3bc5ea2f-35c7-4100-bf1f-fa9268f700b9"
+					(reference "JP1")
 					(unit 1)
 				)
 			)
@@ -8684,7 +8915,7 @@
 	)
 	(symbol
 		(lib_id "Device:D_Schottky")
-		(at 215.9 78.74 0)
+		(at 211.455 78.74 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8693,7 +8924,7 @@
 		(fields_autoplaced yes)
 		(uuid "b97da4c7-bd4a-43bb-91d5-2c977dcc3fc0")
 		(property "Reference" "D12"
-			(at 215.5825 85.09 0)
+			(at 211.1375 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8701,7 +8932,7 @@
 			)
 		)
 		(property "Value" "D_Schottky"
-			(at 215.5825 82.55 0)
+			(at 211.1375 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8709,7 +8940,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_0805_2012Metric"
-			(at 215.9 78.74 0)
+			(at 211.455 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8718,7 +8949,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 215.9 78.74 0)
+			(at 211.455 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8727,7 +8958,7 @@
 			)
 		)
 		(property "Description" "Schottky diode"
-			(at 215.9 78.74 0)
+			(at 211.455 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8736,7 +8967,7 @@
 			)
 		)
 		(property "JLCPCB Part#(optional)" ""
-			(at 215.9 78.74 0)
+			(at 211.455 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9700,7 +9931,7 @@
 	)
 	(symbol
 		(lib_id "Device:Polyfuse")
-		(at 203.2 78.74 270)
+		(at 201.295 78.74 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9709,7 +9940,7 @@
 		(fields_autoplaced yes)
 		(uuid "e3be7fc6-10e7-4bdf-8187-5eac540e436e")
 		(property "Reference" "F1"
-			(at 203.2 85.09 90)
+			(at 201.295 85.09 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9717,7 +9948,7 @@
 			)
 		)
 		(property "Value" "500mA"
-			(at 203.2 82.55 90)
+			(at 201.295 82.55 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9725,7 +9956,7 @@
 			)
 		)
 		(property "Footprint" "Fuse:Fuse_0805_2012Metric"
-			(at 198.12 80.01 0)
+			(at 196.215 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9735,7 +9966,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 203.2 78.74 0)
+			(at 201.295 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9744,7 +9975,7 @@
 			)
 		)
 		(property "Description" "Resettable fuse, polymeric positive temperature coefficient"
-			(at 203.2 78.74 0)
+			(at 201.295 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9753,7 +9984,7 @@
 			)
 		)
 		(property "DK #" "507-1811-1-ND"
-			(at 203.2 78.74 0)
+			(at 201.295 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9762,7 +9993,7 @@
 			)
 		)
 		(property "JLCPCB Part#(optional)" ""
-			(at 203.2 78.74 0)
+			(at 201.295 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
