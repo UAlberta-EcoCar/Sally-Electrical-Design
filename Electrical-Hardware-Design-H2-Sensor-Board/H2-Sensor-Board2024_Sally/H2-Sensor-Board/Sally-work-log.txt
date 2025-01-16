@@ -5,12 +5,11 @@
 - **To-Do**:
 
 main board:
-  - H2 connectors - add 4 more vertical 3-pin (battery-brd)
   - addition: [h2] comparator into stm32 DAC for sw-free emergency shutdown (check discord)
-  - BME sensor (I2C working distance, can't be too far)
 
 daughter brd:
-  - check changes to hydrogen sensor (including daughter board); check that part can be calibrated somehow
+  - add LM317 adjustable reg ckt for 5V0 adjust at the board level
+  - use unity-gain buffer V_sense output
 
 - **Completed**:
   - STM32 pin config
@@ -23,11 +22,12 @@ daughter brd:
   - fault monitoring for 12V0 and 7V0 needs setup
   - probing points and LED's for different power rails
   - V_bus net needs investigating - removed
+  - H2 connectors - add 3 more vertical 3-pin (battery-brd)
+  - BME sensor (I2C working distance, can't be too far) **apparently this was working just fine?
 
 - **Next Steps**: 
   - refresh pin and ref des of symbols
   - assign footprint to symbols
-  - no current monitoring ckt (for 12V, 7V), do we need one?
 
 ---
 
