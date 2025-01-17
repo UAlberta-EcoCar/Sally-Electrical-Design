@@ -87,9 +87,13 @@ rbData_t relay_board_data;
 volatile uint16_t adc1Results[3];
 volatile uint16_t adc2Results[3];
 
+
+FDCAN_TxHeaderTypeDef TxHeader;
 FDCAN_RxHeaderTypeDef RxHeader;
-uint8_t RxData[8];
-uint32_t TxMailboxCanTask;
+
+uint8_t RxData[64];
+uint8_t TxData[64];
+
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -180,22 +184,20 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
   }
 }
 
-HAL_StatusTypeDef HAL_CAN_SafeAddTxMessage(uint8_t *msg, uint32_t msg_id,
-                                           uint32_t msg_length,
-                                           uint32_t frame) {
+HAL_StatusTypeDef HAL_CAN_SafeAddTxMessage(uint8_t *pTxData, uint32_t identifier,
+                                           uint32_t dataLength) {
   uint32_t fc_tick;
   HAL_StatusTypeDef hal_stat;
-  FDCAN_TxHeaderTypeDef TxHeader;
 
   // These will never change
-  TxHeader.Identifier = msg_id;
+  TxHeader.Identifier = identifier;
   TxHeader.IdType = FDCAN_STANDARD_ID;
-  TxHeader.TxFrameType = frame;
-  TxHeader.DataLength = msg_length;
+  TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+  TxHeader.DataLength = dataLength;
   TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE; // Not really sure what this is
   TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
-  TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
-  TxHeader.TxEventFifoControl = FDCAN_STORE_TX_EVENTS; // Or this
+  TxHeader.FDFormat = FDCAN_FD_CAN;
+  TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS; // Or this
   TxHeader.MessageMarker = 0; // Not really sure what this is for
 
   // Start a timer to check timeout conditions
@@ -204,7 +206,7 @@ HAL_StatusTypeDef HAL_CAN_SafeAddTxMessage(uint8_t *msg, uint32_t msg_id,
   /* Try to add a Tx message. Returns HAL_ERROR if there are no avail
    * mailboxes or if the peripheral is not initialized. */
   do {
-    hal_stat = HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader, msg);
+    hal_stat = HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader, pTxData);
   } while (hal_stat != HAL_OK && ((HAL_GetTick() - fc_tick) < 500));
 
   return hal_stat;
