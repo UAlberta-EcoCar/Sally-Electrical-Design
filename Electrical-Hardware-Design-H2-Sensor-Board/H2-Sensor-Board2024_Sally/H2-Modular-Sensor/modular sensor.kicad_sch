@@ -4,6 +4,11 @@
 	(generator_version "8.0")
 	(uuid "ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26")
 	(paper "A4")
+	(title_block
+		(title "H2 MoSen")
+		(date "2025-01-18")
+		(rev "1.0")
+	)
 	(lib_symbols
 		(symbol "Connector_Generic:Conn_01x03"
 			(pin_names
@@ -1302,25 +1307,23 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U1"
-				(at 2.0194 12.7 0)
+			(property "Reference" "U"
+				(at -6.35 8.89 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Value" "MQ-8"
-				(at 2.0194 10.16 0)
+				(at 3.81 8.89 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Footprint" "Modular sensor footprints:MQ-8"
+			(property "Footprint" "Sensor:MQ-8"
 				(at -27.94 -16.51 0)
 				(effects
 					(font
@@ -1400,7 +1403,7 @@
 				(pin power_in line
 					(at 0 10.16 270)
 					(length 2.54)
-					(name "VH-"
+					(name "VH+"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1454,7 +1457,7 @@
 				(pin power_in line
 					(at 0 -10.16 90)
 					(length 2.54)
-					(name "VH+"
+					(name "VH-"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1744,9 +1747,9 @@
 		)
 		(symbol "power:GND"
 			(power)
+			(pin_numbers hide)
 			(pin_names
-				(offset 0)
-			)
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1820,8 +1823,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
-					(name "GND"
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2816,7 +2819,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0eb6f1ad-01c8-4622-857c-d14d78c71253")
-		(property "Reference" "J2"
+		(property "Reference" "J1"
 			(at 28.575 86.995 0)
 			(effects
 				(font
@@ -2873,7 +2876,7 @@
 		(instances
 			(project ""
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "J2")
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -2890,7 +2893,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0f9a4e3f-fb77-40d6-8542-41b5304ccd70")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR03"
 			(at 126.365 102.87 0)
 			(effects
 				(font
@@ -2940,7 +2943,7 @@
 		(instances
 			(project "modular sensor"
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "#PWR04")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -2949,15 +2952,14 @@
 	(symbol
 		(lib_id "Sensor_h2sen_winsen_mq8:MQ-8")
 		(at 172.72 95.25 0)
-		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "1a5aa31a-ffd7-4251-a24f-e2ed1f6f1146")
-		(property "Reference" "MQ-8"
-			(at 175.895 86.36 0)
+		(property "Reference" "MQ-1"
+			(at 175.895 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2966,7 +2968,7 @@
 			)
 		)
 		(property "Value" "MQ-8"
-			(at 174.7394 105.41 0)
+			(at 174.7394 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2975,8 +2977,8 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Modular sensor footprints:MQ-8"
-			(at 144.78 78.74 0)
+		(property "Footprint" "Sensor:MQ-8"
+			(at 144.78 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2985,7 +2987,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.winsen-sensor.com/d/files/mq-8-(ver1_6)---manual.pdf"
-			(at 170.18 73.66 0)
+			(at 170.18 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2993,7 +2995,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Semiconductor Sensor for Flammable Gas"
 			(at 172.72 95.25 0)
 			(effects
 				(font
@@ -3023,7 +3025,7 @@
 		(instances
 			(project "modular sensor"
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "MQ-8")
+					(reference "MQ-1")
 					(unit 1)
 				)
 			)
@@ -3439,7 +3441,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8367779b-02b7-4fc9-9044-edffe344d5f0")
-		(property "Reference" "#PWR0102"
+		(property "Reference" "#PWR05"
 			(at 172.72 113.03 0)
 			(effects
 				(font
@@ -3476,7 +3478,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 172.72 106.68 0)
 			(effects
 				(font
@@ -3491,7 +3493,7 @@
 		(instances
 			(project "modular sensor"
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "#PWR0102")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -3574,7 +3576,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a1895508-a193-4f36-bd17-b761b7d0642f")
-		(property "Reference" "U3"
+		(property "Reference" "U1"
 			(at 100.965 73.66 0)
 			(effects
 				(font
@@ -3639,7 +3641,7 @@
 		(instances
 			(project ""
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "U3")
+					(reference "U1")
 					(unit 1)
 				)
 			)
@@ -3870,7 +3872,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ba3deb9b-2edb-418d-8d46-81d6f7dd1322")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR04"
 			(at 147.32 196.215 0)
 			(effects
 				(font
@@ -3921,7 +3923,7 @@
 		(instances
 			(project "modular sensor"
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "#PWR05")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -3937,7 +3939,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bbdf8db3-1c88-43ec-9c7f-5d2dd7496ef7")
-		(property "Reference" "#PWR03"
+		(property "Reference" "#PWR06"
 			(at 232.41 107.95 0)
 			(effects
 				(font
@@ -3988,7 +3990,7 @@
 		(instances
 			(project "modular sensor"
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "#PWR03")
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)

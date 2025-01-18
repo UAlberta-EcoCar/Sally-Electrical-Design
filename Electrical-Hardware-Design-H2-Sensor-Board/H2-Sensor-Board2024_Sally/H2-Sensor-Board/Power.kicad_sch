@@ -5,8 +5,10 @@
 	(uuid "5ad9d037-0d31-4158-b107-fcf017a40ce6")
 	(paper "A4")
 	(title_block
-		(title "Power Supply")
-		(rev "1")
+		(title "H2 Sensor Board")
+		(date "2025-01-18")
+		(rev "1.0")
+		(comment 1 "Power")
 	)
 	(lib_symbols
 		(symbol "Device:C"
@@ -264,151 +266,6 @@
 					(at 0 -2.54 90)
 					(length 2.032)
 					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Device:D_Schottky"
-			(pin_numbers hide)
-			(pin_names
-				(offset 1.016) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "D"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "D_Schottky"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Schottky diode"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "diode Schottky"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "D_Schottky_0_1"
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.905 0.635) (xy -1.905 1.27) (xy -1.27 1.27) (xy -1.27 -1.27) (xy -0.635 -1.27) (xy -0.635 -0.635)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "D_Schottky_1_1"
-				(pin passive line
-					(at -3.81 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "A"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2677,12 +2534,6 @@
 		(uuid "5b2ebf66-7ffe-4fd8-965a-1e787c0c247f")
 	)
 	(junction
-		(at 211.455 76.835)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5c5794d5-ca24-4b8e-90fd-354b06823402")
-	)
-	(junction
 		(at 66.04 46.99)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3126,16 +2977,6 @@
 	)
 	(wire
 		(pts
-			(xy 211.455 76.835) (xy 221.615 76.835)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "28689fc5-f22c-4bf3-9c03-81904a6d12b4")
-	)
-	(wire
-		(pts
 			(xy 34.29 153.035) (xy 34.29 130.175)
 		)
 		(stroke
@@ -3476,7 +3317,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.775 76.835) (xy 241.3 76.835)
+			(xy 223.52 76.835) (xy 233.045 76.835)
 		)
 		(stroke
 			(width 0)
@@ -3603,16 +3444,6 @@
 			(type default)
 		)
 		(uuid "795d1986-0472-4a97-a1ea-457909c2db6a")
-	)
-	(wire
-		(pts
-			(xy 211.455 76.835) (xy 211.455 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7abf685d-5569-4de8-adc7-469dab659dcd")
 	)
 	(wire
 		(pts
@@ -4276,17 +4107,7 @@
 	)
 	(wire
 		(pts
-			(xy 211.455 91.44) (xy 211.455 98.425)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d8889af3-cb96-41ad-8d2b-58a480b3d837")
-	)
-	(wire
-		(pts
-			(xy 206.375 76.835) (xy 211.455 76.835)
+			(xy 206.375 76.835) (xy 213.36 76.835)
 		)
 		(stroke
 			(width 0)
@@ -4336,7 +4157,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 76.835) (xy 194.31 76.835)
+			(xy 189.23 76.835) (xy 194.31 76.835)
 		)
 		(stroke
 			(width 0)
@@ -4620,7 +4441,7 @@
 	)
 	(rectangle
 		(start 172.72 68.58)
-		(end 251.46 105.41)
+		(end 239.395 105.41)
 		(stroke
 			(width 1)
 			(type dash)
@@ -4792,6 +4613,16 @@
 		)
 		(uuid "cbc66518-7d44-400a-9f82-5e0ddcba6e1e")
 	)
+	(text "<4mA"
+		(exclude_from_sim no)
+		(at 189.865 93.345 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "ccd8328b-27b4-428a-a747-9452dbd516ab")
+	)
 	(text "eFuses FLT Circuitry\n"
 		(exclude_from_sim no)
 		(at 34.29 121.92 0)
@@ -4961,7 +4792,7 @@
 		(uuid "b14ebc82-1bb7-44e7-b892-6d72d641dd68")
 	)
 	(label "+7V0"
-		(at 241.3 76.835 0)
+		(at 233.045 76.835 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4994,8 +4825,8 @@
 		(uuid "ef17d967-c8c9-4445-8695-3476263245dc")
 	)
 	(global_label "V_HEAT"
-		(shape input)
-		(at 185.42 76.835 180)
+		(shape output)
+		(at 189.23 76.835 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5005,7 +4836,7 @@
 		)
 		(uuid "c5dd98c2-345e-4552-9061-b9aa08c86d19")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 175.8429 76.835 0)
+			(at 179.6529 76.835 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5615,7 +5446,7 @@
 	)
 	(symbol
 		(lib_id "Jumper:Jumper_2_Open")
-		(at 226.695 76.835 0)
+		(at 218.44 76.835 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5623,7 +5454,7 @@
 		(dnp no)
 		(uuid "1f2091c0-8b4c-4ba8-97ed-a3c3963d5c81")
 		(property "Reference" "JP1"
-			(at 226.695 83.185 0)
+			(at 218.44 81.915 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5631,7 +5462,7 @@
 			)
 		)
 		(property "Value" "Jumper_2_Open"
-			(at 227.33 80.645 0)
+			(at 219.075 79.375 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5639,7 +5470,7 @@
 			)
 		)
 		(property "Footprint" "ecocad_lib_footprints:J_0603_Triangular"
-			(at 226.695 76.835 0)
+			(at 218.44 76.835 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5648,7 +5479,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 226.695 76.835 0)
+			(at 218.44 76.835 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5657,7 +5488,7 @@
 			)
 		)
 		(property "Description" "Jumper, 2-pole, open"
-			(at 226.695 76.835 0)
+			(at 218.44 76.835 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5666,7 +5497,7 @@
 			)
 		)
 		(property "JLCPCB Part#(optional)" ""
-			(at 226.695 76.835 0)
+			(at 218.44 76.835 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7079,7 +6910,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part#" "C1604"
+		(property "Part#" "C1525"
 			(at 60.96 49.53 0)
 			(effects
 				(font
@@ -7696,7 +7527,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
 			(at 96.52 80.01 0)
 			(effects
 				(font
@@ -7723,7 +7554,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part#" "C15849"
+		(property "Part#" "C7432790"
 			(at 96.52 80.01 0)
 			(effects
 				(font
@@ -8383,7 +8214,7 @@
 		(dnp no)
 		(uuid "a60ad2e0-bab5-4c11-8083-eea27ad6c8c0")
 		(property "Reference" "D14"
-			(at 187.96 90.17 90)
+			(at 188.595 89.535 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8392,7 +8223,7 @@
 			)
 		)
 		(property "Value" "BLUE"
-			(at 187.96 92.71 90)
+			(at 187.96 91.44 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8549,7 +8380,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
 			(at 92.71 35.56 0)
 			(effects
 				(font
@@ -8576,7 +8407,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part#" "C15849"
+		(property "Part#" "C7432790"
 			(at 92.71 35.56 0)
 			(effects
 				(font
@@ -8980,85 +8811,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D_Schottky")
-		(at 211.455 87.63 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b97da4c7-bd4a-43bb-91d5-2c977dcc3fc0")
-		(property "Reference" "D15"
-			(at 213.995 86.0424 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "D_Schottky"
-			(at 213.995 88.5824 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_0805_2012Metric"
-			(at 211.455 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 211.455 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Schottky diode"
-			(at 211.455 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Part#(optional)" ""
-			(at 211.455 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "94e6092a-96d0-4de0-8f40-b858858931dc")
-		)
-		(pin "2"
-			(uuid "08939c0f-486c-45b3-a381-db04280ac4e7")
-		)
-		(instances
-			(project "H2 Sensor Board Lucy Rev 1"
-				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/3bc5ea2f-35c7-4100-bf1f-fa9268f700b9"
-					(reference "D15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:LED")
 		(at 70.485 150.495 90)
 		(unit 1)
@@ -9131,72 +8883,6 @@
 			(project "H2-Sensor-Board_Sally-R1.0"
 				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/3bc5ea2f-35c7-4100-bf1f-fa9268f700b9"
 					(reference "D9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 211.455 98.425 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "bddca7ce-500c-4f47-be84-4d418f6cb777")
-		(property "Reference" "#PWR034"
-			(at 211.455 104.775 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 211.455 102.235 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 211.455 98.425 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 211.455 98.425 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 211.455 98.425 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "504e063a-1192-4e60-8242-0835e1c597ea")
-		)
-		(instances
-			(project "H2-Sensor-Board_Sally-R1.0"
-				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/3bc5ea2f-35c7-4100-bf1f-fa9268f700b9"
-					(reference "#PWR034")
 					(unit 1)
 				)
 			)
@@ -9755,7 +9441,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part#" "C1604"
+		(property "Part#" "C1525"
 			(at 60.96 95.25 0)
 			(effects
 				(font
@@ -10071,10 +9757,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e3be7fc6-10e7-4bdf-8187-5eac540e436e")
 		(property "Reference" "F1"
-			(at 202.565 83.185 90)
+			(at 202.565 81.915 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10082,7 +9767,7 @@
 			)
 		)
 		(property "Value" "500mA"
-			(at 202.565 80.645 90)
+			(at 202.565 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10425,7 +10110,7 @@
 		(dnp no)
 		(uuid "f07a5514-746b-4093-9f3f-a7b02da30e17")
 		(property "Reference" "R30"
-			(at 186.69 80.645 0)
+			(at 189.23 80.645 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10433,8 +10118,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "560R"
-			(at 186.69 83.185 0)
+		(property "Value" "1k8"
+			(at 189.23 83.185 0)
 			(effects
 				(font
 					(size 1.27 1.27)
