@@ -3,10 +3,14 @@
 ## **Work Log**
 
 - **To-Do**:
+  - duplicate layout plugin (route 1 TPS and copy)
+  - consider adding electrolytic cap beside pwr src
+  - 2mA for voltage LED (calculate R values) [done]
 
-daughter brd:
-  - add LM317 adjustable reg ckt for 5V0 adjust at the board level
-  - use unity-gain buffer V_sense output
+  - [modular] 1 or 2W Zener to stabilize V_Heater [done]
+  - [modular] bolt heatsink onto LM317 
+  - [modular] alternate design with LM317 SMD footprint (for spacing constraints)
+  - [modular] bias MCP6007 unused op-amp
 
 - **Completed**:
   - STM32 pin config
@@ -21,6 +25,8 @@ daughter brd:
   - V_bus net needs investigating - removed
   - H2 connectors - add 3 more vertical 3-pin (battery-brd)
   - BME sensor (I2C working distance, can't be too far) **apparently this was working just fine?
+  - add LM317 adjustable reg ckt for 5V0 adjust at the board level
+  - use unity-gain buffer V_sense output
 
 - **Next Steps**: 
   - refresh pin and ref des of symbols
