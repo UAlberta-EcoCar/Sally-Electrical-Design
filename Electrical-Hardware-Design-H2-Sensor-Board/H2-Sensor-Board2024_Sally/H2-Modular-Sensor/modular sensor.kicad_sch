@@ -938,6 +938,124 @@
 				)
 			)
 		)
+		(symbol "Mechanical:Heatsink_Pad"
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim yes)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "HS"
+				(at 0 5.715 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Heatsink_Pad"
+				(at 0 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0.3048 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0.3048 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Heatsink with electrical connection, 1 pin"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "thermal heat temperature"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Heatsink_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Heatsink_Pad_0_1"
+				(polyline
+					(pts
+						(xy -0.3302 0) (xy -0.9652 0) (xy -0.9652 2.54) (xy -1.6002 2.54) (xy -1.6002 0) (xy -2.2352 0)
+						(xy -2.2352 2.54) (xy -2.8702 2.54) (xy -2.8702 -1.27) (xy -0.9652 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.3302 0) (xy -0.3302 2.54) (xy 0.3048 2.54) (xy 0.3048 0) (xy 0.9398 0) (xy 0.9398 2.54)
+						(xy 1.5748 2.54) (xy 1.5748 0) (xy 2.2098 0) (xy 2.2098 2.54) (xy 2.8448 2.54) (xy 2.8448 -1.27)
+						(xy -0.9652 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "Heatsink_Pad_1_1"
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Mechanical:MountingHole_Pad"
 			(pin_numbers hide)
 			(pin_names
@@ -1040,7 +1158,7 @@
 				)
 			)
 		)
-		(symbol "Regulator_Linear:LM317_TO-252"
+		(symbol "Regulator_Linear:LM317_TO-263"
 			(pin_names
 				(offset 0.254)
 			)
@@ -1055,7 +1173,7 @@
 					)
 				)
 			)
-			(property "Value" "LM317_TO-252"
+			(property "Value" "LM317_TO-263"
 				(at 0 3.175 0)
 				(effects
 					(font
@@ -1064,7 +1182,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:TO-252-2"
+			(property "Footprint" "Package_TO_SOT_SMD:TO-263-2"
 				(at 0 6.35 0)
 				(effects
 					(font
@@ -1074,7 +1192,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "http://www.ti.com/lit/ds/snvs774n/snvs774n.pdf"
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm317.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1083,7 +1201,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "1.5A 35V Adjustable Linear Regulator, TO-252"
+			(property "Description" "1.5A 35V Adjustable Linear Regulator, TO-263"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1101,7 +1219,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "TO?252*"
+			(property "ki_fp_filters" "TO?263*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1110,7 +1228,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "LM317_TO-252_0_1"
+			(symbol "LM317_TO-263_0_1"
 				(rectangle
 					(start -5.08 1.905)
 					(end 5.08 -5.08)
@@ -1123,7 +1241,7 @@
 					)
 				)
 			)
-			(symbol "LM317_TO-252_1_1"
+			(symbol "LM317_TO-263_1_1"
 				(pin input line
 					(at 0 -7.62 90)
 					(length 2.54)
@@ -1770,6 +1888,12 @@
 		(uuid "88cd65c4-be95-43cb-a03c-bf58efc407fd")
 	)
 	(junction
+		(at 147.32 182.245)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9d2030af-8e85-451d-97fb-a43da0da224c")
+	)
+	(junction
 		(at 102.87 90.805)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1791,6 +1915,20 @@
 		(at 69.215 170.815)
 		(uuid "8b603a81-f658-4401-9c8a-af8fc9d0dfa8")
 	)
+	(no_connect
+		(at 102.235 171.45)
+		(uuid "950bb6ed-fb3d-4f32-a25f-0d8e82ddffb3")
+	)
+	(wire
+		(pts
+			(xy 147.32 182.245) (xy 147.32 183.515)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09585eb2-11bd-43d1-9334-18e77b9f8f91")
+	)
 	(wire
 		(pts
 			(xy 83.185 80.01) (xy 91.44 80.01)
@@ -1810,6 +1948,16 @@
 			(type default)
 		)
 		(uuid "0df12c71-adb2-48f6-812a-417035642b68")
+	)
+	(wire
+		(pts
+			(xy 150.495 173.355) (xy 168.275 173.355)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "12101e29-f6f9-40a2-b4ca-449a18f27355")
 	)
 	(wire
 		(pts
@@ -2003,6 +2151,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.275 179.705) (xy 167.005 179.705)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65734ecd-a4a1-4507-96e5-3af2350ce333")
+	)
+	(wire
+		(pts
 			(xy 106.68 94.615) (xy 106.68 90.805)
 		)
 		(stroke
@@ -2093,6 +2251,16 @@
 	)
 	(wire
 		(pts
+			(xy 147.32 180.34) (xy 147.32 182.245)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81c6cd6f-d036-499b-939b-8bcfcc9cb822")
+	)
+	(wire
+		(pts
 			(xy 32.385 92.71) (xy 36.83 92.71)
 		)
 		(stroke
@@ -2113,6 +2281,26 @@
 	)
 	(wire
 		(pts
+			(xy 151.765 177.165) (xy 150.495 177.165)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a44757d2-a014-4bc2-bc98-1eebba028289")
+	)
+	(wire
+		(pts
+			(xy 147.32 188.595) (xy 147.32 189.865)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8fa5530-a041-4489-b81c-125edcde1141")
+	)
+	(wire
+		(pts
 			(xy 105.41 94.615) (xy 106.68 94.615)
 		)
 		(stroke
@@ -2123,6 +2311,16 @@
 	)
 	(wire
 		(pts
+			(xy 147.32 172.085) (xy 147.32 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b35f60b1-3c79-4375-85e8-84446500afe1")
+	)
+	(wire
+		(pts
 			(xy 245.11 106.045) (xy 245.11 93.98)
 		)
 		(stroke
@@ -2130,6 +2328,26 @@
 			(type default)
 		)
 		(uuid "bb1575ee-1639-4039-ae13-553ab431f617")
+	)
+	(wire
+		(pts
+			(xy 150.495 177.165) (xy 150.495 173.355)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be7edc9a-112f-4f44-8cd4-075690b51bce")
+	)
+	(wire
+		(pts
+			(xy 168.275 173.355) (xy 168.275 179.705)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bea9824b-1120-41b6-9170-56dacae31cb5")
 	)
 	(wire
 		(pts
@@ -2160,6 +2378,16 @@
 			(type default)
 		)
 		(uuid "d28c0639-a56b-499d-abd2-d2d9a3a26b00")
+	)
+	(wire
+		(pts
+			(xy 147.32 182.245) (xy 151.765 182.245)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d42aaa49-d0ed-482e-ae65-dca419ac87b7")
 	)
 	(wire
 		(pts
@@ -2262,8 +2490,21 @@
 		(uuid "ff19bfc8-dfec-4035-9ab6-8095df99e5ff")
 	)
 	(rectangle
-		(start 146.685 168.275)
-		(end 172.085 191.77)
+		(start 92.075 69.85)
+		(end 113.03 85.725)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 255 153 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 2dd8c6a5-f164-4837-967a-822222ff5c63)
+	)
+	(rectangle
+		(start 141.605 163.83)
+		(end 175.895 194.31)
 		(stroke
 			(width 0)
 			(type default)
@@ -2363,6 +2604,18 @@
 		)
 		(uuid "4251cb4f-081e-4394-8555-72826680e233")
 	)
+	(text "w/ heatsink"
+		(exclude_from_sim no)
+		(at 95.885 71.12 0)
+		(effects
+			(font
+				(size 0.762 0.762)
+				(italic yes)
+				(color 255 153 0 1)
+			)
+		)
+		(uuid "4a40b915-4f23-47ab-88aa-0d01b571da3c")
+	)
 	(text "Resistive Buffer"
 		(exclude_from_sim no)
 		(at 228.6 76.835 0)
@@ -2410,10 +2663,11 @@
 	)
 	(text "uncommitted, terminated"
 		(exclude_from_sim no)
-		(at 159.385 169.545 0)
+		(at 151.765 165.1 0)
 		(effects
 			(font
-				(size 1.27 1.27)
+				(size 1.016 1.016)
+				(italic yes)
 				(color 255 0 0 1)
 			)
 		)
@@ -2441,18 +2695,6 @@
 			(justify left)
 		)
 		(uuid "bccb260c-17a0-4d16-8578-aeec81dfc62e")
-	)
-	(text "add:\n- heatsink"
-		(exclude_from_sim no)
-		(at 97.79 172.72 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 255 0 0 1)
-			)
-			(justify left)
-		)
-		(uuid "f5a65125-3227-4b6b-b0ad-c5ac9b73444f")
 	)
 	(label "V_RL"
 		(at 191.135 92.71 0)
@@ -2530,6 +2772,17 @@
 			(justify right bottom)
 		)
 		(uuid "726fe898-1883-42b1-ba73-a5a954870f79")
+	)
+	(label "V_Heater"
+		(at 147.32 172.085 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b0055514-467c-4e06-acf7-ab4b644bab36")
 	)
 	(label "V_Heater"
 		(at 232.41 83.82 0)
@@ -2844,8 +3097,77 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 147.32 177.8 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3d571cc2-dc71-4f54-9efb-6ad537f05978")
+		(property "Reference" "R2"
+			(at 146.05 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 146.05 178.435 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 147.32 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 147.32 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "826df3e4-d40b-431f-b057-8ecc77508fcc")
+		)
+		(pin "1"
+			(uuid "208ff01a-9950-428a-95e0-ca0815f2c5b7")
+		)
+		(instances
+			(project ""
+				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "ecocad_lib_symbols:MCP6007")
-		(at 161.29 180.34 0)
+		(at 159.385 179.705 0)
 		(mirror x)
 		(unit 2)
 		(exclude_from_sim no)
@@ -2854,7 +3176,7 @@
 		(dnp no)
 		(uuid "4b4880c3-a538-4b54-a4d2-1a05b138c756")
 		(property "Reference" "U2"
-			(at 160.02 180.975 0)
+			(at 158.115 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2862,7 +3184,7 @@
 			)
 		)
 		(property "Value" "MCP6007"
-			(at 160.655 179.07 0)
+			(at 158.75 178.435 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2870,7 +3192,7 @@
 			)
 		)
 		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-			(at 161.29 180.34 0)
+			(at 159.385 179.705 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2879,7 +3201,7 @@
 			)
 		)
 		(property "Datasheet" "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP6006-6R-6U-7-9-Data-Sheet-20006411B.pdf"
-			(at 161.29 180.34 0)
+			(at 159.385 179.705 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2888,7 +3210,7 @@
 			)
 		)
 		(property "Description" "Dual Operational Amplifiers, DIP-8/SOIC-8/TSSOP-8/VSSOP-8"
-			(at 161.29 180.34 0)
+			(at 159.385 179.705 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3176,78 +3498,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Linear:LM317_TO-252")
-		(at 102.87 80.01 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "87d24c81-31bd-4015-8e9b-ba8bbeca317f")
-		(property "Reference" "U1"
-			(at 102.87 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "LM317_TO-252"
-			(at 102.87 75.565 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:TO-252-2"
-			(at 102.87 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/snvs774n/snvs774n.pdf"
-			(at 102.87 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "1.5A 35V Adjustable Linear Regulator, TO-252"
-			(at 102.87 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "14d889d1-bc22-47d2-9d8f-b50c49dab647")
-		)
-		(pin "2"
-			(uuid "869424f4-1d7c-43e1-8ad3-6876ae7cfdad")
-		)
-		(pin "3"
-			(uuid "8da56817-04d3-47bb-9e82-a602c286ff4e")
-		)
-		(instances
-			(project ""
-				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
-					(reference "U1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
 		(at 69.215 173.355 180)
 		(unit 1)
@@ -3309,6 +3559,156 @@
 			(project "modular sensor"
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
 					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Regulator_Linear:LM317_TO-263")
+		(at 102.87 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a1895508-a193-4f36-bd17-b761b7d0642f")
+		(property "Reference" "U3"
+			(at 102.87 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM317_HORIZONTAL"
+			(at 102.87 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220F-3_Horizontal_TabDown"
+			(at 102.87 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_1808272359_STMicroelectronics-LM317P_C138772.pdf"
+			(at 102.87 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "1.2V to 37V Adjustable Voltage Regulator"
+			(at 102.87 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "lcsc" "C138772"
+			(at 102.87 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7da3ddfa-e363-4874-8c20-3a2882fabf83")
+		)
+		(pin "1"
+			(uuid "8a8a4489-fe8c-4ba6-bf0c-24a40ad40506")
+		)
+		(pin "3"
+			(uuid "03a18f26-15dc-4694-b12c-5a97254a86d6")
+		)
+		(instances
+			(project ""
+				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
+					(reference "U3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 147.32 186.055 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a68f228c-fa5b-46e3-8068-2b979157ad7a")
+		(property "Reference" "R3"
+			(at 146.05 184.785 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 146.05 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 186.055 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 147.32 186.055 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 147.32 186.055 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "e09ff331-694e-4e71-bc62-88a6508a7674")
+		)
+		(pin "1"
+			(uuid "817deda5-3abb-4925-a15a-688d1801663b")
+		)
+		(instances
+			(project "modular sensor"
+				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -3388,6 +3788,140 @@
 			(project ""
 				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
 					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:Heatsink_Pad")
+		(at 102.235 173.99 180)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b23d1db9-e404-415d-b8fb-7270882e9c8f")
+		(property "Reference" "HS1"
+			(at 106.045 173.3549 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "4880MG-ND"
+			(at 106.045 175.8949 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.9302 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://info.boydcorp.com/hubfs/Thermal/Air-Cooling/Boyd-Board-Level-Heatsinks-Catalog.pdf"
+			(at 101.9302 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "MICA INSULATOR TO-220"
+			(at 102.235 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fa829f30-6445-447f-891e-9e6c3d104864")
+		)
+		(instances
+			(project ""
+				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
+					(reference "HS1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "GND_2")
+		(lib_id "power:GND")
+		(at 147.32 189.865 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ba3deb9b-2edb-418d-8d46-81d6f7dd1322")
+		(property "Reference" "#PWR05"
+			(at 147.32 196.215 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 150.495 189.865 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 189.865 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 189.865 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 147.32 189.865 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0f9c11e3-3e65-4df7-b444-40bc70cc80ec")
+		)
+		(instances
+			(project "modular sensor"
+				(path "/ab6f5795-0bed-45ee-8b18-fd9bd5bfbe26"
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
