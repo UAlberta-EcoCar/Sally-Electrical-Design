@@ -32,6 +32,7 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/gpio.c
     ../../Core/Src/app_freertos.c
     ../../Core/Src/adc.c
+    ../../Core/Src/dma.c
     ../../Core/Src/fdcan.c
     ../../Core/Src/tim.c
     ../../Core/Src/stm32g4xx_it.c

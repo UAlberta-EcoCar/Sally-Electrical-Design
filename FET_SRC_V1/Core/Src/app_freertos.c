@@ -19,14 +19,14 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
-#include "cmsis_os.h"
-#include "main.h"
-#include "stm32g4xx_hal_fdcan.h"
 #include "task.h"
+#include "main.h"
+#include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "fdcan.h"
+#include "tim.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 /* USER CODE END Includes */
@@ -76,7 +76,7 @@ typedef struct {
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define SET_BRIGHTNESS(x) (uint32_t)(65535 * x/100)
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -97,60 +97,62 @@ uint8_t TxData[64];
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-uint32_t defaultTaskBuffer[512];
+uint32_t defaultTaskBuffer[ 512 ];
 osStaticThreadDef_t defaultTaskControlBlock;
 const osThreadAttr_t defaultTask_attributes = {
-    .name = "defaultTask",
-    .stack_mem = &defaultTaskBuffer[0],
-    .stack_size = sizeof(defaultTaskBuffer),
-    .cb_mem = &defaultTaskControlBlock,
-    .cb_size = sizeof(defaultTaskControlBlock),
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "defaultTask",
+  .stack_mem = &defaultTaskBuffer[0],
+  .stack_size = sizeof(defaultTaskBuffer),
+  .cb_mem = &defaultTaskControlBlock,
+  .cb_size = sizeof(defaultTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for canReceiveMsg */
 osThreadId_t canReceiveMsgHandle;
-uint32_t CanReceiveMsgBuffer[512];
+uint32_t CanReceiveMsgBuffer[ 512 ];
 osStaticThreadDef_t CanReceiveMsgControlBlock;
 const osThreadAttr_t canReceiveMsg_attributes = {
-    .name = "canReceiveMsg",
-    .stack_mem = &CanReceiveMsgBuffer[0],
-    .stack_size = sizeof(CanReceiveMsgBuffer),
-    .cb_mem = &CanReceiveMsgControlBlock,
-    .cb_size = sizeof(CanReceiveMsgControlBlock),
-    .priority = (osPriority_t)osPriorityNormal1,
+  .name = "canReceiveMsg",
+  .stack_mem = &CanReceiveMsgBuffer[0],
+  .stack_size = sizeof(CanReceiveMsgBuffer),
+  .cb_mem = &CanReceiveMsgControlBlock,
+  .cb_size = sizeof(CanReceiveMsgControlBlock),
+  .priority = (osPriority_t) osPriorityNormal1,
 };
 /* Definitions for canSendMsg */
 osThreadId_t canSendMsgHandle;
-uint32_t CanSendMsgBuffer[512];
+uint32_t CanSendMsgBuffer[ 512 ];
 osStaticThreadDef_t CanSendMsgControlBlock;
 const osThreadAttr_t canSendMsg_attributes = {
-    .name = "canSendMsg",
-    .stack_mem = &CanSendMsgBuffer[0],
-    .stack_size = sizeof(CanSendMsgBuffer),
-    .cb_mem = &CanSendMsgControlBlock,
-    .cb_size = sizeof(CanSendMsgControlBlock),
-    .priority = (osPriority_t)osPriorityNormal2,
+  .name = "canSendMsg",
+  .stack_mem = &CanSendMsgBuffer[0],
+  .stack_size = sizeof(CanSendMsgBuffer),
+  .cb_mem = &CanSendMsgControlBlock,
+  .cb_size = sizeof(CanSendMsgControlBlock),
+  .priority = (osPriority_t) osPriorityNormal2,
 };
 /* Definitions for canReceiveQue */
 osMessageQueueId_t canReceiveQueHandle;
-uint8_t canReceiveQueBuffer[512 * sizeof(uint8_t)];
+uint8_t canReceiveQueBuffer[ 512 * sizeof( uint8_t ) ];
 osStaticMessageQDef_t canReceiveQueControlBlock;
 const osMessageQueueAttr_t canReceiveQue_attributes = {
-    .name = "canReceiveQue",
-    .cb_mem = &canReceiveQueControlBlock,
-    .cb_size = sizeof(canReceiveQueControlBlock),
-    .mq_mem = &canReceiveQueBuffer,
-    .mq_size = sizeof(canReceiveQueBuffer)};
+  .name = "canReceiveQue",
+  .cb_mem = &canReceiveQueControlBlock,
+  .cb_size = sizeof(canReceiveQueControlBlock),
+  .mq_mem = &canReceiveQueBuffer,
+  .mq_size = sizeof(canReceiveQueBuffer)
+};
 /* Definitions for canSendQue */
 osMessageQueueId_t canSendQueHandle;
-uint8_t canSendQueBuffer[512 * sizeof(uint8_t)];
+uint8_t canSendQueBuffer[ 512 * sizeof( uint8_t ) ];
 osStaticMessageQDef_t canSendQueControlBlock;
 const osMessageQueueAttr_t canSendQue_attributes = {
-    .name = "canSendQue",
-    .cb_mem = &canSendQueControlBlock,
-    .cb_size = sizeof(canSendQueControlBlock),
-    .mq_mem = &canSendQueBuffer,
-    .mq_size = sizeof(canSendQueBuffer)};
+  .name = "canSendQue",
+  .cb_mem = &canSendQueControlBlock,
+  .cb_size = sizeof(canSendQueControlBlock),
+  .mq_mem = &canSendQueBuffer,
+  .mq_size = sizeof(canSendQueBuffer)
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -220,10 +222,10 @@ void StartCanSend(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 
@@ -243,12 +245,10 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of canReceiveQue */
-  canReceiveQueHandle =
-      osMessageQueueNew(512, sizeof(uint8_t), &canReceiveQue_attributes);
+  canReceiveQueHandle = osMessageQueueNew (512, sizeof(uint8_t), &canReceiveQue_attributes);
 
   /* creation of canSendQue */
-  canSendQueHandle =
-      osMessageQueueNew(512, sizeof(uint8_t), &canSendQue_attributes);
+  canSendQueHandle = osMessageQueueNew (512, sizeof(uint8_t), &canSendQue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -256,12 +256,10 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle =
-      osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* creation of canReceiveMsg */
-  canReceiveMsgHandle =
-      osThreadNew(StartCanReceive, NULL, &canReceiveMsg_attributes);
+  canReceiveMsgHandle = osThreadNew(StartCanReceive, NULL, &canReceiveMsg_attributes);
 
   /* creation of canSendMsg */
   canSendMsgHandle = osThreadNew(StartCanSend, NULL, &canSendMsg_attributes);
@@ -273,6 +271,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
+
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -282,14 +281,35 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument) {
+void StartDefaultTask(void *argument)
+{
   /* init code for USB_Device */
   MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
   UNUSED(argument);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // THIRD YELLOW CHANNEL LED1
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // SECOND RED CHANNEL LED2
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1); // TOP RED CHANNEL LED4
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3); // BOTTOM GREEN CHANNEL LED3
   /* Infinite loop */
   for (;;) {
-    osDelay(1);
+    htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
+    osDelay(50);
+    htim1.Instance->CCR3 = SET_BRIGHTNESS(0);
+    osDelay(50);
+    htim1.Instance->CCR2 = SET_BRIGHTNESS(0);
+    osDelay(50);
+    htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
+    osDelay(50);
+
+    htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
+    osDelay(50);
+    htim1.Instance->CCR3 = SET_BRIGHTNESS(20);
+    osDelay(50);
+    htim1.Instance->CCR2 = SET_BRIGHTNESS(30);
+    osDelay(50);
+    htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
+    osDelay(50);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -301,7 +321,8 @@ void StartDefaultTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartCanReceive */
-void StartCanReceive(void *argument) {
+void StartCanReceive(void *argument)
+{
   /* USER CODE BEGIN StartCanReceive */
   UNUSED(argument);
   /* Infinite loop */
@@ -318,7 +339,8 @@ void StartCanReceive(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartCanSend */
-void StartCanSend(void *argument) {
+void StartCanSend(void *argument)
+{
   /* USER CODE BEGIN StartCanSend */
   UNUSED(argument);
   /* Infinite loop */
@@ -332,3 +354,4 @@ void StartCanSend(void *argument) {
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
+
