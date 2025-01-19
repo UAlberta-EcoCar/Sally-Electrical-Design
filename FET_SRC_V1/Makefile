@@ -1,5 +1,5 @@
 BUILD_DIR = build
-TARGET = FCC_CMAKE_TEST
+TARGET = FET_SRC_V1
 BINARY = $(BUILD_DIR)/$(TARGET).elf
 
 all: desc gen
