@@ -20,6 +20,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "adc.h"
+#include "cmsis_os2.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "tim.h"
@@ -150,7 +151,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV2;
   RCC_OscInitStruct.PLL.PLLN = 85;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV8;
+  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV4;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -206,8 +207,19 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
+#define SET_BRIGHTNESS(x) (uint32_t)(65535 * x/100)
   while (1)
   {
+    htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
+    htim1.Instance->CCR3 = SET_BRIGHTNESS(0);
+    htim1.Instance->CCR2 = SET_BRIGHTNESS(0);
+    htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
+    osDelay(50);
+    htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
+    htim1.Instance->CCR3 = SET_BRIGHTNESS(20);
+    htim1.Instance->CCR2 = SET_BRIGHTNESS(30);
+    htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
+    osDelay(50);
   }
   /* USER CODE END Error_Handler_Debug */
 }
