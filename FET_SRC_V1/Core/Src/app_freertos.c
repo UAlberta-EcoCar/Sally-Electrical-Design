@@ -20,7 +20,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
+#include "cmsis_os2.h"
 #include "main.h"
+#include "stm32g4xx_hal_def.h"
 #include "stm32g4xx_hal_fdcan.h"
 #include "task.h"
 
@@ -164,8 +166,6 @@ int _write(int file, char *ptr, int len) {
   return len;
 }
 
-int flag = 0;
-
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
                                uint32_t RxFifo0ITs) {
   if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
@@ -175,13 +175,17 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
       /* Reception Error */
       Error_Handler();
     }
+    osMessageQueuePut(canReceiveMsgHandle, (uint8_t *)&RxHeader.Identifier, 0,
+                      0);
+    // osMessageQueuePut(canReceiveMsgHandle, (uint8_t *)&RxHeader.DataLength, 0,
+    //                   0);
+    // for (uint32_t i = 0; i < RxHeader.DataLength; i++) {
+    //   osMessageQueuePut(canReceiveMsgHandle, (uint8_t *)&RxData[i], 0, 0);
+    // }
     if (HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
                                        0) != HAL_OK) {
       /* Notification Error */
       Error_Handler();
-    }
-    if (RxData[0] == FET_STBY) {
-      flag = 1;
     }
   }
 }
@@ -310,10 +314,11 @@ void StartDefaultTask(void *argument) {
                         GPIO_PIN_SET);
       break;
     }
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      (uint8_t *)&rb_state) != HAL_OK) {
-      Error_Handler();
-    }
+    printf("HELLO WORLD!\r\n");
+    // if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
+    //                                   (uint8_t *)&rb_state) != HAL_OK) {
+    //   Error_Handler();
+    // }
     osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */
@@ -329,12 +334,32 @@ void StartDefaultTask(void *argument) {
 void StartCanReceive(void *argument) {
   /* USER CODE BEGIN StartCanReceive */
   UNUSED(argument);
+  uint32_t msg_count;
+  uint8_t msg_id, msg_length;
+  uint8_t received_data[64];
   /* Infinite loop */
   for (;;) {
-    if (flag == 1) {
-      funCTION(NULL);
-      flag = 0;
-    }
+    funCTION(NULL);
+    //    msg_count = osMessageQueueGetCount(canReceiveMsgHandle);
+    //    if (msg_count > 0) {
+    //      osMessageQueueGet(canReceiveMsgHandle, &msg_id, 0, 0);
+    //      osMessageQueueGet(canReceiveMsgHandle, &msg_length, 0, 0);
+    //      for (uint8_t i = 0; i < msg_length; i++) {
+    //        osMessageQueueGet(canReceiveMsgHandle, &received_data[i], 0, 0);
+    //      }
+    //      switch (msg_id) {
+    //      case 0x11:
+    //        break;
+    //      case 0x12:
+    //        break;
+    //      case 0x13:
+    //        break;
+    //      case 0x14:
+    //        break;
+    //      default:
+    //        break;
+    //      }
+    //    }
     osDelay(1);
   }
   /* USER CODE END StartCanReceive */
