@@ -397,28 +397,28 @@ void StartCanSend(void *argument)
                                       (uint8_t *)&rb_state) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(50);
+    osDelay(10);
 
     fet_TxHeader.Identifier = 0x12;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&rb_state) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(50);
+    osDelay(10);
 
     fet_TxHeader.Identifier = 0x13;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&rb_state) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(50);
+    osDelay(10);
 
     fet_TxHeader.Identifier = 0x14;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&rb_state) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(50);
+    osDelay(10);
   }
   /* USER CODE END StartCanSend */
 }
