@@ -167,6 +167,17 @@ standard names. */
 #define USE_CUSTOM_SYSTICK_HANDLER_IMPLEMENTATION 0
 
 /* USER CODE BEGIN Defines */
+// DRN ISR (MSP) stack initialization and checking
+#if !defined(EXTERNC)
+  #if defined(__cplusplus)
+    #define EXTERNC extern "C"
+  #else
+    #define EXTERNC extern
+  #endif
+#endif
+#define configISR_STACK_SIZE_WORDS (0x100) // in WORDS, must be valid constant for GCC assembler
+#define configSUPPORT_ISR_STACK_CHECK  1   // DRN initialize and check ISR stack
+EXTERNC unsigned long /*UBaseType_t*/ xUnusedISRstackWords( void );  // check unused amount at runtime
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
 /* USER CODE END Defines */
 
