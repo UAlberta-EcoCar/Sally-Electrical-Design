@@ -23,6 +23,7 @@
 #include "cmsis_os2.h"
 #include "common/tusb_types.h"
 #include "main.h"
+#include "stm32g4xx_hal_fdcan.h"
 #include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -30,10 +31,11 @@
 #include "adc.h"
 #include "fdcan.h"
 #include "tim.h"
+#include "tusb.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
-#include "tusb.h"
 #include <stdbool.h>
+#include <stdint.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -144,7 +146,7 @@ const osThreadAttr_t adcConvTask_attributes = {
 };
 /* Definitions for canReceiveQue */
 osMessageQueueId_t canReceiveQueHandle;
-uint8_t canReceiveQueBuffer[512 * sizeof(uint8_t)];
+uint8_t canReceiveQueBuffer[512 * sizeof(uint32_t)];
 osStaticMessageQDef_t canReceiveQueControlBlock;
 const osMessageQueueAttr_t canReceiveQue_attributes = {
     .name = "canReceiveQue",
@@ -193,7 +195,14 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
       /* Notification Error */
       Error_Handler();
     }
-    osSemaphoreRelease(canSemaphoreHandle);
+    osMessageQueuePut(canReceiveQueHandle, &RxHeader.Identifier, 0, 0);
+    if (RxHeader.DataLength != FDCAN_DLC_BYTES_0) {
+      osMessageQueuePut(canReceiveQueHandle, &RxHeader.DataLength, 0, 0);
+      for (uint32_t i = 0; i < RxHeader.DataLength; i++) {
+        osMessageQueuePut(canReceiveQueHandle, &RxData[i], 0, 0);
+      }
+    }
+    // osSemaphoreRelease(canSemaphoreHandle);
   }
 }
 
@@ -238,7 +247,7 @@ void MX_FREERTOS_Init(void) {
   /* Create the queue(s) */
   /* creation of canReceiveQue */
   canReceiveQueHandle =
-      osMessageQueueNew(512, sizeof(uint8_t), &canReceiveQue_attributes);
+      osMessageQueueNew(512, sizeof(uint32_t), &canReceiveQue_attributes);
 
   /* creation of canSendQue */
   canSendQueHandle =
@@ -344,10 +353,13 @@ void StartCanReceive(void *argument) {
    *
    */
   UNUSED(argument);
+  uint32_t RXID, DLC;
   /* Infinite loop */
   for (;;) {
-    if (osSemaphoreAcquire(canSemaphoreHandle, osWaitForever) == osOK) {
-      switch (RxHeader.Identifier) {
+    // if (osSemaphoreAcquire(canSemaphoreHandle, osWaitForever) == osOK) {
+    if (osMessageQueueGet(canReceiveQueHandle, &RXID, 0, osWaitForever) ==
+        osOK) {
+      switch (RXID) {
       case 0x11:
         if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20)) {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
@@ -380,6 +392,7 @@ void StartCanReceive(void *argument) {
         printf("ERROR: NO CANID DEFINED 0x%x\r\n", RxHeader.Identifier);
         break;
       }
+      osMessageQueueReset(canReceiveQueHandle);
     }
   }
   osDelay(1);
@@ -395,46 +408,49 @@ void StartCanReceive(void *argument) {
 /* USER CODE END Header_StartCanSend */
 void StartCanSend(void *argument) {
   /* USER CODE BEGIN StartCanSend */
+  #define wait 1
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef fet_TxHeader;
+  uint8_t fet_TxData[64] = {0};
 
   fet_TxHeader.IdType = FDCAN_STANDARD_ID;
   fet_TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-  fet_TxHeader.DataLength = FDCAN_DLC_BYTES_1;
+  fet_TxHeader.DataLength = FDCAN_DLC_BYTES_64;
   fet_TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
   fet_TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
   fet_TxHeader.FDFormat = FDCAN_FD_CAN;
   fet_TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
   fet_TxHeader.MessageMarker = 0;
   /* Infinite loop */
+
   for (;;) {
     fet_TxHeader.Identifier = 0x11;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      (uint8_t *)&rb_state) != HAL_OK) {
+                                      fet_TxData) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(1);
+    osDelay(wait);
 
     fet_TxHeader.Identifier = 0x12;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&rb_state) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(1);
+    osDelay(wait);
 
     fet_TxHeader.Identifier = 0x13;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&rb_state) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(1);
+    osDelay(wait);
 
     fet_TxHeader.Identifier = 0x14;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&rb_state) != HAL_OK) {
       Error_Handler();
     }
-    osDelay(1);
+    osDelay(wait);
   }
   /* USER CODE END StartCanSend */
 }
