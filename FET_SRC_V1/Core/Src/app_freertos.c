@@ -20,7 +20,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
-#include "cmsis_os2.h"
 #include "main.h"
 #include "task.h"
 
@@ -142,26 +141,26 @@ const osThreadAttr_t adcConvTask_attributes = {
     .cb_size = sizeof(adcConvTaskControlBlock),
     .priority = (osPriority_t)osPriorityNormal3,
 };
-/* Definitions for canReceiveQue */
-osMessageQueueId_t canReceiveQueHandle;
+/* Definitions for canQueRxHeader */
+osMessageQueueId_t canQueRxHeaderHandle;
 uint8_t canReceiveQueBuffer[512 * sizeof(uint32_t)];
 osStaticMessageQDef_t canReceiveQueControlBlock;
-const osMessageQueueAttr_t canReceiveQue_attributes = {
-    .name = "canReceiveQue",
+const osMessageQueueAttr_t canQueRxHeader_attributes = {
+    .name = "canQueRxHeader",
     .cb_mem = &canReceiveQueControlBlock,
     .cb_size = sizeof(canReceiveQueControlBlock),
     .mq_mem = &canReceiveQueBuffer,
     .mq_size = sizeof(canReceiveQueBuffer)};
-/* Definitions for canSendQue */
-osMessageQueueId_t canSendQueHandle;
-uint8_t canSendQueBuffer[512 * sizeof(uint8_t)];
-osStaticMessageQDef_t canSendQueControlBlock;
-const osMessageQueueAttr_t canSendQue_attributes = {
-    .name = "canSendQue",
-    .cb_mem = &canSendQueControlBlock,
-    .cb_size = sizeof(canSendQueControlBlock),
-    .mq_mem = &canSendQueBuffer,
-    .mq_size = sizeof(canSendQueBuffer)};
+/* Definitions for canQueRxData */
+osMessageQueueId_t canQueRxDataHandle;
+uint8_t canQueRxDataBuffer[512 * sizeof(uint8_t)];
+osStaticMessageQDef_t canQueRxDataControlBlock;
+const osMessageQueueAttr_t canQueRxData_attributes = {
+    .name = "canQueRxData",
+    .cb_mem = &canQueRxDataControlBlock,
+    .cb_size = sizeof(canQueRxDataControlBlock),
+    .mq_mem = &canQueRxDataBuffer,
+    .mq_size = sizeof(canQueRxDataBuffer)};
 /* Definitions for canSemaphore */
 osSemaphoreId_t canSemaphoreHandle;
 osStaticSemaphoreDef_t canSemaphoreControlBlock;
@@ -193,11 +192,13 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
       /* Notification Error */
       Error_Handler();
     }
-    osMessageQueuePut(canReceiveQueHandle, &RxHeader.Identifier, 0, 0);
+    osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
     if (RxHeader.DataLength != FDCAN_DLC_BYTES_0) {
-      osMessageQueuePut(canReceiveQueHandle, &RxHeader.DataLength, 0, 0);
+      osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
+      // TO-DO: DataLength is a number from 0 to 15, need to map the actual
+      // number of bytes to be added to the queue
       for (uint32_t i = 0; i < RxHeader.DataLength; i++) {
-        osMessageQueuePut(canReceiveQueHandle, &RxData[i], 0, 0);
+        osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
       }
     }
     // osSemaphoreRelease(canSemaphoreHandle);
@@ -207,6 +208,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
 void funCTION(void *argument);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
+uint8_t mapDlcToBytes(uint32_t DLC);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -243,13 +245,13 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
-  /* creation of canReceiveQue */
-  canReceiveQueHandle =
-      osMessageQueueNew(512, sizeof(uint32_t), &canReceiveQue_attributes);
+  /* creation of canQueRxHeader */
+  canQueRxHeaderHandle =
+      osMessageQueueNew(512, sizeof(uint32_t), &canQueRxHeader_attributes);
 
-  /* creation of canSendQue */
-  canSendQueHandle =
-      osMessageQueueNew(512, sizeof(uint8_t), &canSendQue_attributes);
+  /* creation of canQueRxData */
+  canQueRxDataHandle =
+      osMessageQueueNew(512, sizeof(uint8_t), &canQueRxData_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -289,15 +291,6 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument) {
   /* init code for USB_Device */
   MX_USB_Device_Init();
-
-  // tusb_rhport_init_t dev_init = {
-  //   .role = TUSB_ROLE_DEVICE,
-  //   .speed = TUSB_SPEED_AUTO
-  // };
-  // if (tusb_rhport_init(0, &dev_init) != true) {
-  //   Error_Handler();
-  // };
-
   /* USER CODE BEGIN StartDefaultTask */
   UNUSED(argument);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // THIRD YELLOW CHANNEL LED1
@@ -405,8 +398,8 @@ void StartCanReceive(void *argument) {
  */
 /* USER CODE END Header_StartCanSend */
 void StartCanSend(void *argument) {
-  /* USER CODE BEGIN StartCanSend */
-  #define wait 1
+/* USER CODE BEGIN StartCanSend */
+#define wait 1
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef fet_TxHeader;
   uint8_t fet_TxData[64] = {0};
@@ -423,8 +416,8 @@ void StartCanSend(void *argument) {
 
   for (;;) {
     fet_TxHeader.Identifier = 0x11;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      fet_TxData) != HAL_OK) {
+    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader, fet_TxData) !=
+        HAL_OK) {
       Error_Handler();
     }
     osDelay(wait);
@@ -489,16 +482,6 @@ void StartAdcConv(void *argument) {
 }
 
 /* Private application code --------------------------------------------------*/
-float adcToCurr(uint32_t adc_value) {
-  float value;
-  value = (adc_value * currAdcConv - currZeroOffset) / currSensitivity;
-  return value;
-}
-float adcToVolt(uint32_t adc_value) {
-  float value;
-  value = adc_value * voltAdcConv;
-  return value;
-}
 /* USER CODE BEGIN Application */
 void funCTION(void *argument) {
   UNUSED(argument);
@@ -518,5 +501,37 @@ void funCTION(void *argument) {
   osDelay(50);
   htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
   osDelay(50);
+}
+
+uint8_t mapDlcToBytes(uint32_t DLC) {
+  uint8_t bytes;
+  if (DLC <= 0x08) {
+    return (uint8_t) DLC;
+  } else {
+    switch (DLC) {
+    case 0x09:
+      bytes = 12;
+      break;
+    case 0x0A:
+      bytes = 16;
+      break;
+    case 0x0B:
+      bytes = 20;
+      break;
+    case 0x0C:
+      bytes = 24;
+      break;
+    case 0x0D:
+      bytes = 32;
+      break;
+    case 0x0E:
+      bytes = 48;
+      break;
+    case 0x0F:
+      bytes = 64;
+      break;
+    }
+  }
+  return bytes;
 }
 /* USER CODE END Application */
