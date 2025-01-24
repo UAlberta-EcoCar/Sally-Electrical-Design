@@ -21,9 +21,7 @@
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "cmsis_os2.h"
-#include "common/tusb_types.h"
 #include "main.h"
-#include "stm32g4xx_hal_fdcan.h"
 #include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -89,10 +87,10 @@ FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t RxData[64];
 uint8_t TxData[64];
 
-const float voltAdcConv = (3.3f / 4096) / (1800.0f / (1800 + 15000));
-const float currAdcConv = (3.3f / 4096) / (9100.0f / (9100 + 4700));
+const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
+const float currAdcConv = (3.278f / 4096) / (9100.0f / (9100 + 4700));
 const uint8_t currSenseVCC = 5;
-const float currZeroOffset = 0.1f * currSenseVCC;
+const float currZeroOffset = 0.515;
 const float currSensitivity = 133.0f / 1000; // V/A
 
 /* USER CODE END Variables */
@@ -315,8 +313,8 @@ void StartDefaultTask(void *argument) {
     case FET_STBY:
       // All pins should be in off state. Capacitors discharge through resistor
       // by default.
-      HAL_GPIO_WritePin(GPIOA,
-                        CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
+      HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
                         GPIO_PIN_RESET);
       break;
     case FET_CHRGE:
