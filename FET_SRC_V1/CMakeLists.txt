@@ -48,39 +48,39 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
   # common
-  tinyusb/src/tusb.c
-  tinyusb/src/common/tusb_fifo.c
+  # tinyusb/src/tusb.c
+  # tinyusb/src/common/tusb_fifo.c
   # device
-  tinyusb/src/device/usbd.c
-  tinyusb/src/device/usbd_control.c
-  tinyusb/src/class/audio/audio_device.c
-  tinyusb/src/class/cdc/cdc_device.c
-  tinyusb/src/class/dfu/dfu_device.c
-  tinyusb/src/class/dfu/dfu_rt_device.c
-  tinyusb/src/class/hid/hid_device.c
-  tinyusb/src/class/midi/midi_device.c
-  tinyusb/src/class/msc/msc_device.c
-  tinyusb/src/class/net/ecm_rndis_device.c
-  tinyusb/src/class/net/ncm_device.c
-  tinyusb/src/class/usbtmc/usbtmc_device.c
-  tinyusb/src/class/vendor/vendor_device.c
-  tinyusb/src/class/video/video_device.c
+  # tinyusb/src/device/usbd.c
+  # tinyusb/src/device/usbd_control.c
+  # tinyusb/src/class/audio/audio_device.c
+  # tinyusb/src/class/cdc/cdc_device.c
+  # tinyusb/src/class/dfu/dfu_device.c
+  # tinyusb/src/class/dfu/dfu_rt_device.c
+  # tinyusb/src/class/hid/hid_device.c
+  # tinyusb/src/class/midi/midi_device.c
+  # tinyusb/src/class/msc/msc_device.c
+  # tinyusb/src/class/net/ecm_rndis_device.c
+  # tinyusb/src/class/net/ncm_device.c
+  # tinyusb/src/class/usbtmc/usbtmc_device.c
+  # tinyusb/src/class/vendor/vendor_device.c
+  # tinyusb/src/class/video/video_device.c
   # host
-  tinyusb/src/host/usbh.c
-  tinyusb/src/host/hub.c
-  tinyusb/src/class/cdc/cdc_host.c
-  tinyusb/src/class/hid/hid_host.c
-  tinyusb/src/class/msc/msc_host.c
-  tinyusb/src/class/vendor/vendor_host.c
+  # tinyusb/src/host/usbh.c
+  # tinyusb/src/host/hub.c
+  # tinyusb/src/class/cdc/cdc_host.c
+  # tinyusb/src/class/hid/hid_host.c
+  # tinyusb/src/class/msc/msc_host.c
+  # tinyusb/src/class/vendor/vendor_host.c
   # typec
-  tinyusb/src/typec/usbc.c
+  # tinyusb/src/typec/usbc.c
   # Add user sources here
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-    tinyusb/src
+    # tinyusb/src
 )
 
 # Add project symbols (macros)
