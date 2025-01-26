@@ -348,7 +348,6 @@ void StartCanReceive(void *argument)
   uint32_t RXID, DLC;
   /* Infinite loop */
   for (;;) {
-    // if (osSemaphoreAcquire(canSemaphoreHandle, osWaitForever) == osOK) {
     if (osMessageQueueGet(canQueRxHeaderHandle, &RXID, 0, osWaitForever) ==
         osOK) {
       switch (RXID) {
