@@ -29,18 +29,6 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal.h"
 
-#include "stm32g4xx_ll_ucpd.h"
-#include "stm32g4xx_ll_bus.h"
-#include "stm32g4xx_ll_cortex.h"
-#include "stm32g4xx_ll_rcc.h"
-#include "stm32g4xx_ll_system.h"
-#include "stm32g4xx_ll_utils.h"
-#include "stm32g4xx_ll_pwr.h"
-#include "stm32g4xx_ll_gpio.h"
-#include "stm32g4xx_ll_dma.h"
-
-#include "stm32g4xx_ll_exti.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -76,12 +64,14 @@ void Error_Handler(void);
 #define BTN2_GPIO_Port GPIOC
 #define IMON_Pin GPIO_PIN_15
 #define IMON_GPIO_Port GPIOC
+#define XCLK_Pin GPIO_PIN_0
+#define XCLK_GPIO_Port GPIOF
 #define TXEN_24_Pin GPIO_PIN_0
 #define TXEN_24_GPIO_Port GPIOC
 #define RXEN_24_Pin GPIO_PIN_1
 #define RXEN_24_GPIO_Port GPIOC
-#define XCLK_Pin GPIO_PIN_2
-#define XCLK_GPIO_Port GPIOC
+#define NSS_SD_Pin GPIO_PIN_2
+#define NSS_SD_GPIO_Port GPIOC
 #define SWT1_Pin GPIO_PIN_3
 #define SWT1_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_0
@@ -104,8 +94,8 @@ void Error_Handler(void);
 #define RST_GNSS_GPIO_Port GPIOB
 #define EXTINT_GNSS_Pin GPIO_PIN_2
 #define EXTINT_GNSS_GPIO_Port GPIOB
-#define LED5_Pin GPIO_PIN_10
-#define LED5_GPIO_Port GPIOB
+#define DIO0_915_Pin GPIO_PIN_10
+#define DIO0_915_GPIO_Port GPIOB
 #define CAN_STBY_Pin GPIO_PIN_11
 #define CAN_STBY_GPIO_Port GPIOB
 #define DIO3_24_Pin GPIO_PIN_6
@@ -118,34 +108,32 @@ void Error_Handler(void);
 #define BUSY_24_GPIO_Port GPIOC
 #define RST_24_Pin GPIO_PIN_10
 #define RST_24_GPIO_Port GPIOA
-#define RST_868_Pin GPIO_PIN_13
-#define RST_868_GPIO_Port GPIOA
-#define DIO0_868_Pin GPIO_PIN_14
-#define DIO0_868_GPIO_Port GPIOA
-#define DIO1_868_Pin GPIO_PIN_15
-#define DIO1_868_GPIO_Port GPIOA
-#define DIO2_868_Pin GPIO_PIN_10
-#define DIO2_868_GPIO_Port GPIOC
-#define DIO3_868_Pin GPIO_PIN_11
-#define DIO3_868_GPIO_Port GPIOC
+#define SW_DIO_Pin GPIO_PIN_13
+#define SW_DIO_GPIO_Port GPIOA
+#define SW_CLK_Pin GPIO_PIN_14
+#define SW_CLK_GPIO_Port GPIOA
+#define RST_868_Pin GPIO_PIN_10
+#define RST_868_GPIO_Port GPIOC
+#define DIO0_868_Pin GPIO_PIN_11
+#define DIO0_868_GPIO_Port GPIOC
 #define DIO4_868_Pin GPIO_PIN_12
 #define DIO4_868_GPIO_Port GPIOC
 #define DIO5_868_Pin GPIO_PIN_2
 #define DIO5_868_GPIO_Port GPIOD
 #define RST_915_Pin GPIO_PIN_3
 #define RST_915_GPIO_Port GPIOB
-#define DIO0_915_Pin GPIO_PIN_4
-#define DIO0_915_GPIO_Port GPIOB
-#define DIO1_915_Pin GPIO_PIN_5
-#define DIO1_915_GPIO_Port GPIOB
-#define DIO2_915_Pin GPIO_PIN_6
-#define DIO2_915_GPIO_Port GPIOB
-#define DIO3_915_Pin GPIO_PIN_7
-#define DIO3_915_GPIO_Port GPIOB
-#define DIO4_915_Pin GPIO_PIN_8
-#define DIO4_915_GPIO_Port GPIOB
-#define DIO5_915_Pin GPIO_PIN_9
+#define DIO5_915_Pin GPIO_PIN_4
 #define DIO5_915_GPIO_Port GPIOB
+#define LED5_Pin GPIO_PIN_5
+#define LED5_GPIO_Port GPIOB
+#define LED6_Pin GPIO_PIN_6
+#define LED6_GPIO_Port GPIOB
+#define LED7_Pin GPIO_PIN_7
+#define LED7_GPIO_Port GPIOB
+#define LED8_Pin GPIO_PIN_8
+#define LED8_GPIO_Port GPIOB
+#define DIO4_915_Pin GPIO_PIN_9
+#define DIO4_915_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
