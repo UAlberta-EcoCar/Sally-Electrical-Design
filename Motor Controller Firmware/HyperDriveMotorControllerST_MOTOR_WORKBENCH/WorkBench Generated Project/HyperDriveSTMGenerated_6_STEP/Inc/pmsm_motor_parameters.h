@@ -28,7 +28,7 @@
  ************************/
 
 /***************** MOTOR ELECTRICAL PARAMETERS  ******************************/
-#define POLE_PAIR_NUM           4 /* Number of motor pole pairs */
+#define POLE_PAIR_NUM           24 /* Number of motor pole pairs */
 #define RS                      2.7 /* Stator resistance , ohm*/
 #define LS                      0.016898 /* Stator inductance, H
                                                  For I-PMSM it is equal to Lq */
