@@ -10,6 +10,108 @@
 		(company "University Of Alberta EcoCar Team")
 	)
 	(lib_symbols
+		(symbol "Connector:TestPoint"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:C"
 			(pin_numbers hide)
 			(pin_names
@@ -3957,10 +4059,6 @@
 		(uuid "a0763585-7052-4ba1-b14e-06c332f23010")
 	)
 	(no_connect
-		(at 252.73 81.28)
-		(uuid "b64c86b1-1040-4e3b-85a7-d83c41c10856")
-	)
-	(no_connect
 		(at 76.2 99.06)
 		(uuid "e4325784-d183-426b-98e0-b8c19123c79b")
 	)
@@ -4602,16 +4700,6 @@
 			(type default)
 		)
 		(uuid "1cf4fef2-621b-4778-b5c6-d2b3b9755f61")
-	)
-	(wire
-		(pts
-			(xy 39.37 134.62) (xy 49.53 134.62)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1d27215c-c84c-406b-ba3f-f29f85ef50b0")
 	)
 	(wire
 		(pts
@@ -6827,6 +6915,36 @@
 		)
 		(uuid ecd43114-2ea3-49e2-b689-44f8de462e8c)
 	)
+	(text "SD\n"
+		(exclude_from_sim no)
+		(at 254.508 123.698 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "10223181-ee62-4685-9941-243b21f99658")
+	)
+	(text "SD\n"
+		(exclude_from_sim no)
+		(at 184.404 55.118 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "11aa87ad-84b8-47db-b923-b4f135331b93")
+	)
+	(text "SD\n"
+		(exclude_from_sim no)
+		(at 254.508 121.158 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "47761e16-c26d-4dbd-8415-c8b09c6e019c")
+	)
 	(text "STM32G484RET6"
 		(exclude_from_sim no)
 		(at 136.652 17.018 0)
@@ -6854,6 +6972,16 @@
 			(justify left bottom)
 		)
 		(uuid "7427e989-8090-4949-87b2-4d58d576bbb1")
+	)
+	(text "SD\n"
+		(exclude_from_sim no)
+		(at 184.15 70.358 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "fe9c7c5e-d85f-47bc-88fd-e96e6d00f42d")
 	)
 	(label "868.SCK"
 		(at 36.83 22.86 180)
@@ -6887,17 +7015,6 @@
 			(justify left bottom)
 		)
 		(uuid "064eb243-a7cf-4d6a-a783-81a035974615")
-	)
-	(label "SW_DIO"
-		(at 252.73 78.74 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "06995248-9ff3-443f-b74f-ab36ef48dc81")
 	)
 	(label "24.DIO1"
 		(at 186.69 86.36 0)
@@ -7075,6 +7192,28 @@
 		)
 		(uuid "21a54b81-cc91-46da-85bf-1cf1e310e6d5")
 	)
+	(label "SW_CLK"
+		(at 252.73 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "22b73625-91bf-483c-aa04-fb964eab298c")
+	)
+	(label "SW_DIO"
+		(at 252.73 76.2 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2385db09-16c7-4b5e-81bb-2d6fa30278c0")
+	)
 	(label "915.MOSI"
 		(at 99.06 118.11 0)
 		(fields_autoplaced yes)
@@ -7195,17 +7334,6 @@
 			(justify right bottom)
 		)
 		(uuid "3e2cf9bd-f913-40f1-816b-41a895a4c78d")
-	)
-	(label "IMON"
-		(at 186.69 104.14 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3efb2f89-58c7-4005-a0d7-a685d5f55412")
 	)
 	(label "SPI2_MISO"
 		(at 127 30.48 180)
@@ -7526,6 +7654,17 @@
 		)
 		(uuid "6d4ab113-957e-4f2c-9a7a-f3a44155b32d")
 	)
+	(label "IMON"
+		(at 252.73 114.3 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6da8a4c1-d6bf-4df1-b087-1cf76fa3d3f4")
+	)
 	(label "915.DIO1"
 		(at 62.23 68.58 180)
 		(fields_autoplaced yes)
@@ -7790,17 +7929,6 @@
 		)
 		(uuid "95bbc9ac-a8ea-41ac-9e43-98df85675a57")
 	)
-	(label "CAN_STBY"
-		(at 252.73 114.3 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "988f1f9f-4c8f-4a99-90dd-d7558c489ae7")
-	)
 	(label "XCLK"
 		(at 186.69 53.34 0)
 		(fields_autoplaced yes)
@@ -7833,17 +7961,6 @@
 			(justify left bottom)
 		)
 		(uuid "9bf30b96-59b9-48c5-b61b-520ec4b0d71c")
-	)
-	(label "SW_CLK"
-		(at 252.73 76.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9cf56761-e9a4-42ac-b62c-1be072af66a6")
 	)
 	(label "SPI2_MOSI"
 		(at 127 27.94 180)
@@ -8306,17 +8423,6 @@
 			(justify left bottom)
 		)
 		(uuid "dde22193-3552-4c08-86dd-0478b21650d5")
-	)
-	(label "CAN_STBY"
-		(at 49.53 134.62 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "dee802e6-6303-4e96-ab0f-8efd352db1c4")
 	)
 	(label "GPIO_LED1"
 		(at 142.24 127 90)
@@ -9705,6 +9811,82 @@
 			(project "RF-Board-V1-2024"
 				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8"
 					(reference "D14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 186.69 104.14 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4249696a-7d64-4965-a7ac-545897bfaa29")
+		(property "Reference" "TP9"
+			(at 181.864 104.14 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 181.61 102.8701 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_2.0x2.0mm"
+			(at 186.69 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 186.69 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 186.69 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
+			(at 186.69 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f409e329-3ba3-4e53-ba36-84ca0f82c6f2")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8"
+					(reference "TP9")
 					(unit 1)
 				)
 			)
@@ -12964,6 +13146,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 252.73 81.28 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e9fe16b3-6ab5-4e16-a182-bd4c0313a0ef")
+		(property "Reference" "TP7"
+			(at 257.556 81.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 257.81 82.5499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_2.0x2.0mm"
+			(at 252.73 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 252.73 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 252.73 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LSCS #" ""
+			(at 252.73 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e072b4e5-0120-4f54-98df-4f28fe37054c")
+		)
+		(instances
+			(project "RF-Board-V1-2024"
+				(path "/b98d4f3f-3a43-47fe-9499-ff21f79e7fd8"
+					(reference "TP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:LED")
 		(at 179.07 143.51 90)
 		(unit 1)
@@ -13799,16 +14057,6 @@
 				(justify right)
 			)
 			(uuid "6ee0cb9b-1af0-431f-84fe-683d14c7ec13")
-		)
-		(pin "CAN_STBY" input
-			(at 39.37 134.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "5f7a21e1-7dac-40ab-bea1-638d00642dbe")
 		)
 		(pin "USB_D-" bidirectional
 			(at 39.37 139.7 0)

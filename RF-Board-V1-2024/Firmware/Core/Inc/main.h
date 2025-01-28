@@ -62,16 +62,16 @@ void Error_Handler(void);
 #define BTN1_GPIO_Port GPIOC
 #define BTN2_Pin GPIO_PIN_14
 #define BTN2_GPIO_Port GPIOC
-#define IMON_Pin GPIO_PIN_15
-#define IMON_GPIO_Port GPIOC
 #define XCLK_Pin GPIO_PIN_0
 #define XCLK_GPIO_Port GPIOF
+#define NOT_FAULT_Pin GPIO_PIN_10
+#define NOT_FAULT_GPIO_Port GPIOG
 #define TXEN_24_Pin GPIO_PIN_0
 #define TXEN_24_GPIO_Port GPIOC
 #define RXEN_24_Pin GPIO_PIN_1
 #define RXEN_24_GPIO_Port GPIOC
-#define NSS_SD_Pin GPIO_PIN_2
-#define NSS_SD_GPIO_Port GPIOC
+#define SPI2_NSS_Pin GPIO_PIN_2
+#define SPI2_NSS_GPIO_Port GPIOC
 #define SWT1_Pin GPIO_PIN_3
 #define SWT1_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_0
@@ -96,8 +96,8 @@ void Error_Handler(void);
 #define EXTINT_GNSS_GPIO_Port GPIOB
 #define DIO0_915_Pin GPIO_PIN_10
 #define DIO0_915_GPIO_Port GPIOB
-#define CAN_STBY_Pin GPIO_PIN_11
-#define CAN_STBY_GPIO_Port GPIOB
+#define IMON_Pin GPIO_PIN_11
+#define IMON_GPIO_Port GPIOB
 #define DIO3_24_Pin GPIO_PIN_6
 #define DIO3_24_GPIO_Port GPIOC
 #define DIO2_24_Pin GPIO_PIN_7
@@ -124,16 +124,16 @@ void Error_Handler(void);
 #define RST_915_GPIO_Port GPIOB
 #define DIO5_915_Pin GPIO_PIN_4
 #define DIO5_915_GPIO_Port GPIOB
-#define LED5_Pin GPIO_PIN_5
-#define LED5_GPIO_Port GPIOB
-#define LED6_Pin GPIO_PIN_6
-#define LED6_GPIO_Port GPIOB
-#define LED7_Pin GPIO_PIN_7
-#define LED7_GPIO_Port GPIOB
-#define LED8_Pin GPIO_PIN_8
-#define LED8_GPIO_Port GPIOB
-#define DIO4_915_Pin GPIO_PIN_9
+#define DIO4_915_Pin GPIO_PIN_5
 #define DIO4_915_GPIO_Port GPIOB
+#define LED5_Pin GPIO_PIN_6
+#define LED5_GPIO_Port GPIOB
+#define LED6_Pin GPIO_PIN_7
+#define LED6_GPIO_Port GPIOB
+#define LED7_Pin GPIO_PIN_8
+#define LED7_GPIO_Port GPIOB
+#define LED8_Pin GPIO_PIN_9
+#define LED8_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
