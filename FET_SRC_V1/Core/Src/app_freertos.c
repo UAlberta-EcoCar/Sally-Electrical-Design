@@ -19,9 +19,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
-#include "task.h"
-#include "main.h"
 #include "cmsis_os.h"
+#include "main.h"
+#include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -95,81 +95,79 @@ const float currSensitivity = 133.0f / 1000; // V/A
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-uint32_t defaultTaskBuffer[ 512 ];
+uint32_t defaultTaskBuffer[512];
 osStaticThreadDef_t defaultTaskControlBlock;
 const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_mem = &defaultTaskBuffer[0],
-  .stack_size = sizeof(defaultTaskBuffer),
-  .cb_mem = &defaultTaskControlBlock,
-  .cb_size = sizeof(defaultTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal,
+    .name = "defaultTask",
+    .stack_mem = &defaultTaskBuffer[0],
+    .stack_size = sizeof(defaultTaskBuffer),
+    .cb_mem = &defaultTaskControlBlock,
+    .cb_size = sizeof(defaultTaskControlBlock),
+    .priority = (osPriority_t)osPriorityNormal,
 };
 /* Definitions for canReceiveMsg */
 osThreadId_t canReceiveMsgHandle;
-uint32_t CanReceiveMsgBuffer[ 512 ];
+uint32_t CanReceiveMsgBuffer[512];
 osStaticThreadDef_t CanReceiveMsgControlBlock;
 const osThreadAttr_t canReceiveMsg_attributes = {
-  .name = "canReceiveMsg",
-  .stack_mem = &CanReceiveMsgBuffer[0],
-  .stack_size = sizeof(CanReceiveMsgBuffer),
-  .cb_mem = &CanReceiveMsgControlBlock,
-  .cb_size = sizeof(CanReceiveMsgControlBlock),
-  .priority = (osPriority_t) osPriorityNormal1,
+    .name = "canReceiveMsg",
+    .stack_mem = &CanReceiveMsgBuffer[0],
+    .stack_size = sizeof(CanReceiveMsgBuffer),
+    .cb_mem = &CanReceiveMsgControlBlock,
+    .cb_size = sizeof(CanReceiveMsgControlBlock),
+    .priority = (osPriority_t)osPriorityNormal1,
 };
 /* Definitions for canSendMsg */
 osThreadId_t canSendMsgHandle;
-uint32_t CanSendMsgBuffer[ 512 ];
+uint32_t CanSendMsgBuffer[512];
 osStaticThreadDef_t CanSendMsgControlBlock;
 const osThreadAttr_t canSendMsg_attributes = {
-  .name = "canSendMsg",
-  .stack_mem = &CanSendMsgBuffer[0],
-  .stack_size = sizeof(CanSendMsgBuffer),
-  .cb_mem = &CanSendMsgControlBlock,
-  .cb_size = sizeof(CanSendMsgControlBlock),
-  .priority = (osPriority_t) osPriorityNormal2,
+    .name = "canSendMsg",
+    .stack_mem = &CanSendMsgBuffer[0],
+    .stack_size = sizeof(CanSendMsgBuffer),
+    .cb_mem = &CanSendMsgControlBlock,
+    .cb_size = sizeof(CanSendMsgControlBlock),
+    .priority = (osPriority_t)osPriorityNormal2,
 };
 /* Definitions for adcConvTask */
 osThreadId_t adcConvTaskHandle;
-uint32_t adcConvTaskBuffer[ 512 ];
+uint32_t adcConvTaskBuffer[512];
 osStaticThreadDef_t adcConvTaskControlBlock;
 const osThreadAttr_t adcConvTask_attributes = {
-  .name = "adcConvTask",
-  .stack_mem = &adcConvTaskBuffer[0],
-  .stack_size = sizeof(adcConvTaskBuffer),
-  .cb_mem = &adcConvTaskControlBlock,
-  .cb_size = sizeof(adcConvTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal3,
+    .name = "adcConvTask",
+    .stack_mem = &adcConvTaskBuffer[0],
+    .stack_size = sizeof(adcConvTaskBuffer),
+    .cb_mem = &adcConvTaskControlBlock,
+    .cb_size = sizeof(adcConvTaskControlBlock),
+    .priority = (osPriority_t)osPriorityNormal3,
 };
 /* Definitions for canQueRxHeader */
 osMessageQueueId_t canQueRxHeaderHandle;
-uint8_t canReceiveQueBuffer[ 512 * sizeof( uint32_t ) ];
+uint8_t canReceiveQueBuffer[512 * sizeof(uint32_t)];
 osStaticMessageQDef_t canReceiveQueControlBlock;
 const osMessageQueueAttr_t canQueRxHeader_attributes = {
-  .name = "canQueRxHeader",
-  .cb_mem = &canReceiveQueControlBlock,
-  .cb_size = sizeof(canReceiveQueControlBlock),
-  .mq_mem = &canReceiveQueBuffer,
-  .mq_size = sizeof(canReceiveQueBuffer)
-};
+    .name = "canQueRxHeader",
+    .cb_mem = &canReceiveQueControlBlock,
+    .cb_size = sizeof(canReceiveQueControlBlock),
+    .mq_mem = &canReceiveQueBuffer,
+    .mq_size = sizeof(canReceiveQueBuffer)};
 /* Definitions for canQueRxData */
 osMessageQueueId_t canQueRxDataHandle;
-uint8_t canQueRxDataBuffer[ 512 * sizeof( uint8_t ) ];
+uint8_t canQueRxDataBuffer[512 * sizeof(uint8_t)];
 osStaticMessageQDef_t canQueRxDataControlBlock;
 const osMessageQueueAttr_t canQueRxData_attributes = {
-  .name = "canQueRxData",
-  .cb_mem = &canQueRxDataControlBlock,
-  .cb_size = sizeof(canQueRxDataControlBlock),
-  .mq_mem = &canQueRxDataBuffer,
-  .mq_size = sizeof(canQueRxDataBuffer)
-};
+    .name = "canQueRxData",
+    .cb_mem = &canQueRxDataControlBlock,
+    .cb_size = sizeof(canQueRxDataControlBlock),
+    .mq_mem = &canQueRxDataBuffer,
+    .mq_size = sizeof(canQueRxDataBuffer)};
 /* Definitions for canSemaphore */
 osSemaphoreId_t canSemaphoreHandle;
 osStaticSemaphoreDef_t canSemaphoreControlBlock;
 const osSemaphoreAttr_t canSemaphore_attributes = {
-  .name = "canSemaphore",
-  .cb_mem = &canSemaphoreControlBlock,
-  .cb_size = sizeof(canSemaphoreControlBlock),
+    .name = "canSemaphore",
+    .cb_mem = &canSemaphoreControlBlock,
+    .cb_size = sizeof(canSemaphoreControlBlock),
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -220,10 +218,10 @@ void StartAdcConv(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
-  * @brief  FreeRTOS initialization
-  * @param  None
-  * @retval None
-  */
+ * @brief  FreeRTOS initialization
+ * @param  None
+ * @retval None
+ */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 
@@ -247,10 +245,12 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of canQueRxHeader */
-  canQueRxHeaderHandle = osMessageQueueNew (512, sizeof(uint32_t), &canQueRxHeader_attributes);
+  canQueRxHeaderHandle =
+      osMessageQueueNew(512, sizeof(uint32_t), &canQueRxHeader_attributes);
 
   /* creation of canQueRxData */
-  canQueRxDataHandle = osMessageQueueNew (512, sizeof(uint8_t), &canQueRxData_attributes);
+  canQueRxDataHandle =
+      osMessageQueueNew(512, sizeof(uint8_t), &canQueRxData_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -258,10 +258,12 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle =
+      osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* creation of canReceiveMsg */
-  canReceiveMsgHandle = osThreadNew(StartCanReceive, NULL, &canReceiveMsg_attributes);
+  canReceiveMsgHandle =
+      osThreadNew(StartCanReceive, NULL, &canReceiveMsg_attributes);
 
   /* creation of canSendMsg */
   canSendMsgHandle = osThreadNew(StartCanSend, NULL, &canSendMsg_attributes);
@@ -276,7 +278,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
-
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -286,8 +287,7 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
-{
+void StartDefaultTask(void *argument) {
   /* init code for USB_Device */
   MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
@@ -336,8 +336,7 @@ void StartDefaultTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartCanReceive */
-void StartCanReceive(void *argument)
-{
+void StartCanReceive(void *argument) {
   /* USER CODE BEGIN StartCanReceive */
   /**
    * THIS SECTION OF CODE UTILIZES A HIGHER PRIORITY SO NO BLOCKING
@@ -398,8 +397,7 @@ void StartCanReceive(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartCanSend */
-void StartCanSend(void *argument)
-{
+void StartCanSend(void *argument) {
   /* USER CODE BEGIN StartCanSend */
 #define wait 1
   UNUSED(argument);
@@ -456,8 +454,7 @@ void StartCanSend(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartAdcConv */
-void StartAdcConv(void *argument)
-{
+void StartAdcConv(void *argument) {
   /* USER CODE BEGIN StartAdcConv */
   UNUSED(argument);
   uint32_t ADC1_Conversion[4]; // four channels on ADC1
@@ -467,19 +464,19 @@ void StartAdcConv(void *argument)
   /* Infinite loop */
   for (;;) {
     for (int i = 0; i < 3; i++) {
-      // rb_data.current[i] = adcToCurr(ADC1_Conversion[i]);
+      rb_data.current[i] = adcToCurr(ADC1_Conversion[i]);
     }
-    // rb_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
-    // rb_data.voltage[1] = adcToVolt(ADC2_Conversion);
+    rb_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
+    rb_data.voltage[1] = adcToVolt(ADC2_Conversion);
     printf("ADC Conversion Values: C:%u, C:%u, C:%u, V:%u, V:%u\r\n",
            ADC1_Conversion[0], ADC1_Conversion[1], ADC1_Conversion[2],
            ADC1_Conversion[3], ADC2_Conversion);
-    // osDelay(1);
-    // printf("CURRENT VALUES: C:%f, C:%f, C:%f\r\n", rb_data.current[0],
-    //        rb_data.current[1], rb_data.current[2]);
-    // osDelay(1);
-    // printf("VOLTAGE VALUES: V_INPUT:%f, V_OUTPUT:%f\r\n", rb_data.voltage[0],
-    //        rb_data.voltage[1]);
+    osDelay(1);
+    printf("CURRENT VALUES: C:%f, C:%f, C:%f\r\n", rb_data.current[0],
+           rb_data.current[1], rb_data.current[2]);
+    osDelay(1);
+    printf("VOLTAGE VALUES: V_INPUT:%f, V_OUTPUT:%f\r\n", rb_data.voltage[0],
+           rb_data.voltage[1]);
     osDelay(1000);
   }
   /* USER CODE END StartAdcConv */
@@ -510,6 +507,11 @@ void funCTION(void *argument) {
 float adcToVolt(uint32_t value) {
   float ret;
   ret = value * voltAdcConv;
+  return ret;
+}
+float adcToCurr(uint32_t value) {
+  float ret;
+  ret = (value * voltAdcConv - currZeroOffset) / currSensitivity;
   return ret;
 }
 
@@ -545,4 +547,3 @@ uint32_t mapDlcToBytes(uint32_t DLC) {
   return bytes;
 }
 /* USER CODE END Application */
-
