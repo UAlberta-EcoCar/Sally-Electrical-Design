@@ -22,6 +22,7 @@
 #include "cmsis_os.h"
 #include "cmsis_os2.h"
 #include "main.h"
+#include "stm32g4xx_hal_fdcan.h"
 #include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -203,7 +204,6 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
     // osSemaphoreRelease(canSemaphoreHandle);
   }
 }
-
 void funCTION(void *argument);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
@@ -405,8 +405,8 @@ void StartCanReceive(void *argument) {
  */
 /* USER CODE END Header_StartCanSend */
 void StartCanSend(void *argument) {
-  /* USER CODE BEGIN StartCanSend */
-  #define wait 1
+/* USER CODE BEGIN StartCanSend */
+#define wait 1
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef fet_TxHeader;
   uint8_t fet_TxData[64] = {0};
@@ -423,8 +423,8 @@ void StartCanSend(void *argument) {
 
   for (;;) {
     fet_TxHeader.Identifier = 0x11;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      fet_TxData) != HAL_OK) {
+    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader, fet_TxData) !=
+        HAL_OK) {
       Error_Handler();
     }
     osDelay(wait);
