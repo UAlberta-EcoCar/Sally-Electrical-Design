@@ -3462,17 +3462,6 @@
 		)
 		(uuid "3d83a18b-2326-4788-97f9-f8b5e4e10625")
 	)
-	(label "T_SWDIO"
-		(at 69.215 140.97 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5aa150f7-030a-4c1e-b2a5-c4c60dda3497")
-	)
 	(label "OSCIN"
 		(at 95.885 87.63 0)
 		(fields_autoplaced yes)
@@ -3527,17 +3516,6 @@
 			(justify left bottom)
 		)
 		(uuid "98c0f1ee-8246-42c6-8eb8-c82e78e75172")
-	)
-	(label "T_SWO"
-		(at 154.305 102.87 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a24b879b-40f2-451c-8ace-e470f51bace3")
 	)
 	(label "STLK_SWCLK"
 		(at 154.305 113.03 180)
@@ -3594,17 +3572,6 @@
 		)
 		(uuid "d964ab60-1c67-423a-8c27-23d3e04188c4")
 	)
-	(label "T_SWCLK"
-		(at 92.075 138.43 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fe67a410-6b38-45e1-93e2-42a113d76171")
-	)
 	(hierarchical_label "USB_ST_N"
 		(shape bidirectional)
 		(at 165.735 105.41 0)
@@ -3617,6 +3584,18 @@
 		)
 		(uuid "12343b1b-4fed-473a-86e3-0b450ca62caf")
 	)
+	(hierarchical_label "T_SWO"
+		(shape bidirectional)
+		(at 154.305 102.87 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "18827f41-2589-471c-a2de-aaa58b8d53c5")
+	)
 	(hierarchical_label "USB_ST_P"
 		(shape bidirectional)
 		(at 165.735 107.95 0)
@@ -3628,6 +3607,30 @@
 			(justify left)
 		)
 		(uuid "689240c8-8868-4480-8ed1-d29b2908065d")
+	)
+	(hierarchical_label "T_SWDIO"
+		(shape bidirectional)
+		(at 69.215 140.97 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9a9a68a5-8fdf-4bee-bc0c-358d15174e18")
+	)
+	(hierarchical_label "T_SWCLK"
+		(shape bidirectional)
+		(at 92.075 138.43 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9cf88313-b261-464f-99a3-4aa9ecd3882b")
 	)
 	(symbol
 		(lib_id "Device:C")
@@ -3856,98 +3859,6 @@
 			(project ""
 				(path "/7f56fee5-21ad-42e8-8354-66ebb4e179d3/684f200d-5619-40bd-b610-3ba4ad74232e"
 					(reference "J2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ecocad_lib_symbols:STM32-Prog-Header")
-		(at 250.825 137.16 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "32ba6b2d-b01b-4dfe-b7e0-e67eb69ea2c9")
-		(property "Reference" "J6"
-			(at 250.825 126.365 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "STM32-Prog-Header"
-			(at 250.825 128.905 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ecocad_lib_footprints:IDC-STM32-Prog-Header_2x05_P2.54mm_Vertical"
-			(at 248.793 154.432 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 249.555 159.766 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 252.603 154.432 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "83b87ee6-4b38-4dc2-ab11-4fa25fb33c83")
-		)
-		(pin "4"
-			(uuid "6c9c8c53-4828-4759-894f-d3858c616fb2")
-		)
-		(pin "5"
-			(uuid "b76db959-380c-4d93-81f1-03491fc9d8e9")
-		)
-		(pin "6"
-			(uuid "44b3e501-6462-4320-801a-a71089f95592")
-		)
-		(pin "1"
-			(uuid "02755181-0675-413e-9a97-e8e2ea20660e")
-		)
-		(pin "10"
-			(uuid "458db890-ab80-4c21-9305-80512c94e491")
-		)
-		(pin "2"
-			(uuid "b3b929f4-d616-48a6-a3d7-76da34278465")
-		)
-		(pin "7"
-			(uuid "645906e3-67b5-4ca0-8e69-4eee8618f107")
-		)
-		(pin "8"
-			(uuid "e63112f3-3d3c-476a-a01e-d34e053a1c16")
-		)
-		(pin "9"
-			(uuid "cfa3f2b5-8218-48c6-96b2-f5641e93047b")
-		)
-		(instances
-			(project "USB-PD-Prog"
-				(path "/7f56fee5-21ad-42e8-8354-66ebb4e179d3/684f200d-5619-40bd-b610-3ba4ad74232e"
-					(reference "J6")
 					(unit 1)
 				)
 			)
@@ -5167,98 +5078,6 @@
 		)
 	)
 	(symbol
-		(lib_id "ecocad_lib_symbols:STM32-Prog-Header")
-		(at 250.825 117.475 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8f38fbc8-9391-4229-85c2-bc3b5e4fa2ec")
-		(property "Reference" "J5"
-			(at 250.825 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "STM32-Prog-Header"
-			(at 250.825 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ecocad_lib_footprints:IDC-STM32-Prog-Header_2x05_P2.54mm_Vertical"
-			(at 248.793 134.747 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 249.555 140.081 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 252.603 134.747 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "abf9b279-aa13-456d-90b2-36974b280ce4")
-		)
-		(pin "4"
-			(uuid "ac64d8ff-c08f-4700-9e53-7a3436088aac")
-		)
-		(pin "5"
-			(uuid "28339061-0c1b-44ea-9c8c-755654e7de12")
-		)
-		(pin "6"
-			(uuid "a98ec828-a211-4c05-ac7d-39ccbdfac3a2")
-		)
-		(pin "1"
-			(uuid "977d6b79-5004-4304-a9bb-be2e65642bce")
-		)
-		(pin "10"
-			(uuid "ca8afd04-5ed7-43d0-afa1-e7ab27b06f1c")
-		)
-		(pin "2"
-			(uuid "ee0353f4-7103-46ec-832c-75e54229f651")
-		)
-		(pin "7"
-			(uuid "8f4daf63-0b3e-4d03-ae09-97cbf262763a")
-		)
-		(pin "8"
-			(uuid "09102f1e-ab3e-4ea4-b61f-71a0a1c98fea")
-		)
-		(pin "9"
-			(uuid "c78f821a-6ecf-4f5a-952e-ee27bc1b7324")
-		)
-		(instances
-			(project "USB-PD-Prog"
-				(path "/7f56fee5-21ad-42e8-8354-66ebb4e179d3/684f200d-5619-40bd-b610-3ba4ad74232e"
-					(reference "J5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 88.265 64.77 270)
 		(unit 1)
@@ -5999,98 +5818,6 @@
 		)
 	)
 	(symbol
-		(lib_id "ecocad_lib_symbols:STM32-Prog-Header")
-		(at 250.825 97.79 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "d58f3dfd-3371-4635-8808-6123fbf36362")
-		(property "Reference" "J4"
-			(at 250.825 86.995 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "STM32-Prog-Header"
-			(at 250.825 89.535 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ecocad_lib_footprints:IDC-STM32-Prog-Header_2x05_P2.54mm_Vertical"
-			(at 248.793 115.062 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 249.555 120.396 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 252.603 115.062 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "e9faf7c6-c1a8-43b5-a7fb-0e7d5d3886de")
-		)
-		(pin "4"
-			(uuid "d055882b-055e-4fbd-bcdf-8f36c43b41d1")
-		)
-		(pin "5"
-			(uuid "3516acb4-4db0-4fad-88ef-ea3a8f36217f")
-		)
-		(pin "6"
-			(uuid "b5273c27-06c7-4f93-bb4c-b6f846d2c506")
-		)
-		(pin "1"
-			(uuid "387d830a-8427-4422-89ce-d4a607633993")
-		)
-		(pin "10"
-			(uuid "435d3503-07a7-4cde-8f5b-8918871b50e7")
-		)
-		(pin "2"
-			(uuid "2e0aaa86-d1ac-4345-8d14-5c8506a7b727")
-		)
-		(pin "7"
-			(uuid "9dd26b26-906e-4a08-ba4a-1d05fb5d261a")
-		)
-		(pin "8"
-			(uuid "2def6fe7-f3aa-4ac1-b5d9-b5be3a9d7a79")
-		)
-		(pin "9"
-			(uuid "6097435c-83ba-4690-82fe-d9550b05f7cf")
-		)
-		(instances
-			(project "USB-PD-Prog"
-				(path "/7f56fee5-21ad-42e8-8354-66ebb4e179d3/684f200d-5619-40bd-b610-3ba4ad74232e"
-					(reference "J4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 152.4 75.565 0)
 		(unit 1)
@@ -6151,98 +5878,6 @@
 			(project ""
 				(path "/7f56fee5-21ad-42e8-8354-66ebb4e179d3/684f200d-5619-40bd-b610-3ba4ad74232e"
 					(reference "#PWR026")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ecocad_lib_symbols:STM32-Prog-Header")
-		(at 250.825 78.105 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "dbaf7adf-f811-4918-b922-7a9003630d3e")
-		(property "Reference" "J3"
-			(at 250.825 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "STM32-Prog-Header"
-			(at 250.825 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ecocad_lib_footprints:IDC-STM32-Prog-Header_2x05_P2.54mm_Vertical"
-			(at 248.793 95.377 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 249.555 100.711 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 252.603 95.377 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "525f2ef0-c75f-403f-97f2-ec258e8b96de")
-		)
-		(pin "4"
-			(uuid "d8821977-7b40-4ed3-88f7-55e04cc31836")
-		)
-		(pin "5"
-			(uuid "4dded02a-536d-41b2-a6c1-4267fdc10475")
-		)
-		(pin "6"
-			(uuid "76574bb7-0060-4763-816a-99305c492d03")
-		)
-		(pin "1"
-			(uuid "33259a4a-7004-43b1-a72f-6e4b3d79e400")
-		)
-		(pin "10"
-			(uuid "7fd9a44a-120f-41a9-be97-fde6df9c99a2")
-		)
-		(pin "2"
-			(uuid "fba61d27-98cc-46d5-b783-22fc5e293bd9")
-		)
-		(pin "7"
-			(uuid "36ad3d4d-1190-4c0b-9c27-26bdeb173ecb")
-		)
-		(pin "8"
-			(uuid "86a320be-72c4-42dd-8e02-63cf583528b8")
-		)
-		(pin "9"
-			(uuid "73170d8f-301c-4ce9-80a8-c06f54e2ac7c")
-		)
-		(instances
-			(project "USB-PD-Prog"
-				(path "/7f56fee5-21ad-42e8-8354-66ebb4e179d3/684f200d-5619-40bd-b610-3ba4ad74232e"
-					(reference "J3")
 					(unit 1)
 				)
 			)
