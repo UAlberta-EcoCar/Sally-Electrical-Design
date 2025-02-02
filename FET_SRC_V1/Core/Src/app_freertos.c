@@ -20,19 +20,23 @@
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
+#include "cmsis_os2.h"
 #include "main.h"
 #include "stm32g4xx_hal_fdcan.h"
+#include "stm32g4xx_hal_gpio.h"
 #include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "adc.h"
+#include "can_packs.h"
 #include "fdcan.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -348,6 +352,8 @@ void StartCanReceive(void *argument) {
    */
   UNUSED(argument);
   uint32_t RXID, DLC;
+  uint8_t ret[64];
+  FDCAN_FetPack_t mypack = {0};
   /* Infinite loop */
   for (;;) {
     if (osMessageQueueGet(canQueRxHeaderHandle, &RXID, 0, osWaitForever) ==
@@ -359,6 +365,13 @@ void StartCanReceive(void *argument) {
         } else {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
         }
+        osMessageQueueGet(canQueRxHeaderHandle, &DLC, 0, 0);
+        for (uint32_t i = 0; i < DLC; i++) {
+          osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
+        }
+        memcpy(mypack.FDCAN_RawFetPack, ret, DLC);
+        printf("THIS IS VOLTAGE: %d RELAY STATE: %d\r\n", mypack.input_volt,
+               mypack.fet_config);
         break;
       case 0x12:
         if (htim1.Instance->CCR3 == SET_BRIGHTNESS(20)) {
@@ -402,7 +415,7 @@ void StartCanReceive(void *argument) {
 /* USER CODE END Header_StartCanSend */
 void StartCanSend(void *argument) {
 /* USER CODE BEGIN StartCanSend */
-#define wait 1
+#define wait 100
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef fet_TxHeader;
   uint8_t fet_TxData[64] = {0};
@@ -416,32 +429,15 @@ void StartCanSend(void *argument) {
   fet_TxHeader.MessageMarker = 0;
   /* Infinite loop */
 
+  FDCAN_FetPack_t mypack = {0};
+  mypack.fet_config = (uint32_t)rb_state;
+  mypack.input_volt = (uint32_t)(33.0454389f * 10000);
+
   for (;;) {
     fet_TxHeader.Identifier = 0x11;
-    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_20;
+    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      (uint8_t *)&rb_data) != HAL_OK) {
-      Error_Handler();
-    }
-    osDelay(wait);
-
-    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_64;
-    fet_TxHeader.Identifier = 0x12;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader, fet_TxData) !=
-        HAL_OK) {
-      Error_Handler();
-    }
-    osDelay(wait);
-
-    fet_TxHeader.Identifier = 0x13;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader, fet_TxData) !=
-        HAL_OK) {
-      Error_Handler();
-    }
-    osDelay(wait);
-
-    fet_TxHeader.Identifier = 0x14;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader, fet_TxData) !=
+                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
         HAL_OK) {
       Error_Handler();
     }
@@ -471,15 +467,16 @@ void StartAdcConv(void *argument) {
     }
     rb_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
     rb_data.voltage[1] = adcToVolt(ADC2_Conversion);
-    printf("ADC Conversion Values: C:%u, C:%u, C:%u, V:%u, V:%u\r\n",
-           ADC1_Conversion[0], ADC1_Conversion[1], ADC1_Conversion[2],
-           ADC1_Conversion[3], ADC2_Conversion);
-    osDelay(1);
-    printf("CURRENT VALUES: C:%f, C:%f, C:%f\r\n", rb_data.current[0],
-           rb_data.current[1], rb_data.current[2]);
-    osDelay(1);
-    printf("VOLTAGE VALUES: V_INPUT:%f, V_OUTPUT:%f\r\n", rb_data.voltage[0],
-           rb_data.voltage[1]);
+    /*printf("ADC Conversion Values: C:%u, C:%u, C:%u, V:%u, V:%u\r\n",*/
+    /*       ADC1_Conversion[0], ADC1_Conversion[1], ADC1_Conversion[2],*/
+    /*       ADC1_Conversion[3], ADC2_Conversion);*/
+    /*osDelay(1);*/
+    /*printf("CURRENT VALUES: C:%f, C:%f, C:%f\r\n", rb_data.current[0],*/
+    /*       rb_data.current[1], rb_data.current[2]);*/
+    /*osDelay(1);*/
+    /*printf("VOLTAGE VALUES: V_INPUT:%f, V_OUTPUT:%f\r\n",
+     * rb_data.voltage[0],*/
+    /*       rb_data.voltage[1]);*/
     osDelay(1000);
   }
   /* USER CODE END StartAdcConv */
