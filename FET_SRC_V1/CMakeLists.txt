@@ -75,13 +75,14 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
   # typec
   # tinyusb/src/typec/usbc.c
   # Add user sources here
+  EcoLib/ecocan/ecocar_can.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     # tinyusb/src
-    User/Inc
+    EcoLib/ecocan
 )
 
 # Add project symbols (macros)

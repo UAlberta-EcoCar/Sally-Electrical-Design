@@ -29,7 +29,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "adc.h"
-#include "can_packs.h"
+#include "ecocar_can.h"
 #include "fdcan.h"
 #include "tim.h"
 #include "usb_device.h"
@@ -84,12 +84,6 @@ typedef struct {
 rbState_t rb_state = FET_STBY;
 rbData_t rb_data = {.current = {0x00001234, 0x00001234, 0x00001234},
                     .voltage = {0x00005678, 0x00005678}};
-
-FDCAN_TxHeaderTypeDef TxHeader;
-FDCAN_RxHeaderTypeDef RxHeader;
-
-uint8_t RxData[64];
-uint8_t TxData[64];
 
 const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
 const float currAdcConv = (3.278f / 4096) / (9100.0f / (9100 + 4700));
@@ -180,7 +174,6 @@ const osSemaphoreAttr_t canSemaphore_attributes = {
 void funCTION(void *argument);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
-uint32_t mapDlcToBytes(uint32_t DLC);
 
 int _write(int file, char *ptr, int len) {
   UNUSED(file);
@@ -190,6 +183,8 @@ int _write(int file, char *ptr, int len) {
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
                                uint32_t RxFifo0ITs) {
+  FDCAN_RxHeaderTypeDef RxHeader;
+  uint8_t RxData[64];
   if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
     /* Retreive Rx messages from RX FIFO0 */
     if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) !=
@@ -205,7 +200,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
     if (RxHeader.DataLength != FDCAN_DLC_BYTES_0) {
       osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
-      for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+      for (uint32_t i = 0; i < mapDlcToBytes(&RxHeader); i++) {
         osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
       }
     }
@@ -395,7 +390,6 @@ void StartCanReceive(void *argument) {
         }
         break;
       default:
-        printf("ERROR: NO CANID DEFINED 0x%x\r\n", RxHeader.Identifier);
         break;
       }
       osMessageQueueReset(canQueRxHeaderHandle);
@@ -515,35 +509,4 @@ float adcToCurr(uint32_t value) {
   return ret;
 }
 
-uint32_t mapDlcToBytes(uint32_t DLC) {
-  uint32_t bytes;
-  if (DLC <= 0x08) {
-    return DLC;
-  } else {
-    switch (DLC) {
-    case 0x09:
-      bytes = 12;
-      break;
-    case 0x0A:
-      bytes = 16;
-      break;
-    case 0x0B:
-      bytes = 20;
-      break;
-    case 0x0C:
-      bytes = 24;
-      break;
-    case 0x0D:
-      bytes = 32;
-      break;
-    case 0x0E:
-      bytes = 48;
-      break;
-    case 0x0F:
-      bytes = 64;
-      break;
-    }
-  }
-  return bytes;
-}
 /* USER CODE END Application */
