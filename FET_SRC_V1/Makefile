@@ -15,5 +15,8 @@ clean:
 
 # Need only specify the address 0x08000000 if we aren't flashing using
 # an .elf file. I do not know how thouroughly true that is.
-flash: gen
+dep_flash: gen
 	STM32_Programmer_CLI -c port=SWD -w $(BINARY) 0x08000000 -v -rst -run
+
+flash: gen
+	openocd -f openocd_prog.cfg
