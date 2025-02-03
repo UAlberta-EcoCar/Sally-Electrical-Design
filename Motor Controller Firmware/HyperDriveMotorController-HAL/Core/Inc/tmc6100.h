@@ -12,7 +12,6 @@
 
 typedef struct {
 	union {
-
 		struct {
 			uint8_t driver_disable :1;
 			uint8_t singleline :1;
@@ -22,7 +21,8 @@ typedef struct {
 			uint8_t test_mode :1;
 		// rest unused.
 		};
-		uint8_t reg_gconf;
+		uint32_t reg_raw_gconf;
+		uint8_t reg_rawa_gconf[4];
 	};
 } tmc6100_gconf_t;
 
@@ -33,7 +33,6 @@ typedef struct {
 		struct {
 			uint8_t rest :1;
 			uint8_t drv_otpw :1;
-			uint8_t drv_otpw :1;
 			uint8_t drv_ot :1;
 			uint8_t uv_cp :1;
 			uint8_t shortdet_u :1;
@@ -43,13 +42,14 @@ typedef struct {
 			uint8_t shortdet_v :1;
 			uint8_t s2gv :1;
 			uint8_t s2vsv :1;
-			uint8_t unused :1;
+			uint8_t unused1 :1;
 			uint8_t shortdet_w :1;
 			uint8_t s2gw :1;
 			uint8_t s2vsw :1;
 
 		};
-		uint16_t reg_gstat;
+		uint32_t reg_raw_gstat;
+		uint8_t reg_rawa_gstat[4];
 	};
 } tmc6100_gstat_t;
 
@@ -72,9 +72,9 @@ typedef struct {
 			uint8_t ot150 :1;
 			uint32_t unused :13;
 			uint8_t version;
-
 		};
-		uint32_t reg_ioin;
+		uint32_t reg_raw_ioin;
+		uint8_t reg_rawa_ioin[4];
 	};
 } tmc6100_ioin_t;
 
@@ -86,9 +86,9 @@ typedef struct {
 			uint8_t otpbit :3;
 			uint8_t otpbyte :2;
 			uint8_t otpmagic;
-
 		};
-		uint32_t reg_otp_prog;
+		uint32_t reg_raw_otp_prog;
+		uint8_t reg_rawa_otp_prog[4];
 	};
 } tmc6100_otp_prog_t;
 

@@ -5,8 +5,8 @@
  *      Author: abina
  */
 
-#ifndef INC_DRIVER_H_
-#define INC_DRIVER_H_
+#ifndef INC_TMC6100_DRIVER_H_
+#define INC_TMC6100_DRIVER_H_
 
 #include "main.h"
 
@@ -33,4 +33,5 @@ int driver_enable_bridges(driver_t *drv, int enable);
 
 int driver_reset(driver_t *drv);
 
-#endif /* INC_DRIVER_H_ */
+
+#endif /* INC_TMC6100_DRIVER_H_ */
