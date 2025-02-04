@@ -1,0 +1,50 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug from Launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/FET_SRC_V1.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "interface": "swd",
+            "runToEntryPoint": "main",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "preLaunchCommands": [
+                "set mem inaccessible-by-default off",
+                "monitor reset"
+            ],
+            "postLaunchCommands": [
+                "monitor reset init",
+                "monitor sleep 200"
+            ],
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            },
+        },
+        {
+            "name": "Debug from Attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/FET_SRC_V1.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "interface": "swd",
+            "runToEntryPoint": "main",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        }
+    ]
+}
+

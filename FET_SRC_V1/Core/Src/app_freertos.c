@@ -346,25 +346,25 @@ void StartCanReceive(void *argument) {
    *
    */
   UNUSED(argument);
-  uint32_t RXID, DLC;
-  uint8_t ret[64];
+  FDCAN_RxHeaderTypeDef myheader = {0};
+  uint8_t ret[64] = {0};
   FDCAN_FetPack_t mypack = {0};
   /* Infinite loop */
   for (;;) {
-    if (osMessageQueueGet(canQueRxHeaderHandle, &RXID, 0, osWaitForever) ==
+    if (osMessageQueueGet(canQueRxHeaderHandle, &myheader.Identifier, 0, osWaitForever) ==
         osOK) {
-      switch (RXID) {
+      switch (myheader.Identifier) {
       case 0x11:
         if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20)) {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
         } else {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
         }
-        osMessageQueueGet(canQueRxHeaderHandle, &DLC, 0, 0);
-        for (uint32_t i = 0; i < DLC; i++) {
+        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
+        for (uint32_t i = 0; i < mapDlcToBytes(&myheader); i++) {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
-        memcpy(mypack.FDCAN_RawFetPack, ret, DLC);
+        memcpy(mypack.FDCAN_RawFetPack, ret, mapDlcToBytes(&myheader));
         printf("THIS IS VOLTAGE: %d RELAY STATE: %d\r\n", mypack.input_volt,
                mypack.fet_config);
         break;
