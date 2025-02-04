@@ -198,13 +198,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
       Error_Handler();
     }
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
-    if (RxHeader.DataLength != FDCAN_DLC_BYTES_0) {
-      osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
-      for (uint32_t i = 0; i < mapDlcToBytes(&RxHeader); i++) {
-        osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
-      }
+    osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
+    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+      osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
     }
-    // osSemaphoreRelease(canSemaphoreHandle);
   }
 }
 void funCTION(void *argument);
@@ -351,8 +348,8 @@ void StartCanReceive(void *argument) {
   FDCAN_FetPack_t mypack = {0};
   /* Infinite loop */
   for (;;) {
-    if (osMessageQueueGet(canQueRxHeaderHandle, &myheader.Identifier, 0, osWaitForever) ==
-        osOK) {
+    if (osMessageQueueGet(canQueRxHeaderHandle, &myheader.Identifier, 0,
+                          osWaitForever) == osOK) {
       switch (myheader.Identifier) {
       case 0x11:
         if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20)) {
@@ -361,18 +358,25 @@ void StartCanReceive(void *argument) {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(&myheader); i++) {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
-        memcpy(mypack.FDCAN_RawFetPack, ret, mapDlcToBytes(&myheader));
-        printf("THIS IS VOLTAGE: %d RELAY STATE: %d\r\n", mypack.input_volt,
-               mypack.fet_config);
+        memcpy(mypack.FDCAN_RawFetPack, ret,
+               mapDlcToBytes(myheader.DataLength));
+        printf("RELAY STATE: %d IN VOLT: %d CAP VOLT: %d CAP CURR: %d RES "
+               "CURR: %d OUT CURR %d\r\n",
+               mypack.fet_config, mypack.input_volt, mypack.cap_volt,
+               mypack.cap_curr, mypack.res_curr, mypack.out_curr);
         break;
       case 0x12:
         if (htim1.Instance->CCR3 == SET_BRIGHTNESS(20)) {
           htim1.Instance->CCR3 = SET_BRIGHTNESS(0);
         } else {
           htim1.Instance->CCR3 = SET_BRIGHTNESS(20);
+        }
+        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
+          osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         break;
       case 0x13:
@@ -381,6 +385,10 @@ void StartCanReceive(void *argument) {
         } else {
           htim1.Instance->CCR2 = SET_BRIGHTNESS(30);
         }
+        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
+          osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
+        }
         break;
       case 0x14:
         if (htim3.Instance->CCR3 == SET_BRIGHTNESS(70)) {
@@ -388,12 +396,14 @@ void StartCanReceive(void *argument) {
         } else {
           htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
         }
+        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
+          osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
+        }
         break;
       default:
         break;
       }
-      osMessageQueueReset(canQueRxHeaderHandle);
-      osMessageQueueReset(canQueRxDataHandle);
     }
   }
   osDelay(1);
@@ -425,10 +435,36 @@ void StartCanSend(void *argument) {
 
   FDCAN_FetPack_t mypack = {0};
   mypack.fet_config = (uint32_t)rb_state;
-  mypack.input_volt = (uint32_t)(33.0454389f * 10000);
+  mypack.input_volt = (uint32_t)(11.0454389f * 10000);
+  mypack.cap_volt = (uint32_t)(22.0454389f * 10000);
+  mypack.cap_curr = (uint32_t)(33.0454389f * 10000);
+  mypack.res_curr = (uint32_t)(44.0454389f * 10000);
+  mypack.out_curr = (uint32_t)(55.0454389f * 10000);
 
   for (;;) {
     fet_TxHeader.Identifier = 0x11;
+    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
+    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
+                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
+        HAL_OK) {
+      Error_Handler();
+    }
+    osDelay(1);
+    fet_TxHeader.Identifier = 0x12;
+    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
+    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
+                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
+        HAL_OK) {
+      Error_Handler();
+    }
+    fet_TxHeader.Identifier = 0x13;
+    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
+    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
+                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
+        HAL_OK) {
+      Error_Handler();
+    }
+    fet_TxHeader.Identifier = 0x14;
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
