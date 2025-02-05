@@ -12,6 +12,8 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
+# tinyUSB
+add_compile_definitions(CFG_TUSB_MCU=OPT_MCU_STM32G4)
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -47,42 +49,26 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-  # common
-  # tinyusb/src/tusb.c
-  # tinyusb/src/common/tusb_fifo.c
-  # device
-  # tinyusb/src/device/usbd.c
-  # tinyusb/src/device/usbd_control.c
-  # tinyusb/src/class/audio/audio_device.c
-  # tinyusb/src/class/cdc/cdc_device.c
-  # tinyusb/src/class/dfu/dfu_device.c
-  # tinyusb/src/class/dfu/dfu_rt_device.c
-  # tinyusb/src/class/hid/hid_device.c
-  # tinyusb/src/class/midi/midi_device.c
-  # tinyusb/src/class/msc/msc_device.c
-  # tinyusb/src/class/net/ecm_rndis_device.c
-  # tinyusb/src/class/net/ncm_device.c
-  # tinyusb/src/class/usbtmc/usbtmc_device.c
-  # tinyusb/src/class/vendor/vendor_device.c
-  # tinyusb/src/class/video/video_device.c
-  # host
-  # tinyusb/src/host/usbh.c
-  # tinyusb/src/host/hub.c
-  # tinyusb/src/class/cdc/cdc_host.c
-  # tinyusb/src/class/hid/hid_host.c
-  # tinyusb/src/class/msc/msc_host.c
-  # tinyusb/src/class/vendor/vendor_host.c
-  # typec
-  # tinyusb/src/typec/usbc.c
   # Add user sources here
+  tinyUSB/src/tusb.c
+  tinyUSB/src/class/cdc/cdc_device.c
+  tinyUSB/src/class/cdc/cdc_host.c
+  tinyUSB/src/class/cdc/cdc_rndis_host.c
+  tinyUSB/src/common/tusb_fifo.c
+  tinyUSB/src/device/usbd.c
+  tinyUSB/src/device/usbd_control.c
+  tinyUSB/src/portable/st/stm32_fsdev/dcd_stm32_fsdev.c
+
+  Core/Src/usb_descriptors.c
   EcoLib/ecocan/ecocar_can.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
-    # tinyusb/src
-    EcoLib/ecocan
+  # Add user defined include paths
+  tinyUSB/hw
+  tinyUSB/src
+  EcoLib/ecocan
 )
 
 # Add project symbols (macros)
