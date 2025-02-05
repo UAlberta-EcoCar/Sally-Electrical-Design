@@ -58,14 +58,9 @@
 #define CFG_TUSB_OS           OPT_OS_FREERTOS
 #endif
 
-// Espressif IDF requires "freertos/" prefix in include path
-#if TUSB_MCU_VENDOR_ESPRESSIF
-#define CFG_TUSB_OS_INC_PATH  freertos/
-#endif
-
 // can be defined by compiler in DEBUG build
 #ifndef CFG_TUSB_DEBUG
-#define CFG_TUSB_DEBUG        0
+#define CFG_TUSB_DEBUG        2
 #endif
 
 // Enable Device stack
@@ -98,7 +93,7 @@
 #endif
 
 //------------- CLASS -------------//
-#define CFG_TUD_CDC              2
+#define CFG_TUD_CDC              1
 #define CFG_TUD_MSC              0
 #define CFG_TUD_HID              0
 #define CFG_TUD_MIDI             0
@@ -110,9 +105,6 @@
 
 // CDC Endpoint transfer buffer size, more is faster
 #define CFG_TUD_CDC_EP_BUFSIZE   (TUD_OPT_HIGH_SPEED ? 512 : 64)
-
-// MSC Buffer size of Device Mass storage
-#define CFG_TUD_MSC_EP_BUFSIZE   512
 
 #ifdef __cplusplus
  }

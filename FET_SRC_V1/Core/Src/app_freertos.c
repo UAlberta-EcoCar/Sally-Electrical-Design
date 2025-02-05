@@ -248,7 +248,7 @@ static void cdc_task(void) {
 
         // echo back to both serial ports
         echo_serial_port(0, buf, count);
-        echo_serial_port(1, buf, count);
+        // echo_serial_port(1, buf, count);
       }
     }
   }
@@ -272,7 +272,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
   tusb_rhport_init_t dev_init = {
     .role = TUSB_ROLE_DEVICE,
-    .speed = TUSB_SPEED_AUTO
+    .speed = TUSB_SPEED_FULL
   };
 
   // tusb_init(BOARD_TUD_RHPORT, &dev_init);
@@ -337,6 +337,8 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
+  /* init code for USB_Device */
+  MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
   UNUSED(argument);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // THIRD YELLOW CHANNEL LED1
@@ -474,7 +476,7 @@ void StartCanReceive(void *argument)
 void StartCanSend(void *argument)
 {
   /* USER CODE BEGIN StartCanSend */
-#define wait 100
+#define wait 500
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef fet_TxHeader;
   uint8_t fet_TxData[64] = {0};

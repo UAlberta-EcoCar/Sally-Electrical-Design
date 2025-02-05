@@ -23,7 +23,7 @@
  *
  */
 
-#include "bsp/board_api.h"
+// #include "bsp/board_api.h"
 #include "tusb.h"
 
 /* A combination of interfaces must have a unique product id, since PC will save device driver after the first plug.
@@ -50,7 +50,7 @@ tusb_desc_device_t const desc_device =
 
     // Use Interface Association Descriptor (IAD) for CDC
     // As required by USB Specs IAD's subclass must be common class (2) and protocol must be IAD (1)
-    .bDeviceClass       = TUSB_CLASS_MISC,
+    .bDeviceClass       = TUSB_CLASS_CDC,
     .bDeviceSubClass    = MISC_SUBCLASS_COMMON,
     .bDeviceProtocol    = MISC_PROTOCOL_IAD,
     .bMaxPacketSize0    = CFG_TUD_ENDPOINT0_SIZE,
@@ -80,8 +80,6 @@ enum
 {
   ITF_NUM_CDC_0 = 0,
   ITF_NUM_CDC_0_DATA,
-  ITF_NUM_CDC_1,
-  ITF_NUM_CDC_1_DATA,
   ITF_NUM_TOTAL
 };
 
@@ -124,10 +122,6 @@ enum
   #define EPNUM_CDC_0_NOTIF   0x81
   #define EPNUM_CDC_0_OUT     0x02
   #define EPNUM_CDC_0_IN      0x82
-
-  #define EPNUM_CDC_1_NOTIF   0x83
-  #define EPNUM_CDC_1_OUT     0x04
-  #define EPNUM_CDC_1_IN      0x84
 #endif
 
 uint8_t const desc_fs_configuration[] =
@@ -139,7 +133,7 @@ uint8_t const desc_fs_configuration[] =
   TUD_CDC_DESCRIPTOR(ITF_NUM_CDC_0, 4, EPNUM_CDC_0_NOTIF, 8, EPNUM_CDC_0_OUT, EPNUM_CDC_0_IN, 64),
 
   // 2nd CDC: Interface number, string index, EP notification address and size, EP data address (out, in) and size.
-  TUD_CDC_DESCRIPTOR(ITF_NUM_CDC_1, 4, EPNUM_CDC_1_NOTIF, 8, EPNUM_CDC_1_OUT, EPNUM_CDC_1_IN, 64),
+  /*TUD_CDC_DESCRIPTOR(ITF_NUM_CDC_1, 4, EPNUM_CDC_1_NOTIF, 8, EPNUM_CDC_1_OUT, EPNUM_CDC_1_IN, 64),*/
 };
 
 #if TUD_OPT_HIGH_SPEED
@@ -247,7 +241,12 @@ uint16_t const *tud_descriptor_string_cb(uint8_t index, uint16_t langid) {
       break;
 
     case STRID_SERIAL:
-      chr_count = board_usb_get_serial(_desc_str + 1, 32);
+      chr_count = 5;
+      _desc_str[1] = 'A';
+      _desc_str[2] = 'B';
+      _desc_str[3] = 'C';
+      _desc_str[4] = 'D';
+      _desc_str[5] = 'E';
       break;
 
     default:
