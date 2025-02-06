@@ -41,7 +41,8 @@ typedef StaticTask_t osStaticThreadDef_t;
 typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN PTD */
-typedef enum {
+typedef enum
+{
   ALL_FET_OFF = 0x00,
   FUELCELL_FET = 0x01,
   CAP_FET = 0x02,
@@ -49,18 +50,21 @@ typedef enum {
   OUT_FET = 0x08,
 } relayBit_t;
 
-typedef enum {
+typedef enum
+{
   FET_STBY = ALL_FET_OFF,
   FET_CHRGE = FUELCELL_FET | CAP_FET | RES_FET,
   FET_RUN = FUELCELL_FET | CAP_FET | RES_FET | OUT_FET,
 } rbState_t;
 
-typedef struct {
+typedef struct
+{
   float current[3];
   float voltage[2];
 } rbData_t;
 
-typedef struct {
+typedef struct
+{
   uint8_t H2_OK;
 } canData_t;
 /* USER CODE END PTD */
@@ -174,30 +178,36 @@ void funCTION(void *argument);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
 
-int _write(int file, char *ptr, int len) {
+int _write(int file, char *ptr, int len)
+{
   UNUSED(file);
   return len;
 }
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
-                               uint32_t RxFifo0ITs) {
+                               uint32_t RxFifo0ITs)
+{
   FDCAN_RxHeaderTypeDef RxHeader;
   uint8_t RxData[64];
-  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
+  {
     /* Retreive Rx messages from RX FIFO0 */
     if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) !=
-        HAL_OK) {
+        HAL_OK)
+    {
       /* Reception Error */
       Error_Handler();
     }
     if (HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
-                                       0) != HAL_OK) {
+                                       0) != HAL_OK)
+    {
       /* Notification Error */
       Error_Handler();
     }
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
-    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++)
+    {
       osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
     }
   }
@@ -208,7 +218,6 @@ float adcToVolt(uint32_t adc_value);
 
 static void echo_serial_port(uint8_t itf, uint8_t buf[], uint32_t count) {
   uint8_t const case_diff = 'a' - 'A';
-
   for (uint32_t i = 0; i < count; i++) {
     if (itf == 0) {
       // echo back 1st port as lower case
@@ -217,25 +226,20 @@ static void echo_serial_port(uint8_t itf, uint8_t buf[], uint32_t count) {
       // echo back 2nd port as upper case
       if (islower(buf[i])) buf[i] -= case_diff;
     }
-
     tud_cdc_n_write_char(itf, buf[i]);
   }
   tud_cdc_n_write_flush(itf);
 }
-
 // Invoked when device is mounted
 void tud_mount_cb(void) {
   //Do nothing for now
 }
-
 // Invoked when device is unmounted
 void tud_umount_cb(void) {
   //Do nothing for now
 }
-
 static void cdc_task(void) {
   uint8_t itf;
-
   for (itf = 0; itf < CFG_TUD_CDC; itf++) {
     // connected() check for DTR bit
     // Most but not all terminal client set this when making connection
@@ -243,12 +247,10 @@ static void cdc_task(void) {
     {
       if (tud_cdc_n_available(itf)) {
         uint8_t buf[64];
-
         uint32_t count = tud_cdc_n_read(itf, buf, sizeof(buf));
-
         // echo back to both serial ports
         echo_serial_port(0, buf, count);
-        // echo_serial_port(1, buf, count);
+        echo_serial_port(1, buf, count);
       }
     }
   }
@@ -270,12 +272,7 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-  tusb_rhport_init_t dev_init = {
-    .role = TUSB_ROLE_DEVICE,
-    .speed = TUSB_SPEED_FULL
-  };
-
-  // tusb_init(BOARD_TUD_RHPORT, &dev_init);
+  
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -328,6 +325,8 @@ void MX_FREERTOS_Init(void) {
 
 }
 
+uint32_t mycount = 0;
+
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
  * @brief  Function implementing the defaultTask thread.
@@ -337,48 +336,51 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
-  /* init code for USB_Device */
-  MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
   UNUSED(argument);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // THIRD YELLOW CHANNEL LED1
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // SECOND RED CHANNEL LED2
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1); // TOP RED CHANNEL LED4
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3); // BOTTOM GREEN CHANNEL LED3
+  //HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // THIRD YELLOW CHANNEL LED1
+  //HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // SECOND RED CHANNEL LED2
+  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1); // TOP RED CHANNEL LED4
+  //HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3); // BOTTOM GREEN CHANNEL LED3
 
-#define DELAY pdMS_TO_TICKS(500)
   /* Infinite loop */
   rb_state = FET_STBY;
-  for (;;) {
-    switch (rb_state) {
-    case FET_STBY:
-      // All pins should be in off state. Capacitors discharge through resistor
-      // by default.
-      HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
-      break;
-    case FET_CHRGE:
-      // Allow fuel cell power through to main bus, into caps, and shut off
-      // resistor
-      HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin,
-                        GPIO_PIN_SET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
-      // if CAPACITOR VOL > some value -> go to RUN
-      break;
-    case FET_RUN:
-      HAL_GPIO_WritePin(GPIOA,
-                        CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
-                        GPIO_PIN_SET);
-      break;
-    }
 
-    /* tinyUSB */
-    // tud_task();
-    // cdc_task();
+  const tusb_rhport_init_t rh_init = {
+    .role = TUSB_ROLE_DEVICE,
+    .speed = TUSB_SPEED_FULL
+  };
+  tud_rhport_init(0, &rh_init);
+  mycount++;
 
-    osDelay(10);
+  for (;;)
+  {
+    /*     switch (rb_state) {
+        case FET_STBY:
+          // All pins should be in off state. Capacitors discharge through resistor
+          // by default.
+          HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
+          HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
+          HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
+          HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+          break;
+        case FET_CHRGE:
+          // Allow fuel cell power through to main bus, into caps, and shut off
+          // resistor
+          HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin,
+                            GPIO_PIN_SET);
+          HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+          // if CAPACITOR VOL > some value -> go to RUN
+          break;
+        case FET_RUN:
+          HAL_GPIO_WritePin(GPIOA,
+                            CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
+                            GPIO_PIN_SET);
+          break;
+        } */
+
+    // put this thread to waiting state until there is new events
+    tud_task();
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -403,18 +405,25 @@ void StartCanReceive(void *argument)
   uint8_t ret[64] = {0};
   FDCAN_FetPack_t mypack = {0};
   /* Infinite loop */
-  for (;;) {
+  for (;;)
+  {
     if (osMessageQueueGet(canQueRxHeaderHandle, &myheader.Identifier, 0,
-                          osWaitForever) == osOK) {
-      switch (myheader.Identifier) {
+                          osWaitForever) == osOK)
+    {
+      switch (myheader.Identifier)
+      {
       case 0x11:
-        if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20)) {
+        if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20))
+        {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
-        } else {
+        }
+        else
+        {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
+        {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         memcpy(mypack.FDCAN_RawFetPack, ret,
@@ -425,35 +434,47 @@ void StartCanReceive(void *argument)
         /*       mypack.cap_curr, mypack.res_curr, mypack.out_curr);*/
         break;
       case 0x12:
-        if (htim1.Instance->CCR3 == SET_BRIGHTNESS(20)) {
+        if (htim1.Instance->CCR3 == SET_BRIGHTNESS(20))
+        {
           htim1.Instance->CCR3 = SET_BRIGHTNESS(0);
-        } else {
+        }
+        else
+        {
           htim1.Instance->CCR3 = SET_BRIGHTNESS(20);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
+        {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         break;
       case 0x13:
-        if (htim1.Instance->CCR2 == SET_BRIGHTNESS(30)) {
+        if (htim1.Instance->CCR2 == SET_BRIGHTNESS(30))
+        {
           htim1.Instance->CCR2 = SET_BRIGHTNESS(0);
-        } else {
+        }
+        else
+        {
           htim1.Instance->CCR2 = SET_BRIGHTNESS(30);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
+        {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         break;
       case 0x14:
-        if (htim3.Instance->CCR3 == SET_BRIGHTNESS(70)) {
+        if (htim3.Instance->CCR3 == SET_BRIGHTNESS(70))
+        {
           htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
-        } else {
+        }
+        else
+        {
           htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
+        {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         break;
@@ -498,12 +519,14 @@ void StartCanSend(void *argument)
   mypack.res_curr = (uint32_t)(44.0454389f * 10000);
   mypack.out_curr = (uint32_t)(55.0454389f * 10000);
 
-  for (;;) {
+  for (;;)
+  {
     fet_TxHeader.Identifier = 0x11;
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
+        HAL_OK)
+    {
       Error_Handler();
     }
     osDelay(1);
@@ -511,21 +534,24 @@ void StartCanSend(void *argument)
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
+        HAL_OK)
+    {
       Error_Handler();
     }
     fet_TxHeader.Identifier = 0x13;
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
+        HAL_OK)
+    {
       Error_Handler();
     }
     fet_TxHeader.Identifier = 0x14;
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
+        HAL_OK)
+    {
       Error_Handler();
     }
     osDelay(wait);
@@ -549,8 +575,10 @@ void StartAdcConv(void *argument)
   HAL_ADC_Start_DMA(&hadc1, ADC1_Conversion, 4);
   HAL_ADC_Start_DMA(&hadc2, &ADC2_Conversion, 1);
   /* Infinite loop */
-  for (;;) {
-    for (int i = 0; i < 3; i++) {
+  for (;;)
+  {
+    for (int i = 0; i < 3; i++)
+    {
       rb_data.current[i] = adcToCurr(ADC1_Conversion[i]);
     }
     rb_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
@@ -565,14 +593,16 @@ void StartAdcConv(void *argument)
     /*printf("VOLTAGE VALUES: V_INPUT:%f, V_OUTPUT:%f\r\n",
      * rb_data.voltage[0],*/
     /*       rb_data.voltage[1]);*/
-    osDelay(1000);
+
+    osDelay(1);
   }
   /* USER CODE END StartAdcConv */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-void funCTION(void *argument) {
+void funCTION(void *argument)
+{
   UNUSED(argument);
   htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
   osDelay(50);
@@ -592,12 +622,14 @@ void funCTION(void *argument) {
   osDelay(50);
 }
 
-float adcToVolt(uint32_t value) {
+float adcToVolt(uint32_t value)
+{
   float ret;
   ret = value * voltAdcConv;
   return ret;
 }
-float adcToCurr(uint32_t value) {
+float adcToCurr(uint32_t value)
+{
   float ret;
   ret = (value * voltAdcConv - currZeroOffset) / currSensitivity;
   return ret;

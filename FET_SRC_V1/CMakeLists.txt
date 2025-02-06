@@ -50,17 +50,13 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
   # Add user sources here
-  tinyUSB/src/tusb.c
-  tinyUSB/src/class/cdc/cdc_device.c
-  tinyUSB/src/class/cdc/cdc_host.c
-  tinyUSB/src/class/cdc/cdc_rndis_host.c
-  tinyUSB/src/common/tusb_fifo.c
-  tinyUSB/src/device/usbd.c
-  tinyUSB/src/device/usbd_control.c
-  tinyUSB/src/portable/st/stm32_fsdev/dcd_stm32_fsdev.c
-
-  Core/Src/usb_descriptors.c
   EcoLib/ecocan/ecocar_can.c
+)
+
+file(GLOB_RECURSE SOURCES "tinyUSB/src/*.c")
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+  Core/Src/usb_descriptors.c
+  ${SOURCES}
 )
 
 # Add include paths
