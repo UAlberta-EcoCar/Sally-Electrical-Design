@@ -51,6 +51,7 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
   # Add user sources here
   EcoLib/ecocan/ecocar_can.c
+  EcoLib/util/usb/usb_receive.c
 )
 
 #file(GLOB_RECURSE SOURCES "tinyUSB/src/*.c")
@@ -65,6 +66,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
   #tinyUSB/hw
   #tinyUSB/src
   EcoLib/ecocan
+  EcoLib/util/typedef
 )
 
 # Add project symbols (macros)
