@@ -13,7 +13,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
 # tinyUSB
-add_compile_definitions(CFG_TUSB_MCU=OPT_MCU_STM32G4)
+# add_compile_definitions(CFG_TUSB_MCU=OPT_MCU_STM32G4)
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -53,17 +53,17 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
   EcoLib/ecocan/ecocar_can.c
 )
 
-file(GLOB_RECURSE SOURCES "tinyUSB/src/*.c")
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-  Core/Src/usb_descriptors.c
-  ${SOURCES}
-)
+#file(GLOB_RECURSE SOURCES "tinyUSB/src/*.c")
+#target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+#  Core/Src/usb_descriptors.c
+#  ${SOURCES}
+#)
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
   # Add user defined include paths
-  tinyUSB/hw
-  tinyUSB/src
+  #tinyUSB/hw
+  #tinyUSB/src
   EcoLib/ecocan
 )
 

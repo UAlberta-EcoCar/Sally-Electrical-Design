@@ -22,8 +22,6 @@
 #include "stm32g4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "tusb.h"
-#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,8 +55,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern FDCAN_HandleTypeDef hfdcan2;
 extern PCD_HandleTypeDef hpcd_USB_FS;
+extern FDCAN_HandleTypeDef hfdcan2;
 extern TIM_HandleTypeDef htim20;
 
 /* USER CODE BEGIN EV */
@@ -169,8 +167,6 @@ void DebugMon_Handler(void)
 void USB_HP_IRQHandler(void)
 {
   /* USER CODE BEGIN USB_HP_IRQn 0 */
-  tud_int_handler(0);
-  return;
   /* USER CODE END USB_HP_IRQn 0 */
   HAL_PCD_IRQHandler(&hpcd_USB_FS);
   /* USER CODE BEGIN USB_HP_IRQn 1 */
@@ -184,8 +180,6 @@ void USB_HP_IRQHandler(void)
 void USB_LP_IRQHandler(void)
 {
   /* USER CODE BEGIN USB_LP_IRQn 0 */
-  tud_int_handler(0);
-  return;
   /* USER CODE END USB_LP_IRQn 0 */
   HAL_PCD_IRQHandler(&hpcd_USB_FS);
   /* USER CODE BEGIN USB_LP_IRQn 1 */

@@ -19,18 +19,18 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
-#include "task.h"
-#include "main.h"
 #include "cmsis_os.h"
+#include "main.h"
+#include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "adc.h"
+#include "usb_device.h"
+#include "usbd_cdc_if.h"
 #include "ecocar_can.h"
 #include "fdcan.h"
 #include "tim.h"
-#include "tusb.h"
-#include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
@@ -41,32 +41,24 @@ typedef StaticTask_t osStaticThreadDef_t;
 typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN PTD */
-typedef enum
-{
+typedef enum {
   ALL_FET_OFF = 0x00,
   FUELCELL_FET = 0x01,
   CAP_FET = 0x02,
   RES_FET = 0x04,
   OUT_FET = 0x08,
-} relayBit_t;
+} fetBit_t;
 
-typedef enum
-{
+typedef enum {
   FET_STBY = ALL_FET_OFF,
   FET_CHRGE = FUELCELL_FET | CAP_FET | RES_FET,
   FET_RUN = FUELCELL_FET | CAP_FET | RES_FET | OUT_FET,
-} rbState_t;
+} fetState_t;
 
-typedef struct
-{
+typedef struct {
   float current[3];
   float voltage[2];
-} rbData_t;
-
-typedef struct
-{
-  uint8_t H2_OK;
-} canData_t;
+} fetData_t;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -82,8 +74,8 @@ typedef struct
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-rbState_t rb_state = FET_STBY;
-rbData_t rb_data = {.current = {0x00001234, 0x00001234, 0x00001234},
+fetState_t fet_state = FET_STBY;
+fetData_t fet_data = {.current = {0x00001234, 0x00001234, 0x00001234},
                     .voltage = {0x00005678, 0x00005678}};
 
 const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
@@ -95,81 +87,79 @@ const float currSensitivity = 133.0f / 1000; // V/A
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-uint32_t defaultTaskBuffer[ 512 ];
+uint32_t defaultTaskBuffer[512];
 osStaticThreadDef_t defaultTaskControlBlock;
 const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_mem = &defaultTaskBuffer[0],
-  .stack_size = sizeof(defaultTaskBuffer),
-  .cb_mem = &defaultTaskControlBlock,
-  .cb_size = sizeof(defaultTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal,
+    .name = "defaultTask",
+    .stack_mem = &defaultTaskBuffer[0],
+    .stack_size = sizeof(defaultTaskBuffer),
+    .cb_mem = &defaultTaskControlBlock,
+    .cb_size = sizeof(defaultTaskControlBlock),
+    .priority = (osPriority_t)osPriorityNormal,
 };
 /* Definitions for canReceiveMsg */
 osThreadId_t canReceiveMsgHandle;
-uint32_t CanReceiveMsgBuffer[ 512 ];
+uint32_t CanReceiveMsgBuffer[512];
 osStaticThreadDef_t CanReceiveMsgControlBlock;
 const osThreadAttr_t canReceiveMsg_attributes = {
-  .name = "canReceiveMsg",
-  .stack_mem = &CanReceiveMsgBuffer[0],
-  .stack_size = sizeof(CanReceiveMsgBuffer),
-  .cb_mem = &CanReceiveMsgControlBlock,
-  .cb_size = sizeof(CanReceiveMsgControlBlock),
-  .priority = (osPriority_t) osPriorityNormal1,
+    .name = "canReceiveMsg",
+    .stack_mem = &CanReceiveMsgBuffer[0],
+    .stack_size = sizeof(CanReceiveMsgBuffer),
+    .cb_mem = &CanReceiveMsgControlBlock,
+    .cb_size = sizeof(CanReceiveMsgControlBlock),
+    .priority = (osPriority_t)osPriorityNormal1,
 };
 /* Definitions for canSendMsg */
 osThreadId_t canSendMsgHandle;
-uint32_t CanSendMsgBuffer[ 512 ];
+uint32_t CanSendMsgBuffer[512];
 osStaticThreadDef_t CanSendMsgControlBlock;
 const osThreadAttr_t canSendMsg_attributes = {
-  .name = "canSendMsg",
-  .stack_mem = &CanSendMsgBuffer[0],
-  .stack_size = sizeof(CanSendMsgBuffer),
-  .cb_mem = &CanSendMsgControlBlock,
-  .cb_size = sizeof(CanSendMsgControlBlock),
-  .priority = (osPriority_t) osPriorityNormal2,
+    .name = "canSendMsg",
+    .stack_mem = &CanSendMsgBuffer[0],
+    .stack_size = sizeof(CanSendMsgBuffer),
+    .cb_mem = &CanSendMsgControlBlock,
+    .cb_size = sizeof(CanSendMsgControlBlock),
+    .priority = (osPriority_t)osPriorityNormal2,
 };
 /* Definitions for adcConvTask */
 osThreadId_t adcConvTaskHandle;
-uint32_t adcConvTaskBuffer[ 512 ];
+uint32_t adcConvTaskBuffer[512];
 osStaticThreadDef_t adcConvTaskControlBlock;
 const osThreadAttr_t adcConvTask_attributes = {
-  .name = "adcConvTask",
-  .stack_mem = &adcConvTaskBuffer[0],
-  .stack_size = sizeof(adcConvTaskBuffer),
-  .cb_mem = &adcConvTaskControlBlock,
-  .cb_size = sizeof(adcConvTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal3,
+    .name = "adcConvTask",
+    .stack_mem = &adcConvTaskBuffer[0],
+    .stack_size = sizeof(adcConvTaskBuffer),
+    .cb_mem = &adcConvTaskControlBlock,
+    .cb_size = sizeof(adcConvTaskControlBlock),
+    .priority = (osPriority_t)osPriorityNormal3,
 };
 /* Definitions for canQueRxHeader */
 osMessageQueueId_t canQueRxHeaderHandle;
-uint8_t canReceiveQueBuffer[ 512 * sizeof( uint32_t ) ];
+uint8_t canReceiveQueBuffer[512 * sizeof(uint32_t)];
 osStaticMessageQDef_t canReceiveQueControlBlock;
 const osMessageQueueAttr_t canQueRxHeader_attributes = {
-  .name = "canQueRxHeader",
-  .cb_mem = &canReceiveQueControlBlock,
-  .cb_size = sizeof(canReceiveQueControlBlock),
-  .mq_mem = &canReceiveQueBuffer,
-  .mq_size = sizeof(canReceiveQueBuffer)
-};
+    .name = "canQueRxHeader",
+    .cb_mem = &canReceiveQueControlBlock,
+    .cb_size = sizeof(canReceiveQueControlBlock),
+    .mq_mem = &canReceiveQueBuffer,
+    .mq_size = sizeof(canReceiveQueBuffer)};
 /* Definitions for canQueRxData */
 osMessageQueueId_t canQueRxDataHandle;
-uint8_t canQueRxDataBuffer[ 512 * sizeof( uint8_t ) ];
+uint8_t canQueRxDataBuffer[512 * sizeof(uint8_t)];
 osStaticMessageQDef_t canQueRxDataControlBlock;
 const osMessageQueueAttr_t canQueRxData_attributes = {
-  .name = "canQueRxData",
-  .cb_mem = &canQueRxDataControlBlock,
-  .cb_size = sizeof(canQueRxDataControlBlock),
-  .mq_mem = &canQueRxDataBuffer,
-  .mq_size = sizeof(canQueRxDataBuffer)
-};
+    .name = "canQueRxData",
+    .cb_mem = &canQueRxDataControlBlock,
+    .cb_size = sizeof(canQueRxDataControlBlock),
+    .mq_mem = &canQueRxDataBuffer,
+    .mq_size = sizeof(canQueRxDataBuffer)};
 /* Definitions for canSemaphore */
 osSemaphoreId_t canSemaphoreHandle;
 osStaticSemaphoreDef_t canSemaphoreControlBlock;
 const osSemaphoreAttr_t canSemaphore_attributes = {
-  .name = "canSemaphore",
-  .cb_mem = &canSemaphoreControlBlock,
-  .cb_size = sizeof(canSemaphoreControlBlock),
+    .name = "canSemaphore",
+    .cb_mem = &canSemaphoreControlBlock,
+    .cb_size = sizeof(canSemaphoreControlBlock),
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -178,36 +168,31 @@ void funCTION(void *argument);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
 
-int _write(int file, char *ptr, int len)
-{
+int _write(int file, char *ptr, int len) {
   UNUSED(file);
+  CDC_Transmit_FS((uint8_t*)ptr, len);
   return len;
 }
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
-                               uint32_t RxFifo0ITs)
-{
+                               uint32_t RxFifo0ITs) {
   FDCAN_RxHeaderTypeDef RxHeader;
   uint8_t RxData[64];
-  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
-  {
+  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
     /* Retreive Rx messages from RX FIFO0 */
     if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) !=
-        HAL_OK)
-    {
+        HAL_OK) {
       /* Reception Error */
       Error_Handler();
     }
     if (HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
-                                       0) != HAL_OK)
-    {
+                                       0) != HAL_OK) {
       /* Notification Error */
       Error_Handler();
     }
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
-    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++)
-    {
+    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
       osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
     }
   }
@@ -215,46 +200,6 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
 void funCTION(void *argument);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
-
-static void echo_serial_port(uint8_t itf, uint8_t buf[], uint32_t count) {
-  uint8_t const case_diff = 'a' - 'A';
-  for (uint32_t i = 0; i < count; i++) {
-    if (itf == 0) {
-      // echo back 1st port as lower case
-      if (isupper(buf[i])) buf[i] += case_diff;
-    } else {
-      // echo back 2nd port as upper case
-      if (islower(buf[i])) buf[i] -= case_diff;
-    }
-    tud_cdc_n_write_char(itf, buf[i]);
-  }
-  tud_cdc_n_write_flush(itf);
-}
-// Invoked when device is mounted
-void tud_mount_cb(void) {
-  //Do nothing for now
-}
-// Invoked when device is unmounted
-void tud_umount_cb(void) {
-  //Do nothing for now
-}
-static void cdc_task(void) {
-  uint8_t itf;
-  for (itf = 0; itf < CFG_TUD_CDC; itf++) {
-    // connected() check for DTR bit
-    // Most but not all terminal client set this when making connection
-    // if ( tud_cdc_n_connected(itf) )
-    {
-      if (tud_cdc_n_available(itf)) {
-        uint8_t buf[64];
-        uint32_t count = tud_cdc_n_read(itf, buf, sizeof(buf));
-        // echo back to both serial ports
-        echo_serial_port(0, buf, count);
-        echo_serial_port(1, buf, count);
-      }
-    }
-  }
-}
 
 /* USER CODE END FunctionPrototypes */
 
@@ -266,13 +211,13 @@ void StartAdcConv(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
-  * @brief  FreeRTOS initialization
-  * @param  None
-  * @retval None
-  */
+ * @brief  FreeRTOS initialization
+ * @param  None
+ * @retval None
+ */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-  
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -293,10 +238,12 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of canQueRxHeader */
-  canQueRxHeaderHandle = osMessageQueueNew (512, sizeof(uint32_t), &canQueRxHeader_attributes);
+  canQueRxHeaderHandle =
+      osMessageQueueNew(512, sizeof(uint32_t), &canQueRxHeader_attributes);
 
   /* creation of canQueRxData */
-  canQueRxDataHandle = osMessageQueueNew (512, sizeof(uint8_t), &canQueRxData_attributes);
+  canQueRxDataHandle =
+      osMessageQueueNew(512, sizeof(uint8_t), &canQueRxData_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -304,10 +251,12 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle =
+      osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* creation of canReceiveMsg */
-  canReceiveMsgHandle = osThreadNew(StartCanReceive, NULL, &canReceiveMsg_attributes);
+  canReceiveMsgHandle =
+      osThreadNew(StartCanReceive, NULL, &canReceiveMsg_attributes);
 
   /* creation of canSendMsg */
   canSendMsgHandle = osThreadNew(StartCanSend, NULL, &canSendMsg_attributes);
@@ -322,10 +271,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
-
 }
-
-uint32_t mycount = 0;
 
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
@@ -334,53 +280,44 @@ uint32_t mycount = 0;
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
-{
+void StartDefaultTask(void *argument) {
+  /* init code for USB_Device */
+  MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
   UNUSED(argument);
-  //HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // THIRD YELLOW CHANNEL LED1
-  //HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // SECOND RED CHANNEL LED2
-  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1); // TOP RED CHANNEL LED4
-  //HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3); // BOTTOM GREEN CHANNEL LED3
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // THIRD YELLOW CHANNEL LED1
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // SECOND RED CHANNEL LED2
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1); // TOP RED CHANNEL LED4
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3); // BOTTOM GREEN CHANNEL LED3
 
   /* Infinite loop */
-  rb_state = FET_STBY;
+  fet_state = FET_STBY;
 
-  const tusb_rhport_init_t rh_init = {
-    .role = TUSB_ROLE_DEVICE,
-    .speed = TUSB_SPEED_FULL
-  };
-  tud_rhport_init(0, &rh_init);
-  mycount++;
-
-  for (;;)
-  {
-    /*     switch (rb_state) {
-        case FET_STBY:
-          // All pins should be in off state. Capacitors discharge through resistor
-          // by default.
-          HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
-          HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
-          HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
-          HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
-          break;
-        case FET_CHRGE:
-          // Allow fuel cell power through to main bus, into caps, and shut off
-          // resistor
-          HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin,
-                            GPIO_PIN_SET);
-          HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
-          // if CAPACITOR VOL > some value -> go to RUN
-          break;
-        case FET_RUN:
-          HAL_GPIO_WritePin(GPIOA,
-                            CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
-                            GPIO_PIN_SET);
-          break;
-        } */
-
-    // put this thread to waiting state until there is new events
-    tud_task();
+  for (;;) {
+    switch (fet_state) {
+    case FET_STBY:
+      // All pins should be in off state. Capacitors discharge through
+      // resistor by default.
+      HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+      break;
+    case FET_CHRGE:
+      // Allow fuel cell power through to main bus, into caps, and shut off
+      // resistor
+      HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin,
+                        GPIO_PIN_SET);
+      HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+      // if CAPACITOR VOL > some value -> go to RUN
+      break;
+    case FET_RUN:
+      HAL_GPIO_WritePin(GPIOA,
+                        CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
+                        GPIO_PIN_SET);
+      break;
+    }
+    osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -392,8 +329,7 @@ void StartDefaultTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartCanReceive */
-void StartCanReceive(void *argument)
-{
+void StartCanReceive(void *argument) {
   /* USER CODE BEGIN StartCanReceive */
   /**
    * THIS SECTION OF CODE UTILIZES A HIGHER PRIORITY SO NO BLOCKING
@@ -405,25 +341,18 @@ void StartCanReceive(void *argument)
   uint8_t ret[64] = {0};
   FDCAN_FetPack_t mypack = {0};
   /* Infinite loop */
-  for (;;)
-  {
+  for (;;) {
     if (osMessageQueueGet(canQueRxHeaderHandle, &myheader.Identifier, 0,
-                          osWaitForever) == osOK)
-    {
-      switch (myheader.Identifier)
-      {
+                          osWaitForever) == osOK) {
+      switch (myheader.Identifier) {
       case 0x11:
-        if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20))
-        {
+        if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20)) {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
-        }
-        else
-        {
+        } else {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
-        {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         memcpy(mypack.FDCAN_RawFetPack, ret,
@@ -434,47 +363,35 @@ void StartCanReceive(void *argument)
         /*       mypack.cap_curr, mypack.res_curr, mypack.out_curr);*/
         break;
       case 0x12:
-        if (htim1.Instance->CCR3 == SET_BRIGHTNESS(20))
-        {
+        if (htim1.Instance->CCR3 == SET_BRIGHTNESS(20)) {
           htim1.Instance->CCR3 = SET_BRIGHTNESS(0);
-        }
-        else
-        {
+        } else {
           htim1.Instance->CCR3 = SET_BRIGHTNESS(20);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
-        {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         break;
       case 0x13:
-        if (htim1.Instance->CCR2 == SET_BRIGHTNESS(30))
-        {
+        if (htim1.Instance->CCR2 == SET_BRIGHTNESS(30)) {
           htim1.Instance->CCR2 = SET_BRIGHTNESS(0);
-        }
-        else
-        {
+        } else {
           htim1.Instance->CCR2 = SET_BRIGHTNESS(30);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
-        {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         break;
       case 0x14:
-        if (htim3.Instance->CCR3 == SET_BRIGHTNESS(70))
-        {
+        if (htim3.Instance->CCR3 == SET_BRIGHTNESS(70)) {
           htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
-        }
-        else
-        {
+        } else {
           htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
         }
         osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++)
-        {
+        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
           osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
         }
         break;
@@ -494,13 +411,11 @@ void StartCanReceive(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartCanSend */
-void StartCanSend(void *argument)
-{
+void StartCanSend(void *argument) {
   /* USER CODE BEGIN StartCanSend */
 #define wait 500
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef fet_TxHeader;
-  uint8_t fet_TxData[64] = {0};
 
   fet_TxHeader.IdType = FDCAN_STANDARD_ID;
   fet_TxHeader.TxFrameType = FDCAN_DATA_FRAME;
@@ -512,21 +427,19 @@ void StartCanSend(void *argument)
   /* Infinite loop */
 
   FDCAN_FetPack_t mypack = {0};
-  mypack.fet_config = (uint32_t)rb_state;
+  mypack.fet_config = (uint32_t)fet_state;
   mypack.input_volt = (uint32_t)(11.0454389f * 10000);
   mypack.cap_volt = (uint32_t)(22.0454389f * 10000);
   mypack.cap_curr = (uint32_t)(33.0454389f * 10000);
   mypack.res_curr = (uint32_t)(44.0454389f * 10000);
   mypack.out_curr = (uint32_t)(55.0454389f * 10000);
 
-  for (;;)
-  {
+  for (;;) {
     fet_TxHeader.Identifier = 0x11;
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK)
-    {
+        HAL_OK) {
       Error_Handler();
     }
     osDelay(1);
@@ -534,24 +447,21 @@ void StartCanSend(void *argument)
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK)
-    {
+        HAL_OK) {
       Error_Handler();
     }
     fet_TxHeader.Identifier = 0x13;
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK)
-    {
+        HAL_OK) {
       Error_Handler();
     }
     fet_TxHeader.Identifier = 0x14;
     fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
     if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
                                       (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK)
-    {
+        HAL_OK) {
       Error_Handler();
     }
     osDelay(wait);
@@ -566,8 +476,7 @@ void StartCanSend(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartAdcConv */
-void StartAdcConv(void *argument)
-{
+void StartAdcConv(void *argument) {
   /* USER CODE BEGIN StartAdcConv */
   UNUSED(argument);
   uint32_t ADC1_Conversion[4]; // four channels on ADC1
@@ -575,14 +484,12 @@ void StartAdcConv(void *argument)
   HAL_ADC_Start_DMA(&hadc1, ADC1_Conversion, 4);
   HAL_ADC_Start_DMA(&hadc2, &ADC2_Conversion, 1);
   /* Infinite loop */
-  for (;;)
-  {
-    for (int i = 0; i < 3; i++)
-    {
-      rb_data.current[i] = adcToCurr(ADC1_Conversion[i]);
+  for (;;) {
+    for (int i = 0; i < 3; i++) {
+      fet_data.current[i] = adcToCurr(ADC1_Conversion[i]);
     }
-    rb_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
-    rb_data.voltage[1] = adcToVolt(ADC2_Conversion);
+    fet_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
+    fet_data.voltage[1] = adcToVolt(ADC2_Conversion);
     /*printf("ADC Conversion Values: C:%u, C:%u, C:%u, V:%u, V:%u\r\n",*/
     /*       ADC1_Conversion[0], ADC1_Conversion[1], ADC1_Conversion[2],*/
     /*       ADC1_Conversion[3], ADC2_Conversion);*/
@@ -601,8 +508,7 @@ void StartAdcConv(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-void funCTION(void *argument)
-{
+void funCTION(void *argument) {
   UNUSED(argument);
   htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
   osDelay(50);
@@ -622,18 +528,15 @@ void funCTION(void *argument)
   osDelay(50);
 }
 
-float adcToVolt(uint32_t value)
-{
+float adcToVolt(uint32_t value) {
   float ret;
   ret = value * voltAdcConv;
   return ret;
 }
-float adcToCurr(uint32_t value)
-{
+float adcToCurr(uint32_t value) {
   float ret;
   ret = (value * voltAdcConv - currZeroOffset) / currSensitivity;
   return ret;
 }
 
 /* USER CODE END Application */
-
