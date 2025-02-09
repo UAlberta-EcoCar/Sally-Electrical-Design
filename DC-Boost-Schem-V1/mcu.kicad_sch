@@ -12759,6 +12759,16 @@
 		)
 		(uuid "0cd47d41-f863-4404-82a7-9fa4f8931a4e")
 	)
+	(text "Attach R31 to 7V line\n"
+		(exclude_from_sim no)
+		(at 296.545 160.655 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1ee4df44-c215-437c-8399-b86c816ae90a")
+	)
 	(text "Need heat sink? Vgs=Vds=1.9\n\nVgs rated for 8V"
 		(exclude_from_sim no)
 		(at 437.642 226.822 0)
@@ -12855,6 +12865,16 @@
 		)
 		(uuid "51723ec0-b2ca-4e64-8f0e-571e1854f1c4")
 	)
+	(text "8.2\n"
+		(exclude_from_sim no)
+		(at 204.47 227.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "56562c25-92dc-475d-a4f8-1b56a30c4852")
+	)
 	(text "USB-C With ESD Protection\n"
 		(exclude_from_sim no)
 		(at 16.764 217.678 0)
@@ -12893,6 +12913,16 @@
 			(justify left bottom)
 		)
 		(uuid "61ab81d0-6617-4379-b7f8-6ebeb86d0016")
+	)
+	(text "1k\n"
+		(exclude_from_sim no)
+		(at 203.2 238.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6333f3b3-21de-437a-9eb1-419f8ceea967")
 	)
 	(text "CAN Tranciever with ESD Protection IC\n"
 		(exclude_from_sim no)
@@ -12972,6 +13002,16 @@
 			(justify left bottom)
 		)
 		(uuid "a6e06c30-21d2-47e5-a292-bed00cb74d5e")
+	)
+	(text "Attach R34 to 7V line\n"
+		(exclude_from_sim no)
+		(at 365.76 163.195 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "a75b9bcb-34e4-4bd0-ae80-cef0e696fe52")
 	)
 	(text "V_{UVLO(F)} = (R2 + R3)/(R1 + R2 + R3) * V_{IN(UV)}\nV_{OVLO(F)} = R3/(R1 + R2 + R3) * V_{IN(OV)}\n\nV_{UVLO,F} from datasheet\n\n"
 		(exclude_from_sim no)
@@ -14665,6 +14705,84 @@
 			(project "DC-DC-Boost-V1"
 				(path "/892bc44b-f7f8-4677-bf53-06d5523b6450/6b6dff4b-35e7-4502-aee4-850c05739898"
 					(reference "#PWR062")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 356.87 184.785 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "09ae3f5c-f9d4-4b38-9c6d-95bd12c3b1dd")
+		(property "Reference" "D17"
+			(at 360.045 185.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Red"
+			(at 360.045 187.96 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 356.87 184.785 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/1811101510_Everlight-Elec-19-217-GHC-YR1S2-3T_C72043.pdf"
+			(at 356.87 184.785 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 356.87 184.785 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part#" "C72043"
+			(at 356.87 184.785 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0c6ef254-2d49-41b0-ad98-a80a0ab2c505")
+		)
+		(pin "2"
+			(uuid "56b5b2fc-4a18-4422-9de8-28018bedff84")
+		)
+		(instances
+			(project "DC-DC-Boost-V1"
+				(path "/892bc44b-f7f8-4677-bf53-06d5523b6450/6b6dff4b-35e7-4502-aee4-850c05739898"
+					(reference "D17")
 					(unit 1)
 				)
 			)
@@ -18615,84 +18733,6 @@
 			(project "DC-DC-Boost-V1"
 				(path "/892bc44b-f7f8-4677-bf53-06d5523b6450/6b6dff4b-35e7-4502-aee4-850c05739898"
 					(reference "Q1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:LED")
-		(at 356.87 184.785 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "68783622-4135-475c-87ea-8d34e61549e5")
-		(property "Reference" "D14"
-			(at 360.045 184.15 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Green"
-			(at 360.045 186.69 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 356.87 184.785 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/1811101510_Everlight-Elec-19-217-GHC-YR1S2-3T_C72043.pdf"
-			(at 356.87 184.785 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 356.87 184.785 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part#" "C72043"
-			(at 356.87 184.785 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5f905561-4d74-48db-a1b3-320d2e945db6")
-		)
-		(pin "2"
-			(uuid "bd4b5188-1819-4d9f-a1ff-6b085a61c87d")
-		)
-		(instances
-			(project "DC-DC-Boost-V1"
-				(path "/892bc44b-f7f8-4677-bf53-06d5523b6450/6b6dff4b-35e7-4502-aee4-850c05739898"
-					(reference "D14")
 					(unit 1)
 				)
 			)
@@ -22843,84 +22883,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:LED")
-		(at 383.54 185.42 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "be8887e0-af68-4cdc-a56d-38ac57171e08")
-		(property "Reference" "D15"
-			(at 386.715 186.055 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Red"
-			(at 386.715 188.595 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 383.54 185.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/1811101510_Everlight-Elec-19-217-GHC-YR1S2-3T_C72043.pdf"
-			(at 383.54 185.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 383.54 185.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part#" "C72043"
-			(at 383.54 185.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4752ca6a-6464-49f0-acc5-a3181769b0d5")
-		)
-		(pin "2"
-			(uuid "b606f808-6dfc-4558-8bf3-570e727ff50b")
-		)
-		(instances
-			(project "DC-DC-Boost-V1"
-				(path "/892bc44b-f7f8-4677-bf53-06d5523b6450/6b6dff4b-35e7-4502-aee4-850c05739898"
-					(reference "D15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 22.86 83.82 0)
 		(unit 1)
@@ -24176,6 +24138,84 @@
 			(project "DC-DC-Boost-V1"
 				(path "/892bc44b-f7f8-4677-bf53-06d5523b6450/6b6dff4b-35e7-4502-aee4-850c05739898"
 					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 383.54 185.42 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e834e82c-1a08-48b9-857b-26aad22b9eef")
+		(property "Reference" "D16"
+			(at 386.715 184.785 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Green"
+			(at 387.985 187.325 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 383.54 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/1811101510_Everlight-Elec-19-217-GHC-YR1S2-3T_C72043.pdf"
+			(at 383.54 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 383.54 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part#" "C72043"
+			(at 383.54 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "681ca604-2d92-4bf1-a226-897bd224aa5c")
+		)
+		(pin "2"
+			(uuid "2d4011a8-bc8a-43c8-82ad-9d7efcedfb42")
+		)
+		(instances
+			(project "DC-DC-Boost-V1"
+				(path "/892bc44b-f7f8-4677-bf53-06d5523b6450/6b6dff4b-35e7-4502-aee4-850c05739898"
+					(reference "D16")
 					(unit 1)
 				)
 			)
