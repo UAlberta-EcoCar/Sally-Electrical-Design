@@ -476,36 +476,37 @@ void StartCanSend(void *argument)
   mypack.res_curr = (uint32_t)(44.0454389f * 10000);
   mypack.out_curr = (uint32_t)(55.0454389f * 10000);
 
+
   for (;;) {
-    fet_TxHeader.Identifier = 0x11;
-    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
-      Error_Handler();
-    }
-    osDelay(1);
-    fet_TxHeader.Identifier = 0x12;
-    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
-      Error_Handler();
-    }
-    fet_TxHeader.Identifier = 0x13;
-    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
-      Error_Handler();
-    }
-    fet_TxHeader.Identifier = 0x14;
-    fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,
-                                      (uint8_t *)&mypack.FDCAN_RawFetPack) !=
-        HAL_OK) {
-      Error_Handler();
-    }
+    /*fet_TxHeader.Identifier = 0x11;*/
+    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
+    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
+    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack) !=*/
+    /*    HAL_OK) {*/
+    /*  Error_Handler();*/
+    /*}*/
+    /*osDelay(1);*/
+    /*fet_TxHeader.Identifier = 0x12;*/
+    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
+    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
+    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack) !=*/
+    /*    HAL_OK) {*/
+    /*  Error_Handler();*/
+    /*}*/
+    /*fet_TxHeader.Identifier = 0x13;*/
+    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
+    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
+    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack) !=*/
+    /*    HAL_OK) {*/
+    /*  Error_Handler();*/
+    /*}*/
+    /*fet_TxHeader.Identifier = 0x14;*/
+    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
+    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
+    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack) !=*/
+    /*    HAL_OK) {*/
+    /*  Error_Handler();*/
+    /*}*/
     osDelay(100);
   }
   /* USER CODE END StartCanSend */
@@ -534,6 +535,8 @@ void StartAdcConv(void *argument)
     fet_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
     fet_data.voltage[1] = adcToVolt(ADC2_Conversion);
     osDelay(1);
+    printf("IN VOLT: %f | CAP VOLT: %f\r\n", fet_data.voltage[0], fet_data.voltage[1]);
+    osDelay(1000);
   }
   /* USER CODE END StartAdcConv */
 }
