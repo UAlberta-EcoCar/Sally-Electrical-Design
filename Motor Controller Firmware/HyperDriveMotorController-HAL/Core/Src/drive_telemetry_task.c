@@ -23,29 +23,42 @@
 
 //ADC1
 #define CUR_SNS_LOW_SIDE_ADC1 1
-#define VOLT_SNS_U_ADC1 0
+#define VOL_SNS_U_ADC1 0
 #define CNTRL_TMP_SNS_ADC1 2
 
 // ADC2
+#define CUR_SNS_U_ADC2 0 // IN3
+#define CUR_SNS_V_ADC2 1 // IN4
+#define CUR_SNS_W_ADC2 2 // IN5
+#define PWR_TMP_SNS_ADC2 3 // IN11
+#define VOL_SNS_W_ADC2 4 // IN13
+#define VOL_SNS_V_ADC2 5 // IN17
 
+// ADC4
+#define ANALOG_SPEED_IN 0 // IN3
 
 uint32_t temp = 0;
-uint32_t ADC1_RESULTS[3] = { 0 };
-
+uint32_t adc1_results[3] = { 0 };
+uint32_t adc2_results[6] = { 0 };
+uint32_t adc4_results[1] = { 0 };
 /* TPS2663 Parameters */
 // A/A
 #define TPS2663_GAIN_IMON 27.9f
 // Ohms
 #define TPS2663_R_IMON 71.5f
 float load = 0;
+
 void StartDriveTelemetry(void *argument) {
 	/* USER CODE BEGIN StartDriveTelemetry */
 
 	// Calibrate The ADC On Power-Up For Better Accuracy
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
+	HAL_ADCEx_Calibration_Start(&hadc4, ADC_SINGLE_ENDED);
 
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ADC1_RESULTS, 3);
-
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*) adc1_results, 3);
+	HAL_ADC_Start_DMA(&hadc2, (uint32_t*) adc2_results, 6);
+	HAL_ADC_Start_DMA(&hadc4, (uint32_t*) adc4_results, 1);
 	/* Infinite loop */
 	for (;;) {
 
@@ -54,21 +67,21 @@ void StartDriveTelemetry(void *argument) {
 		// Start ADC Conversion
 		// Pass (The ADC Instance, Result Buffer Address, Buffer Length)
 //		HAL_Delay(1);
-		static float ave[40] = { 0.0f };
+		static float ave[10] = { 0.0f };
 
 		static int buf_i = 0;
 
 		static float averaged = 0;
 
-		if (buf_i >= 40) {
+		if (buf_i >= 10) {
 			buf_i = 0;
-			for (int i = 0; i < 40; i++) {
+			for (int i = 0; i < 10; i++) {
 				averaged += ave[i];
 			}
-			averaged = averaged / 40;
+			averaged = averaged / 10;
 		}
 
-		ave[buf_i] = (float) ADC1_RESULTS[1];
+		ave[buf_i] = (float) adc1_results[1];
 		buf_i = buf_i + 1;
 		load = (averaged * ADC_CONSTANT + ADC_1_IN_14_OFFSET)
 				/ TPS2663_GAIN_IMON / TPS2663_R_IMON * 1000; // mA
@@ -78,8 +91,3 @@ void StartDriveTelemetry(void *argument) {
 	}
 	/* USER CODE END StartDriveTelemetry */
 }
-
-//void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-//
-//	//temp = ((AD_RES[3]) * ADC_CONSTANT + ADC_1_IN_14_OFFSET);
-//}

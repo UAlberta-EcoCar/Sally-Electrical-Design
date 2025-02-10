@@ -41,8 +41,6 @@
      PC2   ------> S_TIM20_CH2
      PB1   ------> S_TIM3_CH4
      PB2   ------> S_TIM5_CH1
-     PC8   ------> I2C3_SCL
-     PC9   ------> I2C3_SDA
 */
 void MX_GPIO_Init(void)
 {
@@ -130,14 +128,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PC8 PC9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF8_I2C3;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PHASE_U_H_Pin PHASE_V_H_Pin PHASE_W_H_Pin */
   GPIO_InitStruct.Pin = PHASE_U_H_Pin|PHASE_V_H_Pin|PHASE_W_H_Pin;

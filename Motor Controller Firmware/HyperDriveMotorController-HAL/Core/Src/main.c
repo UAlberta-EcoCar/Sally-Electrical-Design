@@ -22,6 +22,7 @@
 #include "adc.h"
 #include "dma.h"
 #include "fdcan.h"
+#include "i2c.h"
 #include "spi.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -179,6 +180,7 @@ int main(void)
   MX_ADC2_Init();
   MX_SPI3_Init();
   MX_FDCAN3_Init();
+  MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
 	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);

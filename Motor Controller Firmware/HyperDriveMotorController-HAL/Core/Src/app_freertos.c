@@ -91,6 +91,18 @@ const osThreadAttr_t driveCANCom_attributes = {
   .cb_size = sizeof(driveCANComControlBlock),
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for driveTelemetryO */
+osThreadId_t driveTelemetryOHandle;
+uint32_t driveTelemetryOBuffer[ 256 ];
+osStaticThreadDef_t driveTelemetryOControlBlock;
+const osThreadAttr_t driveTelemetryO_attributes = {
+  .name = "driveTelemetryO",
+  .stack_mem = &driveTelemetryOBuffer[0],
+  .stack_size = sizeof(driveTelemetryOBuffer),
+  .cb_mem = &driveTelemetryOControlBlock,
+  .cb_size = sizeof(driveTelemetryOControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -101,6 +113,7 @@ void StartDefaultTask(void *argument);
 extern void StartDriveController(void *argument);
 extern void StartDriveTelemetry(void *argument);
 extern void StartCANComTask(void *argument);
+extern void StartDriveTelemetryOutput(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -142,6 +155,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of driveCANCom */
   driveCANComHandle = osThreadNew(StartCANComTask, NULL, &driveCANCom_attributes);
+
+  /* creation of driveTelemetryO */
+  driveTelemetryOHandle = osThreadNew(StartDriveTelemetryOutput, NULL, &driveTelemetryO_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
