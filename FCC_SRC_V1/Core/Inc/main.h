@@ -93,9 +93,8 @@ void Error_Handler(void);
 #define SUPPLYvlve_GPIO_Port GPIOB
 #define LED1_Pin GPIO_PIN_2
 #define LED1_GPIO_Port GPIOB
-#define CANstby_Pin GPIO_PIN_11
-#define CANstby_GPIO_Port GPIOB
-#define CANstby_EXTI_IRQn EXTI15_10_IRQn
+#define LED4_Pin GPIO_PIN_10
+#define LED4_GPIO_Port GPIOB
 #define TACH4_Pin GPIO_PIN_12
 #define TACH4_GPIO_Port GPIOB
 #define TACH4_EXTI_IRQn EXTI15_10_IRQn
@@ -115,6 +114,8 @@ void Error_Handler(void);
 #define pwm2_GPIO_Port GPIOB
 #define LED2_Pin GPIO_PIN_6
 #define LED2_GPIO_Port GPIOB
+#define LED3_Pin GPIO_PIN_9
+#define LED3_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
