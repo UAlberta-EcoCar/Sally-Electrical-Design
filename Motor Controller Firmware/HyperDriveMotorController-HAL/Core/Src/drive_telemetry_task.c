@@ -17,10 +17,20 @@
 #define ADC_CONSTANT 0.8f // 3.3V / 4096 = V/step -> *1000 = mV / step //ADC_VREF / ADC_RESOLUTION
 
 /* Individual ADC channel Offsets. */
-#define ADC_1_IN_14_OFFSET  (140 - 51)
+#define ADC_1_IN_14_OFFSET 0 //(140 - 51)
+
+/* ADC ELEMENT INDEXES */
+
+//ADC1
+#define CUR_SNS_LOW_SIDE_ADC1 1
+#define VOLT_SNS_U_ADC1 0
+#define CNTRL_TMP_SNS_ADC1 2
+
+// ADC2
+
 
 uint32_t temp = 0;
-uint32_t AD_RES[4] = { 0 };
+uint32_t ADC1_RESULTS[3] = { 0 };
 
 /* TPS2663 Parameters */
 // A/A
@@ -34,7 +44,8 @@ void StartDriveTelemetry(void *argument) {
 	// Calibrate The ADC On Power-Up For Better Accuracy
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*) AD_RES, 4);
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ADC1_RESULTS, 3);
+
 	/* Infinite loop */
 	for (;;) {
 
@@ -43,7 +54,23 @@ void StartDriveTelemetry(void *argument) {
 		// Start ADC Conversion
 		// Pass (The ADC Instance, Result Buffer Address, Buffer Length)
 //		HAL_Delay(1);
-		load = (AD_RES[3] * ADC_CONSTANT + ADC_1_IN_14_OFFSET)
+		static float ave[40] = { 0.0f };
+
+		static int buf_i = 0;
+
+		static float averaged = 0;
+
+		if (buf_i >= 40) {
+			buf_i = 0;
+			for (int i = 0; i < 40; i++) {
+				averaged += ave[i];
+			}
+			averaged = averaged / 40;
+		}
+
+		ave[buf_i] = (float) ADC1_RESULTS[1];
+		buf_i = buf_i + 1;
+		load = (averaged * ADC_CONSTANT + ADC_1_IN_14_OFFSET)
 				/ TPS2663_GAIN_IMON / TPS2663_R_IMON * 1000; // mA
 		HAL_GPIO_TogglePin(GPLED_3_GPIO_Port, GPLED_3_Pin);
 		HAL_GPIO_TogglePin(GPLED_5_GPIO_Port, GPLED_5_Pin);

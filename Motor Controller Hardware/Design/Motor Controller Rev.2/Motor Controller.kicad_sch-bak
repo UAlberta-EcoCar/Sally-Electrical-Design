@@ -1,0 +1,615 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "480a1464-7c70-42e1-b2f7-69e659e11383")
+	(paper "A4")
+	(title_block
+		(title "Motor Controller Trinamic Control")
+		(date "2024-05-13")
+		(rev "1")
+		(company "University of Alberta EcoCar Team")
+	)
+	(lib_symbols)
+	(text_box "@Application Note\nDigital Signal Jumpers must be pin headers to allow for on the fly EN/DIS"
+		(exclude_from_sim no)
+		(at 48.26 147.955 0)
+		(size 50.165 22.225)
+		(stroke
+			(width 0.5)
+			(type dash)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "95230150-af43-47c0-a0bc-9063f26a80ca")
+	)
+	(sheet
+		(at 228.6 49.53)
+		(size 28.575 67.31)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "61655235-6b41-44b9-81da-f6727ca7c811")
+		(property "Sheetname" "Motor Interface Controller"
+			(at 228.6 48.8184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Motor Interface Controller.kicad_sch"
+			(at 228.6 117.4246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "Controller_A_UL" output
+			(at 228.6 52.07 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "08371f25-4635-42b1-920e-c309f70603d6")
+		)
+		(pin "Controller_A_UH" output
+			(at 228.6 54.61 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "195624b6-863f-4a17-8b69-4843f333f33c")
+		)
+		(pin "Controller_A_VL" output
+			(at 228.6 57.15 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "e26f0618-84a4-4f3c-a2b6-378f91609b6c")
+		)
+		(pin "Controller_A_VH" output
+			(at 228.6 59.69 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "bf67285f-10c8-4699-88ce-89b1672a606f")
+		)
+		(pin "Controller_A_WH" output
+			(at 228.6 62.23 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "c9e8dde3-256a-47fb-9215-085e50707af7")
+		)
+		(pin "Controller_A_WL" output
+			(at 228.6 64.77 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "94239e6f-dbad-4693-b495-030e3a6bed0c")
+		)
+		(pin "Controller_A_STATUS" output
+			(at 228.6 67.31 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "2713d82c-44cf-4518-8be9-7a8edce201dd")
+		)
+		(pin "Controller_A_DIR" input
+			(at 228.6 69.85 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "174df8e9-9d09-4f52-a1a0-63e59660e5ad")
+		)
+		(pin "Controller_A_UART_RXD" input
+			(at 228.6 72.39 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "486d8c98-7a54-4e34-bfad-85b6db96ab40")
+		)
+		(pin "Controller_A_DBGSPI_NSCS" input
+			(at 228.6 74.93 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "a66f4447-8d40-49e5-96f7-900445b07d1e")
+		)
+		(pin "Controller_A_UART_TXD" output
+			(at 228.6 77.47 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "fd603fb6-159a-43b3-9239-cad5b407d180")
+		)
+		(pin "Controller_A_DBGSPI_SCK" input
+			(at 228.6 80.01 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "01d2a222-2ca2-4ece-bdf6-f3cd9a7cc28c")
+		)
+		(pin "Controller_A_DBGSPI_MOSI" input
+			(at 228.6 82.55 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "57c92a17-5224-4b97-bdff-284b9cf7a551")
+		)
+		(pin "Controller_A_DBGSPI_TRG" bidirectional
+			(at 228.6 85.09 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "7a399d37-ca83-4151-91e5-ea262ba9f7ca")
+		)
+		(pin "Controller_A_DBGSPI_MISO" output
+			(at 228.6 87.63 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "6069bb9c-174a-4a9f-a14b-dfbf5a3e369c")
+		)
+		(pin "Controller_A_BRAKE" output
+			(at 228.6 90.17 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "9eb42a50-5503-42bb-98fe-db066d13c775")
+		)
+		(pin "Controller_A_ENO" output
+			(at 228.6 92.71 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1924bb7c-2cc0-4f75-b221-25407ed65a29")
+		)
+		(pin "Controller_A_ENI" input
+			(at 228.6 95.25 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "038ab6c1-11df-4a75-8da2-7ecf6233b2f3")
+		)
+		(pin "Controller_A_PWM_I" input
+			(at 228.6 102.87 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "4f2ae782-0053-44bd-a9b2-72909073d2bf")
+		)
+		(pin "Controller_A_SPI_SCK" input
+			(at 228.6 97.79 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "271cb2ef-7b70-4e2d-bc36-fef57a05b56e")
+		)
+		(pin "Controller_A_SPI_MISO" output
+			(at 228.6 100.33 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "0711eefa-1691-4dca-b2b5-e5997bb45118")
+		)
+		(pin "Controller_A_SPI_MOSI" input
+			(at 228.6 105.41 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "61916408-7b40-4dac-8118-5180269f8ed9")
+		)
+		(pin "Controller_A_SPI_NSCS" input
+			(at 228.6 107.95 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "50f5b47a-e771-4ea8-a0d5-35682516967f")
+		)
+		(pin "V_{M}" input
+			(at 228.6 110.49 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "5bfb78c8-033b-4796-bc78-e19ce30de2f1")
+		)
+		(pin "Controller_A_STP" input
+			(at 228.6 113.03 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "f4d8b7bc-fe56-489f-b290-265116a230de")
+		)
+		(pin "EXT_NRST" bidirectional
+			(at 228.6 115.57 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1ebeaa2e-1d75-4d89-b9ac-2a6014dad4d2")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 110.49 102.87)
+		(size 34.29 24.13)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "6ad1cc71-da87-4814-be84-3c7a7f59eef6")
+		(property "Sheetname" "Power Delivery"
+			(at 110.49 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Power Delivery.kicad_sch"
+			(at 110.49 127.5846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 53.34 102.87)
+		(size 34.29 24.13)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "a73556af-4a0a-4f39-81a1-981562f53eaf")
+		(property "Sheetname" "Microcontroller"
+			(at 53.34 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Microcontroller.kicad_sch"
+			(at 53.34 127.5846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 165.1 49.53)
+		(size 34.29 36.83)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c39e9a42-301a-4d13-bc72-bf7c010c94d6")
+		(property "Sheetname" "Motor Gate Driver"
+			(at 165.1 48.8184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Motor Gate Driver and Power Stage.kicad_sch"
+			(at 165.1 86.9446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "WL" bidirectional
+			(at 165.1 54.61 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "27c0d47d-9133-4dcf-b5a2-3083652e4d54")
+		)
+		(pin "~{CS_DRIVER}" bidirectional
+			(at 165.1 67.31 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "4364344d-4b91-4ba9-8d49-c1cb36999d9a")
+		)
+		(pin "~{SCK_DRIVER}" bidirectional
+			(at 165.1 69.85 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "02b57d3d-51ce-4fc9-ada6-773dc52a59c3")
+		)
+		(pin "MISO_DRIVER" bidirectional
+			(at 165.1 72.39 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "d93d1c0e-f976-4628-8665-eb7f072adc55")
+		)
+		(pin "MOSI_DRIVER" bidirectional
+			(at 165.1 74.93 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "cb1ef9b4-edaf-4004-b170-527f4bef9dca")
+		)
+		(pin "VH" bidirectional
+			(at 165.1 62.23 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "37d4cba1-7cb0-4646-a5db-0b12cba579dd")
+		)
+		(pin "UH" bidirectional
+			(at 165.1 57.15 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "b7670a9d-a18e-4e0d-968b-96e60c82d29e")
+		)
+		(pin "VL" bidirectional
+			(at 165.1 64.77 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "391cbddb-1928-420c-b8bf-a9d4cc827b44")
+		)
+		(pin "UL" bidirectional
+			(at 165.1 59.69 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "03c8adab-aaa3-4f74-8896-8feb1c79ce48")
+		)
+		(pin "WH" bidirectional
+			(at 165.1 52.07 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "d0acab22-3979-4f3d-965a-6df04039d05f")
+		)
+		(pin "FAULT" bidirectional
+			(at 165.1 77.47 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "f8202881-a250-4ce3-8287-0158bc13c3ac")
+		)
+		(pin "DRV_EN" bidirectional
+			(at 165.1 80.01 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "0fe65f7c-4039-40f5-9955-0752ceb22a22")
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 53.34 49.53)
+		(size 34.29 36.83)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "cc55016d-07da-47f8-aba5-70c2adab3b6f")
+		(property "Sheetname" "Comunications"
+			(at 53.34 48.8184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Communication.kicad_sch"
+			(at 53.34 86.9446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Field2" ""
+			(at 53.34 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Motor Controller"
+				(path "/480a1464-7c70-42e1-b2f7-69e659e11383"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

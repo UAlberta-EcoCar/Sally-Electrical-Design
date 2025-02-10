@@ -39,9 +39,6 @@
         * EVENT_OUT
         * EXTI
      PC2   ------> S_TIM20_CH2
-     PA0   ------> S_TIM2_CH1
-     PA1   ------> S_TIM2_CH2
-     PA2   ------> S_TIM2_CH3
      PB1   ------> S_TIM3_CH4
      PB2   ------> S_TIM5_CH1
      PC8   ------> I2C3_SCL
@@ -105,10 +102,8 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : HALL_U_Pin HALL_V_Pin HALL_W_Pin */
   GPIO_InitStruct.Pin = HALL_U_Pin|HALL_V_Pin|HALL_W_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : BUZZER_Pin */
