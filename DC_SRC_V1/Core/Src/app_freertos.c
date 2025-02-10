@@ -22,7 +22,7 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
-
+//testing
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ssd1306.h"
@@ -63,16 +63,13 @@ typedef struct
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 boostData_t boost_data = {.current = {},
-                        .voltage = {}};
+                          .voltage = {}};
 
 
 uint32_t ADC1_VALUE[4];
 uint32_t ADC2_VALUE[2];
 
 const float VOLT_MCU = 3.232;
-
-
-
 
 char ScreenBuffer[32]; 
 char USBBuffer[32];
@@ -297,18 +294,7 @@ void StartDefaultTask(void *argument)
     osDelay(500);
 
 
-
-
-
-
 	osDelay(50);
-
-
- 
- 
-
-
-  
 
   }
   /* USER CODE END StartDefaultTask */
