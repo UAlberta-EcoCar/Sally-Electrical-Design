@@ -135,7 +135,6 @@ void Error_Handler(void);
 #define GPLED_4_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

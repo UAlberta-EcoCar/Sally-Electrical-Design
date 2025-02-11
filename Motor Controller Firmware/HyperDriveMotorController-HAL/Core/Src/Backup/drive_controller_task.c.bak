@@ -6,11 +6,8 @@
  */
 
 #include "main.h"
-
 #include "FreeRTOS.h"
-
 #include "task.h"
-
 #include "cmsis_os.h"
 
 void StartDriveController(void *argument) {

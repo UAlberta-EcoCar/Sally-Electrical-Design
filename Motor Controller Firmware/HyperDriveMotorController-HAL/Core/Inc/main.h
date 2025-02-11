@@ -75,10 +75,13 @@ void Error_Handler(void);
 #define Controller_A_DIR_GPIO_Port GPIOC
 #define HALL_U_Pin GPIO_PIN_0
 #define HALL_U_GPIO_Port GPIOA
+#define HALL_U_EXTI_IRQn EXTI0_IRQn
 #define HALL_V_Pin GPIO_PIN_1
 #define HALL_V_GPIO_Port GPIOA
+#define HALL_V_EXTI_IRQn EXTI1_IRQn
 #define HALL_W_Pin GPIO_PIN_2
 #define HALL_W_GPIO_Port GPIOA
+#define HALL_W_EXTI_IRQn EXTI2_IRQn
 #define VOL_SNS_U_Pin GPIO_PIN_3
 #define VOL_SNS_U_GPIO_Port GPIOA
 #define VOL_SNS_V_Pin GPIO_PIN_4

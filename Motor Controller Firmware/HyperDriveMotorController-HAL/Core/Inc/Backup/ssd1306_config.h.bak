@@ -1,0 +1,20 @@
+/*
+ * ssd1306_user_config.h
+ *
+ *  Created on: Feb 9, 2025
+ *      Author: abina
+ */
+
+#ifndef INC_SSD1306_CONFIG_H_
+#define INC_SSD1306_CONFIG_H_
+
+#define STM32G4
+
+#define SSD1306_USE_I2C
+
+#define SSD1306_I2C_PORT        hi2c3
+#define SSD1306_I2C_ADDR        (0x78)// << 1)
+
+#define SSD1306_INCLUDE_FONT_6x8
+
+#endif /* INC_SSD1306_CONFIG_H_ */
