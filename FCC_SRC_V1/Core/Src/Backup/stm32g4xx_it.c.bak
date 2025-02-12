@@ -271,7 +271,6 @@ void EXTI15_10_IRQHandler(void)
 
   /* USER CODE END EXTI15_10_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(TACH3_Pin);
-  HAL_GPIO_EXTI_IRQHandler(CANstby_Pin);
   HAL_GPIO_EXTI_IRQHandler(TACH4_Pin);
   HAL_GPIO_EXTI_IRQHandler(BTN1_Pin);
   HAL_GPIO_EXTI_IRQHandler(BTN2_Pin);
