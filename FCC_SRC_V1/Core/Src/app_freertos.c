@@ -28,6 +28,7 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "fdcan.h"
+#include "ADS1115.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,16 +37,32 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticTimer_t osStaticTimerDef_t;
 /* USER CODE BEGIN PTD */
 
+typedef enum {
+	STANDBY = 0X01, CHARGE = 0X02, RUN = 0X03, SHUTOFF = 0X04
+} SYS_STATE;
+
+volatile SYS_STATE currentState = STANDBY;
+SYS_STATE prevState;
+
+typedef struct {
+	float Tach1_RPM;
+	float Tach2_RPM;
+	float Tach3_RPM;
+	float Tach4_RPM;
+	float FC_Temp;
+	float FC_pressure;
+	float Accel;
+} fc_data_t;
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define ADS1115_ADR1 0x48
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -53,6 +70,9 @@ typedef StaticTimer_t osStaticTimerDef_t;
 
 FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t RxData[64];
+uint32_t TachTracker[4] = { 0 };
+
+fc_data_t fuel_cell_data = { 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, };
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -102,6 +122,18 @@ const osThreadAttr_t valveControl_attributes = {
   .cb_mem = &valveControlControlBlock,
   .cb_size = sizeof(valveControlControlBlock),
   .priority = (osPriority_t) osPriorityNormal2,
+};
+/* Definitions for fuelCellData */
+osThreadId_t fuelCellDataHandle;
+uint32_t fuelCellDataBuffer[ 512 ];
+osStaticThreadDef_t fuelCellDataControlBlock;
+const osThreadAttr_t fuelCellData_attributes = {
+  .name = "fuelCellData",
+  .stack_mem = &fuelCellDataBuffer[0],
+  .stack_size = sizeof(fuelCellDataBuffer),
+  .cb_mem = &fuelCellDataControlBlock,
+  .cb_size = sizeof(fuelCellDataControlBlock),
+  .priority = (osPriority_t) osPriorityNormal3,
 };
 /* Definitions for RxHeaderQue */
 osMessageQueueId_t RxHeaderQueHandle;
@@ -168,46 +200,63 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 	}
 }
 
-
-
-typedef enum SYS_STATE {
-	STANDBY = 0X01, CHARGE = 0X02, RUN = 0X03, SHUTOFF = 0X04
-};
-
-volatile enum SYS_STATE currentState = STANDBY;
-enum SYS_STATE prevState;
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  /* Prevent unused argument(s) compilation warning */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+	/* Prevent unused argument(s) compilation warning */
 //  UNUSED(GPIO_Pin);
-	switch(GPIO_Pin){
-	case BTN1_Pin:
+	switch (GPIO_Pin) {
+	case TACH1_Pin:
+		TachTracker[0]++;
+		break;
+	case TACH2_Pin:
+		TachTracker[1]++;
+		break;
+	case TACH3_Pin:
+		TachTracker[2]++;
+		break;
+	case TACH4_Pin:
+		TachTracker[3]++;
+		break;
+
+	case BTN1_Pin: // GPA
 		// TESTING OF STATE SWITCHING/BUTTON INTERRUPT.
 		// MUST BE MODIFIED BEFORE LIVE TEST
-		if(prevState == STANDBY){
+		// pseudocode to actual function
+		/*
+		 * ButtonStatus = PRESSED(ON) - or something like that
+		 * CanMessage = ButtonStatus
+		 * AddMessageToSendQ(CanMessage)
+		 * ButtonStatus = OFF
+		 *
+		 * OR
+		 *
+		 * if buttonPressed
+		 * SendCanMessage(SWITCH_STATES) something to that degree.
+		 * end
+		 */
+
+		if (prevState == STANDBY) {
 			currentState = CHARGE;
-		}else if(prevState == CHARGE){
+		} else if (prevState == CHARGE) {
 			currentState = RUN;
 
-		}else if(prevState == RUN){
+		} else if (prevState == RUN) {
 			currentState = SHUTOFF;
 
-		}else if(prevState == SHUTOFF){
+		} else if (prevState == SHUTOFF) {
 			currentState = STANDBY;
 
 		}
 		break;
+	case BTN2_Pin:
+		break;
+
 	default:
 		break;
 	}
-  /* NOTE: This function should not be modified, when the callback is needed,
-           the HAL_GPIO_EXTI_Callback could be implemented in the user file
-   */
+	/* NOTE: This function should not be modified, when the callback is needed,
+	 the HAL_GPIO_EXTI_Callback could be implemented in the user file
+	 */
 }
-
-
-
 
 /* USER CODE END FunctionPrototypes */
 
@@ -215,6 +264,7 @@ void StartDefaultTask(void *argument);
 void StartTaskReceive(void *argument);
 void StartTaskSend(void *argument);
 void valveContrl(void *argument);
+void StartFuelCellData(void *argument);
 void Callback01(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -270,6 +320,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of valveControl */
   valveControlHandle = osThreadNew(valveContrl, NULL, &valveControl_attributes);
 
+  /* creation of fuelCellData */
+  fuelCellDataHandle = osThreadNew(StartFuelCellData, NULL, &fuelCellData_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
 
@@ -295,6 +348,7 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 	for (;;) {
+
 		osDelay(1);
 	}
   /* USER CODE END StartDefaultTask */
@@ -317,7 +371,7 @@ void StartTaskReceive(void *argument)
 				== osOK) {
 			switch (RXID) {
 			case 0x11:
-				HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+				HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
 				break;
 			case 0x12:
 				break;
@@ -360,14 +414,14 @@ void StartTaskSend(void *argument)
 	fuelCell_TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
 	fuelCell_TxHeader.MessageMarker = 0;
 
-	uint8_t txdata[64] = {0};
+	uint8_t txdata[64] = { 0 };
 
 	for (;;) {
 
 		fuelCell_TxHeader.Identifier = 0x11;
 		fuelCell_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
 		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fuelCell_TxHeader, txdata);
-		osDelay(10);
+		osDelay(100);
 	}
   /* USER CODE END StartTaskSend */
 }
@@ -389,11 +443,13 @@ void valveContrl(void *argument)
 		int status = osTimerIsRunning(purgetimerHandle); //returns 1 or 0 depending on status
 		switch (currentState) {
 		case STANDBY:
-			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,GPIO_PIN_SET);
-			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,GPIO_PIN_SET);
+			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+					GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+					GPIO_PIN_RESET);
 
-			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin,GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin,GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET); // Visual State indicator
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 
 			if (status) {
 				osTimerStop(purgetimerHandle); // kill purge cycle
@@ -401,35 +457,42 @@ void valveContrl(void *argument)
 
 			break;
 		case CHARGE:
-			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,GPIO_PIN_SET);
-			if(currentState != prevState){
-
+			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+					GPIO_PIN_SET);
+			if (currentState != prevState) {
+				HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+						GPIO_PIN_SET);
+				osDelay(purgeTime_ms);
+				HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+						GPIO_PIN_RESET);
 			}
 
 			if (!status) {
 				osTimerStart(purgetimerHandle, purgeDelay_ms);
 			}
-			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,GPIO_PIN_SET);
-			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin,GPIO_PIN_SET);
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin,GPIO_PIN_RESET);
+
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			break;
 		case RUN:
 			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
 					GPIO_PIN_SET);
 			if (!status) {
-				osTimerStart(purgetimerHandle,purgeDelay_ms);
+				osTimerStart(purgetimerHandle, purgeDelay_ms);
 			}
-			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,GPIO_PIN_SET);
-			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin,GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin,GPIO_PIN_SET);
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 			break;
 		case SHUTOFF:
 			if (status) {
 				osTimerStop(purgetimerHandle); // kill purge cycle
 			}
-			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin,GPIO_PIN_SET);
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin,GPIO_PIN_SET);
+			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+					GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+					GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 			break;
 		default:
 			break;
@@ -440,14 +503,70 @@ void valveContrl(void *argument)
   /* USER CODE END valveContrl */
 }
 
+/* USER CODE BEGIN Header_StartFuelCellData */
+/**
+ * @brief Function implementing the fuelCellData thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartFuelCellData */
+void StartFuelCellData(void *argument)
+{
+  /* USER CODE BEGIN StartFuelCellData */
+	// Following for
+#define DELAY_FOR_CHANNEL_SWITCH 20
+#define B 3950.0f
+#define VOLT_2_TEMP(x)                                                         \
+  (B * 298.15f /                                                               \
+   (298.15f * logf(100.0f / (100.0f * (3.3f / x - 1.0f))) + B)) -              \
+      273.15f
+#define VOLT_2_PRES(x) (x - 2.3555F) / 0.1038F
+
+	const float VOLT_CONVERSION = 4.094F / 32768.0F;
+	const float TRANSFER_FUNC_P = 0.657F;
+
+	fuel_cell_data.FC_Temp = 0;
+	fuel_cell_data.FC_pressure= 0;
+
+	uint16_t step;
+	float step2;
+
+	/* Infinite loop */
+	for (;;) {
+		// Data gathering loop for fuel cell.
+		fuel_cell_data.Tach1_RPM = TachTracker[0] * 60.0 / 2;
+		fuel_cell_data.Tach2_RPM = TachTracker[1] * 60.0 / 2;
+		fuel_cell_data.Tach3_RPM = TachTracker[2] * 60.0 / 2;
+		fuel_cell_data.Tach4_RPM = TachTracker[3] * 60.0 / 2;
+		TachTracker[0] = TachTracker[1] = 0;
+		TachTracker[2] = TachTracker[3] = 0;
+
+//		configReg.channel = CHANNEL_AIN0_GND;
+//		ADS1115_updateConfig(pADS_1, configReg);
+//		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+//		step = ADS1115_getData(pADS_1);
+//		step2 = step * VOLT_CONVERSION;
+//		fuel_cell_data.FC_Temp = VOLT_2_TEMP(step2);
+//
+//		configReg.channel = CHANNEL_AIN1_GND;
+//		ADS1115_updateConfig(pADS_1, configReg);
+//		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+//		fuel_cell_data.FC_pressure = VOLT_2_PRES(
+//		ADS1115_getData(pADS_1) * VOLT_CONVERSION / TRANSFER_FUNC_P);
+
+		osDelay(10);
+	}
+  /* USER CODE END StartFuelCellData */
+}
+
 /* Callback01 function */
 void Callback01(void *argument)
 {
   /* USER CODE BEGIN Callback01 */
 // This is the PURGE TIMER callback. Name should probably be changed to better reflect that
-	//HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
-	osDelay(1000);
-	//HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
+	osDelay(1000); // Replace with purgeDelay function
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
 	osDelay(1);
   /* USER CODE END Callback01 */
 }
@@ -485,8 +604,6 @@ uint32_t mapDlcToBytes(uint32_t DLC) {
 	}
 	return bytes;
 }
-
-
 
 /* USER CODE END Application */
 
