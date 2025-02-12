@@ -22,7 +22,7 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
-//testing
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ssd1306.h"
@@ -263,8 +263,6 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     
-
-
     for (int i = 0; i < 5; i++)
     {
       HAL_GPIO_WritePin(GPIOA, GPIO_LED1_Pin, GPIO_PIN_SET);
@@ -287,6 +285,11 @@ void StartDefaultTask(void *argument)
       HAL_GPIO_WritePin(GPIOB, GPIO_LED2_Pin, GPIO_PIN_RESET);
       osDelay(50);
     }
+
+    HAL_GPIO_WritePin(GPIOA, GPIO_LED1_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB, GPIO_LED2_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB, GPIO_LED3_Pin, GPIO_PIN_SET);
+    osDelay(500);
 
     HAL_GPIO_WritePin(GPIOA, GPIO_LED1_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOB, GPIO_LED2_Pin, GPIO_PIN_SET);
@@ -351,30 +354,29 @@ void StartAdcConv(void *argument)
   /* USER CODE BEGIN StartAdcConv */
   UNUSED(argument);
 
-  const float ADC_VOLT_REF = VOLT_MCU / 4096.0F;
-  const float CURR_TRANSFER1 = 0.666667F; // ratio of voltage divider resistors for current sense: 50k/(50k + 200k)
-  const float CURR_TRANSFER2 = 0.6875F;
+  const float ADC_VOLT_REF = VOLT_MCU / 4096.0;
+  const float CURR_TRANSFER1 = 0.666667; // ratio of voltage divider resistors for current sense: 50k/(50k + 200k)
+  const float CURR_TRANSFER2 = 0.6875;
   const float VOLT_TRANSFER_IN = 0.1049; // ratio of voltage divider resistors for input voltage res. divider
   const float VOLT_TRANSFER_OUT = 0.05065; // 3600 and 68000
-  const float VOLT_TO_CURR_UNI = 0.133F; //     
+  const float VOLT_TO_CURR_UNI = 0.133; //
 
   HAL_ADC_Start_DMA(&hadc1, ADC1_VALUE, 4);
   HAL_ADC_Start_DMA(&hadc2, ADC2_VALUE, 2);
   /* Infinite loop */
   for(;;)
   {
-    uint32_t adc_raw_0 = ADC1_VALUE[0] > 4095 ? 4095 : ADC1_VALUE[0]; 
-    uint32_t adc_raw_1 = ADC1_VALUE[1] > 4095 ? 4095 : ADC1_VALUE[1];
 
-    boost_data.current[0] = ((boost_data.current[0] < 0.0F) ? 0.0F : boost_data.current[0]);
-    boost_data.current[1] = ((boost_data.current[1] < 0.0F) ? 0.0F : boost_data.current[1]);
+
+    boost_data.current[0] = ((ADC1_VALUE[0] + 61) * ADC_VOLT_REF / CURR_TRANSFER1 - 0.510) / VOLT_TO_CURR_UNI;  //subtract less and see what happens
+    boost_data.current[1] = ((ADC1_VALUE[1] + 68) * ADC_VOLT_REF / CURR_TRANSFER2 - 0.5122) / VOLT_TO_CURR_UNI;
     
 
-    boost_data.voltage[0] = ADC1_VALUE[3] * ADC_VOLT_REF / VOLT_TRANSFER_OUT;
+    boost_data.voltage[0] = ADC1_VALUE[3] * ADC_VOLT_REF / VOLT_TRANSFER_OUT;   
     boost_data.voltage[1] = ADC1_VALUE[2] * ADC_VOLT_REF / VOLT_TRANSFER_IN;
 
     sprintf(USBBuffer, "OUT CURR: %.1f IN CURR: %.1f IN VOLT: %.1f OUT VOLT: %.1f 7V ILM: %lu 12V ILM: %lu\r\n", 
-        boost_data.current[1], boost_data.current[0], boost_data.voltage[1], boost_data.voltage[0],  (uint32_t)ADC2_VALUE[0], (uint32_t)ADC2_VALUE[1]);
+    boost_data.current[1], boost_data.current[0], boost_data.voltage[1], boost_data.voltage[0],  (uint32_t)ADC2_VALUE[0], (uint32_t)ADC2_VALUE[1]);
 
     CDC_Transmit_FS((uint8_t *)USBBuffer, strlen(USBBuffer));
 
@@ -405,28 +407,25 @@ void startScreenPrint(void *argument)
 
   ssd1306_TestDrawBitmap2();
   ssd1306_UpdateScreen();  
-  //osDelay(2500);  // Delay for 2.5 seconds
   ssd1306_Fill(Black);
   ssd1306_UpdateScreen();
-
-  
 
   for(;;)
   {
 
-      ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
-      sprintf(ScreenBuffer, "    IN     OUT");
-      ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+    ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
+    sprintf(ScreenBuffer, "    IN     OUT");
+    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-      ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
-      sprintf(ScreenBuffer, "C %lu  %lu", boost_data.current[0], boost_data.current[1]);
-      ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+    ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
+    sprintf(ScreenBuffer, "C %.3f  %.3f", boost_data.current[0], boost_data.current[1]);
+    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-      ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
-      sprintf(ScreenBuffer, "V %.1f %.1f ", boost_data.voltage[1], boost_data.voltage[0]);
-      ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+    ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
+    sprintf(ScreenBuffer, "V %.1f %.1f ", boost_data.voltage[1], boost_data.voltage[0]);
+    ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
-   ssd1306_UpdateScreen();
+    ssd1306_UpdateScreen();  // Update the screen
 
 
     osDelay(1);
