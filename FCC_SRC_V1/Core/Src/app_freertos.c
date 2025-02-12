@@ -37,12 +37,12 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticTimer_t osStaticTimerDef_t;
 /* USER CODE BEGIN PTD */
 
-typedef enum SYS_STATE {
+typedef enum {
 	STANDBY = 0X01, CHARGE = 0X02, RUN = 0X03, SHUTOFF = 0X04
-};
+} SYS_STATE;
 
-volatile enum SYS_STATE currentState = STANDBY;
-enum SYS_STATE prevState;
+volatile SYS_STATE currentState = STANDBY;
+SYS_STATE prevState;
 
 typedef struct {
 	float Tach1_RPM;
@@ -52,7 +52,6 @@ typedef struct {
 	float FC_Temp;
 	float FC_pressure;
 	float Accel;
-
 } fc_data_t;
 
 /* USER CODE END PTD */
@@ -60,26 +59,14 @@ typedef struct {
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ADS1115_ADR1 0x48
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
-
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
-
-
-
-
-
-
-
 
 FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t RxData[64];
