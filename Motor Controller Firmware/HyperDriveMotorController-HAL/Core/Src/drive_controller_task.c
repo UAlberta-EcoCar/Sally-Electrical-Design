@@ -45,24 +45,24 @@ void StartDriveController(void *argument) {
 	/* Infinite loop */
 	for (;;) {
 
-		HAL_GPIO_TogglePin(GPLED_2_GPIO_Port, GPLED_2_Pin);
-
-		HAL_GPIO_WritePin(SPI_NSCS_DRIVER_GPIO_Port, SPI_NSCS_DRIVER_Pin,
-				GPIO_PIN_RESET);
-
-		uint8_t prepped_buffer = (uint8_t) TMC6100_IOIN | 0x7f;
-
-		if (!HAL_SPI_Transmit(&hspi3, &prepped_buffer, 1, HAL_MAX_DELAY)
-				!= HAL_OK) {
-//			LOG_ERROR("Failed to read register 0x%x", reg_addr);
-		}
-
-		if (!HAL_SPI_Receive(&hspi3, read_result, 4, HAL_MAX_DELAY) != HAL_OK) {
-//			LOG_ERROR("Failed to read register 0x%x", reg_addr);
-		}
-
-		HAL_GPIO_WritePin(SPI_NSCS_DRIVER_GPIO_Port, SPI_NSCS_DRIVER_Pin,
-				GPIO_PIN_SET);
+//		HAL_GPIO_TogglePin(GPLED_2_GPIO_Port, GPLED_2_Pin);
+//
+//		HAL_GPIO_WritePin(SPI_NSCS_DRIVER_GPIO_Port, SPI_NSCS_DRIVER_Pin,
+//				GPIO_PIN_RESET);
+//
+//		uint8_t prepped_buffer = (uint8_t) TMC6100_IOIN | 0x7f;
+//
+//		if (!HAL_SPI_Transmit(&hspi3, &prepped_buffer, 1, HAL_MAX_DELAY)
+//				!= HAL_OK) {
+////			LOG_ERROR("Failed to read register 0x%x", reg_addr);
+//		}
+//
+//		if (!HAL_SPI_Receive(&hspi3, read_result, 4, HAL_MAX_DELAY) != HAL_OK) {
+////			LOG_ERROR("Failed to read register 0x%x", reg_addr);
+//		}
+//
+//		HAL_GPIO_WritePin(SPI_NSCS_DRIVER_GPIO_Port, SPI_NSCS_DRIVER_Pin,
+//				GPIO_PIN_SET);
 
 //		step1();
 //		osDelay(100);
@@ -117,22 +117,22 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 		if (hA && hB && !hC) {
 			step = 1;
-			step1();
+			step2();
 		} else if (!hA && hB && !hC) {
 			step = 2;
-			step2();
+			step3();
 		} else if (!hA && hB && hC) {
 			step = 3;
-			step3();
+			step4();
 		} else if (!hA && !hB && hC) {
 			step = 4;
-			step4();
+			step5();
 		} else if (hA && !hB && hC) {
 			step = 5;
-			step5();
+			step6();
 		} else if (hA && !hB && !hC) {
 			step = 6;
-			step6();
+			step1();
 		}
 	}
 }

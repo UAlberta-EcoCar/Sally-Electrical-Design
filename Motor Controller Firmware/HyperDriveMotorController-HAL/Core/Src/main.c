@@ -116,8 +116,8 @@ int main(void)
   MX_FDCAN3_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
-//	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
-//	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Init scheduler */
