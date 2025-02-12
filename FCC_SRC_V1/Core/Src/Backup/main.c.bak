@@ -29,7 +29,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ADS1115.c"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,6 +62,11 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+ADS1115_Config_t configReg;
+ADS1115_Handle_t *pADS_1;
+
+#define ADS1115_ADR1 0x48
+
 
 /* USER CODE END 0 */
 
@@ -102,6 +107,23 @@ int main(void)
   MX_ADC2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+
+  // Set up config parameters for ADS1115 chip before sending
+  configReg.channel = CHANNEL_AIN0_GND;
+  configReg.pgaConfig = PGA_4_096;
+  configReg.operatingMode = MODE_CONTINOUS;
+  configReg.dataRate = DRATE_128;
+  configReg.compareMode = COMP_HYSTERESIS;
+  configReg.polarityMode = POLARITY_ACTIVE_LOW;
+  configReg.latchingMode = LATCHING_NONE;
+  configReg.queueComparator = QUEUE_ONE;
+
+  // NOTE: This init function uses malloc and must be called before the
+  // scheduler
+  pADS_1 = ADS1115_init(&hi2c1, (uint16_t)ADS1115_ADR1, configReg);
+  ADS1115_updateConfig(pADS_1, configReg);
+  ADS1115_setConversionReadyPin(pADS_1);
+
 
   /* USER CODE END 2 */
 

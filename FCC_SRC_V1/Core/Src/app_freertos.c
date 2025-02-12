@@ -28,6 +28,7 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "fdcan.h"
+#include "ADS1115.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,7 +44,7 @@ typedef enum SYS_STATE {
 volatile enum SYS_STATE currentState = STANDBY;
 enum SYS_STATE prevState;
 
-typedef struct{
+typedef struct {
 	float Tach1_RPM;
 	float Tach2_RPM;
 	float Tach3_RPM;
@@ -52,31 +53,39 @@ typedef struct{
 	float FC_pressure;
 	float Accel;
 
-}fc_data_t;
-
+} fc_data_t;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define ADS1115_ADR1 0x48
 
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
+
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 
+
+
+
+
+
+
+
+
 FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t RxData[64];
-uint32_t TachTracker[4] = {0};
+uint32_t TachTracker[4] = { 0 };
 
-fc_data_t fuel_cell_data = {
-		0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F,
-};
+fc_data_t fuel_cell_data = { 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, };
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -203,8 +212,6 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		// osSemaphoreRelease(canSemaphoreHandle);
 	}
 }
-
-
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	/* Prevent unused argument(s) compilation warning */
@@ -519,6 +526,24 @@ void valveContrl(void *argument)
 void StartFuelCellData(void *argument)
 {
   /* USER CODE BEGIN StartFuelCellData */
+	// Following for
+#define DELAY_FOR_CHANNEL_SWITCH 20
+#define B 3950.0f
+#define VOLT_2_TEMP(x)                                                         \
+  (B * 298.15f /                                                               \
+   (298.15f * logf(100.0f / (100.0f * (3.3f / x - 1.0f))) + B)) -              \
+      273.15f
+#define VOLT_2_PRES(x) (x - 2.3555F) / 0.1038F
+
+	const float VOLT_CONVERSION = 4.094F / 32768.0F;
+	const float TRANSFER_FUNC_P = 0.657F;
+
+	fuel_cell_data.FC_Temp = 0;
+	fuel_cell_data.FC_pressure= 0;
+
+	uint16_t step;
+	float step2;
+
 	/* Infinite loop */
 	for (;;) {
 		// Data gathering loop for fuel cell.
@@ -529,7 +554,20 @@ void StartFuelCellData(void *argument)
 		TachTracker[0] = TachTracker[1] = 0;
 		TachTracker[2] = TachTracker[3] = 0;
 
-		osDelay(1);
+//		configReg.channel = CHANNEL_AIN0_GND;
+//		ADS1115_updateConfig(pADS_1, configReg);
+//		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+//		step = ADS1115_getData(pADS_1);
+//		step2 = step * VOLT_CONVERSION;
+//		fuel_cell_data.FC_Temp = VOLT_2_TEMP(step2);
+//
+//		configReg.channel = CHANNEL_AIN1_GND;
+//		ADS1115_updateConfig(pADS_1, configReg);
+//		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+//		fuel_cell_data.FC_pressure = VOLT_2_PRES(
+//		ADS1115_getData(pADS_1) * VOLT_CONVERSION / TRANSFER_FUNC_P);
+
+		osDelay(10);
 	}
   /* USER CODE END StartFuelCellData */
 }
@@ -539,9 +577,9 @@ void Callback01(void *argument)
 {
   /* USER CODE BEGIN Callback01 */
 // This is the PURGE TIMER callback. Name should probably be changed to better reflect that
-	//HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
-	osDelay(1000);
-	//HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
+	osDelay(1000); // Replace with purgeDelay function
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
 	osDelay(1);
   /* USER CODE END Callback01 */
 }
