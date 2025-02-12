@@ -70,8 +70,6 @@ uint8_t TxBuffer[] =
 		"Hello World! From STM32 USB CDC Device To Virtual COM Port\r\n";
 uint8_t TxBufferLen = sizeof(TxBuffer);
 
-
-
 int _write(int file, char *ptr, int len) {
 
 	while (CDC_Transmit_FS(ptr, len) != USBD_OK)
@@ -118,8 +116,8 @@ int main(void)
   MX_FDCAN3_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
-	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
-	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+//	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+//	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -159,7 +157,6 @@ int main(void)
 //		HAL_Delay(10);
 //		step6();
 //		HAL_Delay(10);
-
 		HAL_Delay(100);
 		printf("%f Hello\r\n", 100.1f);
 

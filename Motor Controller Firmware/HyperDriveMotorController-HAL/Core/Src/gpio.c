@@ -69,9 +69,9 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, PHASE_U_H_Pin|PHASE_V_H_Pin|PHASE_W_H_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : GPLED_3_Pin GPLED_2_Pin GPLED_1_Pin Controller_A_ENI_Pin
-                           Controller_A_DIR_Pin EXT_DRIVER_EN_MCU_OUT_Pin */
+                           Controller_A_DIR_Pin */
   GPIO_InitStruct.Pin = GPLED_3_Pin|GPLED_2_Pin|GPLED_1_Pin|Controller_A_ENI_Pin
-                          |Controller_A_DIR_Pin|EXT_DRIVER_EN_MCU_OUT_Pin;
+                          |Controller_A_DIR_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -120,20 +120,34 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
   HAL_GPIO_Init(POWER_STAGE_ENABLE_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CONTROLLER_B_STATUS_OUT_Pin PHASE_U_L_Pin PHASE_V_L_Pin PHASE_W_L_Pin
-                           SPI_MEM_CS_Pin SPI_NSCS_CONTROLLER_A_Pin SPI_NSCS_DRIVER_Pin GPLED_4_Pin */
-  GPIO_InitStruct.Pin = CONTROLLER_B_STATUS_OUT_Pin|PHASE_U_L_Pin|PHASE_V_L_Pin|PHASE_W_L_Pin
-                          |SPI_MEM_CS_Pin|SPI_NSCS_CONTROLLER_A_Pin|SPI_NSCS_DRIVER_Pin|GPLED_4_Pin;
+  /*Configure GPIO pins : CONTROLLER_B_STATUS_OUT_Pin SPI_MEM_CS_Pin SPI_NSCS_CONTROLLER_A_Pin SPI_NSCS_DRIVER_Pin
+                           GPLED_4_Pin */
+  GPIO_InitStruct.Pin = CONTROLLER_B_STATUS_OUT_Pin|SPI_MEM_CS_Pin|SPI_NSCS_CONTROLLER_A_Pin|SPI_NSCS_DRIVER_Pin
+                          |GPLED_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : PHASE_U_L_Pin PHASE_V_L_Pin PHASE_W_L_Pin */
+  GPIO_InitStruct.Pin = PHASE_U_L_Pin|PHASE_V_L_Pin|PHASE_W_L_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : EXT_DRIVER_EN_MCU_OUT_Pin */
+  GPIO_InitStruct.Pin = EXT_DRIVER_EN_MCU_OUT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(EXT_DRIVER_EN_MCU_OUT_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PHASE_U_H_Pin PHASE_V_H_Pin PHASE_W_H_Pin */
   GPIO_InitStruct.Pin = PHASE_U_H_Pin|PHASE_V_H_Pin|PHASE_W_H_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : GATE_DRIVER_FAULT_IN_Pin */
