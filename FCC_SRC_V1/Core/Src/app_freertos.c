@@ -73,6 +73,10 @@ uint8_t RxData[64];
 uint32_t TachTracker[4] = { 0 };
 
 fc_data_t fuel_cell_data = { 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, };
+//Default Purge values
+volatile int purgeDelay_ms = 15000; // time delay between purge is ms
+volatile int purgeTime_ms = 1000;   // purge duration
+
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -247,7 +251,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 		}
 		break;
-	case BTN2_Pin:
+	case BTN2_Pin: //GPB
+		//"confirms" the purge timers
+		//purgeDelay_ms = adc_delayreading
+		//purgeTime_ms = adc_timereading
+
 		break;
 
 	default:
@@ -348,6 +356,11 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 	for (;;) {
+// Used for non-essential peripheral control; OLED,POTS,Encoder,
+
+
+
+
 
 		osDelay(1);
 	}
@@ -438,8 +451,7 @@ void valveContrl(void *argument)
   /* USER CODE BEGIN valveContrl */
 	/* Infinite loop */
 	for (;;) {
-		int purgeDelay_ms = 5000; // time delay between purge is ms
-		int purgeTime_ms = 2000;
+
 		int status = osTimerIsRunning(purgetimerHandle); //returns 1 or 0 depending on status
 		switch (currentState) {
 		case STANDBY:
@@ -540,19 +552,19 @@ void StartFuelCellData(void *argument)
 		fuel_cell_data.Tach4_RPM = TachTracker[3] * 60.0 / 2;
 		TachTracker[0] = TachTracker[1] = 0;
 		TachTracker[2] = TachTracker[3] = 0;
+// Gather ADC Values for temp & pressure from fuel cell over I2C
+		configReg.channel = CHANNEL_AIN0_GND;
+		ADS1115_updateConfig(pADS_1, configReg);
+		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+		step = ADS1115_getData(pADS_1);
+		step2 = step * VOLT_CONVERSION;
+		fuel_cell_data.FC_Temp = VOLT_2_TEMP(step2);
 
-//		configReg.channel = CHANNEL_AIN0_GND;
-//		ADS1115_updateConfig(pADS_1, configReg);
-//		osDelay(DELAY_FOR_CHANNEL_SWITCH);
-//		step = ADS1115_getData(pADS_1);
-//		step2 = step * VOLT_CONVERSION;
-//		fuel_cell_data.FC_Temp = VOLT_2_TEMP(step2);
-//
-//		configReg.channel = CHANNEL_AIN1_GND;
-//		ADS1115_updateConfig(pADS_1, configReg);
-//		osDelay(DELAY_FOR_CHANNEL_SWITCH);
-//		fuel_cell_data.FC_pressure = VOLT_2_PRES(
-//		ADS1115_getData(pADS_1) * VOLT_CONVERSION / TRANSFER_FUNC_P);
+		configReg.channel = CHANNEL_AIN1_GND;
+		ADS1115_updateConfig(pADS_1, configReg);
+		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+		fuel_cell_data.FC_pressure = VOLT_2_PRES(
+		ADS1115_getData(pADS_1) * VOLT_CONVERSION / TRANSFER_FUNC_P);
 
 		osDelay(10);
 	}
@@ -565,7 +577,7 @@ void Callback01(void *argument)
   /* USER CODE BEGIN Callback01 */
 // This is the PURGE TIMER callback. Name should probably be changed to better reflect that
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
-	osDelay(1000); // Replace with purgeDelay function
+	osDelay(purgeTime_ms); // Replace with purgeDelay
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
 	osDelay(1);
   /* USER CODE END Callback01 */

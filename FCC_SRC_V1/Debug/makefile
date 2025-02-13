@@ -68,8 +68,8 @@ all: main-build
 main-build: STM32G491CET\ Pinout.elf secondary-outputs
 
 # Tool invocations
-STM32G491CET\ Pinout.elf STM32G491CET\ Pinout.map: $(OBJS) $(USER_OBJS) /home/nick_s/EcoCar/Sally-Elec-Design/FCC-Board/FCC_SRC_V1/STM32G491CETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32G491CET Pinout.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/nick_s/EcoCar/Sally-Elec-Design/FCC-Board/FCC_SRC_V1/STM32G491CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32G491CET Pinout.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32G491CET\ Pinout.elf STM32G491CET\ Pinout.map: $(OBJS) $(USER_OBJS) A:\cloud\Documents\git\FCC\Sally-Electrical-Design\FCC_SRC_V1\STM32G491CETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32G491CET Pinout.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"A:\cloud\Documents\git\FCC\Sally-Electrical-Design\FCC_SRC_V1\STM32G491CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32G491CET Pinout.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
