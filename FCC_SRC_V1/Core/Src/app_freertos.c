@@ -29,6 +29,11 @@
 #include "usbd_cdc_if.h"
 #include "fdcan.h"
 #include "ADS1115.h"
+#include "ssd1306_conf.h"
+#include "ssd1306.h"
+#include "ssd1306_fonts.h"
+#include "ssd1306_tests.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,6 +81,8 @@ fc_data_t fuel_cell_data = { 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, };
 //Default Purge values
 volatile int purgeDelay_ms = 15000; // time delay between purge is ms
 volatile int purgeTime_ms = 1000;   // purge duration
+
+char ScreenBuffer[32];
 
 
 /* USER CODE END Variables */
@@ -355,12 +362,36 @@ void StartDefaultTask(void *argument)
   MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
+	ssd1306_Init();
+// Display the test bitmap for 2.5 seconds
+ssd1306_TestDrawBitmap();
+ssd1306_UpdateScreen();
+osDelay(2500);  // Delay for 2.5 seconds
+ssd1306_Fill(Black);
+ssd1306_UpdateScreen();
+
+
+ssd1306_TestDrawBitmap2();
+ssd1306_UpdateScreen();
+ssd1306_Fill(Black);
+ssd1306_UpdateScreen();
+
 	for (;;) {
 // Used for non-essential peripheral control; OLED,POTS,Encoder,
 
+	    ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
+	    sprintf(ScreenBuffer, "    IN     OUT");
+	    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
+	    ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
+	    sprintf(ScreenBuffer, "Line 1 TEST");
+	    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
+	    ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
+	    sprintf(ScreenBuffer, "Line 2 TEST ");
+	    ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
+	    ssd1306_UpdateScreen();  // Update the screen
 
 		osDelay(1);
 	}
