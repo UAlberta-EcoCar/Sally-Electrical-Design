@@ -71,7 +71,7 @@ typedef struct {
 			uint8_t ot143 :1;
 			uint8_t ot150 :1;
 			uint32_t unused :13;
-			uint8_t version;
+			uint8_t version :7;
 		};
 		uint32_t reg_raw_ioin;
 		uint8_t reg_rawa_ioin[4];
