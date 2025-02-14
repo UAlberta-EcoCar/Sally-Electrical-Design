@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usb_device.h"
+#include "tim.h"
 #include "usbd_cdc_if.h"
 #include "fdcan.h"
 #include "ADS1115.h"
@@ -84,98 +85,72 @@ volatile int purgeTime_ms = 1000;   // purge duration
 
 char ScreenBuffer[32];
 
-
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-uint32_t defaultTaskBuffer[ 512 ];
+uint32_t defaultTaskBuffer[512];
 osStaticThreadDef_t defaultTaskControlBlock;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_mem = &defaultTaskBuffer[0],
-  .stack_size = sizeof(defaultTaskBuffer),
-  .cb_mem = &defaultTaskControlBlock,
-  .cb_size = sizeof(defaultTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal,
-};
+const osThreadAttr_t defaultTask_attributes = { .name = "defaultTask",
+		.stack_mem = &defaultTaskBuffer[0], .stack_size =
+				sizeof(defaultTaskBuffer), .cb_mem = &defaultTaskControlBlock,
+		.cb_size = sizeof(defaultTaskControlBlock), .priority =
+				(osPriority_t) osPriorityNormal, };
 /* Definitions for canReceive */
 osThreadId_t canReceiveHandle;
-uint32_t canReceiveBuffer[ 512 ];
+uint32_t canReceiveBuffer[512];
 osStaticThreadDef_t canReceiveControlBlock;
-const osThreadAttr_t canReceive_attributes = {
-  .name = "canReceive",
-  .stack_mem = &canReceiveBuffer[0],
-  .stack_size = sizeof(canReceiveBuffer),
-  .cb_mem = &canReceiveControlBlock,
-  .cb_size = sizeof(canReceiveControlBlock),
-  .priority = (osPriority_t) osPriorityAboveNormal,
-};
+const osThreadAttr_t canReceive_attributes = { .name = "canReceive",
+		.stack_mem = &canReceiveBuffer[0], .stack_size =
+				sizeof(canReceiveBuffer), .cb_mem = &canReceiveControlBlock,
+		.cb_size = sizeof(canReceiveControlBlock), .priority =
+				(osPriority_t) osPriorityAboveNormal, };
 /* Definitions for canSend */
 osThreadId_t canSendHandle;
-uint32_t canSendBuffer[ 512 ];
+uint32_t canSendBuffer[512];
 osStaticThreadDef_t canSendControlBlock;
-const osThreadAttr_t canSend_attributes = {
-  .name = "canSend",
-  .stack_mem = &canSendBuffer[0],
-  .stack_size = sizeof(canSendBuffer),
-  .cb_mem = &canSendControlBlock,
-  .cb_size = sizeof(canSendControlBlock),
-  .priority = (osPriority_t) osPriorityNormal1,
-};
+const osThreadAttr_t canSend_attributes = { .name = "canSend", .stack_mem =
+		&canSendBuffer[0], .stack_size = sizeof(canSendBuffer), .cb_mem =
+		&canSendControlBlock, .cb_size = sizeof(canSendControlBlock),
+		.priority = (osPriority_t) osPriorityNormal1, };
 /* Definitions for valveControl */
 osThreadId_t valveControlHandle;
-uint32_t valveControlBuffer[ 512 ];
+uint32_t valveControlBuffer[512];
 osStaticThreadDef_t valveControlControlBlock;
-const osThreadAttr_t valveControl_attributes = {
-  .name = "valveControl",
-  .stack_mem = &valveControlBuffer[0],
-  .stack_size = sizeof(valveControlBuffer),
-  .cb_mem = &valveControlControlBlock,
-  .cb_size = sizeof(valveControlControlBlock),
-  .priority = (osPriority_t) osPriorityNormal2,
-};
+const osThreadAttr_t valveControl_attributes = { .name = "valveControl",
+		.stack_mem = &valveControlBuffer[0], .stack_size =
+				sizeof(valveControlBuffer), .cb_mem = &valveControlControlBlock,
+		.cb_size = sizeof(valveControlControlBlock), .priority =
+				(osPriority_t) osPriorityNormal2, };
 /* Definitions for fuelCellData */
 osThreadId_t fuelCellDataHandle;
-uint32_t fuelCellDataBuffer[ 512 ];
+uint32_t fuelCellDataBuffer[512];
 osStaticThreadDef_t fuelCellDataControlBlock;
-const osThreadAttr_t fuelCellData_attributes = {
-  .name = "fuelCellData",
-  .stack_mem = &fuelCellDataBuffer[0],
-  .stack_size = sizeof(fuelCellDataBuffer),
-  .cb_mem = &fuelCellDataControlBlock,
-  .cb_size = sizeof(fuelCellDataControlBlock),
-  .priority = (osPriority_t) osPriorityNormal3,
-};
+const osThreadAttr_t fuelCellData_attributes = { .name = "fuelCellData",
+		.stack_mem = &fuelCellDataBuffer[0], .stack_size =
+				sizeof(fuelCellDataBuffer), .cb_mem = &fuelCellDataControlBlock,
+		.cb_size = sizeof(fuelCellDataControlBlock), .priority =
+				(osPriority_t) osPriorityNormal3, };
 /* Definitions for RxHeaderQue */
 osMessageQueueId_t RxHeaderQueHandle;
-uint8_t RxHeaderQueBuffer[ 512 * sizeof( uint32_t ) ];
+uint8_t RxHeaderQueBuffer[512 * sizeof(uint32_t)];
 osStaticMessageQDef_t RxHeaderQueControlBlock;
-const osMessageQueueAttr_t RxHeaderQue_attributes = {
-  .name = "RxHeaderQue",
-  .cb_mem = &RxHeaderQueControlBlock,
-  .cb_size = sizeof(RxHeaderQueControlBlock),
-  .mq_mem = &RxHeaderQueBuffer,
-  .mq_size = sizeof(RxHeaderQueBuffer)
-};
+const osMessageQueueAttr_t RxHeaderQue_attributes = { .name = "RxHeaderQue",
+		.cb_mem = &RxHeaderQueControlBlock, .cb_size =
+				sizeof(RxHeaderQueControlBlock), .mq_mem = &RxHeaderQueBuffer,
+		.mq_size = sizeof(RxHeaderQueBuffer) };
 /* Definitions for RxDataQue */
 osMessageQueueId_t RxDataQueHandle;
-uint8_t RxDataQueBuffer[ 512 * sizeof( uint8_t ) ];
+uint8_t RxDataQueBuffer[512 * sizeof(uint8_t)];
 osStaticMessageQDef_t RxDataQueControlBlock;
-const osMessageQueueAttr_t RxDataQue_attributes = {
-  .name = "RxDataQue",
-  .cb_mem = &RxDataQueControlBlock,
-  .cb_size = sizeof(RxDataQueControlBlock),
-  .mq_mem = &RxDataQueBuffer,
-  .mq_size = sizeof(RxDataQueBuffer)
-};
+const osMessageQueueAttr_t RxDataQue_attributes = { .name = "RxDataQue",
+		.cb_mem = &RxDataQueControlBlock, .cb_size =
+				sizeof(RxDataQueControlBlock), .mq_mem = &RxDataQueBuffer,
+		.mq_size = sizeof(RxDataQueBuffer) };
 /* Definitions for purgetimer */
 osTimerId_t purgetimerHandle;
 osStaticTimerDef_t purgetimerControlBlock;
-const osTimerAttr_t purgetimer_attributes = {
-  .name = "purgetimer",
-  .cb_mem = &purgetimerControlBlock,
-  .cb_size = sizeof(purgetimerControlBlock),
-};
+const osTimerAttr_t purgetimer_attributes = { .name = "purgetimer", .cb_mem =
+		&purgetimerControlBlock, .cb_size = sizeof(purgetimerControlBlock), };
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -285,67 +260,74 @@ void Callback01(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
-  * @brief  FreeRTOS initialization
-  * @param  None
-  * @retval None
-  */
+ * @brief  FreeRTOS initialization
+ * @param  None
+ * @retval None
+ */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
+	/* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+	/* USER CODE END Init */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
+	/* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+	/* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
+	/* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+	/* USER CODE END RTOS_SEMAPHORES */
 
-  /* Create the timer(s) */
-  /* creation of purgetimer */
-  purgetimerHandle = osTimerNew(Callback01, osTimerPeriodic, NULL, &purgetimer_attributes);
+	/* Create the timer(s) */
+	/* creation of purgetimer */
+	purgetimerHandle = osTimerNew(Callback01, osTimerPeriodic, NULL,
+			&purgetimer_attributes);
 
-  /* USER CODE BEGIN RTOS_TIMERS */
+	/* USER CODE BEGIN RTOS_TIMERS */
 
 	/* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+	/* USER CODE END RTOS_TIMERS */
 
-  /* Create the queue(s) */
-  /* creation of RxHeaderQue */
-  RxHeaderQueHandle = osMessageQueueNew (512, sizeof(uint32_t), &RxHeaderQue_attributes);
+	/* Create the queue(s) */
+	/* creation of RxHeaderQue */
+	RxHeaderQueHandle = osMessageQueueNew(512, sizeof(uint32_t),
+			&RxHeaderQue_attributes);
 
-  /* creation of RxDataQue */
-  RxDataQueHandle = osMessageQueueNew (512, sizeof(uint8_t), &RxDataQue_attributes);
+	/* creation of RxDataQue */
+	RxDataQueHandle = osMessageQueueNew(512, sizeof(uint8_t),
+			&RxDataQue_attributes);
 
-  /* USER CODE BEGIN RTOS_QUEUES */
+	/* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+	/* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+	/* Create the thread(s) */
+	/* creation of defaultTask */
+	defaultTaskHandle = osThreadNew(StartDefaultTask, NULL,
+			&defaultTask_attributes);
 
-  /* creation of canReceive */
-  canReceiveHandle = osThreadNew(StartTaskReceive, NULL, &canReceive_attributes);
+	/* creation of canReceive */
+	canReceiveHandle = osThreadNew(StartTaskReceive, NULL,
+			&canReceive_attributes);
 
-  /* creation of canSend */
-  canSendHandle = osThreadNew(StartTaskSend, NULL, &canSend_attributes);
+	/* creation of canSend */
+	canSendHandle = osThreadNew(StartTaskSend, NULL, &canSend_attributes);
 
-  /* creation of valveControl */
-  valveControlHandle = osThreadNew(valveContrl, NULL, &valveControl_attributes);
+	/* creation of valveControl */
+	valveControlHandle = osThreadNew(valveContrl, NULL,
+			&valveControl_attributes);
 
-  /* creation of fuelCellData */
-  fuelCellDataHandle = osThreadNew(StartFuelCellData, NULL, &fuelCellData_attributes);
+	/* creation of fuelCellData */
+	fuelCellDataHandle = osThreadNew(StartFuelCellData, NULL,
+			&fuelCellData_attributes);
 
-  /* USER CODE BEGIN RTOS_THREADS */
+	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
 
-  /* USER CODE END RTOS_THREADS */
+	/* USER CODE END RTOS_THREADS */
 
-  /* USER CODE BEGIN RTOS_EVENTS */
+	/* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
-  /* USER CODE END RTOS_EVENTS */
+	/* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -356,46 +338,50 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
-{
-  /* init code for USB_Device */
-  MX_USB_Device_Init();
-  /* USER CODE BEGIN StartDefaultTask */
+void StartDefaultTask(void *argument) {
+	/* init code for USB_Device */
+	MX_USB_Device_Init();
+	/* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 	ssd1306_Init();
 // Display the test bitmap for 2.5 seconds
-ssd1306_TestDrawBitmap();
-ssd1306_UpdateScreen();
-osDelay(2500);  // Delay for 2.5 seconds
-ssd1306_Fill(Black);
-ssd1306_UpdateScreen();
+	ssd1306_TestDrawBitmap();
+	ssd1306_UpdateScreen();
+	osDelay(2500);  // Delay for 2.5 seconds
+	ssd1306_Fill(Black);
+	ssd1306_UpdateScreen();
 
+	ssd1306_TestDrawBitmap2();
+	ssd1306_UpdateScreen();
+	ssd1306_Fill(Black);
+	ssd1306_UpdateScreen();
 
-ssd1306_TestDrawBitmap2();
-ssd1306_UpdateScreen();
-ssd1306_Fill(Black);
-ssd1306_UpdateScreen();
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
 	for (;;) {
 // Used for non-essential peripheral control; OLED,POTS,Encoder,
 
-	    ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
-	    sprintf(ScreenBuffer, "    IN     OUT");
-	    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+		ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
+		sprintf(ScreenBuffer, "    IN     OUT");
+		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-	    ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
-	    sprintf(ScreenBuffer, "Line 1 TEST");
-	    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+		ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
+		sprintf(ScreenBuffer, "Line 1 TEST");
+		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-	    ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
-	    sprintf(ScreenBuffer, "Line 2 TEST ");
-	    ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+		ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
+		sprintf(ScreenBuffer, "Line 2 TEST ");
+		ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
-	    ssd1306_UpdateScreen();  // Update the screen
+		ssd1306_UpdateScreen();  // Update the screen
+
+		htim2.Instance->CCR2 = 50;
+		htim3.Instance->CCR1 = 50;
 
 		osDelay(1);
 	}
-  /* USER CODE END StartDefaultTask */
+	/* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartTaskReceive */
@@ -405,9 +391,8 @@ ssd1306_UpdateScreen();
  * @retval None
  */
 /* USER CODE END Header_StartTaskReceive */
-void StartTaskReceive(void *argument)
-{
-  /* USER CODE BEGIN StartTaskReceive */
+void StartTaskReceive(void *argument) {
+	/* USER CODE BEGIN StartTaskReceive */
 	/* Infinite loop */
 	uint32_t RXID;
 	for (;;) {
@@ -433,7 +418,7 @@ void StartTaskReceive(void *argument)
 		}
 		osDelay(1);
 	}
-  /* USER CODE END StartTaskReceive */
+	/* USER CODE END StartTaskReceive */
 }
 
 /* USER CODE BEGIN Header_StartTaskSend */
@@ -443,9 +428,8 @@ void StartTaskReceive(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartTaskSend */
-void StartTaskSend(void *argument)
-{
-  /* USER CODE BEGIN StartTaskSend */
+void StartTaskSend(void *argument) {
+	/* USER CODE BEGIN StartTaskSend */
 	/* Infinite loop */
 
 	FDCAN_TxHeaderTypeDef fuelCell_TxHeader;
@@ -467,7 +451,7 @@ void StartTaskSend(void *argument)
 		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fuelCell_TxHeader, txdata);
 		osDelay(100);
 	}
-  /* USER CODE END StartTaskSend */
+	/* USER CODE END StartTaskSend */
 }
 
 /* USER CODE BEGIN Header_valveContrl */
@@ -477,9 +461,8 @@ void StartTaskSend(void *argument)
  * @retval None
  */
 /* USER CODE END Header_valveContrl */
-void valveContrl(void *argument)
-{
-  /* USER CODE BEGIN valveContrl */
+void valveContrl(void *argument) {
+	/* USER CODE BEGIN valveContrl */
 	/* Infinite loop */
 	for (;;) {
 
@@ -543,7 +526,7 @@ void valveContrl(void *argument)
 		prevState = currentState;
 		osDelay(1);
 	}
-  /* USER CODE END valveContrl */
+	/* USER CODE END valveContrl */
 }
 
 /* USER CODE BEGIN Header_StartFuelCellData */
@@ -553,9 +536,8 @@ void valveContrl(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartFuelCellData */
-void StartFuelCellData(void *argument)
-{
-  /* USER CODE BEGIN StartFuelCellData */
+void StartFuelCellData(void *argument) {
+	/* USER CODE BEGIN StartFuelCellData */
 	// Following for
 #define DELAY_FOR_CHANNEL_SWITCH 20
 #define B 3950.0f
@@ -569,7 +551,7 @@ void StartFuelCellData(void *argument)
 	const float TRANSFER_FUNC_P = 0.657F;
 
 	fuel_cell_data.FC_Temp = 0;
-	fuel_cell_data.FC_pressure= 0;
+	fuel_cell_data.FC_pressure = 0;
 
 	uint16_t step;
 	float step2;
@@ -595,23 +577,22 @@ void StartFuelCellData(void *argument)
 		ADS1115_updateConfig(pADS_1, configReg);
 		osDelay(DELAY_FOR_CHANNEL_SWITCH);
 		fuel_cell_data.FC_pressure = VOLT_2_PRES(
-		ADS1115_getData(pADS_1) * VOLT_CONVERSION / TRANSFER_FUNC_P);
+				ADS1115_getData(pADS_1) * VOLT_CONVERSION / TRANSFER_FUNC_P);
 
 		osDelay(10);
 	}
-  /* USER CODE END StartFuelCellData */
+	/* USER CODE END StartFuelCellData */
 }
 
 /* Callback01 function */
-void Callback01(void *argument)
-{
-  /* USER CODE BEGIN Callback01 */
+void Callback01(void *argument) {
+	/* USER CODE BEGIN Callback01 */
 // This is the PURGE TIMER callback. Name should probably be changed to better reflect that
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
 	osDelay(purgeTime_ms); // Replace with purgeDelay
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
 	osDelay(1);
-  /* USER CODE END Callback01 */
+	/* USER CODE END Callback01 */
 }
 
 /* Private application code --------------------------------------------------*/
