@@ -48,14 +48,24 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+
+
 ADS1115_Config_t configReg;
 ADS1115_Handle_t *pADS_1;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
+
+
+
+
 
 /* USER CODE END PFP */
 

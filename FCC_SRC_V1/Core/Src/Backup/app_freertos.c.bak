@@ -29,6 +29,11 @@
 #include "usbd_cdc_if.h"
 #include "fdcan.h"
 #include "ADS1115.h"
+#include "ssd1306_conf.h"
+#include "ssd1306.h"
+#include "ssd1306_fonts.h"
+#include "ssd1306_tests.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -37,12 +42,12 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticTimer_t osStaticTimerDef_t;
 /* USER CODE BEGIN PTD */
 
-typedef enum SYS_STATE {
+typedef enum {
 	STANDBY = 0X01, CHARGE = 0X02, RUN = 0X03, SHUTOFF = 0X04
-};
+} SYS_STATE;
 
-volatile enum SYS_STATE currentState = STANDBY;
-enum SYS_STATE prevState;
+volatile SYS_STATE currentState = STANDBY;
+SYS_STATE prevState;
 
 typedef struct {
 	float Tach1_RPM;
@@ -52,32 +57,17 @@ typedef struct {
 	float FC_Temp;
 	float FC_pressure;
 	float Accel;
-
 } fc_data_t;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define ADS1115_ADR1 0x48
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-ADS1115_Config_t configReg;
-ADS1115_Handle_t *pADS_1;
-
-#define ADS1115_ADR1 0x48
-
-configReg.channel = CHANNEL_AIN0_GND;
-configReg.pgaConfig = PGA_4_096;
-configReg.operatingMode = MODE_CONTINOUS;
-configReg.dataRate = DRATE_128;
-configReg.compareMode = COMP_HYSTERESIS;
-configReg.polarityMode = POLARITY_ACTIVE_LOW;
-configReg.latchingMode = LATCHING_NONE;
-configReg.queueComparator = QUEUE_ONE;
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -88,6 +78,12 @@ uint8_t RxData[64];
 uint32_t TachTracker[4] = { 0 };
 
 fc_data_t fuel_cell_data = { 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, };
+//Default Purge values
+volatile int purgeDelay_ms = 15000; // time delay between purge is ms
+volatile int purgeTime_ms = 1000;   // purge duration
+
+char ScreenBuffer[32];
+
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -262,7 +258,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 		}
 		break;
-	case BTN2_Pin:
+	case BTN2_Pin: //GPB
+		//"confirms" the purge timers
+		//purgeDelay_ms = adc_delayreading
+		//purgeTime_ms = adc_timereading
+
 		break;
 
 	default:
@@ -362,7 +362,36 @@ void StartDefaultTask(void *argument)
   MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
+	ssd1306_Init();
+// Display the test bitmap for 2.5 seconds
+ssd1306_TestDrawBitmap();
+ssd1306_UpdateScreen();
+osDelay(2500);  // Delay for 2.5 seconds
+ssd1306_Fill(Black);
+ssd1306_UpdateScreen();
+
+
+ssd1306_TestDrawBitmap2();
+ssd1306_UpdateScreen();
+ssd1306_Fill(Black);
+ssd1306_UpdateScreen();
+
 	for (;;) {
+// Used for non-essential peripheral control; OLED,POTS,Encoder,
+
+	    ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
+	    sprintf(ScreenBuffer, "    IN     OUT");
+	    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+
+	    ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
+	    sprintf(ScreenBuffer, "Line 1 TEST");
+	    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+
+	    ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
+	    sprintf(ScreenBuffer, "Line 2 TEST ");
+	    ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+
+	    ssd1306_UpdateScreen();  // Update the screen
 
 		osDelay(1);
 	}
@@ -453,8 +482,7 @@ void valveContrl(void *argument)
   /* USER CODE BEGIN valveContrl */
 	/* Infinite loop */
 	for (;;) {
-		int purgeDelay_ms = 5000; // time delay between purge is ms
-		int purgeTime_ms = 2000;
+
 		int status = osTimerIsRunning(purgetimerHandle); //returns 1 or 0 depending on status
 		switch (currentState) {
 		case STANDBY:
@@ -525,7 +553,7 @@ void valveContrl(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartFuelCellData */
-__weak void StartFuelCellData(void *argument)
+void StartFuelCellData(void *argument)
 {
   /* USER CODE BEGIN StartFuelCellData */
 	// Following for
@@ -555,7 +583,7 @@ __weak void StartFuelCellData(void *argument)
 		fuel_cell_data.Tach4_RPM = TachTracker[3] * 60.0 / 2;
 		TachTracker[0] = TachTracker[1] = 0;
 		TachTracker[2] = TachTracker[3] = 0;
-
+// Gather ADC Values for temp & pressure from fuel cell over I2C
 		configReg.channel = CHANNEL_AIN0_GND;
 		ADS1115_updateConfig(pADS_1, configReg);
 		osDelay(DELAY_FOR_CHANNEL_SWITCH);
@@ -579,9 +607,9 @@ void Callback01(void *argument)
 {
   /* USER CODE BEGIN Callback01 */
 // This is the PURGE TIMER callback. Name should probably be changed to better reflect that
-	//HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
-	osDelay(1000);
-	//HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
+	osDelay(purgeTime_ms); // Replace with purgeDelay
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
 	osDelay(1);
   /* USER CODE END Callback01 */
 }

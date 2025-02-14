@@ -29,7 +29,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "ADS1115.c"
+#include "ADS1115.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -39,7 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define ADS1115_ADR1 0x48
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,9 +48,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-
+ADS1115_Config_t configReg;
+ADS1115_Handle_t *pADS_1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,12 +61,6 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-ADS1115_Config_t configReg;
-ADS1115_Handle_t *pADS_1;
-
-#define ADS1115_ADR1 0x48
-
-
 /* USER CODE END 0 */
 
 /**
@@ -123,8 +116,6 @@ int main(void)
   pADS_1 = ADS1115_init(&hi2c1, (uint16_t)ADS1115_ADR1, configReg);
   ADS1115_updateConfig(pADS_1, configReg);
   ADS1115_setConversionReadyPin(pADS_1);
-
-
   /* USER CODE END 2 */
 
   /* Init scheduler */
