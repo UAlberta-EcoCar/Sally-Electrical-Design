@@ -19,21 +19,24 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
-#include "task.h"
-#include "main.h"
 #include "cmsis_os.h"
+#include "main.h"
+#include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "usb_device.h"
-#include "tim.h"
-#include "usbd_cdc_if.h"
-#include "fdcan.h"
 #include "ADS1115.h"
-#include "ssd1306_conf.h"
+#include "ecocan/ecocar_can.h"
+#include "util/typedef/exported_typedef.h"
+#include "fdcan.h"
 #include "ssd1306.h"
+#include <math.h>
+#include "ssd1306_conf.h"
 #include "ssd1306_fonts.h"
 #include "ssd1306_tests.h"
+#include "tim.h"
+#include "usb_device.h"
+#include "usbd_cdc_if.h"
 
 /* USER CODE END Includes */
 
@@ -43,12 +46,16 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticTimer_t osStaticTimerDef_t;
 /* USER CODE BEGIN PTD */
 
+/*
+ * Can this be changed to use
+ * the fet state stuff instead?
+ * */
 typedef enum {
 	STANDBY = 0X01, CHARGE = 0X02, RUN = 0X03, SHUTOFF = 0X04
-} SYS_STATE;
+} sysState_t;
 
-volatile SYS_STATE currentState = STANDBY;
-SYS_STATE prevState;
+volatile sysState_t currentState = STANDBY;
+sysState_t prevState;
 
 typedef struct {
 	float Tach1_RPM;
@@ -58,7 +65,7 @@ typedef struct {
 	float FC_Temp;
 	float FC_pressure;
 	float Accel;
-} fc_data_t;
+} fcData_t;
 
 /* USER CODE END PTD */
 
@@ -73,13 +80,12 @@ typedef struct {
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+fetState_t fet_state;
 
-FDCAN_RxHeaderTypeDef RxHeader;
-uint8_t RxData[64];
 uint32_t TachTracker[4] = { 0 };
 
-fc_data_t fuel_cell_data = { 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, };
-//Default Purge values
+fcData_t fuel_cell_data = { 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, 0.00F, };
+// Default Purge values
 volatile int purgeDelay_ms = 15000; // time delay between purge is ms
 volatile int purgeTime_ms = 1000;   // purge duration
 
@@ -154,8 +160,6 @@ const osTimerAttr_t purgetimer_attributes = { .name = "purgetimer", .cb_mem =
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-uint32_t mapDlcToBytes(uint32_t DLC);
-
 int _write(int file, char *ptr, int len) {
 	UNUSED(file);
 	CDC_Transmit_FS((uint8_t*) ptr, (uint16_t) len);
@@ -163,6 +167,8 @@ int _write(int file, char *ptr, int len) {
 }
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
+	FDCAN_RxHeaderTypeDef RxHeader;
+	uint8_t RxData[64];
 	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
 		/* Retrieve Rx messages from RX FIFO0 */
 		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData)
@@ -171,24 +177,21 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			Error_Handler();
 		}
 		if (HAL_FDCAN_ActivateNotification(hfdcan,
-		FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK) {
+				FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK) {
 			/* Notification Error */
 			Error_Handler();
 		}
 		osMessageQueuePut(RxHeaderQueHandle, &RxHeader.Identifier, 0, 0);
-		if (RxHeader.DataLength != FDCAN_DLC_BYTES_0) {
-			osMessageQueuePut(RxHeaderQueHandle, &RxHeader.DataLength, 0, 0);
-			for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
-				osMessageQueuePut(RxDataQueHandle, &RxData[i], 0, 0);
-			}
+		osMessageQueuePut(RxHeaderQueHandle, &RxHeader.DataLength, 0, 0);
+		for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+			osMessageQueuePut(RxDataQueHandle, &RxData[i], 0, 0);
 		}
-		// osSemaphoreRelease(canSemaphoreHandle);
 	}
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	/* Prevent unused argument(s) compilation warning */
-//  UNUSED(GPIO_Pin);
+	//  UNUSED(GPIO_Pin);
 	switch (GPIO_Pin) {
 	case TACH1_Pin:
 		TachTracker[0]++;
@@ -230,13 +233,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 		} else if (prevState == SHUTOFF) {
 			currentState = STANDBY;
-
 		}
 		break;
-	case BTN2_Pin: //GPB
+	case BTN2_Pin: // GPB
 		//"confirms" the purge timers
-		//purgeDelay_ms = adc_delayreading
-		//purgeTime_ms = adc_timereading
+		// purgeDelay_ms = adc_delayreading
+		// purgeTime_ms = adc_timereading
 
 		break;
 
@@ -328,7 +330,6 @@ void MX_FREERTOS_Init(void) {
 	/* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
 	/* USER CODE END RTOS_EVENTS */
-
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -344,10 +345,10 @@ void StartDefaultTask(void *argument) {
 	/* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 	ssd1306_Init();
-// Display the test bitmap for 2.5 seconds
+	// Display the test bitmap for 2.5 seconds
 	ssd1306_TestDrawBitmap();
 	ssd1306_UpdateScreen();
-	osDelay(2500);  // Delay for 2.5 seconds
+	osDelay(2500); // Delay for 2.5 seconds
 	ssd1306_Fill(Black);
 	ssd1306_UpdateScreen();
 
@@ -360,21 +361,21 @@ void StartDefaultTask(void *argument) {
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
 	for (;;) {
-// Used for non-essential peripheral control; OLED,POTS,Encoder,
+		// Used for non-essential peripheral control; OLED,POTS,Encoder,
 
-		ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
+		ssd1306_SetCursor(0, 1); // Adjust Y position as needed
 		sprintf(ScreenBuffer, "    IN     OUT");
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-		ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
+		ssd1306_SetCursor(0, 15); // Adjust Y position as needed
 		sprintf(ScreenBuffer, "Line 1 TEST");
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-		ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
+		ssd1306_SetCursor(0, 40); // Adjust Y position as needed
 		sprintf(ScreenBuffer, "Line 2 TEST ");
 		ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
-		ssd1306_UpdateScreen();  // Update the screen
+		ssd1306_UpdateScreen(); // Update the screen
 
 		htim2.Instance->CCR2 = 50;
 		htim3.Instance->CCR1 = 50;
@@ -394,13 +395,22 @@ void StartDefaultTask(void *argument) {
 void StartTaskReceive(void *argument) {
 	/* USER CODE BEGIN StartTaskReceive */
 	/* Infinite loop */
-	uint32_t RXID;
+	FDCAN_RxHeaderTypeDef myHeader = { 0 };
+	uint8_t rxData[64] = { 0 };
+
 	for (;;) {
-		if (osMessageQueueGet(RxHeaderQueHandle, &RXID, 0, osWaitForever)
-				== osOK) {
-			switch (RXID) {
+		if (osMessageQueueGet(RxHeaderQueHandle, &myHeader.Identifier, 0,
+		osWaitForever) == osOK) {
+			switch (myHeader.Identifier) {
 			case 0x11:
 				HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+				osMessageQueueGet(RxHeaderQueHandle, &myHeader.DataLength, 0,
+						0);
+				for (uint32_t i = 0; i < mapDlcToBytes(myHeader.DataLength);
+						i++) {
+					osMessageQueueGet(RxDataQueHandle, &rxData[i], 0, 0);
+				}
+				// memcpy here to the appropriate raw pack
 				break;
 			case 0x12:
 				break;
@@ -409,12 +419,8 @@ void StartTaskReceive(void *argument) {
 			case 0x14:
 				break;
 			default:
-				printf("ERROR: NO CANID DEFINED 0x%lx\r\n",
-						RxHeader.Identifier);
 				break;
 			}
-			osMessageQueueReset(RxHeaderQueHandle);
-			osMessageQueueReset(RxDataQueHandle);
 		}
 		osDelay(1);
 	}
@@ -464,9 +470,9 @@ void StartTaskSend(void *argument) {
 void valveContrl(void *argument) {
 	/* USER CODE BEGIN valveContrl */
 	/* Infinite loop */
+	uint8_t status;
 	for (;;) {
-
-		int status = osTimerIsRunning(purgetimerHandle); //returns 1 or 0 depending on status
+		status = osTimerIsRunning(purgetimerHandle); // returns 1 or 0 depending on status
 		switch (currentState) {
 		case STANDBY:
 			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
@@ -565,7 +571,7 @@ void StartFuelCellData(void *argument) {
 		fuel_cell_data.Tach4_RPM = TachTracker[3] * 60.0 / 2;
 		TachTracker[0] = TachTracker[1] = 0;
 		TachTracker[2] = TachTracker[3] = 0;
-// Gather ADC Values for temp & pressure from fuel cell over I2C
+		// Gather ADC Values for temp & pressure from fuel cell over I2C
 		configReg.channel = CHANNEL_AIN0_GND;
 		ADS1115_updateConfig(pADS_1, configReg);
 		osDelay(DELAY_FOR_CHANNEL_SWITCH);
@@ -587,7 +593,8 @@ void StartFuelCellData(void *argument) {
 /* Callback01 function */
 void Callback01(void *argument) {
 	/* USER CODE BEGIN Callback01 */
-// This is the PURGE TIMER callback. Name should probably be changed to better reflect that
+	// This is the PURGE TIMER callback. Name should probably be changed to better
+	// reflect that
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
 	osDelay(purgeTime_ms); // Replace with purgeDelay
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
@@ -597,37 +604,4 @@ void Callback01(void *argument) {
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-uint32_t mapDlcToBytes(uint32_t DLC) {
-	uint32_t bytes;
-	if (DLC <= 0x08) {
-		return DLC;
-	} else {
-		switch (DLC) {
-		case 0x09:
-			bytes = 12;
-			break;
-		case 0x0A:
-			bytes = 16;
-			break;
-		case 0x0B:
-			bytes = 20;
-			break;
-		case 0x0C:
-			bytes = 24;
-			break;
-		case 0x0D:
-			bytes = 32;
-			break;
-		case 0x0E:
-			bytes = 48;
-			break;
-		case 0x0F:
-			bytes = 64;
-			break;
-		}
-	}
-	return bytes;
-}
-
 /* USER CODE END Application */
-
