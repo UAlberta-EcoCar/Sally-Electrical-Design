@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -26,6 +27,7 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
+typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -48,6 +50,97 @@ I2C_HandleTypeDef hi2c2;
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
 
+/* Definitions for defaultTask */
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 256 * 4
+};
+/* Definitions for TaskCan */
+osThreadId_t TaskCanHandle;
+uint32_t CanTaskBuffer[ 256 ];
+osStaticThreadDef_t CanTaskControlBlock;
+const osThreadAttr_t TaskCan_attributes = {
+  .name = "TaskCan",
+  .stack_mem = &CanTaskBuffer[0],
+  .stack_size = sizeof(CanTaskBuffer),
+  .cb_mem = &CanTaskControlBlock,
+  .cb_size = sizeof(CanTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for Task24 */
+osThreadId_t Task24Handle;
+uint32_t Task24Buffer[ 256 ];
+osStaticThreadDef_t Task24ControlBlock;
+const osThreadAttr_t Task24_attributes = {
+  .name = "Task24",
+  .stack_mem = &Task24Buffer[0],
+  .stack_size = sizeof(Task24Buffer),
+  .cb_mem = &Task24ControlBlock,
+  .cb_size = sizeof(Task24ControlBlock),
+  .priority = (osPriority_t) osPriorityBelowNormal,
+};
+/* Definitions for Task915 */
+osThreadId_t Task915Handle;
+uint32_t Task915Buffer[ 256 ];
+osStaticThreadDef_t Task915ControlBlock;
+const osThreadAttr_t Task915_attributes = {
+  .name = "Task915",
+  .stack_mem = &Task915Buffer[0],
+  .stack_size = sizeof(Task915Buffer),
+  .cb_mem = &Task915ControlBlock,
+  .cb_size = sizeof(Task915ControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for Task868 */
+osThreadId_t Task868Handle;
+uint32_t Task868Buffer[ 256 ];
+osStaticThreadDef_t Task868ControlBlock;
+const osThreadAttr_t Task868_attributes = {
+  .name = "Task868",
+  .stack_mem = &Task868Buffer[0],
+  .stack_size = sizeof(Task868Buffer),
+  .cb_mem = &Task868ControlBlock,
+  .cb_size = sizeof(Task868ControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for TaskGNSS */
+osThreadId_t TaskGNSSHandle;
+uint32_t GNSSTaskBuffer[ 256 ];
+osStaticThreadDef_t GNSSTaskControlBlock;
+const osThreadAttr_t TaskGNSS_attributes = {
+  .name = "TaskGNSS",
+  .stack_mem = &GNSSTaskBuffer[0],
+  .stack_size = sizeof(GNSSTaskBuffer),
+  .cb_mem = &GNSSTaskControlBlock,
+  .cb_size = sizeof(GNSSTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for TaskSD */
+osThreadId_t TaskSDHandle;
+uint32_t SDTaskBuffer[ 256 ];
+osStaticThreadDef_t SDTaskControlBlock;
+const osThreadAttr_t TaskSD_attributes = {
+  .name = "TaskSD",
+  .stack_mem = &SDTaskBuffer[0],
+  .stack_size = sizeof(SDTaskBuffer),
+  .cb_mem = &SDTaskControlBlock,
+  .cb_size = sizeof(SDTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for TaskAUX */
+osThreadId_t TaskAUXHandle;
+uint32_t TaskAUXBuffer[ 256 ];
+osStaticThreadDef_t TaskAUXControlBlock;
+const osThreadAttr_t TaskAUX_attributes = {
+  .name = "TaskAUX",
+  .stack_mem = &TaskAUXBuffer[0],
+  .stack_size = sizeof(TaskAUXBuffer),
+  .cb_mem = &TaskAUXControlBlock,
+  .cb_size = sizeof(TaskAUXControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -59,6 +152,15 @@ static void MX_SPI1_Init(void);
 static void MX_FDCAN2_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_SPI2_Init(void);
+void StartDefaultTask(void *argument);
+void StartCanTask(void *argument);
+void Start24Task(void *argument);
+void Start915Task(void *argument);
+void Start868Task(void *argument);
+void StartGNSSTask(void *argument);
+void StartSDTask(void *argument);
+void StartAUXTask(void *argument);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -105,6 +207,62 @@ int main(void)
 
   /* USER CODE END 2 */
 
+  /* Init scheduler */
+  osKernelInitialize();
+
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
+  /* Create the thread(s) */
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of TaskCan */
+  TaskCanHandle = osThreadNew(StartCanTask, NULL, &TaskCan_attributes);
+
+  /* creation of Task24 */
+  Task24Handle = osThreadNew(Start24Task, NULL, &Task24_attributes);
+
+  /* creation of Task915 */
+  Task915Handle = osThreadNew(Start915Task, NULL, &Task915_attributes);
+
+  /* creation of Task868 */
+  Task868Handle = osThreadNew(Start868Task, NULL, &Task868_attributes);
+
+  /* creation of TaskGNSS */
+  TaskGNSSHandle = osThreadNew(StartGNSSTask, NULL, &TaskGNSS_attributes);
+
+  /* creation of TaskSD */
+  TaskSDHandle = osThreadNew(StartSDTask, NULL, &TaskSD_attributes);
+
+  /* creation of TaskAUX */
+  TaskAUXHandle = osThreadNew(StartAUXTask, NULL, &TaskAUX_attributes);
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -444,6 +602,150 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
+  * @brief  Function implementing the defaultTask thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void *argument)
+{
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_StartCanTask */
+/**
+* @brief Function implementing the CanTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartCanTask */
+__weak void StartCanTask(void *argument)
+{
+  /* USER CODE BEGIN StartCanTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartCanTask */
+}
+
+/* USER CODE BEGIN Header_Start24Task */
+/**
+* @brief Function implementing the Task24 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Start24Task */
+__weak void Start24Task(void *argument)
+{
+  /* USER CODE BEGIN Start24Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Start24Task */
+}
+
+/* USER CODE BEGIN Header_Start915Task */
+/**
+* @brief Function implementing the Task915 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Start915Task */
+__weak void Start915Task(void *argument)
+{
+  /* USER CODE BEGIN Start915Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Start915Task */
+}
+
+/* USER CODE BEGIN Header_Start868Task */
+/**
+* @brief Function implementing the Task868 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Start868Task */
+__weak void Start868Task(void *argument)
+{
+  /* USER CODE BEGIN Start868Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Start868Task */
+}
+
+/* USER CODE BEGIN Header_StartGNSSTask */
+/**
+* @brief Function implementing the GNSSTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartGNSSTask */
+__weak void StartGNSSTask(void *argument)
+{
+  /* USER CODE BEGIN StartGNSSTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartGNSSTask */
+}
+
+/* USER CODE BEGIN Header_StartSDTask */
+/**
+* @brief Function implementing the SDTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartSDTask */
+__weak void StartSDTask(void *argument)
+{
+  /* USER CODE BEGIN StartSDTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartSDTask */
+}
+
+/* USER CODE BEGIN Header_StartAUXTask */
+/**
+* @brief Function implementing the TaskAUX thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartAUXTask */
+__weak void StartAUXTask(void *argument)
+{
+  /* USER CODE BEGIN StartAUXTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartAUXTask */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
