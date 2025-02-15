@@ -295,7 +295,6 @@
 			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/STM32G491CET Pinout"/>
@@ -303,5 +302,17 @@
 		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/STM32G491CET Pinout"/>
 		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="compile_commands" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>compiledb</buildCommand>
+				<buildArguments>make -j16 all</buildArguments>
+				<buildTarget/>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+		</buildTargets>
 	</storageModule>
 </cproject>
