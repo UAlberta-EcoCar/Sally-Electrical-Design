@@ -39,12 +39,11 @@ void StartDriveController(void *argument) {
 //	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
 //	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
 //	osDelay(100);
- 	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
-	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
 
-	htim1.Instance->CCR1 = 10;
+
+	htim1.Instance->CCR1 = 20;
 	htim1.Instance->CCR2 = 0;
-	htim1.Instance->CCR3 = 10;
+	htim1.Instance->CCR3 = 0;
 
 	// u
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
@@ -53,23 +52,27 @@ void StartDriveController(void *argument) {
 	// w
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
 
+	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+
+
 //	HAL_GPIO_WritePin(PHASE_U_H_GPIO_Port, PHASE_U_H_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(PHASE_U_L_GPIO_Port, PHASE_U_L_Pin, GPIO_PIN_SET);
 //
-//	HAL_GPIO_WritePin(PHASE_V_H_GPIO_Port, PHASE_V_H_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PHASE_V_H_GPIO_Port, PHASE_V_H_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(PHASE_V_L_GPIO_Port, PHASE_V_L_Pin, GPIO_PIN_SET);
 //
-//	HAL_GPIO_WritePin(PHASE_W_H_GPIO_Port, PHASE_W_H_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PHASE_W_H_GPIO_Port, PHASE_W_H_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(PHASE_W_L_GPIO_Port, PHASE_W_L_Pin, GPIO_PIN_RESET);
 	uint8_t read_result[4] = { 0 };
 	/* Infinite loop */
 	for (;;) {
-		HAL_GPIO_TogglePin(GPLED_2_GPIO_Port, GPLED_2_Pin);
-		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
-		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
-		osDelay(100);
-		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
-		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+//		HAL_GPIO_TogglePin(GPLED_2_GPIO_Port, GPLED_2_Pin);
+//		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+//		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
+//		osDelay(100);
+//		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+//		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
 //		switch (step) {
 //		case 1:
 //			step1();
