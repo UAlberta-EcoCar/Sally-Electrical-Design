@@ -3015,12 +3015,6 @@
 		(color 0 0 0 0)
 		(uuid "87ba7763-40a9-4b2c-b2b3-7c9f3b50e158")
 	)
-	(junction
-		(at 85.09 53.975)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d804ce0a-7065-4dc3-b138-338db8290ca9")
-	)
 	(no_connect
 		(at 78.74 137.795)
 		(uuid "1d03f02e-60c2-429b-9e91-8a8e9988d3b2")
@@ -3378,16 +3372,6 @@
 			(type default)
 		)
 		(uuid "84ebdab3-d5ab-4a9a-ae53-1b511d82bb51")
-	)
-	(wire
-		(pts
-			(xy 85.09 53.975) (xy 90.805 53.975)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "908652b9-89fd-4879-95e7-206e7cf8d737")
 	)
 	(wire
 		(pts
@@ -3827,6 +3811,17 @@
 		)
 		(uuid "e8383bd8-1ae9-403f-8e33-c753f8117d57")
 	)
+	(label "V_BUS"
+		(at 120.65 56.515 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "87fd28d0-6162-401e-ba75-56b5336d8cad")
+	)
 	(label "DEBUG_SWCLK"
 		(at 79.375 127.635 0)
 		(fields_autoplaced yes)
@@ -3837,6 +3832,17 @@
 			(justify left bottom)
 		)
 		(uuid "8c234f2e-c4a9-4fe9-b34a-7bb476f7ecb4")
+	)
+	(label "V_BUS"
+		(at 81.28 53.975 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9170a67e-8f0f-45fd-a967-8e9940ab9dc0")
 	)
 	(label "DEBUG_SWDIO"
 		(at 79.375 130.175 0)
@@ -5358,71 +5364,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
-		(at 90.805 53.975 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "8a1d4c89-94d8-4a63-88dc-0a14d25a5ae7")
-		(property "Reference" "#PWR062"
-			(at 90.805 57.785 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 89.281 49.911 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 90.805 53.975 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 90.805 53.975 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 90.805 53.975 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "71d67b3e-d888-4198-bd50-5758a881e192")
-		)
-		(instances
-			(project "H2-Sensor-Board_Sally-R1.0"
-				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/6375abda-cf0f-4f77-9c5c-e17996bb05d8"
-					(reference "#PWR062")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
 		(at 155.575 110.49 180)
 		(unit 1)
@@ -6052,71 +5993,6 @@
 			(project "H2-Sensor-Board_Sally-R1.0"
 				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/6375abda-cf0f-4f77-9c5c-e17996bb05d8"
 					(reference "#PWR068")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 120.65 56.515 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d9420ef0-10fc-44d5-bb54-c3faa9c03bd5")
-		(property "Reference" "#PWR064"
-			(at 120.65 60.325 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 119.126 52.451 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 120.65 56.515 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 120.65 56.515 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 120.65 56.515 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1e95c1d9-dd7d-4ac1-96ef-0371d50bd024")
-		)
-		(instances
-			(project "H2-Sensor-Board_Sally-R1.0"
-				(path "/61fdd4a1-2d1e-44dc-8644-252e12d35745/6375abda-cf0f-4f77-9c5c-e17996bb05d8"
-					(reference "#PWR064")
 					(unit 1)
 				)
 			)
