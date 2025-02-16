@@ -69,7 +69,7 @@ boostData_t boost_data = {.current = {},
 uint32_t ADC1_VALUE[4];
 uint32_t ADC2_VALUE[2];
 
-const float VOLT_MCU = 3.232;
+const float VOLT_MCU = 3.244;
 
 char ScreenBuffer[32]; 
 char USBBuffer[32];
@@ -257,7 +257,7 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* init code for USB_Device */
-  MX_USB_Device_Init();
+  //MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
   for(;;)
@@ -363,22 +363,35 @@ void StartAdcConv(void *argument)
 
   HAL_ADC_Start_DMA(&hadc1, ADC1_VALUE, 4);
   HAL_ADC_Start_DMA(&hadc2, ADC2_VALUE, 2);
+
+    // Variables for moving average of boost_data.current[0]
+    float current1_buffer[10] = {0};
+    uint8_t current1_index = 0;
+    float current1_sum = 0;
+    float current1_avg = 0;
   /* Infinite loop */
   for(;;)
   {
 
 
     boost_data.current[0] = ((ADC1_VALUE[0] + 61) * ADC_VOLT_REF / CURR_TRANSFER1 - 0.510) / VOLT_TO_CURR_UNI;  //subtract less and see what happens
-    boost_data.current[1] = ((ADC1_VALUE[1] + 68) * ADC_VOLT_REF / CURR_TRANSFER2 - 0.5122) / VOLT_TO_CURR_UNI;
+    boost_data.current[1] = ((ADC1_VALUE[1] + 68) * ADC_VOLT_REF / CURR_TRANSFER2 - 0.512) / VOLT_TO_CURR_UNI;
+
+        // Update moving average for boost_data.current[0]
+        current1_sum -= current1_buffer[current1_index];
+        current1_buffer[current1_index] = boost_data.current[1];
+        current1_sum += boost_data.current[1];
+        current1_index = (current1_index + 1) % 10;
+        float current1_avg = current1_sum / 10.0;
     
 
     boost_data.voltage[0] = ADC1_VALUE[3] * ADC_VOLT_REF / VOLT_TRANSFER_OUT;   
     boost_data.voltage[1] = ADC1_VALUE[2] * ADC_VOLT_REF / VOLT_TRANSFER_IN;
 
-    sprintf(USBBuffer, "OUT CURR: %.1f IN CURR: %.1f IN VOLT: %.1f OUT VOLT: %.1f 7V ILM: %lu 12V ILM: %lu\r\n", 
-    boost_data.current[1], boost_data.current[0], boost_data.voltage[1], boost_data.voltage[0],  (uint32_t)ADC2_VALUE[0], (uint32_t)ADC2_VALUE[1]);
-
-    CDC_Transmit_FS((uint8_t *)USBBuffer, strlen(USBBuffer));
+//    sprintf(USBBuffer, "OUT CURR: %.3f IN CURR: %.3f IN VOLT: %.1f OUT VOLT: %.1f 7V ILM: %lu 12V ILM: %lu\r\n",
+//    current1_avg, boost_data.current[0], boost_data.voltage[1], boost_data.voltage[0],  (uint32_t)ADC2_VALUE[0], (uint32_t)ADC2_VALUE[1]);
+//
+//    CDC_Transmit_FS((uint8_t *)USBBuffer, strlen(USBBuffer));
 
     osDelay(500);
   }
@@ -396,39 +409,39 @@ void startScreenPrint(void *argument)
 {
   /* USER CODE BEGIN startScreenPrint */
   /* Infinite loop */
-	ssd1306_Init();
-  // Display the test bitmap for 2.5 seconds
-  ssd1306_TestDrawBitmap();
-  ssd1306_UpdateScreen();  
-  osDelay(2500);  // Delay for 2.5 seconds
-  ssd1306_Fill(Black);
-  ssd1306_UpdateScreen();
+	// ssd1306_Init();
+  // // Display the test bitmap for 2.5 seconds
+  // ssd1306_TestDrawBitmap();
+  // ssd1306_UpdateScreen();  
+  // osDelay(2500);  // Delay for 2.5 seconds
+  // ssd1306_Fill(Black);
+  // ssd1306_UpdateScreen();
 
 
-  ssd1306_TestDrawBitmap2();
-  ssd1306_UpdateScreen();  
-  ssd1306_Fill(Black);
-  ssd1306_UpdateScreen();
+  // ssd1306_TestDrawBitmap2();
+  // ssd1306_UpdateScreen();  
+  // ssd1306_Fill(Black);
+  // ssd1306_UpdateScreen();
 
   for(;;)
   {
 
-    ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
-    sprintf(ScreenBuffer, "    IN     OUT");
-    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+    // ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
+    // sprintf(ScreenBuffer, "    IN     OUT");
+    // ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-    ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
-    sprintf(ScreenBuffer, "C %.3f  %.3f", boost_data.current[0], boost_data.current[1]);
-    ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+    // ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
+    // sprintf(ScreenBuffer, "C %.2f  %.2f", boost_data.current[0], boost_data.current[1]);
+    // ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-    ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
-    sprintf(ScreenBuffer, "V %.1f %.1f ", boost_data.voltage[1], boost_data.voltage[0]);
-    ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+    // ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
+    // sprintf(ScreenBuffer, "V %.1f %.1f ", boost_data.voltage[1], boost_data.voltage[0]);
+    // ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
-    ssd1306_UpdateScreen();  // Update the screen
+    // ssd1306_UpdateScreen();  // Update the screen
 
 
-    osDelay(1);
+     osDelay(1);
 
     
   }
@@ -446,7 +459,8 @@ void StartTRKPin(void *argument)
 {
   /* USER CODE BEGIN StartTRKPin */
   uint32_t DAC_VALUE;
-  const float TRK_VOLT = 0.95F;  // Desired voltage output
+  const float OUT_VOLT = 45;
+  const float TRK_VOLT = OUT_VOLT/60;  // Desired voltage output   Equation:  Output = 60*(DAC INPUT)
 
   // Calibration values (from measurements)
   const float OFFSET = 0.005F;  // 5 mV offset
