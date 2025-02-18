@@ -14,7 +14,7 @@
 #include "spi.h"
 #include "tim.h"
 
-#define DUTY_CYCLE 50
+#define DUTY_CYCLE 10
 
 void step1();
 void step2();
@@ -23,7 +23,7 @@ void step4();
 void step5();
 void step6();
 
-uint8_t step = 0;
+uint8_t step = 1;
 volatile uint8_t hA = 0, hB = 0, hC = 0;
 void StartDriveController(void *argument) {
 	/* USER CODE BEGIN StartDriveController */
@@ -33,6 +33,20 @@ void StartDriveController(void *argument) {
 	tmc.driver_nss_port = SPI_NSCS_DRIVER_GPIO_Port;
 	tmc.hspi = &hspi3;
 
+	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
+	osDelay(100);
+	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+	osDelay(100);
+	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
+
+	osDelay(1000);
+
+	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+
 	driver_initialize(&tmc);
 
 	hA = HAL_GPIO_ReadPin(HALL_U_GPIO_Port, HALL_U_Pin);
@@ -40,66 +54,92 @@ void StartDriveController(void *argument) {
 	hC = HAL_GPIO_ReadPin(HALL_W_GPIO_Port, HALL_W_Pin);
 //	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
 //	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
-//	osDelay(100);
-
-
-	htim1.Instance->CCR1 = DUTY_CYCLE;
+	osDelay(50);
+//
+//
+	htim1.Instance->CCR1 = 10;
 	htim1.Instance->CCR2 = 0;
 	htim1.Instance->CCR3 = 0;
-
-	// u
+//
+//	// u
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 	// v
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-	// w
+//	// w
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+//
+
+//
+//
+////	HAL_GPIO_WritePin(PHASE_U_H_GPIO_Port, PHASE_U_H_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PHASE_U_L_GPIO_Port, PHASE_U_L_Pin, GPIO_PIN_SET);
+//////
+////	HAL_GPIO_WritePin(PHASE_V_H_GPIO_Port, PHASE_V_H_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PHASE_V_L_GPIO_Port, PHASE_V_L_Pin, GPIO_PIN_SET);
+//////
+//	HAL_GPIO_WritePin(PHASE_W_H_GPIO_Port, PHASE_W_H_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(PHASE_W_L_GPIO_Port, PHASE_W_L_Pin, GPIO_PIN_RESET);
+//	uint8_t read_result[4] = { 0 };
 
 	HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
-		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+	EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
 
-
-//	HAL_GPIO_WritePin(PHASE_U_H_GPIO_Port, PHASE_U_H_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(PHASE_U_L_GPIO_Port, PHASE_U_L_Pin, GPIO_PIN_SET);
-//
-	HAL_GPIO_WritePin(PHASE_V_H_GPIO_Port, PHASE_V_H_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(PHASE_V_L_GPIO_Port, PHASE_V_L_Pin, GPIO_PIN_SET);
-//
-	HAL_GPIO_WritePin(PHASE_W_H_GPIO_Port, PHASE_W_H_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(PHASE_W_L_GPIO_Port, PHASE_W_L_Pin, GPIO_PIN_RESET);
-	uint8_t read_result[4] = { 0 };
 	/* Infinite loop */
 	for (;;) {
 		HAL_GPIO_TogglePin(GPLED_2_GPIO_Port, GPLED_2_Pin);
+
+		driver_read_error(&tmc);
+
 //		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
 //		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
 //		osDelay(100);
 //		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
 //		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
-		switch (step) {
-		case 1:
-			step1();
-			break;
-		case 2:
-			step2();
-			break;
-		case 3:
-			step3();
-			break;
-		case 4:
-			step4();
-			break;
-		case 5:
-			step5();
-			break;
-		case 6:
-			step6();
-			break;
-		}
+//		switch (step) {
+//		case 1:
+//			step1();
+//			break;
+//		case 2:
+//			step2();
+//			break;
+//		case 3:
+//			step3();
+//			break;
+//		case 4:
+//			step4();
+//			break;
+//		case 5:
+//			step5();
+//			break;
+//		case 6:
+//			step6();
+//			break;
+//		}
 //		if (step > 6) {
 //			step = 1;
 //		}
 //		step++;
-		osDelay(150);
+
+//		if (GPIO_PIN_RESET
+//				== HAL_GPIO_ReadPin(GPBTN_1_GPIO_Port, GPBTN_1_Pin)) {
+//			step++;
+//			if (6 < step) {
+//				step = 1;
+//			}
+//		}
+//
+//		if (GPIO_PIN_RESET
+//				== HAL_GPIO_ReadPin(GPBTN_2_GPIO_Port, GPBTN_2_Pin)) {
+//		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+//		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_RESET);
+//		osDelay(10);
+//		HAL_GPIO_WritePin(EXT_DRIVER_EN_MCU_OUT_GPIO_Port,
+//		EXT_DRIVER_EN_MCU_OUT_Pin, GPIO_PIN_SET);
+//		}
+//		HAL_GPIO_WritePin(PHASE_U_L_GPIO_Port, PHASE_U_L_Pin, GPIO_PIN_RESET);
+		osDelay(100);
+//		HAL_GPIO_WritePin(PHASE_U_L_GPIO_Port, PHASE_U_L_Pin, GPIO_PIN_SET);
+		osDelay(100);
 	}
 
 	/* USER CODE END StartDriveController */
@@ -115,23 +155,23 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 		hC = HAL_GPIO_ReadPin(HALL_W_GPIO_Port, HALL_W_Pin);
 
 		if (hA && hB && !hC) {
-			step = 2;
-			//step2();
+			step = 1;
+			step1();
 		} else if (!hA && hB && !hC) {
-			step = 3;
-			//step3();
+			step = 2;
+			step2();
 		} else if (!hA && hB && hC) {
-			step = 4;
-			//step4();
+			step = 3;
+			step3();
 		} else if (!hA && !hB && hC) {
-			step = 5;
-			//step5();
+			step = 4;
+			step4();
 		} else if (hA && !hB && hC) {
-			step = 6;
-			//step6();
+			step = 5;
+			step5();
 		} else if (hA && !hB && !hC) {
-			step = 7;
-			//step1();
+			step = 6;
+			step6();
 		}
 	}
 }

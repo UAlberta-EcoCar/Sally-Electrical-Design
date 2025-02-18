@@ -25,13 +25,15 @@ typedef struct {
 
 int driver_initialize(driver_t *drv);
 
-int driver_spi_read(driver_t *drv, uint8_t reg_addr, uint8_t read_result[]);
+int driver_spi_read(driver_t *drv, uint8_t reg_addr, uint32_t *read_result);
 
-int driver_spi_write(driver_t *drv, uint8_t reg_addr, uint8_t write_data[]);
+int driver_spi_write(driver_t *drv, uint8_t reg_addr, uint32_t write_data);
 
 int driver_enable_bridges(driver_t *drv, int enable);
 
 int driver_reset(driver_t *drv);
+
+int driver_read_error(driver_t *drv);
 
 
 #endif /* INC_TMC6100_DRIVER_H_ */

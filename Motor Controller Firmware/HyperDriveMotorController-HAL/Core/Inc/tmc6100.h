@@ -31,7 +31,7 @@ typedef struct {
 typedef struct {
 	union {
 		struct {
-			uint8_t rest :1;
+			uint8_t reset :1;
 			uint8_t drv_otpw :1;
 			uint8_t drv_ot :1;
 			uint8_t uv_cp :1;
@@ -70,15 +70,15 @@ typedef struct {
 			uint8_t ot136 :1;
 			uint8_t ot143 :1;
 			uint8_t ot150 :1;
-			uint32_t unused :13;
-			uint8_t version :7;
+			uint32_t unused :12;
+			uint8_t version :8;
 		};
 		uint32_t reg_raw_ioin;
 		uint8_t reg_rawa_ioin[4];
 	};
 } tmc6100_ioin_t;
 
-#define TMC6100_otp_prog 0x06
+#define TMC6100_OTP_PROG 0x06
 
 typedef struct {
 	union {
@@ -91,5 +91,39 @@ typedef struct {
 		uint8_t reg_rawa_otp_prog[4];
 	};
 } tmc6100_otp_prog_t;
+
+#define TMC6100_SHORT_CONF 0x09
+
+typedef struct {
+	union {
+		struct {
+			uint8_t s2vs_level :4;
+			uint8_t s2g_level :4;
+			uint8_t shortfilter :2;
+			uint8_t shortdelay :1;
+			uint8_t retry :2;
+			uint8_t protect_parallel :1;
+			uint8_t disable_s2g :1;
+			uint8_t disable_s2vs :1;
+		};
+		uint32_t reg_raw_short_conf;
+		uint8_t reg_rawa_short_conf[4];
+	};
+} tmc6100_short_conf_t;
+
+#define TMC6100_DRV_CONF 0x0A
+
+typedef struct {
+	union {
+		struct {
+			uint16_t bbm_clks :5;
+			uint32_t unused :11;
+			uint8_t otfilter :2;
+			uint8_t drvstrength :2;
+		};
+		uint32_t reg_raw_drv_conf;
+		uint8_t reg_rawa_drv_conf[4];
+	};
+} tmc6100_drv_conf_t;
 
 #endif /* INC_TMC6100_H_ */
