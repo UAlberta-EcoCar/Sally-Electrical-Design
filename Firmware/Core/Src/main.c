@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
-#include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -49,6 +48,8 @@ I2C_HandleTypeDef hi2c2;
 
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
+
+UART_HandleTypeDef huart1;
 
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -152,6 +153,7 @@ static void MX_SPI1_Init(void);
 static void MX_FDCAN2_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_SPI2_Init(void);
+static void MX_USART1_UART_Init(void);
 void StartDefaultTask(void *argument);
 void StartCanTask(void *argument);
 void Start24Task(void *argument);
@@ -176,6 +178,7 @@ void StartAUXTask(void *argument);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -201,8 +204,8 @@ int main(void)
   MX_SPI1_Init();
   MX_FDCAN2_Init();
   MX_I2C2_Init();
-  MX_USB_Device_Init();
   MX_SPI2_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -263,6 +266,7 @@ int main(void)
   osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -290,10 +294,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI48;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV4;
@@ -345,8 +348,8 @@ static void MX_FDCAN2_Init(void)
   hfdcan2.Init.ProtocolException = DISABLE;
   hfdcan2.Init.NominalPrescaler = 16;
   hfdcan2.Init.NominalSyncJumpWidth = 1;
-  hfdcan2.Init.NominalTimeSeg1 = 2;
-  hfdcan2.Init.NominalTimeSeg2 = 2;
+  hfdcan2.Init.NominalTimeSeg1 = 1;
+  hfdcan2.Init.NominalTimeSeg2 = 1;
   hfdcan2.Init.DataPrescaler = 1;
   hfdcan2.Init.DataSyncJumpWidth = 1;
   hfdcan2.Init.DataTimeSeg1 = 1;
@@ -493,6 +496,54 @@ static void MX_SPI2_Init(void)
 }
 
 /**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart1.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart1, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart1, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -512,10 +563,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, BTN1_Pin|BTN2_Pin|TXEN_24_Pin|RXEN_24_Pin
-                          |SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin|NSS_868_Pin
-                          |DIO2_24_Pin|DIO1_24_Pin|RST_868_Pin|DIO0_868_Pin
-                          |DIO4_868_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, BTN1_Pin|BTN2_Pin|LED6_Pin|TXEN_24_Pin
+                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin
+                          |NSS_868_Pin|DIO2_24_Pin|DIO1_24_Pin|RST_868_Pin
+                          |DIO0_868_Pin|DIO4_868_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
@@ -523,17 +574,17 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin
-                          |RST_915_Pin|DIO5_915_Pin|DIO4_915_Pin|LED6_Pin
-                          |LED7_Pin|LED8_Pin, GPIO_PIN_RESET);
+                          |RST_915_Pin|DIO5_915_Pin|DIO4_915_Pin|LED7_Pin
+                          |LED8_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : BTN1_Pin BTN2_Pin TXEN_24_Pin RXEN_24_Pin
-                           SPI2_NSS_Pin SWT1_Pin NSS_915_Pin NSS_868_Pin
-                           DIO2_24_Pin DIO1_24_Pin RST_868_Pin DIO0_868_Pin
-                           DIO4_868_Pin */
-  GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|TXEN_24_Pin|RXEN_24_Pin
-                          |SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin|NSS_868_Pin
-                          |DIO2_24_Pin|DIO1_24_Pin|RST_868_Pin|DIO0_868_Pin
-                          |DIO4_868_Pin;
+  /*Configure GPIO pins : BTN1_Pin BTN2_Pin LED6_Pin TXEN_24_Pin
+                           RXEN_24_Pin SPI2_NSS_Pin SWT1_Pin NSS_915_Pin
+                           NSS_868_Pin DIO2_24_Pin DIO1_24_Pin RST_868_Pin
+                           DIO0_868_Pin DIO4_868_Pin */
+  GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|LED6_Pin|TXEN_24_Pin
+                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin
+                          |NSS_868_Pin|DIO2_24_Pin|DIO1_24_Pin|RST_868_Pin
+                          |DIO0_868_Pin|DIO4_868_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -555,11 +606,11 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : NSS_24_Pin RST_GNSS_Pin EXTINT_GNSS_Pin DIO0_915_Pin
-                           RST_915_Pin DIO5_915_Pin DIO4_915_Pin LED6_Pin
-                           LED7_Pin LED8_Pin */
+                           RST_915_Pin DIO5_915_Pin DIO4_915_Pin LED7_Pin
+                           LED8_Pin */
   GPIO_InitStruct.Pin = NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin
-                          |RST_915_Pin|DIO5_915_Pin|DIO4_915_Pin|LED6_Pin
-                          |LED7_Pin|LED8_Pin;
+                          |RST_915_Pin|DIO5_915_Pin|DIO4_915_Pin|LED7_Pin
+                          |LED8_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -583,17 +634,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(BUSY_24_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : DIO5_868_Pin */
-  GPIO_InitStruct.Pin = DIO5_868_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(DIO5_868_GPIO_Port, &GPIO_InitStruct);
-
   /*Configure GPIO pin : LED5_Pin */
   GPIO_InitStruct.Pin = LED5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(LED5_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : DIO5_868_Pin */
+  GPIO_InitStruct.Pin = DIO5_868_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(DIO5_868_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
@@ -745,6 +796,27 @@ __weak void StartAUXTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END StartAUXTask */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 }
 
 /**

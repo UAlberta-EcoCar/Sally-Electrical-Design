@@ -62,6 +62,8 @@ void Error_Handler(void);
 #define BTN1_GPIO_Port GPIOC
 #define BTN2_Pin GPIO_PIN_14
 #define BTN2_GPIO_Port GPIOC
+#define LED6_Pin GPIO_PIN_15
+#define LED6_GPIO_Port GPIOC
 #define XCLK_Pin GPIO_PIN_0
 #define XCLK_GPIO_Port GPIOF
 #define NOT_FAULT_Pin GPIO_PIN_10
@@ -112,6 +114,8 @@ void Error_Handler(void);
 #define SW_DIO_GPIO_Port GPIOA
 #define SW_CLK_Pin GPIO_PIN_14
 #define SW_CLK_GPIO_Port GPIOA
+#define LED5_Pin GPIO_PIN_15
+#define LED5_GPIO_Port GPIOA
 #define RST_868_Pin GPIO_PIN_10
 #define RST_868_GPIO_Port GPIOC
 #define DIO0_868_Pin GPIO_PIN_11
@@ -126,10 +130,6 @@ void Error_Handler(void);
 #define DIO5_915_GPIO_Port GPIOB
 #define DIO4_915_Pin GPIO_PIN_5
 #define DIO4_915_GPIO_Port GPIOB
-#define LED5_Pin GPIO_PIN_6
-#define LED5_GPIO_Port GPIOB
-#define LED6_Pin GPIO_PIN_7
-#define LED6_GPIO_Port GPIOB
 #define LED7_Pin GPIO_PIN_8
 #define LED7_GPIO_Port GPIOB
 #define LED8_Pin GPIO_PIN_9
