@@ -409,41 +409,41 @@ void startScreenPrint(void *argument)
 {
   /* USER CODE BEGIN startScreenPrint */
   /* Infinite loop */
-	// ssd1306_Init();
-  // // Display the test bitmap for 2.5 seconds
-  // ssd1306_TestDrawBitmap();
-  // ssd1306_UpdateScreen();  
-  // osDelay(2500);  // Delay for 2.5 seconds
-  // ssd1306_Fill(Black);
-  // ssd1306_UpdateScreen();
+	 ssd1306_Init();
+   // Display the test bitmap for 2.5 seconds
+   ssd1306_TestDrawBitmap();
+   ssd1306_UpdateScreen();
+   osDelay(2500);  // Delay for 2.5 seconds
+   ssd1306_Fill(Black);
+   ssd1306_UpdateScreen();
 
 
-  // ssd1306_TestDrawBitmap2();
-  // ssd1306_UpdateScreen();  
-  // ssd1306_Fill(Black);
-  // ssd1306_UpdateScreen();
+   ssd1306_TestDrawBitmap2();
+   ssd1306_UpdateScreen();
+   ssd1306_Fill(Black);
+   ssd1306_UpdateScreen();
 
   for(;;)
   {
 
-    // ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
-    // sprintf(ScreenBuffer, "    IN     OUT");
-    // ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+     ssd1306_SetCursor(0, 1);  // Adjust Y position as needed
+     sprintf(ScreenBuffer, "    IN     OUT");
+     ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-    // ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
-    // sprintf(ScreenBuffer, "C %.2f  %.2f", boost_data.current[0], boost_data.current[1]);
-    // ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+     ssd1306_SetCursor(0, 15);  // Adjust Y position as needed
+     sprintf(ScreenBuffer, "C %.2f  %.2f", boost_data.current[0], boost_data.current[1]);
+     ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-    // ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
-    // sprintf(ScreenBuffer, "V %.1f %.1f ", boost_data.voltage[1], boost_data.voltage[0]);
-    // ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+     ssd1306_SetCursor(0, 40);  // Adjust Y position as needed
+     sprintf(ScreenBuffer, "V %.1f %.1f ", boost_data.voltage[1], boost_data.voltage[0]);
+     ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
-    // ssd1306_UpdateScreen();  // Update the screen
+     ssd1306_UpdateScreen();  // Update the screen
 
 
      osDelay(1);
 
-    
+
   }
   /* USER CODE END startScreenPrint */
 }
