@@ -206,19 +206,9 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
-#define SET_BRIGHTNESS(x) (uint32_t)(65535 * x/100)
   while (1)
   {
-    htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
-    htim1.Instance->CCR3 = SET_BRIGHTNESS(0);
-    htim1.Instance->CCR2 = SET_BRIGHTNESS(0);
-    htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
-    osDelay(50);
-    htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
-    htim1.Instance->CCR3 = SET_BRIGHTNESS(20);
-    htim1.Instance->CCR2 = SET_BRIGHTNESS(30);
-    htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
-    osDelay(50);
+    // hang in this while loop
   }
   /* USER CODE END Error_Handler_Debug */
 }

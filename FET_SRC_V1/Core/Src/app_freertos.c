@@ -25,9 +25,12 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "adc.h"
+#include "debug-log.h"
 #include "ecocar_can.h"
 #include "exported_typedef.h"
 #include "fdcan.h"
+#include "stm32g4xx_hal_def.h"
+#include "stm32g4xx_hal_fdcan.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
@@ -45,6 +48,7 @@ typedef enum {
   STANDBY = 500,
   CHARGING = 100,
   RUNNING = 10,
+  ALARM = 1
 } ledState_t;
 
 typedef struct {
@@ -68,14 +72,13 @@ typedef struct {
 /* USER CODE BEGIN Variables */
 ledState_t led_state = STANDBY;
 fetState_t fet_state = FET_STBY;
-fetData_t fet_data = {.current = {0x00001234, 0x00001234, 0x00001234},
-                      .voltage = {0x00005678, 0x00005678}};
+bool lock_state = false;
 
-const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
-const float currAdcConv = (3.278f / 4096) / (9100.0f / (9100 + 4700));
-const uint8_t currSenseVCC = 5;
-const float currZeroOffset = 0.515;
-const float currSensitivity = 133.0f / 1000; // V/A
+// Local data
+FDCAN_FetPack_t fet_data = {0};
+
+// External boards data
+FDCAN_FccPack_t fcc_data = {0};
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -139,16 +142,16 @@ const osThreadAttr_t blinkyLed_attributes = {
     .priority = (osPriority_t)osPriorityNormal4,
 };
 /* Definitions for usbReceive */
-osThreadId_t usbReceiveHandle;
-uint32_t usbReceiveBuffer[512];
-osStaticThreadDef_t usbReceiveControlBlock;
-const osThreadAttr_t usbReceive_attributes = {
+osThreadId_t usbHandle;
+uint32_t usbBuffer[512];
+osStaticThreadDef_t usbControlBlock;
+const osThreadAttr_t usb_attributes = {
     .name = "usbReceive",
-    .stack_mem = &usbReceiveBuffer[0],
-    .stack_size = sizeof(usbReceiveBuffer),
-    .cb_mem = &usbReceiveControlBlock,
-    .cb_size = sizeof(usbReceiveControlBlock),
-    .priority = (osPriority_t)osPriorityAboveNormal1,
+    .stack_mem = &usbBuffer[0],
+    .stack_size = sizeof(usbBuffer),
+    .cb_mem = &usbControlBlock,
+    .cb_size = sizeof(usbControlBlock),
+    .priority = (osPriority_t)osPriorityNormal5,
 };
 /* Definitions for canQueRxHeader */
 osMessageQueueId_t canQueRxHeaderHandle;
@@ -182,7 +185,7 @@ const osMessageQueueAttr_t usbQueReceive_attributes = {
     .mq_size = sizeof(usbQueReceiveBuffer)};
 /* Definitions for usbQueSend */
 osMessageQueueId_t usbQueSendHandle;
-uint8_t usbQueSendBuffer[512 * sizeof(char)];
+uint8_t usbQueSendBuffer[512 * sizeof(uint8_t)];
 osStaticMessageQDef_t usbQueSendControlBlock;
 const osMessageQueueAttr_t usbQueSend_attributes = {
     .name = "usbQueSend",
@@ -207,7 +210,11 @@ float adcToVolt(uint32_t adc_value);
 
 int _write(int file, char *ptr, int len) {
   UNUSED(file);
-  CDC_Transmit_FS((uint8_t *)ptr, len);
+  for (uint32_t i = 0; i < (uint32_t)len; i++) {
+    if (osMessageQueuePut(usbQueSendHandle, ptr + i, 0, 0) != osOK) {
+      Error_Handler();
+    }
+  }
   return len;
 }
 
@@ -234,10 +241,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
     }
   }
 }
-void funCTION(void *argument);
+
+void alarmLEDS(void);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
-
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -245,7 +252,7 @@ void StartCanReceive(void *argument);
 void StartCanSend(void *argument);
 void StartAdcConv(void *argument);
 void StartBlinky(void *argument);
-extern void StartUsbReceive(void *argument);
+extern void StartUsb(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -320,7 +327,7 @@ void MX_FREERTOS_Init(void) {
   blinkyLedHandle = osThreadNew(StartBlinky, NULL, &blinkyLed_attributes);
 
   /* creation of usbReceive */
-  usbReceiveHandle = osThreadNew(StartUsbReceive, NULL, &usbReceive_attributes);
+  usbHandle = osThreadNew(StartUsb, NULL, &usb_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -345,34 +352,40 @@ void StartDefaultTask(void *argument) {
   UNUSED(argument);
 
   /* Infinite loop */
-  fet_state = FET_STBY;
-
   for (;;) {
-    switch (fet_state) {
-    case FET_STBY:
-      // All pins should be in off state. Capacitors discharge through
-      // resistor by default.
+    if (lock_state == true) {
       HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
       HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
       HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
       HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
-      led_state = STANDBY;
-      break;
-    case FET_CHRGE:
-      // Allow fuel cell power through to main bus, into caps, and shut off
-      // resistor
-      HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin,
-                        GPIO_PIN_SET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
-      led_state = CHARGING;
-      // if CAPACITOR VOL > some value -> go to RUN
-      break;
-    case FET_RUN:
-      HAL_GPIO_WritePin(GPIOA,
-                        CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
-                        GPIO_PIN_SET);
-      led_state = RUNNING;
-      break;
+      led_state = ALARM;
+    } else {
+      switch (fet_state) {
+      case FET_STBY:
+        // All pins should be in off state. Capacitors discharge through
+        // resistor by default.
+        HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+        led_state = STANDBY;
+        break;
+      case FET_CHRGE:
+        // Allow fuel cell power through to main bus, into caps, and shut off
+        // resistor
+        HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin,
+                          GPIO_PIN_SET);
+        HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+        led_state = CHARGING;
+        // if CAPACITOR VOL > some value -> go to RUN
+        break;
+      case FET_RUN:
+        HAL_GPIO_WritePin(GPIOA,
+                          CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
+                          GPIO_PIN_SET);
+        led_state = RUNNING;
+        break;
+      }
     }
     osDelay(1);
   }
@@ -393,50 +406,38 @@ void StartCanReceive(void *argument) {
    * IS ALLOWED TO BE USED OTHER THAN THE SEMAPHORE
    */
   UNUSED(argument);
-  FDCAN_RxHeaderTypeDef myheader = {0};
+  FDCAN_RxHeaderTypeDef localRxHeader = {0};
   uint8_t ret[64] = {0};
-  FDCAN_FetPack_t mypack = {0};
   /* Infinite loop */
   for (;;) {
-    if (osMessageQueueGet(canQueRxHeaderHandle, &myheader.Identifier, 0,
+    if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier, 0,
                           osWaitForever) == osOK) {
-      switch (myheader.Identifier) {
-      case 0x11:
-        if (htim2.Instance->CCR1 == SET_BRIGHTNESS(20)) {
-          htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
-        } else {
+      if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.DataLength, 0,
+                            0) != osOK) {
+        Error_Handler();
+      }
+      for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength); i++) {
+        if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0) != osOK) {
+          Error_Handler();
+        }
+      }
+      switch (localRxHeader.Identifier) {
+      case FDCAN_H2ALARM_ID:
+        // H2 ALARM
+        if (ret[0] == 1) {
+          lock_state = true;
+        }
+        break;
+      case FDCAN_SYNCLED_ID:
+        // CAN SYNC LED
+        if (ret[0] == 1) {
           htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
-        }
-        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
-          osMessageQueueGet(canQueRxDataHandle, &mypack.FDCAN_RawFetPack[i], 0, 0);
-        }
-        /*memcpy(mypack.FDCAN_RawFetPack, ret,*/
-        /*       mapDlcToBytes(myheader.DataLength));*/
-        /*printf("RELAY STATE: %d IN VOLT: %d CAP VOLT: %d CAP CURR: %d RES "*/
-        /*       "CURR: %d OUT CURR %d\r\n",*/
-        /*       mypack.fet_config, mypack.input_volt, mypack.cap_volt,*/
-        /*       mypack.cap_curr, mypack.res_curr, mypack.out_curr);*/
-        break;
-      case 0x12:
-        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
-          osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
+        } else {
+          htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
         }
         break;
-      case 0x13:
-        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
-          osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
-        }
-        break;
-      case 0x14:
-        // Sync LED flash task
-        osMessageQueueGet(canQueRxHeaderHandle, &myheader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myheader.DataLength); i++) {
-          osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0);
-          htim1.Instance->CCR1 = SET_BRIGHTNESS(0); // set me to something
-        }
+      case FDCAN_FCCPACK_ID:
+        memcpy(&fcc_data, ret, mapDlcToBytes(localRxHeader.DataLength));
         break;
       default:
         break;
@@ -457,60 +458,46 @@ void StartCanReceive(void *argument) {
 void StartCanSend(void *argument) {
   /* USER CODE BEGIN StartCanSend */
   UNUSED(argument);
-  FDCAN_TxHeaderTypeDef fet_TxHeader;
+  FDCAN_TxHeaderTypeDef localTxHeader;
+  const uint8_t msg_delay = 100;
+  uint8_t can_sync_led = 0;
 
-  fet_TxHeader.IdType = FDCAN_STANDARD_ID;
-  fet_TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-  fet_TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-  fet_TxHeader.BitRateSwitch = FDCAN_BRS_ON;
-  fet_TxHeader.FDFormat = FDCAN_FD_CAN;
-  fet_TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-  fet_TxHeader.MessageMarker = 0;
+  localTxHeader.IdType = FDCAN_STANDARD_ID;
+  localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
+  localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+  localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
+  localTxHeader.FDFormat = FDCAN_FD_CAN;
+  localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+  localTxHeader.MessageMarker = 0;
   /* Infinite loop */
-
-  FDCAN_FetPack_t mypack = {0};
-  mypack.fet_config = (uint32_t)fet_state;
-  mypack.input_volt = (uint32_t)(11.0454389f * 10000);
-  mypack.cap_volt = (uint32_t)(22.0454389f * 10000);
-  mypack.cap_curr = (uint32_t)(33.0454389f * 10000);
-  mypack.res_curr = (uint32_t)(44.0454389f * 10000);
-  mypack.out_curr = (uint32_t)(55.0454389f * 10000);
-
   for (;;) {
-    /*fet_TxHeader.Identifier = 0x11;*/
-    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
-    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
-    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack)
-     * !=*/
-    /*    HAL_OK) {*/
-    /*  Error_Handler();*/
-    /*}*/
-    /*osDelay(1);*/
-    /*fet_TxHeader.Identifier = 0x12;*/
-    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
-    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
-    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack)
-     * !=*/
-    /*    HAL_OK) {*/
-    /*  Error_Handler();*/
-    /*}*/
-    /*fet_TxHeader.Identifier = 0x13;*/
-    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
-    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
-    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack)
-     * !=*/
-    /*    HAL_OK) {*/
-    /*  Error_Handler();*/
-    /*}*/
-    /*fet_TxHeader.Identifier = 0x14;*/
-    /*fet_TxHeader.DataLength = FDCAN_DLC_BYTES_24;*/
-    /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fet_TxHeader,*/
-    /*                                  (uint8_t *)&mypack.FDCAN_RawFetPack)
-     * !=*/
-    /*    HAL_OK) {*/
-    /*  Error_Handler();*/
-    /*}*/
-    osDelay(100);
+    // Sync LEDs
+    localTxHeader.Identifier = FDCAN_SYNCLED_ID;
+    localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
+    can_sync_led = !can_sync_led;
+    if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+      if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+                                        &can_sync_led) != HAL_OK) {
+        Error_Handler();
+      }
+    } else {
+      log_warn("Tx Buffer Full");
+    }
+    osDelay(msg_delay);
+
+    // Transmit data
+    localTxHeader.Identifier = FDCAN_FETPACK_ID;
+    localTxHeader.DataLength = FDCAN_DLC_BYTES_24;
+    if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+      if (HAL_FDCAN_AddMessageToTxFifoQ(
+              &hfdcan2, &localTxHeader,
+              (uint8_t *)&fet_data.FDCAN_RawFetPack) != HAL_OK) {
+        Error_Handler();
+      }
+    } else {
+      log_warn("Tx Buffer Full");
+    }
+    osDelay(msg_delay);
   }
   /* USER CODE END StartCanSend */
 }
@@ -531,14 +518,19 @@ void StartAdcConv(void *argument) {
   HAL_ADC_Start_DMA(&hadc2, &ADC2_Conversion, 1);
   /* Infinite loop */
   for (;;) {
-    for (int i = 0; i < 3; i++) {
-      fet_data.current[i] = adcToCurr(ADC1_Conversion[i]);
-    }
-    fet_data.voltage[0] = adcToVolt(ADC1_Conversion[3]);
-    fet_data.voltage[1] = adcToVolt(ADC2_Conversion);
-    osDelay(1);
-    printf("IN VOLT: %f | CAP VOLT: %f\r\n", fet_data.voltage[0],
-           fet_data.voltage[1]);
+    /*for (int i = 0; i < 3; i++) {*/
+    /*  fet_data.current[i] = adcToCurr(ADC1_Conversion[i]);*/
+    /*}*/
+    fet_data.cap_curr =
+        (uint32_t)adcToCurr(ADC1_Conversion[0]) * FDCAN_FOUR_FLT_PREC;
+    fet_data.res_curr =
+        (uint32_t)adcToCurr(ADC1_Conversion[1]) * FDCAN_FOUR_FLT_PREC;
+    fet_data.out_curr =
+        (uint32_t)adcToCurr(ADC1_Conversion[2]) * FDCAN_FOUR_FLT_PREC;
+    fet_data.input_volt =
+        (uint32_t)adcToVolt(ADC1_Conversion[3]) * FDCAN_FOUR_FLT_PREC;
+    fet_data.cap_volt =
+        (uint32_t)adcToVolt(ADC2_Conversion) * FDCAN_FOUR_FLT_PREC;
     osDelay(1000);
   }
   /* USER CODE END StartAdcConv */
@@ -556,18 +548,38 @@ void StartBlinky(void *argument) {
   UNUSED(argument);
   /* Infinite loop */
   for (;;) {
-    htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
-    osDelay(led_state);
-    htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
-    osDelay(led_state);
+    if (led_state != ALARM) {
+      htim3.Instance->CCR3 = SET_BRIGHTNESS(70);
+      osDelay(led_state);
+      htim3.Instance->CCR3 = SET_BRIGHTNESS(0);
+      osDelay(led_state);
+    } else {
+      alarmLEDS();
+    }
   }
   /* USER CODE END StartBlinky */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-void funCTION(void *argument) {
-  UNUSED(argument);
+
+// Implementing USB sending in StartUsb task
+void doSendUsbTask(void) {
+  char ret[64];
+  uint8_t iter = 0;
+
+  if (osMessageQueueGetCount(usbQueSendHandle) > 0) {
+    osDelay(10); // let queue fill up just in case characters are just beginning
+                 // to enter the queue
+    do {
+      osMessageQueueGet(usbQueSendHandle, &ret[iter], 0, 0);
+    } while (ret[iter++] != '\n');
+    // TODO: Verify the iter length is proper for CDC
+    CDC_Transmit_FS((uint8_t *)ret, iter);
+  }
+}
+
+void alarmLEDS(void) {
   htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
   osDelay(50);
   htim1.Instance->CCR3 = SET_BRIGHTNESS(20);
@@ -587,14 +599,15 @@ void funCTION(void *argument) {
 }
 
 float adcToVolt(uint32_t value) {
-  float ret;
-  ret = value * voltAdcConv;
-  return ret;
+  const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
+  return value * voltAdcConv;
 }
+
 float adcToCurr(uint32_t value) {
-  float ret;
-  ret = (value * voltAdcConv - currZeroOffset) / currSensitivity;
-  return ret;
+  const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
+  const float currZeroOffset = 0.515;
+  const float currSensitivity = 133.0f / 1000; // V/A
+  return (value * voltAdcConv - currZeroOffset) / currSensitivity;
 }
 
 /* USER CODE END Application */
