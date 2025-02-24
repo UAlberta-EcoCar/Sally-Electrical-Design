@@ -62,12 +62,25 @@ void MX_FDCAN2_Init(void)
   /* USER CODE BEGIN FDCAN2_Init 2 */
   FDCAN_FilterTypeDef sFilterConfig;
 
+  // Accept high priority messages
   sFilterConfig.IdType = FDCAN_STANDARD_ID;
   sFilterConfig.FilterIndex = 0;
   sFilterConfig.FilterType = FDCAN_FILTER_MASK;
   sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-  sFilterConfig.FilterID1 = 0x1F;
-  sFilterConfig.FilterID2 = 0x10;
+  sFilterConfig.FilterID1 = 0x000; // 0b00000000000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
+
+  // Accept messages from Fet Board
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 1;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x010; // 0b00000100000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
   if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
     /* Filter configuration Error */
     Error_Handler();

@@ -22,12 +22,17 @@
 #include "cmsis_os.h"
 #include "cmsis_os2.h"
 #include "main.h"
+#include "stm32g4xx.h"
+#include "stm32g4xx_hal_fdcan.h"
+#include "stm32g4xx_hal_gpio.h"
 #include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ADS1115.h"
-#include "ecocan/ecocar_can.h"
+#include "debug-log.h"
+#include "ecocar_can.h"
+#include "exported_typedef.h"
 #include "fdcan.h"
 #include "ssd1306.h"
 #include "ssd1306_conf.h"
@@ -36,7 +41,6 @@
 #include "tim.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
-#include "util/typedef/exported_typedef.h"
 #include <math.h>
 #include <stdint.h>
 
@@ -48,8 +52,6 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticTimer_t osStaticTimerDef_t;
 /* USER CODE BEGIN PTD */
 
-volatile fetState_t currentState = FET_STBY;
-fetState_t prevState = FET_STBY;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -64,9 +66,13 @@ fetState_t prevState = FET_STBY;
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-fetState_t fet_state;
 uint32_t TachTracker[4] = {0};
 FDCAN_FccPack_t fc_data = {0};
+FDCAN_FetPack_t fet_data = {0};
+
+uint8_t button_flags = 0x00;
+
+fetState_t fet_state = FET_STBY;
 
 // Default Purge values
 volatile uint32_t purgeDelay_ms = 15000; // time delay between purge is ms
@@ -136,7 +142,7 @@ const osThreadAttr_t fuelCellData_attributes = {
     .priority = (osPriority_t)osPriorityNormal3,
 };
 /* Definitions for RxHeaderQue */
-osMessageQueueId_t RxHeaderQueHandle;
+osMessageQueueId_t canQueRxHeaderHandle;
 uint8_t RxHeaderQueBuffer[512 * sizeof(uint32_t)];
 osStaticMessageQDef_t RxHeaderQueControlBlock;
 const osMessageQueueAttr_t RxHeaderQue_attributes = {
@@ -146,7 +152,7 @@ const osMessageQueueAttr_t RxHeaderQue_attributes = {
     .mq_mem = &RxHeaderQueBuffer,
     .mq_size = sizeof(RxHeaderQueBuffer)};
 /* Definitions for RxDataQue */
-osMessageQueueId_t RxDataQueHandle;
+osMessageQueueId_t canQueRxDataHandle;
 uint8_t RxDataQueBuffer[512 * sizeof(uint8_t)];
 osStaticMessageQDef_t RxDataQueControlBlock;
 const osMessageQueueAttr_t RxDataQue_attributes = {
@@ -166,6 +172,19 @@ const osTimerAttr_t purgetimer_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 
+/* Definitions for usbReceive */
+osThreadId_t usbHandle;
+uint32_t usbBuffer[512];
+osStaticThreadDef_t usbControlBlock;
+const osThreadAttr_t usb_attributes = {
+    .name = "usbReceive",
+    .stack_mem = &usbBuffer[0],
+    .stack_size = sizeof(usbBuffer),
+    .cb_mem = &usbControlBlock,
+    .cb_size = sizeof(usbControlBlock),
+    .priority = (osPriority_t)osPriorityNormal5,
+};
+
 // Not using cubemx to implement this timer
 osTimerId_t tachTimerHandle;
 osStaticTimerDef_t tachTimerControlBlock;
@@ -175,12 +194,28 @@ const osTimerAttr_t tachTimer_attributes = {
     .cb_size = sizeof(tachTimerControlBlock),
 };
 
+/* Definitions for usbQueReceive */
+osMessageQueueId_t usbQueReceiveHandle;
+uint8_t usbQueReceiveBuffer[512 * sizeof(char)];
+osStaticMessageQDef_t usbQueReceiveControlBlock;
+const osMessageQueueAttr_t usbQueReceive_attributes = {
+    .name = "usbQueReceive",
+    .cb_mem = &usbQueReceiveControlBlock,
+    .cb_size = sizeof(usbQueReceiveControlBlock),
+    .mq_mem = &usbQueReceiveBuffer,
+    .mq_size = sizeof(usbQueReceiveBuffer)};
+/* Definitions for usbQueSend */
+osMessageQueueId_t usbQueSendHandle;
+uint8_t usbQueSendBuffer[512 * sizeof(char)];
+osStaticMessageQDef_t usbQueSendControlBlock;
+const osMessageQueueAttr_t usbQueSend_attributes = {
+    .name = "usbQueSend",
+    .cb_mem = &usbQueSendControlBlock,
+    .cb_size = sizeof(usbQueSendControlBlock),
+    .mq_mem = &usbQueSendBuffer,
+    .mq_size = sizeof(usbQueSendBuffer)};
+
 /* USER CODE BEGIN FunctionPrototypes */
-int _write(int file, char *ptr, int len) {
-  UNUSED(file);
-  CDC_Transmit_FS((uint8_t *)ptr, (uint16_t)len);
-  return len;
-}
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
                                uint32_t RxFifo0ITs) {
@@ -198,17 +233,18 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
       /* Notification Error */
       Error_Handler();
     }
-    osMessageQueuePut(RxHeaderQueHandle, &RxHeader.Identifier, 0, 0);
-    osMessageQueuePut(RxHeaderQueHandle, &RxHeader.DataLength, 0, 0);
+    osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
+    osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
     for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
-      osMessageQueuePut(RxDataQueHandle, &RxData[i], 0, 0);
+      osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
     }
   }
 }
 
+uint32_t lastTicks = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
   /* Prevent unused argument(s) compilation warning */
-  //  UNUSED(GPIO_Pin);
+  uint32_t ticks = osKernelGetTickCount();
   switch (GPIO_Pin) {
   case TACH1_Pin:
     TachTracker[0]++;
@@ -224,30 +260,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     break;
 
   case BTN1_Pin: // GPA
-    // TESTING OF STATE SWITCHING/BUTTON INTERRUPT.
-    // MUST BE MODIFIED BEFORE LIVE TEST
-    // pseudocode to actual function
-    /*
-     * ButtonStatus = PRESSED(ON) - or something like that
-     * CanMessage = ButtonStatus
-     * AddMessageToSendQ(CanMessage)
-     * ButtonStatus = OFF
-     *
-     * OR
-     *
-     * if buttonPressed
-     * SendCanMessage(SWITCH_STATES) something to that degree.
-     * end
-     */
+    if (ticks - lastTicks >= 1000) {
+      lastTicks = ticks;
 
-    // We just need to toggle the state no?
-    // Probably need to send out CAN message on the bus telling
-    // fet board to toggle state. There is a chance that the
-    // button gets pressed again before fet board toggles.
-    if (currentState == FET_STBY) {
-      currentState = FET_CHRGE;
-    } else {
-      currentState = FET_STBY;
+      // Trigger a FET state change
+      SET_BIT(button_flags, 0x01);
     }
     break;
   case BTN2_Pin: // GPB
@@ -274,6 +291,7 @@ void StartTaskSend(void *argument);
 void StartValveControl(void *argument);
 void StartFuelCellData(void *argument);
 void purgeValveTimer(void *argument);
+extern void StartUsb(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -301,22 +319,31 @@ void MX_FREERTOS_Init(void) {
                                 &purgetimer_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
-  purgetimerHandle = osTimerNew(calcTachRpmTimer, osTimerPeriodic, NULL,
-                                &tachTimer_attributes);
+  tachTimerHandle = osTimerNew(calcTachRpmTimer, osTimerPeriodic, NULL,
+                               &tachTimer_attributes);
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
   /* creation of RxHeaderQue */
-  RxHeaderQueHandle =
+  canQueRxHeaderHandle =
       osMessageQueueNew(512, sizeof(uint32_t), &RxHeaderQue_attributes);
 
   /* creation of RxDataQue */
-  RxDataQueHandle =
+  canQueRxDataHandle =
       osMessageQueueNew(512, sizeof(uint8_t), &RxDataQue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+
+  /* creation of usbQueReceive */
+  usbQueReceiveHandle =
+      osMessageQueueNew(512, sizeof(char), &usbQueReceive_attributes);
+
+  /* creation of usbQueSend */
+  usbQueSendHandle =
+      osMessageQueueNew(512, sizeof(char), &usbQueSend_attributes);
+
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -341,7 +368,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-
+  usbHandle = osThreadNew(StartUsb, NULL, &usb_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -408,29 +435,52 @@ void StartDefaultTask(void *argument) {
 void StartTaskReceive(void *argument) {
   /* USER CODE BEGIN StartTaskReceive */
   /* Infinite loop */
-  FDCAN_RxHeaderTypeDef myHeader = {0};
-  uint8_t rxData[64] = {0};
+  FDCAN_RxHeaderTypeDef localRxHeader = {0};
+  uint8_t ret[64] = {0};
 
   /* TODO: Implement receive CAN stuff */
 
   for (;;) {
-    if (osMessageQueueGet(RxHeaderQueHandle, &myHeader.Identifier, 0,
+    if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier, 0,
                           osWaitForever) == osOK) {
-      switch (myHeader.Identifier) {
-      case 0x11:
-        HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-        osMessageQueueGet(RxHeaderQueHandle, &myHeader.DataLength, 0, 0);
-        for (uint32_t i = 0; i < mapDlcToBytes(myHeader.DataLength); i++) {
-          osMessageQueueGet(RxDataQueHandle, &rxData[i], 0, 0);
+      if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.DataLength, 0,
+                            0) != osOK) {
+        Error_Handler();
+      }
+      for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength); i++) {
+        if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0) != osOK) {
+          Error_Handler();
         }
-        // memcpy here to the appropriate raw pack
+      }
+      switch (localRxHeader.Identifier) {
+      case FDCAN_H2ALARM_ID:
+        // H2 ALARM
+        if (ret[0] == 1) {
+          // Once this flag is raised, system reset needs to occur
+          // to clear
+          SET_BIT(button_flags, 0x80);
+        }
         break;
-      case 0x12:
+      case FDCAN_SYNCLED_ID:
+        // CAN SYNC LED
+        if (ret[0] == 1) {
+          HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+        } else {
+          HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+        }
+        log_info("Syncing LED!");
         break;
-      case 0x13:
-        break;
-      case 0x14:
-        break;
+      case FDCAN_FETPACK_ID:
+        memcpy(&fet_data.FDCAN_RawFetPack, ret,
+               mapDlcToBytes(localRxHeader.DataLength));
+
+        // It is possible for the fet state to be updated via usb so
+        // we should ensure that this board state aligns with it.
+        if (fet_state != fet_data.fet_config) {
+          log_info("Updating FCC (0x%x) state to align with FET (0x%x)",
+                   fet_state, (unsigned int)fet_data.fet_config);
+          fet_state = fet_data.fet_config;
+        }
       default:
         break;
       }
@@ -450,27 +500,63 @@ void StartTaskReceive(void *argument) {
 void StartTaskSend(void *argument) {
   /* USER CODE BEGIN StartTaskSend */
   /* Infinite loop */
+  UNUSED(argument);
 
-  FDCAN_TxHeaderTypeDef fuelCell_TxHeader;
+  FDCAN_TxHeaderTypeDef localTxHeader;
+  const uint8_t msg_delay = 10;
+  uint8_t updateState;
 
-  fuelCell_TxHeader.IdType = FDCAN_STANDARD_ID;
-  fuelCell_TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-  fuelCell_TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-  fuelCell_TxHeader.BitRateSwitch = FDCAN_BRS_ON;
-  fuelCell_TxHeader.FDFormat = FDCAN_FD_CAN;
-  fuelCell_TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-  fuelCell_TxHeader.MessageMarker = 0;
 
-  uint8_t txdata[64] = {0};
+  localTxHeader.IdType = FDCAN_STANDARD_ID;
+  localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
+  localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+  localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
+  localTxHeader.FDFormat = FDCAN_FD_CAN;
+  localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+  localTxHeader.MessageMarker = 0;
 
-  /* TODO: Implement proper CAN stuff */
   for (;;) {
-    fuelCell_TxHeader.Identifier = 0x11;
-    fuelCell_TxHeader.DataLength = FDCAN_DLC_BYTES_24;
-    HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &fuelCell_TxHeader, txdata);
-    osDelay(100);
+    localTxHeader.Identifier = FDCAN_FCCPACK_ID;
+    localTxHeader.DataLength = FDCAN_DLC_BYTES_24;
+    if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+      if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+                                        (uint8_t *)&fc_data.FDCAN_RawFccPack) !=
+          HAL_OK) {
+        Error_Handler();
+      }
+    } else {
+      log_warn("Tx Buffer Full");
+    }
+    osDelay(msg_delay);
+
+    // If the appropriate button flag is raised and bit 8 is not raised (h2
+    // alarm) try to send a new state to FET board
+    if (READ_BIT(button_flags, 0x01) == 1 &&
+        READ_BIT(button_flags, 0x80) == 0) {
+
+      localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
+      localTxHeader.DataLength = FDCAN_DLC_BYTES_4;
+
+      // If in STBY go to CHRGE otherwise goto STBY
+      updateState = (fet_state == FET_STBY) ? FET_CHRGE : FET_STBY;
+
+      if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+
+        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+                                          (uint8_t *)&updateState) != HAL_OK) {
+          Error_Handler();
+        }
+
+        // Clear the button flag
+        CLEAR_BIT(button_flags, 0x01);
+      } else {
+        // Button flag not cleared
+        log_warn("Tx Buffer Full: button flag 0x01 not cleared");
+      }
+    }
+    osDelay(msg_delay);
+    /* USER CODE END StartTaskSend */
   }
-  /* USER CODE END StartTaskSend */
 }
 
 /* USER CODE BEGIN Header_valveContrl */
@@ -484,56 +570,43 @@ void StartValveControl(void *argument) {
   /* USER CODE BEGIN valveContrl */
   /* Infinite loop */
   uint8_t status;
+  uint8_t startupPurge = 0;
   for (;;) {
     // returns 1 or 0 depending on status
     status = osTimerIsRunning(purgetimerHandle);
 
     // Switch through valid solenoid states
-    switch (currentState) {
-    case FET_STBY:
+    if (fet_state == FET_STBY) {
       HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin, GPIO_PIN_RESET);
       HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+
+      if (status == 1) {
+        osTimerStop(purgetimerHandle); // kill purge cycle
+      }
 
       HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 
-      if (status) {
-        osTimerStop(purgetimerHandle); // kill purge cycle
-      }
+      startupPurge = 0;
 
-      break;
-    case FET_CHRGE:
+    } else {
+      // If either FET_CHRGE or FET_RUN this code is what we need
+
       HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin, GPIO_PIN_SET);
-      if (currentState != prevState) {
+      if (startupPurge == 0) {
         HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
         osDelay(purgeTime_ms);
         HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+        startupPurge = 1;
       }
 
-      if (!status) {
+      if (status == 0) {
         osTimerStart(purgetimerHandle, purgeDelay_ms);
       }
 
       HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-      break;
-
-    /* JUST REALIZED THAT RUN AND CHARGE ARENT DIFFERENT ON THIS BOARD 
-     * WE COULD ELIMINATE THIS ONE AND FORGET ABOUT UPDATING THE STATE 
-     * ON THIS BOARD 
-     * */
-    case FET_RUN:
-      HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin, GPIO_PIN_SET);
-      if (!status) {
-        osTimerStart(purgetimerHandle, purgeDelay_ms);
-      }
-      HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-      break;
-    default:
-      break;
     }
-    prevState = currentState;
     osDelay(1);
   }
   /* USER CODE END valveContrl */
@@ -586,8 +659,7 @@ void StartFuelCellData(void *argument) {
     fc_data.fc_press =
         (uint32_t)(VOLT_2_PRES(step2 / TRANSFER_FUNC_P) * FDCAN_FOUR_FLT_PREC);
 
-    // Implement temperature control loop for fans
-    // PID?
+    // TODO: Implement fan control
     htim2.Instance->CCR2 = 50;
     htim3.Instance->CCR1 = 50;
 
@@ -599,8 +671,8 @@ void StartFuelCellData(void *argument) {
 /* Callback01 function */
 void purgeValveTimer(void *argument) {
   /* USER CODE BEGIN Callback01 */
-  // This is the PURGE TIMER callback. Name should probably be changed to better
-  // reflect that
+  // This is the PURGE TIMER callback. Name should probably be changed to
+  // better reflect that
   HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
   osDelay(purgeTime_ms); // Replace with purgeDelay
   HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
@@ -618,6 +690,7 @@ void calcTachRpmTimer(void *argument) {
   TachTracker[2] = TachTracker[3] = 0;
 }
 
-/* Private application code --------------------------------------------------*/
+/* Private application code
+ * --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 /* USER CODE END Application */
