@@ -354,20 +354,18 @@ void StartDefaultTask(void *argument) {
   /* Infinite loop */
   for (;;) {
     if (lock_state == true) {
-      HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIOA,
+                        CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
+                        GPIO_PIN_RESET);
       led_state = ALARM;
     } else {
       switch (fet_state) {
       case FET_STBY:
         // All pins should be in off state. Capacitors discharge through
         // resistor by default.
-        HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIOA, CNTRL_2_Pin, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIOA, CNTRL_3_Pin, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA,
+                          CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
+                          GPIO_PIN_RESET);
         led_state = STANDBY;
         break;
       case FET_CHRGE:
@@ -378,6 +376,9 @@ void StartDefaultTask(void *argument) {
         HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
         led_state = CHARGING;
         // if CAPACITOR VOL > some value -> go to RUN
+        if ((fet_data.cap_volt / FDCAN_FOUR_FLT_PREC) >= FULL_CAP_CHARGE_V) {
+          fet_state = FET_RUN;
+        }
         break;
       case FET_RUN:
         HAL_GPIO_WritePin(GPIOA,

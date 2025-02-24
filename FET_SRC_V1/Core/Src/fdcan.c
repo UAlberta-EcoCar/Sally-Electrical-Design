@@ -79,7 +79,7 @@ void MX_FDCAN2_Init(void)
 
   // Accept messages from Fuel Cell Controller
   sFilterConfig.IdType = FDCAN_STANDARD_ID;
-  sFilterConfig.FilterIndex = 0;
+  sFilterConfig.FilterIndex = 1;
   sFilterConfig.FilterType = FDCAN_FILTER_MASK;
   sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
   sFilterConfig.FilterID1 = 0x020; // 0b00000100000
