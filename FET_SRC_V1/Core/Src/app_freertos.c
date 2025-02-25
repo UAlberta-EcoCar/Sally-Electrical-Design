@@ -143,10 +143,10 @@ const osThreadAttr_t blinkyLed_attributes = {
 };
 /* Definitions for usbReceive */
 osThreadId_t usbHandle;
-uint32_t usbBuffer[512];
+uint32_t usbBuffer[1024];
 osStaticThreadDef_t usbControlBlock;
 const osThreadAttr_t usb_attributes = {
-    .name = "usbReceive",
+    .name = "usb",
     .stack_mem = &usbBuffer[0],
     .stack_size = sizeof(usbBuffer),
     .cb_mem = &usbControlBlock,
@@ -185,7 +185,7 @@ const osMessageQueueAttr_t usbQueReceive_attributes = {
     .mq_size = sizeof(usbQueReceiveBuffer)};
 /* Definitions for usbQueSend */
 osMessageQueueId_t usbQueSendHandle;
-uint8_t usbQueSendBuffer[512 * sizeof(uint8_t)];
+uint8_t usbQueSendBuffer[512 * sizeof(char)];
 osStaticMessageQDef_t usbQueSendControlBlock;
 const osMessageQueueAttr_t usbQueSend_attributes = {
     .name = "usbQueSend",
@@ -204,19 +204,9 @@ const osSemaphoreAttr_t canSemaphore_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-void funCTION(void *argument);
+void alarmLEDS(void);
 float adcToCurr(uint32_t adc_value);
 float adcToVolt(uint32_t adc_value);
-
-int _write(int file, char *ptr, int len) {
-  UNUSED(file);
-  for (uint32_t i = 0; i < (uint32_t)len; i++) {
-    if (osMessageQueuePut(usbQueSendHandle, ptr + i, 0, 0) != osOK) {
-      Error_Handler();
-    }
-  }
-  return len;
-}
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
                                uint32_t RxFifo0ITs) {
@@ -241,10 +231,6 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
     }
   }
 }
-
-void alarmLEDS(void);
-float adcToCurr(uint32_t adc_value);
-float adcToVolt(uint32_t adc_value);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -346,8 +332,6 @@ void MX_FREERTOS_Init(void) {
  */
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument) {
-  /* init code for USB_Device */
-  MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
   UNUSED(argument);
 
@@ -519,9 +503,6 @@ void StartAdcConv(void *argument) {
   HAL_ADC_Start_DMA(&hadc2, &ADC2_Conversion, 1);
   /* Infinite loop */
   for (;;) {
-    /*for (int i = 0; i < 3; i++) {*/
-    /*  fet_data.current[i] = adcToCurr(ADC1_Conversion[i]);*/
-    /*}*/
     fet_data.cap_curr =
         (uint32_t)adcToCurr(ADC1_Conversion[0]) * FDCAN_FOUR_FLT_PREC;
     fet_data.res_curr =
@@ -557,28 +538,13 @@ void StartBlinky(void *argument) {
     } else {
       alarmLEDS();
     }
+    osDelay(1);
   }
   /* USER CODE END StartBlinky */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-
-// Implementing USB sending in StartUsb task
-void doSendUsbTask(void) {
-  char ret[64];
-  uint8_t iter = 0;
-
-  if (osMessageQueueGetCount(usbQueSendHandle) > 0) {
-    osDelay(10); // let queue fill up just in case characters are just beginning
-                 // to enter the queue
-    do {
-      osMessageQueueGet(usbQueSendHandle, &ret[iter], 0, 0);
-    } while (ret[iter++] != '\n');
-    // TODO: Verify the iter length is proper for CDC
-    CDC_Transmit_FS((uint8_t *)ret, iter);
-  }
-}
 
 void alarmLEDS(void) {
   htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
