@@ -351,6 +351,7 @@ void StartDefaultTask(void *argument) {
                           CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
                           GPIO_PIN_RESET);
         led_state = STANDBY;
+        fet_data.fet_config = FET_STBY;
         break;
       case FET_CHRGE:
         // Allow fuel cell power through to main bus, into caps, and shut off
@@ -358,7 +359,10 @@ void StartDefaultTask(void *argument) {
         HAL_GPIO_WritePin(GPIOA, CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin,
                           GPIO_PIN_SET);
         HAL_GPIO_WritePin(GPIOA, CNTRL_4_Pin, GPIO_PIN_RESET);
+
         led_state = CHARGING;
+        fet_data.fet_config = FET_CHRGE;
+
         // if CAPACITOR VOL > some value -> go to RUN
         if ((fet_data.cap_volt / FDCAN_FOUR_FLT_PREC) >= FULL_CAP_CHARGE_V) {
           fet_state = FET_RUN;
@@ -369,6 +373,7 @@ void StartDefaultTask(void *argument) {
                           CNTRL_1_Pin | CNTRL_2_Pin | CNTRL_3_Pin | CNTRL_4_Pin,
                           GPIO_PIN_SET);
         led_state = RUNNING;
+        fet_data.fet_config = FET_RUN;
         break;
       }
     }
@@ -424,6 +429,8 @@ void StartCanReceive(void *argument) {
       case FDCAN_FCCPACK_ID:
         memcpy(&fcc_data, ret, mapDlcToBytes(localRxHeader.DataLength));
         break;
+      case FDCAN_UPDATESTATE_ID:
+        fet_state = ret[0];
       default:
         break;
       }
@@ -444,8 +451,10 @@ void StartCanSend(void *argument) {
   /* USER CODE BEGIN StartCanSend */
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef localTxHeader;
-  const uint8_t msg_delay = 100;
+  const uint8_t msg_delay = 10;
   uint8_t can_sync_led = 0;
+  uint32_t sync_led_last = 0;
+  uint32_t sync_led_this = osKernelGetSysTimerCount();
 
   localTxHeader.IdType = FDCAN_STANDARD_ID;
   localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
@@ -457,18 +466,27 @@ void StartCanSend(void *argument) {
   /* Infinite loop */
   for (;;) {
     // Sync LEDs
-    localTxHeader.Identifier = FDCAN_SYNCLED_ID;
-    localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
-    can_sync_led = !can_sync_led;
-    if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
-      if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
-                                        &can_sync_led) != HAL_OK) {
-        Error_Handler();
+    sync_led_this = osKernelGetTickCount(); 
+    if (sync_led_this - sync_led_last > 500) {
+      sync_led_last = sync_led_this;
+      localTxHeader.Identifier = FDCAN_SYNCLED_ID;
+      localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
+      can_sync_led = (can_sync_led == 0) ? 1 : 0;
+      if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+                                          &can_sync_led) != HAL_OK) {
+          Error_Handler();
+        }
+        if (can_sync_led == 1) {
+          htim2.Instance->CCR1 = SET_BRIGHTNESS(20);
+        } else {
+          htim2.Instance->CCR1 = SET_BRIGHTNESS(0);
+        }
+
+      } else {
+        log_warn("Tx Buffer Full");
       }
-    } else {
-      log_warn("Tx Buffer Full");
     }
-    osDelay(msg_delay);
 
     // Transmit data
     localTxHeader.Identifier = FDCAN_FETPACK_ID;
