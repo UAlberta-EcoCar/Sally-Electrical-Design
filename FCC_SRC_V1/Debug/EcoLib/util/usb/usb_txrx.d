@@ -7,7 +7,7 @@ EcoLib/util/usb/usb_txrx.o: ../EcoLib/util/usb/usb_txrx.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- /home/ddjangl/EcoCar/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
  ../Core/Inc/main.h ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -51,7 +51,9 @@ EcoLib/util/usb/usb_txrx.o: ../EcoLib/util/usb/usb_txrx.c \
  ../USB_Device/Target/usbd_conf.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
+ ../USB_Device/App/usb_device.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -60,7 +62,7 @@ EcoLib/util/usb/usb_txrx.o: ../EcoLib/util/usb/usb_txrx.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-/home/ddjangl/EcoCar/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
+/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -106,3 +108,5 @@ EcoLib/util/usb/usb_txrx.o: ../EcoLib/util/usb/usb_txrx.c \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
+../USB_Device/App/usb_device.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
