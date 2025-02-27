@@ -57,8 +57,56 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define GPLED5_Pin GPIO_PIN_13
+#define GPLED5_GPIO_Port GPIOC
+#define CAN_STDBY_Pin GPIO_PIN_15
+#define CAN_STDBY_GPIO_Port GPIOC
 #define LIFE_SENSE_LED_Pin GPIO_PIN_1
 #define LIFE_SENSE_LED_GPIO_Port GPIOF
+#define GPLED1_Pin GPIO_PIN_0
+#define GPLED1_GPIO_Port GPIOC
+#define GPLED2_Pin GPIO_PIN_1
+#define GPLED2_GPIO_Port GPIOC
+#define GPLED3_Pin GPIO_PIN_2
+#define GPLED3_GPIO_Port GPIOC
+#define H2_SENSE1_Pin GPIO_PIN_3
+#define H2_SENSE1_GPIO_Port GPIOC
+#define H2_COMP4_Pin GPIO_PIN_1
+#define H2_COMP4_GPIO_Port GPIOA
+#define H2_COMP2_Pin GPIO_PIN_7
+#define H2_COMP2_GPIO_Port GPIOA
+#define H2_SENSE3_Pin GPIO_PIN_4
+#define H2_SENSE3_GPIO_Port GPIOC
+#define GPLED4_Pin GPIO_PIN_5
+#define GPLED4_GPIO_Port GPIOC
+#define IMON_7V_Pin GPIO_PIN_0
+#define IMON_7V_GPIO_Port GPIOB
+#define IMON_12V_Pin GPIO_PIN_1
+#define IMON_12V_GPIO_Port GPIOB
+#define H2_COMP1_Pin GPIO_PIN_11
+#define H2_COMP1_GPIO_Port GPIOB
+#define H2_COMP3_Pin GPIO_PIN_14
+#define H2_COMP3_GPIO_Port GPIOB
+#define H2_SENSE2_Pin GPIO_PIN_15
+#define H2_SENSE2_GPIO_Port GPIOB
+#define SCL_BME_Pin GPIO_PIN_6
+#define SCL_BME_GPIO_Port GPIOC
+#define SDA_BME_Pin GPIO_PIN_7
+#define SDA_BME_GPIO_Port GPIOC
+#define SCL_OLED_Pin GPIO_PIN_8
+#define SCL_OLED_GPIO_Port GPIOC
+#define H2_SENSE4_Pin GPIO_PIN_9
+#define H2_SENSE4_GPIO_Port GPIOA
+#define H2_TARE_Pin GPIO_PIN_10
+#define H2_TARE_GPIO_Port GPIOA
+#define DEBUG_SWDIO_Pin GPIO_PIN_13
+#define DEBUG_SWDIO_GPIO_Port GPIOA
+#define DEBUG_SWCLK_Pin GPIO_PIN_14
+#define DEBUG_SWCLK_GPIO_Port GPIOA
+#define SDA_OLED_Pin GPIO_PIN_11
+#define SDA_OLED_GPIO_Port GPIOC
+#define H2_ALARM_BUZZER_Pin GPIO_PIN_12
+#define H2_ALARM_BUZZER_GPIO_Port GPIOC
 #define PD2_Pin GPIO_PIN_2
 #define PD2_GPIO_Port GPIOD
 
