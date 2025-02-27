@@ -48,9 +48,9 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Core/Inc/ADS1115.h \
- /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/log/debug-log.h \
- /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h \
- /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/debug-log.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h \
+ /home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
  ../Core/Inc/fdcan.h ../Core/Inc/main.h ../Core/Inc/ssd1306.h \
  ../Core/Inc/ssd1306_conf.h ../Core/Inc/ssd1306_conf.h \
  ../Core/Inc/ssd1306_fonts.h ../Core/Inc/ssd1306.h \
@@ -114,9 +114,9 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 ../Core/Inc/ADS1115.h:
-/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/log/debug-log.h:
-/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h:
-/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
+/home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/debug-log.h:
+/home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h:
+/home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
 ../Core/Inc/fdcan.h:
 ../Core/Inc/main.h:
 ../Core/Inc/ssd1306.h:
