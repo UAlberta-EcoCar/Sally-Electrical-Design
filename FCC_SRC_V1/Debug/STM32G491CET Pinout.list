@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .comment      00000043  00000000  00000000  000300a4  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00031005  00000000  00000000  000300e7  2**0
+ 13 .debug_info   0003117c  00000000  00000000  000300e7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00006ad4  00000000  00000000  000610ec  2**0
+ 14 .debug_abbrev 00006b03  00000000  00000000  00061263  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 000027e8  00000000  00000000  00067bc0  2**3
+ 15 .debug_aranges 000027f8  00000000  00000000  00067d68  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00001e73  00000000  00000000  0006a3a8  2**0
+ 16 .debug_rnglists 00001e81  00000000  00000000  0006a560  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  000296ac  00000000  00000000  0006c21b  2**0
+ 17 .debug_macro  000296ac  00000000  00000000  0006c3e1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0002f428  00000000  00000000  000958c7  2**0
+ 18 .debug_line   0002f53c  00000000  00000000  00095a8d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000f8e0e  00000000  00000000  000c4cef  2**0
+ 19 .debug_str    000f8e5a  00000000  00000000  000c4fc9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  0000b138  00000000  00000000  001bdb00  2**2
+ 20 .debug_frame  0000b18c  00000000  00000000  001bde24  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000007b  00000000  00000000  001c8c38  2**0
+ 21 .debug_line_str 0000007b  00000000  00000000  001c8fb0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1768,7 +1768,7 @@ void StartTaskSend(void *argument) {
 			}
 		} else {
 			log_warn("Tx Buffer Full");
- 8000d20:	f240 12e3 	movw	r2, #483	; 0x1e3
+ 8000d20:	f240 12f1 	movw	r2, #497	; 0x1f1
  8000d24:	4925      	ldr	r1, [pc, #148]	; (8000dbc <StartTaskSend+0xf8>)
  8000d26:	4826      	ldr	r0, [pc, #152]	; (8000dc0 <StartTaskSend+0xfc>)
  8000d28:	f00e fe5a 	bl	800f9e0 <iprintf>
@@ -1845,7 +1845,7 @@ void StartTaskSend(void *argument) {
 			} else {
 				// Button flag not cleared
 				log_warn("Tx Buffer Full: button flag 0x01 not cleared");
- 8000d9a:	f240 12fd 	movw	r2, #509	; 0x1fd
+ 8000d9a:	f240 220b 	movw	r2, #523	; 0x20b
  8000d9e:	4907      	ldr	r1, [pc, #28]	; (8000dbc <StartTaskSend+0xf8>)
  8000da0:	480a      	ldr	r0, [pc, #40]	; (8000dcc <StartTaskSend+0x108>)
  8000da2:	f00e fe1d 	bl	800f9e0 <iprintf>

@@ -51,7 +51,18 @@ typedef StaticTask_t osStaticThreadDef_t;
 typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticTimer_t osStaticTimerDef_t;
 /* USER CODE BEGIN PTD */
+#include <stdio.h>
+#include <stdint.h>
 
+// PID structure
+typedef struct {
+    float Kp, Ki, Kd;
+    float dt;
+    float num[3]; // Numerator coefficients
+    float den[3]; // Denominator coefficients
+    float u[3];   // Input history
+    float y[3];   // Output history
+} pidParam_t;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -241,6 +252,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	 the HAL_GPIO_EXTI_Callback could be implemented in the user file
 	 */
 }
+
+void PID_Init(pidParam_t *pid, float Kp, float Ki, float Kd, float dt);
+float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp);
 
 void calcTachRpmTimer(void *argument);
 /* USER CODE END FunctionPrototypes */
@@ -593,13 +607,18 @@ void StartFuelCellData(void *argument) {
 	const float VOLT_CONVERSION = 4.094F / 32768.0F;
 	const float TRANSFER_FUNC_P = 0.657F;
 
+	float fcSetpointTemp = 30; //Celsius
+
+	uint16_t step;
+	float step2;
+	pidParam_t myPid;
+
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
 	osTimerStart(tachTimerHandle, TACH_TIMER_INTERVAL);
-	// Used to see in between steps of ADC
-	uint16_t step;
-	float step2;
+
+	PID_Init(&myPid, 2.0, 0.5, 1.0, 0.1);
 
 	/* Infinite loop */
 	for (;;) {
@@ -619,11 +638,13 @@ void StartFuelCellData(void *argument) {
 		fc_data.fc_press = (uint32_t) (VOLT_2_PRES(step2 / TRANSFER_FUNC_P)
 				* FDCAN_FOUR_FLT_PREC);
 
+		PID_Compute(&myPid, fcSetpointTemp, 25.0f);
+
 		// TODO: Implement fan control
 		htim2.Instance->CCR2 = 50;
 		htim3.Instance->CCR1 = 50;
 
-		osDelay(10);
+		osDelay(1);
 	}
 	/* USER CODE END StartFuelCellData */
 }
@@ -653,4 +674,48 @@ void calcTachRpmTimer(void *argument) {
 /* Private application code
  * --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+
+// Initialize PID controller
+void PID_Init(pidParam_t *pid, float Kp, float Ki, float Kd, float dt) {
+    pid->Kp = Kp;
+    pid->Ki = Ki;
+    pid->Kd = Kd;
+    pid->dt = dt;
+
+    // Discrete transfer function coefficients (Tustin approximation)
+    pid->num[0] = Kp + Ki * dt / 2.0 + Kd / dt;
+    pid->num[1] = -Kp + Ki * dt / 2.0 - 2.0 * Kd / dt;
+    pid->num[2] = Kd / dt;
+    pid->den[0] = 1.0;
+    pid->den[1] = -1.0;
+    pid->den[2] = 0.0;
+
+    // Initialize history buffers
+    for (uint8_t i = 0; i < 3; i++) {
+        pid->u[i] = 0.0;
+        pid->y[i] = 0.0;
+    }
+}
+
+// Compute PID output using discrete transfer function
+float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
+    float error = setpoint - measured_temp;
+
+    // Shift previous values
+    pid->u[2] = pid->u[1];
+    pid->u[1] = pid->u[0];
+    pid->u[0] = error;
+    pid->y[2] = pid->y[1];
+    pid->y[1] = pid->y[0];
+
+    // Compute output using transfer function
+    pid->y[0] = (pid->num[0] * pid->u[0] + pid->num[1] * pid->u[1] + pid->num[2] * pid->u[2]) -
+                 (pid->den[1] * pid->y[1] + pid->den[2] * pid->y[2]);
+
+    // Clamp output to valid duty cycle range (0-100%)
+    if (pid->y[0] > 100.0) pid->y[0] = 100.0;
+    if (pid->y[0] < 0.0) pid->y[0] = 0.0;
+
+    return pid->y[0];
+}
 /* USER CODE END Application */
