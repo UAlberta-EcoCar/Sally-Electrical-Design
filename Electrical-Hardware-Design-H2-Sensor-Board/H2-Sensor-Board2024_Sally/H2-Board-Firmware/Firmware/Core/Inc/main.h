@@ -57,6 +57,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LIFE_SENSE_LED_Pin GPIO_PIN_1
+#define LIFE_SENSE_LED_GPIO_Port GPIOF
+#define PD2_Pin GPIO_PIN_2
+#define PD2_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 
