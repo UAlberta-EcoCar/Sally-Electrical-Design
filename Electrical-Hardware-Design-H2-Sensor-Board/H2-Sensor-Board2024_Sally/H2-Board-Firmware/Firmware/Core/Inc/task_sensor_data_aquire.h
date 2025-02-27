@@ -5,9 +5,9 @@
  *      Author: abina
  */
 
-#ifndef INC_SENSOR_DATA_AQUIRE_TASK_H_
-#define INC_SENSOR_DATA_AQUIRE_TASK_H_
+#ifndef INC_TASK_SENSOR_DATA_AQUIRE_H_
+#define INC_TASK_SENSOR_DATA_AQUIRE_H_
 
 void StartSensorDataAquireTask(void *argument);
 
-#endif /* INC_SENSOR_DATA_AQUIRE_TASK_H_ */
+#endif /* INC_TASK_SENSOR_DATA_AQUIRE_H_ */

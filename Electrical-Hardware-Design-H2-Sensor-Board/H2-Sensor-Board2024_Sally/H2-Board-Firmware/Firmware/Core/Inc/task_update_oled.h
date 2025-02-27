@@ -5,9 +5,9 @@
  *      Author: abina
  */
 
-#ifndef INC_UPDATE_OLED_TASK_H_
-#define INC_UPDATE_OLED_TASK_H_
+#ifndef INC_TASK_UPDATE_OLED_H_
+#define INC_TASK_UPDATE_OLED_H_
 
 void StartUpdateOLEDTask(void *argument);
 
-#endif /* INC_UPDATE_OLED_TASK_H_ */
+#endif /* INC_TASK_UPDATE_OLED_H_ */

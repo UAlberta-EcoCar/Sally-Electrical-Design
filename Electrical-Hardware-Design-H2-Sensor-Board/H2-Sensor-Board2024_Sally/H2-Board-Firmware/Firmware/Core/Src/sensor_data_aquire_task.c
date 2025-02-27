@@ -5,7 +5,7 @@
  *      Author: abina
  */
 
-#include "sensor_data_aquire_task.h"
+#include <task_sensor_data_aquire.h>
 
 void StartSensorDataAquireTask(void *argument) {
 	/* USER CODE BEGIN StartSensorDataAquireTask */

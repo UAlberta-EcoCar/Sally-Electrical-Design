@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "adc.h"
 #include "comp.h"
+#include "dma.h"
 #include "fdcan.h"
 #include "i2c.h"
 #include "usb_device.h"
@@ -93,6 +94,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_COMP1_Init();
   MX_COMP2_Init();
   MX_COMP6_Init();

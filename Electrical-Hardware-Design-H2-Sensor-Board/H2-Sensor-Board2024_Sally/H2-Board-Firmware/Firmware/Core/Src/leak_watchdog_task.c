@@ -5,7 +5,7 @@
  *      Author: abina
  */
 
-#include "leak_watchdog_thread.h"
+#include <task_leak_watchdog.h>
 
 void StartLeakWatchdogTask(void *argument) {
 	/* USER CODE BEGIN StartLeakWatchdogTask */

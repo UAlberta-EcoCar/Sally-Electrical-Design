@@ -4,7 +4,7 @@
  *  Created on: Feb 26, 2025
  *      Author: abina
  */
-#include "update_oled_task.h"
+#include <task_update_oled.h>
 
 void StartUpdateOLEDTask(void *argument) {
 	/* USER CODE BEGIN StartUpdateOLEDTask */

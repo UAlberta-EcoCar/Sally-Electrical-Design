@@ -5,9 +5,9 @@
  *      Author: abina
  */
 
-#ifndef INC_LEAK_WATCHDOG_THREAD_H_
-#define INC_LEAK_WATCHDOG_THREAD_H_
+#ifndef INC_TASK_LEAK_WATCHDOG_H_
+#define INC_TASK_LEAK_WATCHDOG_H_
 
 void StartLeakWatchdogTask(void *argument);
 
-#endif /* INC_LEAK_WATCHDOG_THREAD_H_ */
+#endif /* INC_TASK_LEAK_WATCHDOG_H_ */
