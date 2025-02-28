@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (11.3.rel1)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -19,6 +19,7 @@ RM := rm -rf
 -include Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk
 -include EcoLib/util/usb/subdir.mk
 -include EcoLib/ecocan/subdir.mk
+-include EcoLib/drivers/lis3dh/src/subdir.mk
 -include Drivers/STM32G4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -70,8 +71,8 @@ all: main-build
 main-build: STM32G491CET\ Pinout.elf secondary-outputs
 
 # Tool invocations
-STM32G491CET\ Pinout.elf STM32G491CET\ Pinout.map: $(OBJS) $(USER_OBJS) /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/STM32G491CETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32G491CET Pinout.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/STM32G491CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32G491CET Pinout.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+STM32G491CET\ Pinout.elf STM32G491CET\ Pinout.map: $(OBJS) $(USER_OBJS) /home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/STM32G491CETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32G491CET Pinout.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/STM32G491CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32G491CET Pinout.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

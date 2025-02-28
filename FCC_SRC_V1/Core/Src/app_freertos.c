@@ -31,7 +31,6 @@
 #include "exported_typedef.h"
 #include "fdcan.h"
 #include "ssd1306.h"
-#include "ssd1306_conf.h"
 #include "ssd1306_fonts.h"
 #include "ssd1306_tests.h"
 #include "tim.h"
@@ -40,6 +39,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "lis3dh.h"
 
 /* USER CODE END Includes */
 
@@ -557,7 +557,7 @@ void valveContrl(void *argument) {
 	uint8_t startupPurge = 0;
 	for (;;) {
 		// returns 1 or 0 depending on status
-		// status = osTimerIsRunning(purgetimerHandle);
+		status = osTimerIsRunning(purgetimerHandle);
 
 		// Switch through valid solenoid states
 		if (fet_state == FET_STBY) {

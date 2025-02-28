@@ -5,23 +5,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../USB_Device/Target/usbd_conf.c 
+../EcoLib/drivers/lis3dh/src/lis3dh.c 
 
 OBJS += \
-./USB_Device/Target/usbd_conf.o 
+./EcoLib/drivers/lis3dh/src/lis3dh.o 
 
 C_DEPS += \
-./USB_Device/Target/usbd_conf.d 
+./EcoLib/drivers/lis3dh/src/lis3dh.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-USB_Device/Target/%.o USB_Device/Target/%.su USB_Device/Target/%.cyclo: ../USB_Device/Target/%.c USB_Device/Target/subdir.mk
+EcoLib/drivers/lis3dh/src/%.o EcoLib/drivers/lis3dh/src/%.su EcoLib/drivers/lis3dh/src/%.cyclo: ../EcoLib/drivers/lis3dh/src/%.c EcoLib/drivers/lis3dh/src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G491xx -c -I../Core/Inc -I../USB_Device/App -I../USB_Device/Target -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I"/home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/ecocan" -I"/home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log" -I"/home/ddjangl/EcoCar/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef" -I../EcoLib/drivers/lis3dh/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
-clean: clean-USB_Device-2f-Target
+clean: clean-EcoLib-2f-drivers-2f-lis3dh-2f-src
 
-clean-USB_Device-2f-Target:
-	-$(RM) ./USB_Device/Target/usbd_conf.cyclo ./USB_Device/Target/usbd_conf.d ./USB_Device/Target/usbd_conf.o ./USB_Device/Target/usbd_conf.su
+clean-EcoLib-2f-drivers-2f-lis3dh-2f-src:
+	-$(RM) ./EcoLib/drivers/lis3dh/src/lis3dh.cyclo ./EcoLib/drivers/lis3dh/src/lis3dh.d ./EcoLib/drivers/lis3dh/src/lis3dh.o ./EcoLib/drivers/lis3dh/src/lis3dh.su
 
-.PHONY: clean-USB_Device-2f-Target
+.PHONY: clean-EcoLib-2f-drivers-2f-lis3dh-2f-src
 

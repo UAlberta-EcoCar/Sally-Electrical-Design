@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>  // For memcpy
+#include "cmsis_os2.h"
 
 #if defined(SSD1306_USE_I2C)
 
