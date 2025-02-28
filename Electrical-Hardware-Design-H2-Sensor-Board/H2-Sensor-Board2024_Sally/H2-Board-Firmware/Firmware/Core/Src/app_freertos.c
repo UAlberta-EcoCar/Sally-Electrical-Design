@@ -22,6 +22,9 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "task_leak_watchdog.h"
+#include "task_sensor_data_aquire.h"
+#include "task_update_oled.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

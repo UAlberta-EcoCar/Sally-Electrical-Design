@@ -34,7 +34,7 @@ void StartLeakWatchdogTask(void *argument) {
  */
 void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
 	if (hcomp->Instance == hcomp1.Instance) {
-
+		// Alarm
 	} else if (hcomp->Instance == hcomp2.Instance){
 
 	} else if (hcomp->Instance == hcomp6.Instance){
