@@ -44,9 +44,9 @@ void MX_COMP1_Init(void)
   hcomp1.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp1.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
   hcomp1.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp1.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+  hcomp1.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp1.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp1.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  hcomp1.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
   if (HAL_COMP_Init(&hcomp1) != HAL_OK)
   {
     Error_Handler();
@@ -71,9 +71,9 @@ void MX_COMP2_Init(void)
   hcomp2.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp2.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
   hcomp2.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp2.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+  hcomp2.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp2.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp2.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  hcomp2.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
   if (HAL_COMP_Init(&hcomp2) != HAL_OK)
   {
     Error_Handler();
@@ -98,9 +98,9 @@ void MX_COMP6_Init(void)
   hcomp6.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp6.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
   hcomp6.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp6.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+  hcomp6.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp6.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp6.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  hcomp6.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
   if (HAL_COMP_Init(&hcomp6) != HAL_OK)
   {
     Error_Handler();
@@ -125,9 +125,9 @@ void MX_COMP7_Init(void)
   hcomp7.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp7.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
   hcomp7.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp7.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+  hcomp7.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp7.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp7.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  hcomp7.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
   if (HAL_COMP_Init(&hcomp7) != HAL_OK)
   {
     Error_Handler();
@@ -157,6 +157,9 @@ void HAL_COMP_MspInit(COMP_HandleTypeDef* compHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(H2_COMP4_GPIO_Port, &GPIO_InitStruct);
 
+    /* COMP1 interrupt Init */
+    HAL_NVIC_SetPriority(COMP1_2_3_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(COMP1_2_3_IRQn);
   /* USER CODE BEGIN COMP1_MspInit 1 */
 
   /* USER CODE END COMP1_MspInit 1 */
@@ -176,6 +179,9 @@ void HAL_COMP_MspInit(COMP_HandleTypeDef* compHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(H2_COMP2_GPIO_Port, &GPIO_InitStruct);
 
+    /* COMP2 interrupt Init */
+    HAL_NVIC_SetPriority(COMP1_2_3_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(COMP1_2_3_IRQn);
   /* USER CODE BEGIN COMP2_MspInit 1 */
 
   /* USER CODE END COMP2_MspInit 1 */
@@ -195,6 +201,9 @@ void HAL_COMP_MspInit(COMP_HandleTypeDef* compHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(H2_COMP1_GPIO_Port, &GPIO_InitStruct);
 
+    /* COMP6 interrupt Init */
+    HAL_NVIC_SetPriority(COMP4_5_6_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(COMP4_5_6_IRQn);
   /* USER CODE BEGIN COMP6_MspInit 1 */
 
   /* USER CODE END COMP6_MspInit 1 */
@@ -214,6 +223,9 @@ void HAL_COMP_MspInit(COMP_HandleTypeDef* compHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(H2_COMP3_GPIO_Port, &GPIO_InitStruct);
 
+    /* COMP7 interrupt Init */
+    HAL_NVIC_SetPriority(COMP7_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(COMP7_IRQn);
   /* USER CODE BEGIN COMP7_MspInit 1 */
 
   /* USER CODE END COMP7_MspInit 1 */
@@ -234,6 +246,15 @@ void HAL_COMP_MspDeInit(COMP_HandleTypeDef* compHandle)
     */
     HAL_GPIO_DeInit(H2_COMP4_GPIO_Port, H2_COMP4_Pin);
 
+    /* COMP1 interrupt Deinit */
+  /* USER CODE BEGIN COMP1:COMP1_2_3_IRQn disable */
+    /**
+    * Uncomment the line below to disable the "COMP1_2_3_IRQn" interrupt
+    * Be aware, disabling shared interrupt may affect other IPs
+    */
+    /* HAL_NVIC_DisableIRQ(COMP1_2_3_IRQn); */
+  /* USER CODE END COMP1:COMP1_2_3_IRQn disable */
+
   /* USER CODE BEGIN COMP1_MspDeInit 1 */
 
   /* USER CODE END COMP1_MspDeInit 1 */
@@ -248,6 +269,15 @@ void HAL_COMP_MspDeInit(COMP_HandleTypeDef* compHandle)
     PA7     ------> COMP2_INP
     */
     HAL_GPIO_DeInit(H2_COMP2_GPIO_Port, H2_COMP2_Pin);
+
+    /* COMP2 interrupt Deinit */
+  /* USER CODE BEGIN COMP2:COMP1_2_3_IRQn disable */
+    /**
+    * Uncomment the line below to disable the "COMP1_2_3_IRQn" interrupt
+    * Be aware, disabling shared interrupt may affect other IPs
+    */
+    /* HAL_NVIC_DisableIRQ(COMP1_2_3_IRQn); */
+  /* USER CODE END COMP2:COMP1_2_3_IRQn disable */
 
   /* USER CODE BEGIN COMP2_MspDeInit 1 */
 
@@ -264,6 +294,8 @@ void HAL_COMP_MspDeInit(COMP_HandleTypeDef* compHandle)
     */
     HAL_GPIO_DeInit(H2_COMP1_GPIO_Port, H2_COMP1_Pin);
 
+    /* COMP6 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(COMP4_5_6_IRQn);
   /* USER CODE BEGIN COMP6_MspDeInit 1 */
 
   /* USER CODE END COMP6_MspDeInit 1 */
@@ -279,6 +311,8 @@ void HAL_COMP_MspDeInit(COMP_HandleTypeDef* compHandle)
     */
     HAL_GPIO_DeInit(H2_COMP3_GPIO_Port, H2_COMP3_Pin);
 
+    /* COMP7 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(COMP7_IRQn);
   /* USER CODE BEGIN COMP7_MspDeInit 1 */
 
   /* USER CODE END COMP7_MspDeInit 1 */

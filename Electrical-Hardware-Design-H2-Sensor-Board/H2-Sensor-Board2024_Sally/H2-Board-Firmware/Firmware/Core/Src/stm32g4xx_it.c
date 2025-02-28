@@ -56,6 +56,10 @@
 
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_FS;
+extern COMP_HandleTypeDef hcomp1;
+extern COMP_HandleTypeDef hcomp2;
+extern COMP_HandleTypeDef hcomp6;
+extern COMP_HandleTypeDef hcomp7;
 extern TIM_HandleTypeDef htim20;
 
 /* USER CODE BEGIN EV */
@@ -173,6 +177,49 @@ void USB_LP_IRQHandler(void)
   /* USER CODE BEGIN USB_LP_IRQn 1 */
 
   /* USER CODE END USB_LP_IRQn 1 */
+}
+
+/**
+  * @brief This function handles COMP1, COMP2 and COMP3 interrupts through EXTI lines 21, 22 and 29.
+  */
+void COMP1_2_3_IRQHandler(void)
+{
+  /* USER CODE BEGIN COMP1_2_3_IRQn 0 */
+
+  /* USER CODE END COMP1_2_3_IRQn 0 */
+  HAL_COMP_IRQHandler(&hcomp1);
+  HAL_COMP_IRQHandler(&hcomp2);
+  /* USER CODE BEGIN COMP1_2_3_IRQn 1 */
+
+  /* USER CODE END COMP1_2_3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles COMP4, COMP5 and COMP6 interrupts through EXTI lines 30, 31 and 32.
+  */
+void COMP4_5_6_IRQHandler(void)
+{
+  /* USER CODE BEGIN COMP4_5_6_IRQn 0 */
+
+  /* USER CODE END COMP4_5_6_IRQn 0 */
+  HAL_COMP_IRQHandler(&hcomp6);
+  /* USER CODE BEGIN COMP4_5_6_IRQn 1 */
+
+  /* USER CODE END COMP4_5_6_IRQn 1 */
+}
+
+/**
+  * @brief This function handles COMP7 interrupt through EXTI line 33.
+  */
+void COMP7_IRQHandler(void)
+{
+  /* USER CODE BEGIN COMP7_IRQn 0 */
+
+  /* USER CODE END COMP7_IRQn 0 */
+  HAL_COMP_IRQHandler(&hcomp7);
+  /* USER CODE BEGIN COMP7_IRQn 1 */
+
+  /* USER CODE END COMP7_IRQn 1 */
 }
 
 /**
