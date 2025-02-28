@@ -33,10 +33,14 @@ void StartLeakWatchdogTask(void *argument) {
  * @retval None
  */
 void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
-	/* Prevent unused argument(s) compilation warning */
+	if (hcomp->Instance == hcomp1.Instance) {
 
-	/* NOTE : This function should not be modified, when the callback is needed,
-	 the HAL_COMP_TriggerCallback should be implemented in the user file
-	 */
+	} else if (hcomp->Instance == hcomp2.Instance){
+
+	} else if (hcomp->Instance == hcomp6.Instance){
+
+	} else if (hcomp->Instance == hcomp7.Instance){
+
+	}
 }
 
