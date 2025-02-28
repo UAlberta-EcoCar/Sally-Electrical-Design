@@ -8,6 +8,11 @@
 #include "main.h"
 #include "task_sensor_data_aquire.h"
 #include "adc.h"
+#include <FreeRTOS.h>
+#include <task.h>
+#include "cmsis_os.h"
+#include "bme280.h"
+#include "bme280_defs.h"
 
 uint32_t adc1_results[3] = {0};
 uint32_t adc2_results[2] = {0};
@@ -23,6 +28,8 @@ void StartSensorDataAquireTask(void *argument) {
 	HAL_ADC_Start_DMA(&hadc1, adc1_results, 3);
 	HAL_ADC_Start_DMA(&hadc2, adc2_results, 2);
 	HAL_ADC_Start_DMA(&hadc5, adc5_results, 4);
+
+
 
 	/* Infinite loop */
 	for (;;) {
