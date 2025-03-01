@@ -22,6 +22,8 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
+
+#include "task_can_communication.h"
 #include "task_leak_watchdog.h"
 #include "task_sensor_data_aquire.h"
 #include "task_update_oled.h"
@@ -33,6 +35,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 typedef StaticTask_t osStaticThreadDef_t;
+typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -80,7 +83,7 @@ const osThreadAttr_t updateOLEDTask_attributes = {
   .stack_size = sizeof(updateOLEDTaskBuffer),
   .cb_mem = &updateOLEDTaskControlBlock,
   .cb_size = sizeof(updateOLEDTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal2,
 };
 /* Definitions for leakWatchdo */
 osThreadId_t leakWatchdoHandle;
@@ -94,6 +97,29 @@ const osThreadAttr_t leakWatchdo_attributes = {
   .cb_size = sizeof(leakWatchdoControlBlock),
   .priority = (osPriority_t) osPriorityNormal3,
 };
+/* Definitions for CANCommunicatio */
+osThreadId_t CANCommunicatioHandle;
+uint32_t CANCommunicatioBuffer[ 256 ];
+osStaticThreadDef_t CANCommunicatioControlBlock;
+const osThreadAttr_t CANCommunicatio_attributes = {
+  .name = "CANCommunicatio",
+  .stack_mem = &CANCommunicatioBuffer[0],
+  .stack_size = sizeof(CANCommunicatioBuffer),
+  .cb_mem = &CANCommunicatioControlBlock,
+  .cb_size = sizeof(CANCommunicatioControlBlock),
+  .priority = (osPriority_t) osPriorityNormal4,
+};
+/* Definitions for CANMessageRecieveQ */
+osMessageQueueId_t CANMessageRecieveQHandle;
+uint8_t CANMessageRecieveQBuffer[ 32 * sizeof( uint32_t ) ];
+osStaticMessageQDef_t CANMessageRecieveQControlBlock;
+const osMessageQueueAttr_t CANMessageRecieveQ_attributes = {
+  .name = "CANMessageRecieveQ",
+  .cb_mem = &CANMessageRecieveQControlBlock,
+  .cb_size = sizeof(CANMessageRecieveQControlBlock),
+  .mq_mem = &CANMessageRecieveQBuffer,
+  .mq_size = sizeof(CANMessageRecieveQBuffer)
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -104,6 +130,7 @@ void StartDefaultTask(void *argument);
 void StartSensorDataAquireTask(void *argument);
 void StartUpdateOLEDTask(void *argument);
 void StartLeakWatchdogTask(void *argument);
+void StartCANCommunicationTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -129,6 +156,10 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* creation of CANMessageRecieveQ */
+  CANMessageRecieveQHandle = osMessageQueueNew (32, sizeof(uint32_t), &CANMessageRecieveQ_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -145,6 +176,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of leakWatchdo */
   leakWatchdoHandle = osThreadNew(StartLeakWatchdogTask, NULL, &leakWatchdo_attributes);
+
+  /* creation of CANCommunicatio */
+  CANCommunicatioHandle = osThreadNew(StartCANCommunicationTask, NULL, &CANCommunicatio_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -228,6 +262,24 @@ __weak void StartLeakWatchdogTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END StartLeakWatchdogTask */
+}
+
+/* USER CODE BEGIN Header_StartCANCommunicationTask */
+/**
+* @brief Function implementing the CANCommunicatio thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartCANCommunicationTask */
+__weak void StartCANCommunicationTask(void *argument)
+{
+  /* USER CODE BEGIN StartCANCommunicationTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartCANCommunicationTask */
 }
 
 /* Private application code --------------------------------------------------*/
