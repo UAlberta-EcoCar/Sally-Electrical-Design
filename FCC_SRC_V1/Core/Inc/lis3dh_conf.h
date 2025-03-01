@@ -1,6 +1,9 @@
 #ifndef __LIS3DH_CONF_H
 #define __LIS3DH_CONF_H
 
+// Add something similar to activate
+#define STM32G4 STM32G491xx
+
 #if defined(STM32G4)
 #include "stm32g4xx_hal.h"
 #elif defined(STM32L4)
