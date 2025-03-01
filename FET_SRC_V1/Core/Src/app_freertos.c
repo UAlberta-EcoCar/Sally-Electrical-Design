@@ -416,6 +416,7 @@ void StartCanReceive(void *argument) {
         // H2 ALARM
         if (ret[0] == 1) {
           lock_state = true;
+          log_info("H2 Alarm received!");
         }
         break;
       case FDCAN_SYNCLED_ID:
@@ -431,6 +432,7 @@ void StartCanReceive(void *argument) {
         break;
       case FDCAN_UPDATESTATE_ID:
         fet_state = ret[0];
+        log_info("FDCAN_UPDATESTATE_ID Received: 0x%x", fet_state);
       default:
         break;
       }
@@ -466,7 +468,7 @@ void StartCanSend(void *argument) {
   /* Infinite loop */
   for (;;) {
     // Sync LEDs
-    sync_led_this = osKernelGetTickCount(); 
+    sync_led_this = osKernelGetTickCount();
     if (sync_led_this - sync_led_last > 500) {
       sync_led_last = sync_led_this;
       localTxHeader.Identifier = FDCAN_SYNCLED_ID;
@@ -519,19 +521,34 @@ void StartAdcConv(void *argument) {
   uint32_t ADC2_Conversion;    // one channel on ADC2
   HAL_ADC_Start_DMA(&hadc1, ADC1_Conversion, 4);
   HAL_ADC_Start_DMA(&hadc2, &ADC2_Conversion, 1);
+
+#define PRINT_FLOAT(x) (float)x / FDCAN_FOUR_FLT_PREC
+
+  uint32_t this_print, last_print = 0;
   /* Infinite loop */
   for (;;) {
     fet_data.cap_curr =
-        (uint32_t)adcToCurr(ADC1_Conversion[0]) * FDCAN_FOUR_FLT_PREC;
+        (uint32_t) (adcToCurr(ADC1_Conversion[0]) * FDCAN_FOUR_FLT_PREC);
     fet_data.res_curr =
-        (uint32_t)adcToCurr(ADC1_Conversion[1]) * FDCAN_FOUR_FLT_PREC;
+        (uint32_t) (adcToCurr(ADC1_Conversion[1]) * FDCAN_FOUR_FLT_PREC);
     fet_data.out_curr =
-        (uint32_t)adcToCurr(ADC1_Conversion[2]) * FDCAN_FOUR_FLT_PREC;
+        (uint32_t) (adcToCurr(ADC1_Conversion[2]) * FDCAN_FOUR_FLT_PREC);
     fet_data.input_volt =
-        (uint32_t)adcToVolt(ADC1_Conversion[3]) * FDCAN_FOUR_FLT_PREC;
+        (uint32_t) (adcToVolt(ADC1_Conversion[3]) * FDCAN_FOUR_FLT_PREC);
     fet_data.cap_volt =
-        (uint32_t)adcToVolt(ADC2_Conversion) * FDCAN_FOUR_FLT_PREC;
-    osDelay(1000);
+        (uint32_t) (adcToVolt(ADC2_Conversion) * FDCAN_FOUR_FLT_PREC);
+
+    this_print = osKernelGetTickCount();
+    if (this_print - last_print >= 1000) {
+      last_print = this_print;
+      log_info("Cap Curr: %fA\tRes Curr: %fA\tOut Curr: %fA\tFC Volt: %fV\tCap "
+               "Volt: %fV\t",
+               PRINT_FLOAT(fet_data.cap_curr), PRINT_FLOAT(fet_data.res_curr),
+               PRINT_FLOAT(fet_data.out_curr), PRINT_FLOAT(fet_data.input_volt),
+               PRINT_FLOAT(fet_data.cap_volt));
+    }
+
+    osDelay(10);
   }
   /* USER CODE END StartAdcConv */
 }
@@ -584,13 +601,13 @@ void alarmLEDS(void) {
 }
 
 float adcToVolt(uint32_t value) {
-  const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
+  const float voltAdcConv = (3.278 / 4096) / (1800.0 / (1800 + 15000));
   return value * voltAdcConv;
 }
 
 float adcToCurr(uint32_t value) {
-  const float voltAdcConv = (3.278f / 4096) / (1800.0f / (1800 + 15000));
-  const float currZeroOffset = 0.515;
+  const float voltAdcConv = (3.278 / 4096) / (4700.0 / (4700 + 9100));
+  const float currZeroOffset = 0.8;
   const float currSensitivity = 133.0f / 1000; // V/A
   return (value * voltAdcConv - currZeroOffset) / currSensitivity;
 }
