@@ -50,30 +50,37 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIO_LED1_GPIO_Port, GPIO_LED1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(ENABLE_GPIO_Port, ENABLE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_LED2_Pin|GPIO_LED3_Pin|GPIO_PIN_8, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_LED5_Pin|GPIO_LED4_Pin|GPIO_LED1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : GPIO_LED1_Pin */
-  GPIO_InitStruct.Pin = GPIO_LED1_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, CAN_LED_Pin|GPIO_LED2_Pin|GPIO_LED3_Pin|CAN_STBY_Pin
+                          |TOGGLE_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : ENABLE_Pin */
+  GPIO_InitStruct.Pin = ENABLE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIO_LED1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(ENABLE_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GPIO_LED2_Pin GPIO_LED3_Pin PB8 */
-  GPIO_InitStruct.Pin = GPIO_LED2_Pin|GPIO_LED3_Pin|GPIO_PIN_8;
+  /*Configure GPIO pins : GPIO_LED5_Pin GPIO_LED4_Pin GPIO_LED1_Pin */
+  GPIO_InitStruct.Pin = GPIO_LED5_Pin|GPIO_LED4_Pin|GPIO_LED1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : CAN_LED_Pin GPIO_LED2_Pin GPIO_LED3_Pin CAN_STBY_Pin
+                           TOGGLE_Pin */
+  GPIO_InitStruct.Pin = CAN_LED_Pin|GPIO_LED2_Pin|GPIO_LED3_Pin|CAN_STBY_Pin
+                          |TOGGLE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : CAN_STBY_Pin */
-  GPIO_InitStruct.Pin = CAN_STBY_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(CAN_STBY_GPIO_Port, &GPIO_InitStruct);
 
 }
 

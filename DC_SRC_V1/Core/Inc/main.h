@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define ENABLE_Pin GPIO_PIN_1
+#define ENABLE_GPIO_Port GPIOF
 #define INPUT_CURR_Pin GPIO_PIN_0
 #define INPUT_CURR_GPIO_Port GPIOA
 #define OUTPUT_CURR_Pin GPIO_PIN_1
@@ -69,10 +71,16 @@ void Error_Handler(void);
 #define ADC_12V_ILM_GPIO_Port GPIOA
 #define ADC_7V_ILM_Pin GPIO_PIN_6
 #define ADC_7V_ILM_GPIO_Port GPIOA
+#define GPIO_LED5_Pin GPIO_PIN_7
+#define GPIO_LED5_GPIO_Port GPIOA
+#define CAN_LED_Pin GPIO_PIN_0
+#define CAN_LED_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_8
 #define OLED_SDA_GPIO_Port GPIOA
 #define OLED_SCL_Pin GPIO_PIN_9
 #define OLED_SCL_GPIO_Port GPIOA
+#define GPIO_LED4_Pin GPIO_PIN_10
+#define GPIO_LED4_GPIO_Port GPIOA
 #define USB_D__Pin GPIO_PIN_11
 #define USB_D__GPIO_Port GPIOA
 #define USB_D_A12_Pin GPIO_PIN_12
@@ -85,6 +93,8 @@ void Error_Handler(void);
 #define GPIO_LED3_GPIO_Port GPIOB
 #define CAN_STBY_Pin GPIO_PIN_7
 #define CAN_STBY_GPIO_Port GPIOB
+#define TOGGLE_Pin GPIO_PIN_8
+#define TOGGLE_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
