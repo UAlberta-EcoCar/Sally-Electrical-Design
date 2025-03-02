@@ -64,7 +64,7 @@ typedef struct {
 /* USER CODE BEGIN PD */
 #define ADS1115_ADR1 0x48
 #define TACH_TIMER_INTERVAL 5000
-#define PID_TIMER_INTERVAL 10 // in ms
+#define PID_TIMER_INTERVAL 1 // in ms
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -695,7 +695,7 @@ void StartFuelCellData(void *argument) {
     }
     step2 = step * VOLT_CONVERSION;
     step3 = VOLT_2_TEMP(step2);
-    fc_data.fc_temp = (int32_t)(step3 * FDCAN_FOUR_FLT_PREC);
+    fc_data.fc_temp = (int32_t)(29.843232f * FDCAN_FOUR_FLT_PREC);
 
     configReg.channel = CHANNEL_AIN1_GND;
     if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
@@ -714,9 +714,11 @@ void StartFuelCellData(void *argument) {
     this_print = osKernelGetTickCount();
     if (this_print - last_print >= 1000) {
       last_print = this_print;
-      log_info("FC PRES: %f, FC TEMP: %f",
+      log_info("FC PRES: %f, FC TEMP: %f, PID: %f, Duty %d",
                (float)fc_data.fc_press / FDCAN_FOUR_FLT_PREC,
-               (float)fc_data.fc_temp / FDCAN_FOUR_FLT_PREC);
+               (float)fc_data.fc_temp / FDCAN_FOUR_FLT_PREC,
+			   myPid.y[0],
+			   htim2.Instance->CCR2);
     }
   }
   /* USER CODE END StartFuelCellData */
@@ -755,13 +757,13 @@ void calcPidTimer(void *argument) {
 void PID_Init(pidParam_t *pid) {
   // Discrete transfer function coefficients (Tustin approximation)
   // Retrieved from matlab script
-  pid->num[0] = 204;
-  pid->num[1] = -399.9;
-  pid->num[2] = 195.9;
+  pid->num[0] = 5.0f;
+  pid->num[1] = -5.0f;
+  pid->num[2] = 0.0f;
 
-  pid->den[0] = 1; // technically dont need this but show for completeness
-  pid->den[1] = 0.0004999;
-  pid->den[2] = -1;
+  pid->den[0] = 1.0f; // technically dont need this but show for completeness
+  pid->den[1] = -1.0f;
+  pid->den[2] = 0.0f;
 
   // Initialize history buffers
   for (uint8_t i = 0; i < 3; i++) {
@@ -772,7 +774,8 @@ void PID_Init(pidParam_t *pid) {
 
 // Compute PID output using discrete transfer function
 float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
-  float error = setpoint - measured_temp;
+  float error = measured_temp - setpoint;
+  float out;
 
   // Shift previous values
   pid->u[2] = pid->u[1];
@@ -787,12 +790,13 @@ float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
               (pid->den[1] * pid->y[1] + pid->den[2] * pid->y[2]);
 
   // Clamp output to valid duty cycle range (0-100%)
-  if (pid->y[0] > 100.0)
-    pid->y[0] = 100.0;
-  if (pid->y[0] < 20.0)
+  out = pid->y[0];
+  if (out > 100.0)
+    out = 100.0;
+  if (out < 20.0)
     // Minimum airflow
-    pid->y[0] = 20.0;
+    out = 20.0;
 
-  return pid->y[0];
+  return out;
 }
 /* USER CODE END Application */
