@@ -42,7 +42,7 @@ void MX_COMP1_Init(void)
   /* USER CODE END COMP1_Init 1 */
   hcomp1.Instance = COMP1;
   hcomp1.Init.InputPlus = COMP_INPUT_PLUS_IO1;
-  hcomp1.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
+  hcomp1.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH1;
   hcomp1.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
   hcomp1.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp1.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
@@ -69,7 +69,7 @@ void MX_COMP2_Init(void)
   /* USER CODE END COMP2_Init 1 */
   hcomp2.Instance = COMP2;
   hcomp2.Init.InputPlus = COMP_INPUT_PLUS_IO1;
-  hcomp2.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
+  hcomp2.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH2;
   hcomp2.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
   hcomp2.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp2.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
@@ -96,7 +96,7 @@ void MX_COMP6_Init(void)
   /* USER CODE END COMP6_Init 1 */
   hcomp6.Instance = COMP6;
   hcomp6.Init.InputPlus = COMP_INPUT_PLUS_IO1;
-  hcomp6.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
+  hcomp6.Init.InputMinus = COMP_INPUT_MINUS_DAC2_CH1;
   hcomp6.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
   hcomp6.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp6.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
@@ -123,7 +123,7 @@ void MX_COMP7_Init(void)
   /* USER CODE END COMP7_Init 1 */
   hcomp7.Instance = COMP7;
   hcomp7.Init.InputPlus = COMP_INPUT_PLUS_IO1;
-  hcomp7.Init.InputMinus = COMP_INPUT_MINUS_1_2VREFINT;
+  hcomp7.Init.InputMinus = COMP_INPUT_MINUS_DAC4_CH1;
   hcomp7.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
   hcomp7.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
   hcomp7.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;

@@ -111,7 +111,7 @@ void Error_Handler(void);
 #define PD2_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
-
+extern
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

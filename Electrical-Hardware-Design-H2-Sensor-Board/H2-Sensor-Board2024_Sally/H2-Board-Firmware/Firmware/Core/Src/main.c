@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "adc.h"
 #include "comp.h"
+#include "dac.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "i2c.h"
@@ -105,6 +106,9 @@ int main(void)
   MX_ADC5_Init();
   MX_I2C3_Init();
   MX_I2C4_Init();
+  MX_DAC1_Init();
+  MX_DAC2_Init();
+  MX_DAC4_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

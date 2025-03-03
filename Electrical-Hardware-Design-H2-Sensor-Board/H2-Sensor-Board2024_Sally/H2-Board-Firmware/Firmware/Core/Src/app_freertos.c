@@ -23,11 +23,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 
-#include "task_can_communication.h"
-#include "task_leak_watchdog.h"
-#include "task_sensor_data_aquire.h"
-#include "task_update_oled.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -36,6 +31,7 @@
 /* Private typedef -----------------------------------------------------------*/
 typedef StaticTask_t osStaticThreadDef_t;
 typedef StaticQueue_t osStaticMessageQDef_t;
+typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -120,6 +116,14 @@ const osMessageQueueAttr_t CANMessageRecieveQ_attributes = {
   .mq_mem = &CANMessageRecieveQBuffer,
   .mq_size = sizeof(CANMessageRecieveQBuffer)
 };
+/* Definitions for H2AlarmSem */
+osSemaphoreId_t H2AlarmSemHandle;
+osStaticSemaphoreDef_t H2AlarmSemControlBlock;
+const osSemaphoreAttr_t H2AlarmSem_attributes = {
+  .name = "H2AlarmSem",
+  .cb_mem = &H2AlarmSemControlBlock,
+  .cb_size = sizeof(H2AlarmSemControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -147,6 +151,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
+
+  /* Create the semaphores(s) */
+  /* creation of H2AlarmSem */
+  H2AlarmSemHandle = osSemaphoreNew(1, 1, &H2AlarmSem_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
