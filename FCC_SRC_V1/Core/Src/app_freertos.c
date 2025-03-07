@@ -63,7 +63,7 @@ typedef struct {
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ADS1115_ADR1 0x48
-#define TACH_TIMER_INTERVAL 5000
+#define TACH_TIMER_INTERVAL 1000
 #define PID_TIMER_INTERVAL 1 // in ms
 /* USER CODE END PD */
 
@@ -82,7 +82,7 @@ uint8_t button_flags = 0x00;
 fetState_t fet_state = FET_STBY;
 
 pidParam_t myPid;
-float fcSetpointTemp = 30; // Celsius
+float fcSetpointTemp = 20; // Celsius
 // Default Purge values
 volatile uint32_t purgeDelay_ms = 15000; // time delay between purge is ms
 volatile uint32_t purgeTime_ms = 1000;   // purge duration
@@ -252,10 +252,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
   }
 }
 
-uint32_t lastTicks = 0;
+uint32_t ticks, lastTicks = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
   /* Prevent unused argument(s) compilation warning */
-  uint32_t ticks = osKernelGetTickCount();
+
   switch (GPIO_Pin) {
   case TACH1_Pin:
     TachTracker[0]++;
@@ -271,6 +271,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     break;
 
   case BTN1_Pin: // GPA
+	ticks = osKernelGetTickCount();
     if (ticks - lastTicks >= 1000) {
       lastTicks = ticks;
 
@@ -695,7 +696,7 @@ void StartFuelCellData(void *argument) {
     }
     step2 = step * VOLT_CONVERSION;
     step3 = VOLT_2_TEMP(step2);
-    fc_data.fc_temp = (int32_t)(29.843232f * FDCAN_FOUR_FLT_PREC);
+    fc_data.fc_temp = (int32_t)(step3 * FDCAN_FOUR_FLT_PREC);
 
     configReg.channel = CHANNEL_AIN1_GND;
     if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
@@ -714,11 +715,13 @@ void StartFuelCellData(void *argument) {
     this_print = osKernelGetTickCount();
     if (this_print - last_print >= 1000) {
       last_print = this_print;
-      log_info("FC PRES: %f, FC TEMP: %f, PID: %f, Duty %d",
+      log_info("FC PRES: %f, FC TEMP: %f, PID: %f, Duty %d, RPMs: %d %d",
                (float)fc_data.fc_press / FDCAN_FOUR_FLT_PREC,
                (float)fc_data.fc_temp / FDCAN_FOUR_FLT_PREC,
 			   myPid.y[0],
-			   htim2.Instance->CCR2);
+			   100 - htim2.Instance->CCR2,
+			   fc_data.fan_rpm1,
+			   fc_data.fan_rpm2);
     }
   }
   /* USER CODE END StartFuelCellData */
@@ -749,8 +752,8 @@ void calcPidTimer(void *argument) {
   float duty_cycle;
   duty_cycle = PID_Compute(&myPid, fcSetpointTemp,
                            (float)fc_data.fc_temp / FDCAN_FOUR_FLT_PREC);
-  htim2.Instance->CCR2 = (uint32_t)duty_cycle;
-  htim3.Instance->CCR1 = (uint32_t)duty_cycle;
+  htim2.Instance->CCR2 = 100 - (uint32_t)duty_cycle;
+  htim3.Instance->CCR1 = 100 - (uint32_t)duty_cycle;
 }
 
 // Initialize PID controller
