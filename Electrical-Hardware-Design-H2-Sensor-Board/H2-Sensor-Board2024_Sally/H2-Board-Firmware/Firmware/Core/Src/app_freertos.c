@@ -91,7 +91,7 @@ const osThreadAttr_t leakWatchdo_attributes = {
   .stack_size = sizeof(leakWatchdoBuffer),
   .cb_mem = &leakWatchdoControlBlock,
   .cb_size = sizeof(leakWatchdoControlBlock),
-  .priority = (osPriority_t) osPriorityNormal3,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for CANCommunicatio */
 osThreadId_t CANCommunicatioHandle;

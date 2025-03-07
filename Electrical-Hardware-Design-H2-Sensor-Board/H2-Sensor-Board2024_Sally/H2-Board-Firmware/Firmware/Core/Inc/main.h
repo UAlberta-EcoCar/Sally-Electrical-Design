@@ -31,7 +31,9 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <FreeRTOS.h>
 
+#include "cmsis_os.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -111,7 +113,8 @@ void Error_Handler(void);
 #define PD2_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
-extern
+extern osMessageQueueId_t CANMessageRecieveQHandle;
+extern osSemaphoreId_t H2AlarmSemHandle;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
