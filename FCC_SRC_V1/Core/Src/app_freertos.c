@@ -80,7 +80,8 @@ FDCAN_FetPack_t fet_data = {0};
 uint8_t button_flags = 0x00;
 
 fetState_t fet_state = FET_STBY;
-
+uint32_t* purge_dbuffer;
+uint32_t* purge_tbuffer;
 pidParam_t myPid;
 float fcSetpointTemp = 20; // Celsius
 // Default Purge values
@@ -425,23 +426,36 @@ void StartDefaultTask(void *argument) {
   ssd1306_UpdateScreen();
   osSemaphoreRelease(i2cSemaHandle);
 
+  HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
+  HAL_ADC_Start_DMA(&hadc1,&purge_tbuffer,1);
+  HAL_ADC_Start_DMA(&hadc2,&purge_dbuffer,1);
+  float intermed1 = 0;
+  float intermed2 = 0;
+
   /* TODO: More screen stuff */
 
   for (;;) {
     // Used for non-essential peripheral control; OLED,POTS,Encoder,
 
+	  intermed1 = *purge_tbuffer/4096*3.3;
+	  intermed2 = *purge_dbuffer/4096*3.3;
+
+
     osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
 
-    ssd1306_SetCursor(0, 40); // Adjust Y position as needed
+    ssd1306_SetCursor(0, 20); // Adjust Y position as needed
     ssd1306_Fill(Black);
     ssd1306_UpdateScreen();
 
-    sprintf(ScreenBuffer, "STATE: %s",
-            (fet_state == FET_STBY) ? "STBY" : "RUN");
+
+    sprintf(ScreenBuffer, "STATE: %s\nDelay: %.2f\nDuration:%.2f",
+            (fet_state == FET_STBY) ? "STBY" : "RUN",intermed2,intermed1);
     ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
     ssd1306_UpdateScreen(); // Update the screen
-
     osSemaphoreRelease(i2cSemaHandle);
+
+
 
     osDelay(1000);
   }
