@@ -6,11 +6,8 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/main.h ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -47,10 +44,14 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/ADS1115.h \
- /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/log/debug-log.h \
- /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h \
- /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
+ C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/debug-log.h \
+ C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/ansi-codes.h \
+ C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
+ C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
  ../Core/Inc/fdcan.h ../Core/Inc/main.h \
  ../EcoLib/drivers/lis3dh/inc/lis3dh.h ../Core/Inc/ssd1306.h \
  ../Core/Inc/ssd1306_conf.h ../Core/Inc/ssd1306_fonts.h \
@@ -63,7 +64,8 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
+ ../Core/Inc/adc.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -71,11 +73,8 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h:
-../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
-../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -113,10 +112,14 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
+../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
+../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
 ../Core/Inc/ADS1115.h:
-/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/log/debug-log.h:
-/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h:
-/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
+C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/debug-log.h:
+C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/ansi-codes.h:
+C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h:
+../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
 ../Core/Inc/fdcan.h:
 ../Core/Inc/main.h:
 ../EcoLib/drivers/lis3dh/inc/lis3dh.h:
@@ -136,3 +139,4 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
+../Core/Inc/adc.h:

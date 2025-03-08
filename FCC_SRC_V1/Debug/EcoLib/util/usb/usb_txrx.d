@@ -7,7 +7,7 @@ EcoLib/util/usb/usb_txrx.o: ../EcoLib/util/usb/usb_txrx.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- /home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
+ C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
  ../Core/Inc/main.h ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -62,7 +62,7 @@ EcoLib/util/usb/usb_txrx.o: ../EcoLib/util/usb/usb_txrx.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-/home/ddjangl/EcoCar/Sally-Electrical-Design/Fuel-Cell-Controller/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
+C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
