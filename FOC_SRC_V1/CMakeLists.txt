@@ -49,11 +49,14 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Core/Src/ws2812.c
+    EcoLib/ecocan/ecocar_can.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    EcoLib/ecocan 
+    EcoLib/util/typedef
 )
 
 # Add project symbols (macros)

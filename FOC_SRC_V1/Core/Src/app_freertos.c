@@ -21,21 +21,23 @@
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "main.h"
-#include "stm32g4xx_hal_flash_ramfunc.h"
-#include "stm32g4xx_hal_tim.h"
 #include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "ecocar_can.h"
+#include "fdcan.h"
 #include "tim.h"
 #include "ws2812.h"
 #include <math.h>
 #include <stdint.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 typedef StaticTask_t osStaticThreadDef_t;
 typedef StaticSemaphore_t osStaticSemaphoreDef_t;
+typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -52,7 +54,10 @@ typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
+FDCAN_FccPack_t fcc_data;
+FDCAN_FetPack_t fet_data;
+FDCAN_H2Pack_t h2_data;
+FDCAN_BOOSTPack_t boost_data;
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -76,7 +81,7 @@ const osThreadAttr_t canReceiveMsg_attributes = {
     .stack_size = sizeof(CanReceiveMsgBuffer),
     .cb_mem = &CanReceiveMsgControlBlock,
     .cb_size = sizeof(CanReceiveMsgControlBlock),
-    .priority = (osPriority_t)osPriorityNormal1,
+    .priority = (osPriority_t)osPriorityAboveNormal1,
 };
 /* Definitions for canSendMsg */
 osThreadId_t canSendMsgHandle;
@@ -90,22 +95,38 @@ const osThreadAttr_t canSendMsg_attributes = {
     .cb_size = sizeof(CanSendMsgControlBlock),
     .priority = (osPriority_t)osPriorityNormal2,
 };
-/* Definitions for canSemaphore */
-osSemaphoreId_t canSemaphoreHandle;
-osStaticSemaphoreDef_t canSemaphoreControlBlock;
-const osSemaphoreAttr_t canSemaphore_attributes = {
-    .name = "canSemaphore",
-    .cb_mem = &canSemaphoreControlBlock,
-    .cb_size = sizeof(canSemaphoreControlBlock),
-};
 
 /* Private function prototypes -----------------------------------------------*/
+
 /* USER CODE BEGIN FunctionPrototypes */
+/* Definitions for canQueRxHeader */
+osMessageQueueId_t canQueRxHeaderHandle;
+uint8_t canReceiveQueBuffer[512 * sizeof(uint32_t)];
+osStaticMessageQDef_t canReceiveQueControlBlock;
+const osMessageQueueAttr_t canQueRxHeader_attributes = {
+    .name = "canQueRxHeader",
+    .cb_mem = &canReceiveQueControlBlock,
+    .cb_size = sizeof(canReceiveQueControlBlock),
+    .mq_mem = &canReceiveQueBuffer,
+    .mq_size = sizeof(canReceiveQueBuffer)};
+/* Definitions for canQueRxData */
+osMessageQueueId_t canQueRxDataHandle;
+uint8_t canQueRxDataBuffer[512 * sizeof(uint8_t)];
+osStaticMessageQDef_t canQueRxDataControlBlock;
+const osMessageQueueAttr_t canQueRxData_attributes = {
+    .name = "canQueRxData",
+    .cb_mem = &canQueRxDataControlBlock,
+    .cb_size = sizeof(canQueRxDataControlBlock),
+    .mq_mem = &canQueRxDataBuffer,
+    .mq_size = sizeof(canQueRxDataBuffer)};
+
+// Callback needed for LEDs
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
   if (htim->Instance == htim2.Instance) {
     WS2812_Callback();
   }
 }
+
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -130,7 +151,6 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the semaphores(s) */
   /* creation of canSemaphore */
-  canSemaphoreHandle = osSemaphoreNew(1, 0, &canSemaphore_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -142,6 +162,12 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  canQueRxHeaderHandle =
+      osMessageQueueNew(512, sizeof(uint32_t), &canQueRxHeader_attributes);
+
+  /* creation of canQueRxData */
+  canQueRxDataHandle =
+      osMessageQueueNew(512, sizeof(uint8_t), &canQueRxData_attributes);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -186,7 +212,6 @@ void StartDefaultTask(void *argument) {
     Error_Handler();
   }
 
-
   // Start each led off at a different color point
   for (uint8_t ledIndex = 0; ledIndex < WS2812_NUM_LEDS; ledIndex++) {
     r[ledIndex] = ledIndex * offSet;
@@ -215,10 +240,56 @@ void StartDefaultTask(void *argument) {
 /* USER CODE END Header_StartCanReceive */
 void StartCanReceive(void *argument) {
   /* USER CODE BEGIN StartCanReceive */
+  /**
+   * THIS SECTION OF CODE UTILIZES A HIGHER PRIORITY SO NO BLOCKING
+   * IS ALLOWED TO BE USED OTHER THAN THE SEMAPHORE
+   */
+  UNUSED(argument);
+  FDCAN_RxHeaderTypeDef localRxHeader = {0};
+  uint8_t ret[64] = {0};
   /* Infinite loop */
   for (;;) {
-    osDelay(1);
+    if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier, 0,
+                          osWaitForever) == osOK) {
+      if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.DataLength, 0,
+                            0) != osOK) {
+        Error_Handler();
+      }
+      for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength); i++) {
+        if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0) != osOK) {
+          Error_Handler();
+        }
+      }
+      switch (localRxHeader.Identifier) {
+      case FDCAN_H2ALARM_ID:
+        // H2 ALARM
+        if (ret[0] == 1) {
+        }
+        break;
+      case FDCAN_SYNCLED_ID:
+        // CAN SYNC LED
+        if (ret[0] == 1) {
+        } else {
+        }
+        break;
+      case FDCAN_FCCPACK_ID:
+        memcpy(&fcc_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      case FDCAN_FETPACK_ID:
+        memcpy(&fet_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      case FDCAN_H2PACK_ID:
+        memcpy(&h2_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      case FDCAN_BOOSTPACK_ID:
+        memcpy(&boost_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      default:
+        break;
+      }
+    }
   }
+  osDelay(1);
   /* USER CODE END StartCanReceive */
 }
 
@@ -231,9 +302,20 @@ void StartCanReceive(void *argument) {
 /* USER CODE END Header_StartCanSend */
 void StartCanSend(void *argument) {
   /* USER CODE BEGIN StartCanSend */
+  UNUSED(argument);
+  FDCAN_TxHeaderTypeDef localTxHeader;
+  const uint8_t msg_delay = 10;
+
+  localTxHeader.IdType = FDCAN_STANDARD_ID;
+  localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
+  localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+  localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
+  localTxHeader.FDFormat = FDCAN_FD_CAN;
+  localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+  localTxHeader.MessageMarker = 0;
   /* Infinite loop */
   for (;;) {
-    osDelay(1);
+    osDelay(msg_delay);
   }
   /* USER CODE END StartCanSend */
 }

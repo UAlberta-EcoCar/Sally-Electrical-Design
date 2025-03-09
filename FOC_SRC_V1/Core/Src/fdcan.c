@@ -60,7 +60,91 @@ void MX_FDCAN2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN FDCAN2_Init 2 */
+  FDCAN_FilterTypeDef sFilterConfig;
 
+  // Accept high priority messages
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 0;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x000; // 0b00000000000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
+
+  // Accept messages from Fet Board
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 2;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x010; // 0b00000100000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
+
+  // Accept messages from Fuel Cell Controller
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 1;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x020; // 0b00000100000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
+
+  // Accept messages from h2 board
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 1;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x030; // 0b00000100000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
+
+  // Accept messages from boost board
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 1;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x040; // 0b00000100000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
+
+  if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT,
+                                   FDCAN_REJECT, FDCAN_REJECT) != HAL_OK) {
+    Error_Handler();
+  }
+
+  if (HAL_FDCAN_ConfigTxDelayCompensation(
+          &hfdcan2, hfdcan2.Init.DataTimeSeg1 * hfdcan2.Init.DataPrescaler,
+          0) != HAL_OK) {
+    Error_Handler();
+  }
+  if (HAL_FDCAN_EnableTxDelayCompensation(&hfdcan2) != HAL_OK) {
+    Error_Handler();
+  }
+
+  /* START FDCAN PERIPHERAL */
+  if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK) {
+    Error_Handler();
+  }
+
+  if (HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
+                                     0) != HAL_OK) {
+    Error_Handler();
+  }
   /* USER CODE END FDCAN2_Init 2 */
 
 }
