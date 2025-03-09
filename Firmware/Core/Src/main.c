@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -22,6 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "rf-rfm95.h"
 
 /* USER CODE END Includes */
 
@@ -53,10 +54,15 @@ UART_HandleTypeDef huart1;
 
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
+uint32_t defaultTaskBuffer[ 512 ];
+osStaticThreadDef_t defaultTaskControlBlock;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
+  .stack_mem = &defaultTaskBuffer[0],
+  .stack_size = sizeof(defaultTaskBuffer),
+  .cb_mem = &defaultTaskControlBlock,
+  .cb_size = sizeof(defaultTaskControlBlock),
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 256 * 4
 };
 /* Definitions for TaskCan */
 osThreadId_t TaskCanHandle;
@@ -214,19 +220,19 @@ int main(void)
   osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
+	/* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+	/* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
+	/* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+	/* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -255,11 +261,11 @@ int main(void)
   TaskAUXHandle = osThreadNew(StartAUXTask, NULL, &TaskAUX_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+	/* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
-  /* add events, ... */
+	/* add events, ... */
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
@@ -269,12 +275,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+	while (1) {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+	}
   /* USER CODE END 3 */
 }
 
@@ -383,7 +388,7 @@ static void MX_I2C2_Init(void)
 
   /* USER CODE END I2C2_Init 1 */
   hi2c2.Instance = I2C2;
-  hi2c2.Init.Timing = 0x20C0EDFF;
+  hi2c2.Init.Timing = 0x30D293D6;
   hi2c2.Init.OwnAddress1 = 0;
   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -434,17 +439,17 @@ static void MX_SPI1_Init(void)
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -551,50 +556,45 @@ static void MX_USART1_UART_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, BTN1_Pin|BTN2_Pin|LED6_Pin|TXEN_24_Pin
-                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin
-                          |NSS_868_Pin|DIO2_24_Pin|DIO1_24_Pin|RST_868_Pin
-                          |DIO0_868_Pin|DIO4_868_Pin, GPIO_PIN_RESET);
+                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|DIO2_24_Pin
+                          |DIO1_24_Pin|RST_868_Pin|DIO0_868_Pin|DIO4_868_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
                           |SWT2_Pin|RST_24_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin
-                          |RST_915_Pin|DIO5_915_Pin|DIO4_915_Pin|LED7_Pin
-                          |LED8_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, NSS_915_Pin|NSS_868_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin|RST_915_Pin
+                          |DIO5_915_Pin|DIO4_915_Pin|LED7_Pin|LED8_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : BTN1_Pin BTN2_Pin LED6_Pin TXEN_24_Pin
-                           RXEN_24_Pin SPI2_NSS_Pin SWT1_Pin NSS_915_Pin
-                           NSS_868_Pin DIO2_24_Pin DIO1_24_Pin RST_868_Pin
-                           DIO0_868_Pin DIO4_868_Pin */
+                           RXEN_24_Pin SPI2_NSS_Pin SWT1_Pin DIO2_24_Pin
+                           DIO1_24_Pin RST_868_Pin DIO0_868_Pin DIO4_868_Pin */
   GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|LED6_Pin|TXEN_24_Pin
-                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin
-                          |NSS_868_Pin|DIO2_24_Pin|DIO1_24_Pin|RST_868_Pin
-                          |DIO0_868_Pin|DIO4_868_Pin;
+                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|DIO2_24_Pin
+                          |DIO1_24_Pin|RST_868_Pin|DIO0_868_Pin|DIO4_868_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : NOT_FAULT_Pin */
-  GPIO_InitStruct.Pin = NOT_FAULT_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(NOT_FAULT_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin LED4_Pin
                            SWT2_Pin RST_24_Pin */
@@ -605,12 +605,24 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : NSS_24_Pin RST_GNSS_Pin EXTINT_GNSS_Pin DIO0_915_Pin
-                           RST_915_Pin DIO5_915_Pin DIO4_915_Pin LED7_Pin
-                           LED8_Pin */
-  GPIO_InitStruct.Pin = NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin
-                          |RST_915_Pin|DIO5_915_Pin|DIO4_915_Pin|LED7_Pin
-                          |LED8_Pin;
+  /*Configure GPIO pins : NSS_915_Pin NSS_868_Pin */
+  GPIO_InitStruct.Pin = NSS_915_Pin|NSS_868_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : NSS_24_Pin */
+  GPIO_InitStruct.Pin = NSS_24_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(NSS_24_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : RST_GNSS_Pin EXTINT_GNSS_Pin DIO0_915_Pin RST_915_Pin
+                           DIO5_915_Pin DIO4_915_Pin LED7_Pin LED8_Pin */
+  GPIO_InitStruct.Pin = RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin|RST_915_Pin
+                          |DIO5_915_Pin|DIO4_915_Pin|LED7_Pin|LED8_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -646,8 +658,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(DIO5_868_GPIO_Port, &GPIO_InitStruct);
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -656,145 +668,178 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
+ * @brief  Function implementing the defaultTask thread.
+ * @param  argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+
+//	HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
+//	HAL_GPIO_WritePin(NSS_915_GPIO_Port, NSS_915_Pin, GPIO_PIN_SET);
+//	HAL_GPIO_WritePin(NSS_868_GPIO_Port, NSS_868_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(RST_868_GPIO_Port, RST_868_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(RST_915_GPIO_Port, RST_915_Pin, GPIO_PIN_SET);
+
+	rf_handle_t rfm95_868 = { .rf_nreset_port = RST_868_GPIO_Port,
+			.rf_nreset_pin = RST_868_Pin, .rf_nss_port = NSS_868_GPIO_Port,
+			.rf_nss_pin = NSS_868_GPIO_Port, .rf_spi_handle = &hspi1,
+			.rf_delay_func = osDelay, .rf_spi_timeout = 100,
+			.rf_carrier_frequency = 868000000 };
+
+	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
+			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
+			.rf_nss_pin = NSS_915_GPIO_Port, .rf_spi_handle = &hspi1,
+			.rf_delay_func = osDelay, .rf_spi_timeout = 100,
+			.rf_carrier_frequency = 915000000 };
+
+	rf_initialize_radio(&rfm95_868);
+
+	rf_initialize_radio(&rfm95_915);
+
+	rf_set_frequency(&rfm95_868, 868000000);
+
+	rf_set_frequency(&rfm95_915, 915000000);
+
+	/* Infinite loop */
+	for (;;) {
+
+		rf_initialize_radio(&rfm95_868);
+
+		rf_initialize_radio(&rfm95_915);
+
+		rf_set_frequency(&rfm95_868, 868000000);
+
+		rf_set_frequency(&rfm95_915, 915000000);
+
+		osDelay(10);
+	}
   /* USER CODE END 5 */
 }
 
 /* USER CODE BEGIN Header_StartCanTask */
 /**
-* @brief Function implementing the CanTask thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the CanTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartCanTask */
-__weak void StartCanTask(void *argument)
+void StartCanTask(void *argument)
 {
   /* USER CODE BEGIN StartCanTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	/* Infinite loop */
+	for (;;) {
+		osDelay(1);
+	}
   /* USER CODE END StartCanTask */
 }
 
 /* USER CODE BEGIN Header_Start24Task */
 /**
-* @brief Function implementing the Task24 thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the Task24 thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_Start24Task */
-__weak void Start24Task(void *argument)
+void Start24Task(void *argument)
 {
   /* USER CODE BEGIN Start24Task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	/* Infinite loop */
+	for (;;) {
+		osDelay(1);
+	}
   /* USER CODE END Start24Task */
 }
 
 /* USER CODE BEGIN Header_Start915Task */
 /**
-* @brief Function implementing the Task915 thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the Task915 thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_Start915Task */
-__weak void Start915Task(void *argument)
+void Start915Task(void *argument)
 {
   /* USER CODE BEGIN Start915Task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	/* Infinite loop */
+	for (;;) {
+		osDelay(1);
+	}
   /* USER CODE END Start915Task */
 }
 
 /* USER CODE BEGIN Header_Start868Task */
 /**
-* @brief Function implementing the Task868 thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the Task868 thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_Start868Task */
-__weak void Start868Task(void *argument)
+void Start868Task(void *argument)
 {
   /* USER CODE BEGIN Start868Task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	/* Infinite loop */
+	for (;;) {
+		osDelay(1);
+	}
   /* USER CODE END Start868Task */
 }
 
 /* USER CODE BEGIN Header_StartGNSSTask */
 /**
-* @brief Function implementing the GNSSTask thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the GNSSTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartGNSSTask */
-__weak void StartGNSSTask(void *argument)
+void StartGNSSTask(void *argument)
 {
   /* USER CODE BEGIN StartGNSSTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	/* Infinite loop */
+	for (;;) {
+		osDelay(1);
+	}
   /* USER CODE END StartGNSSTask */
 }
 
 /* USER CODE BEGIN Header_StartSDTask */
 /**
-* @brief Function implementing the SDTask thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the SDTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartSDTask */
-__weak void StartSDTask(void *argument)
+void StartSDTask(void *argument)
 {
   /* USER CODE BEGIN StartSDTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	/* Infinite loop */
+	for (;;) {
+		osDelay(1);
+	}
   /* USER CODE END StartSDTask */
 }
 
 /* USER CODE BEGIN Header_StartAUXTask */
 /**
-* @brief Function implementing the TaskAUX thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the TaskAUX thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartAUXTask */
-__weak void StartAUXTask(void *argument)
+void StartAUXTask(void *argument)
 {
   /* USER CODE BEGIN StartAUXTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	/* Infinite loop */
+	for (;;) {
+		osDelay(1);
+	}
   /* USER CODE END StartAUXTask */
 }
 
@@ -811,7 +856,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM1) {
+  if (htim->Instance == TIM1)
+  {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
@@ -826,11 +872,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 

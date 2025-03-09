@@ -66,8 +66,6 @@ void Error_Handler(void);
 #define LED6_GPIO_Port GPIOC
 #define XCLK_Pin GPIO_PIN_0
 #define XCLK_GPIO_Port GPIOF
-#define NOT_FAULT_Pin GPIO_PIN_10
-#define NOT_FAULT_GPIO_Port GPIOG
 #define TXEN_24_Pin GPIO_PIN_0
 #define TXEN_24_GPIO_Port GPIOC
 #define RXEN_24_Pin GPIO_PIN_1
