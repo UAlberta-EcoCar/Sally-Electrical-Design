@@ -440,16 +440,16 @@ static void MX_SPI1_Init(void)
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
-  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -568,64 +568,55 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, BTN1_Pin|BTN2_Pin|LED6_Pin|TXEN_24_Pin
-                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|DIO2_24_Pin
-                          |DIO1_24_Pin|RST_868_Pin|DIO0_868_Pin|DIO4_868_Pin, GPIO_PIN_RESET);
+                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin
+                          |NSS_868_Pin|DIO2_24_Pin|DIO1_24_Pin|RST_868_Pin
+                          |DIO0_868_Pin|DIO4_868_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
                           |SWT2_Pin|RST_24_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, NSS_915_Pin|NSS_868_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin|RST_915_Pin
-                          |DIO5_915_Pin|DIO4_915_Pin|LED7_Pin|LED8_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin
+                          |RST_915_Pin|DIO5_915_Pin|DIO4_915_Pin|LED7_Pin
+                          |LED8_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : BTN1_Pin BTN2_Pin LED6_Pin TXEN_24_Pin
-                           RXEN_24_Pin SPI2_NSS_Pin SWT1_Pin DIO2_24_Pin
-                           DIO1_24_Pin RST_868_Pin DIO0_868_Pin DIO4_868_Pin */
+                           RXEN_24_Pin SPI2_NSS_Pin SWT1_Pin NSS_915_Pin
+                           NSS_868_Pin DIO2_24_Pin DIO1_24_Pin DIO0_868_Pin
+                           DIO4_868_Pin */
   GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|LED6_Pin|TXEN_24_Pin
-                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|DIO2_24_Pin
-                          |DIO1_24_Pin|RST_868_Pin|DIO0_868_Pin|DIO4_868_Pin;
+                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin
+                          |NSS_868_Pin|DIO2_24_Pin|DIO1_24_Pin|DIO0_868_Pin
+                          |DIO4_868_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin LED4_Pin
-                           SWT2_Pin RST_24_Pin */
+                           SWT2_Pin */
   GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
-                          |SWT2_Pin|RST_24_Pin;
+                          |SWT2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : NSS_915_Pin NSS_868_Pin */
-  GPIO_InitStruct.Pin = NSS_915_Pin|NSS_868_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : NSS_24_Pin */
-  GPIO_InitStruct.Pin = NSS_24_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(NSS_24_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : RST_GNSS_Pin EXTINT_GNSS_Pin DIO0_915_Pin RST_915_Pin
-                           DIO5_915_Pin DIO4_915_Pin LED7_Pin LED8_Pin */
-  GPIO_InitStruct.Pin = RST_GNSS_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin|RST_915_Pin
-                          |DIO5_915_Pin|DIO4_915_Pin|LED7_Pin|LED8_Pin;
+  /*Configure GPIO pins : NSS_24_Pin EXTINT_GNSS_Pin DIO0_915_Pin DIO5_915_Pin
+                           DIO4_915_Pin LED7_Pin LED8_Pin */
+  GPIO_InitStruct.Pin = NSS_24_Pin|EXTINT_GNSS_Pin|DIO0_915_Pin|DIO5_915_Pin
+                          |DIO4_915_Pin|LED7_Pin|LED8_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : RST_GNSS_Pin RST_915_Pin */
+  GPIO_InitStruct.Pin = RST_GNSS_Pin|RST_915_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : IMON_Pin */
@@ -646,11 +637,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(BUSY_24_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : RST_24_Pin */
+  GPIO_InitStruct.Pin = RST_24_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+  HAL_GPIO_Init(RST_24_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : LED5_Pin */
   GPIO_InitStruct.Pin = LED5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(LED5_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RST_868_Pin */
+  GPIO_InitStruct.Pin = RST_868_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+  HAL_GPIO_Init(RST_868_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : DIO5_868_Pin */
   GPIO_InitStruct.Pin = DIO5_868_Pin;
@@ -678,46 +683,51 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN 5 */
 	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 
-//	HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(NSS_915_GPIO_Port, NSS_915_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(NSS_868_GPIO_Port, NSS_868_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(NSS_915_GPIO_Port, NSS_915_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(NSS_868_GPIO_Port, NSS_868_Pin, GPIO_PIN_SET);
 
 	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
 
 	HAL_GPIO_WritePin(RST_868_GPIO_Port, RST_868_Pin, GPIO_PIN_SET);
 
-	HAL_GPIO_WritePin(RST_915_GPIO_Port, RST_915_Pin, GPIO_PIN_SET);
+//	HAL_GPIO_WritePin(RST_915_GPIO_Port, RST_915_Pin, GPIO_PIN_SET);
+//
+//	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
 
 	rf_handle_t rfm95_868 = { .rf_nreset_port = RST_868_GPIO_Port,
 			.rf_nreset_pin = RST_868_Pin, .rf_nss_port = NSS_868_GPIO_Port,
-			.rf_nss_pin = NSS_868_GPIO_Port, .rf_spi_handle = &hspi1,
-			.rf_delay_func = osDelay, .rf_spi_timeout = 100,
+			.rf_nss_pin = NSS_868_Pin, .rf_spi_handle = &hspi1,
+			.rf_delay_func = osDelay, .rf_spi_timeout = HAL_MAX_DELAY,
 			.rf_carrier_frequency = 868000000 };
 
-	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
-			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
-			.rf_nss_pin = NSS_915_GPIO_Port, .rf_spi_handle = &hspi1,
-			.rf_delay_func = osDelay, .rf_spi_timeout = 100,
-			.rf_carrier_frequency = 915000000 };
+//	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
+//			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
+//			.rf_nss_pin = NSS_915_GPIO_Port, .rf_spi_handle = &hspi1,
+//			.rf_delay_func = osDelay, .rf_spi_timeout = 100,
+//			.rf_carrier_frequency = 915000000 };
 
-	rf_initialize_radio(&rfm95_868);
+//	rf_initialize_radio(&rfm95_868);
 
-	rf_initialize_radio(&rfm95_915);
 
-	rf_set_frequency(&rfm95_868, 868000000);
 
-	rf_set_frequency(&rfm95_915, 915000000);
+
+//	rf_initialize_radio(&rfm95_915);
+
+//	rf_set_frequency(&rfm95_868, 868000000);
+
+//	rf_set_frequency(&rfm95_915, 915000000);
 
 	/* Infinite loop */
 	for (;;) {
 
 		rf_initialize_radio(&rfm95_868);
 
-		rf_initialize_radio(&rfm95_915);
+//		rf_initialize_radio(&rfm95_915);
 
-		rf_set_frequency(&rfm95_868, 868000000);
+//		rf_set_frequency(&rfm95_868, 868000000);
 
-		rf_set_frequency(&rfm95_915, 915000000);
+//		rf_set_frequency(&rfm95_915, 915000000);
 
 		osDelay(10);
 	}
