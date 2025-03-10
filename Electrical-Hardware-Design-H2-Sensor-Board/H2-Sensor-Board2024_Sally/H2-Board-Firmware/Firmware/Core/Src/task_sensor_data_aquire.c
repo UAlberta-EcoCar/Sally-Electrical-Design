@@ -12,6 +12,9 @@
 #include <task.h>
 #include "cmsis_os.h"
 #include "bme280.h"
+#include "i2c.h"
+#include "log/debug-log.h"
+#include "ecocar_can.h"
 
 H2_Sensor_Data_t h2_sensor_data;
 
@@ -19,12 +22,49 @@ uint32_t adc1_results[3] = { 0 }; // 0: h2sense1 1:imon12v 2:imon7V
 uint32_t adc2_results[2] = { 0 }; // 0: h2sense3 1: h2sense2
 uint32_t adc5_results[4] = { 0 }; // 0: h2sense4 1: cputemp 2: vbat 3: vrefint
 
+#define AVERAGE_SLOPE_MCU_TEMP 2.5f
+#define VOLTAGE_AT_30C_MCU_TEMP 0.76f // page 168 5.3.24: Temperature sensor characteristics
+
 #define H2_SENSE_1_IDX 0
 #define H2_SENSE_2_IDX 1
 #define H2_SENSE_3_IDX 0
 #define H2_SENSE_4_IDX 0
 
-#define ADC_CONV_CONST 4096.0f / 3.3f
+#define ADC_CONV_CONST 3.3f / 4096.0f
+
+int8_t user_i2c_read(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len) {
+	if (HAL_I2C_Master_Transmit(&hi2c4, (id << 1), &reg_addr, 1, 10) != HAL_OK)
+		return -1;
+	if (HAL_I2C_Master_Receive(&hi2c4, (id << 1) | 0x01, data, len, 10)
+			!= HAL_OK)
+		return -1;
+
+	return 0;
+}
+
+void user_delay_ms(uint32_t period) {
+	osDelay(period);
+}
+
+int8_t user_i2c_write(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len) {
+	uint8_t buf[len + 1];
+	buf[0] = reg_addr;
+	memcpy(buf + 1, data, len);
+	while (HAL_I2C_Master_Transmit(&hi2c4, (id << 1), (uint8_t*) buf, len + 1,
+	HAL_MAX_DELAY) != HAL_OK)
+		printf("I2C Error\r\n");
+//	int8_t *buf;
+//	buf = malloc(len + 1);
+//	buf[0] = reg_addr;
+//	memcpy(buf + 1, data, len);
+//
+//	if (HAL_I2C_Master_Transmit(&hi2c1, (id << 1), (uint8_t*) buf, len + 1,
+//	HAL_MAX_DELAY) != HAL_OK)
+//		return -1;
+//
+//	free(buf);
+	return 0;
+}
 
 void StartSensorDataAquireTask(void *argument) {
 	/* USER CODE BEGIN StartSensorDataAquireTask */
@@ -42,10 +82,12 @@ void StartSensorDataAquireTask(void *argument) {
 	// initialize bme
 
 	struct bme280_dev dev;
-	struct bme280_data comp_data;
+	struct bme280_data comp_data = { 0 };
 	int8_t rslt;
 
-	dev.dev_id = BME280_I2C_ADDR_PRIM;
+//	HAL_I2C_IsDeviceReady(&hi2c4, BME280_I2C_ADDR_PRIM, 5, 100);
+
+	dev.dev_id = BME280_I2C_ADDR_SEC;
 	dev.intf = BME280_I2C_INTF;
 	dev.read = user_i2c_read;
 	dev.write = user_i2c_write;
@@ -61,33 +103,51 @@ void StartSensorDataAquireTask(void *argument) {
 					| BME280_FILTER_SEL, &dev);
 	rslt = bme280_set_sensor_mode(BME280_NORMAL_MODE, &dev);
 
+	float vbat= 0, vref = 0, temp = 0, vsense = 0;
+
 	/* Infinite loop */
 	for (;;) {
 
+		if (HAL_OK == HAL_I2C_IsDeviceReady(&hi2c4, BME280_I2C_ADDR_SEC, 1,
+		HAL_MAX_DELAY)) {
+			log_info("Device Found");
+		}
+
 		h2_sensor_data.h2_sense1_mV = (uint32_t) (adc1_results[H2_SENSE_1_IDX]
-				* ADC_CONV_CONST);
+				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
 		h2_sensor_data.h2_sense2_mV = (uint32_t) (adc2_results[H2_SENSE_2_IDX]
-				* ADC_CONV_CONST);
+				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
 		h2_sensor_data.h2_sense3_mV = (uint32_t) (adc2_results[H2_SENSE_3_IDX]
-				* ADC_CONV_CONST);
+				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
 		h2_sensor_data.h2_sense4_mV = (uint32_t) (adc5_results[H2_SENSE_4_IDX]
-				* ADC_CONV_CONST);
+				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
 
-		h2_sensor_data.IMON_12V_mA = adc1_results[1] * ADC_CONV_CONST;
-		h2_sensor_data.IMON_7V_mA = adc1_results[2] * ADC_CONV_CONST;
+		h2_sensor_data.IMON_12V_mA = (uint32_t) (adc1_results[1]
+				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
+		h2_sensor_data.IMON_7V_mA = (uint32_t) (adc1_results[2] * ADC_CONV_CONST
+				* FDCAN_FOUR_FLT_PREC);
 
-		h2_sensor_data.vref_mV = adc5_results[3] * ADC_CONV_CONST;
-		h2_sensor_data.vbat_mV = adc5_results[2] * ADC_CONV_CONST;
+		h2_sensor_data.vref_mV = (uint32_t) (adc5_results[3] * ADC_CONV_CONST
+				* FDCAN_FOUR_FLT_PREC);
+		h2_sensor_data.vbat_mV = (uint32_t) (adc5_results[2] * ADC_CONV_CONST
+				* FDCAN_FOUR_FLT_PREC);
 
-		h2_sensor_data.mcu_temp_C = adc5_results[1] * ADC_CONV_CONST;
+		// temp equation
+		// [V_30 - V_Sense] / AVERAGE_SLOPE + 25
+
+		vsense = adc5_results[1] * ADC_CONV_CONST;
+		temp = (((VOLTAGE_AT_30C_MCU_TEMP - vsense) * 1000.0f) / AVERAGE_SLOPE_MCU_TEMP) + 25;
+		h2_sensor_data.mcu_temp_C = (uint32_t) temp;
 
 		rslt = bme280_get_sensor_data(BME280_ALL, &comp_data, &dev);
 
-		h2_sensor_data.temprature_C = comp_data.temperature / 100.0; /* °C  */
-		h2_sensor_data.humidity_per = comp_data.humidity / 1024.0; /* %   */
-		h2_sensor_data.pressure_hPa = comp_data.pressure / 10000.0; /* hPa */
+		if (rslt == BME280_OK) {
+			h2_sensor_data.temprature_C = comp_data.temperature / 100.0; /* °C  */
+			h2_sensor_data.humidity_per = comp_data.humidity / 1024.0; /* %   */
+			h2_sensor_data.pressure_hPa = comp_data.pressure / 10000.0; /* hPa */
+		}
 
-		osDelay(1);
+		osDelay(10);
 	}
 	/* USER CODE END StartSensorDataAquireTask */
 }

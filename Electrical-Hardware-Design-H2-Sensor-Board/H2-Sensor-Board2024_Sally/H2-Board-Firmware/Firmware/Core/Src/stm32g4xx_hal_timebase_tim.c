@@ -50,7 +50,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   /* Enable TIM20 clock */
   __HAL_RCC_TIM20_CLK_ENABLE();
 
-/* Get clock configuration */
+  /* Get clock configuration */
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
 
   /* Compute TIM20 clock */
@@ -63,12 +63,11 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   htim20.Instance = TIM20;
 
   /* Initialize TIMx peripheral as follow:
-
-  + Period = [(TIM20CLK/1000) - 1]. to have a (1/1000) s time base.
-  + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
-  + ClockDivision = 0
-  + Counter direction = Up
-  */
+   * Period = [(TIM20CLK/1000) - 1]. to have a (1/1000) s time base.
+   * Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
+   * ClockDivision = 0
+   * Counter direction = Up
+   */
   htim20.Init.Period = (1000000U / 1000U) - 1U;
   htim20.Init.Prescaler = uwPrescalerValue;
   htim20.Init.ClockDivision = 0;

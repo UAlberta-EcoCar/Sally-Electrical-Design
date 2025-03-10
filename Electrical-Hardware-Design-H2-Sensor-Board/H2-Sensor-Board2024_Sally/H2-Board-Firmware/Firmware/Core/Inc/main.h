@@ -113,6 +113,9 @@ void Error_Handler(void);
 #define PD2_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
+
+#define HARDFAULT_TIMER 500000
+
 extern osMessageQueueId_t CANMessageRecieveQHandle;
 extern osSemaphoreId_t H2AlarmSemHandle;
 /* USER CODE END Private defines */
