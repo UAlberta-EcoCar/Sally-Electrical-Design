@@ -1,4 +1,4 @@
-BUILD_DIR = build/debug
+BUILD_DIR = build/Debug
 TARGET = FOC_SRC_V1
 BINARY = $(BUILD_DIR)/$(TARGET).elf
 
@@ -19,4 +19,4 @@ flash_dep: gen
 	STM32_Programmer_CLI -c port=SWD -w $(BINARY) 0x08000000 -v -rst -run
 
 flash: gen
-	openocd -f "interface/stlink.cfg" -f "target/stm32g4x.cfg" -c "program build/debug/FOC_SRC_V1.elf verify reset exit"
+	openocd -f "interface/stlink.cfg" -f "target/stm32g4x.cfg" -c "program build/Debug/FOC_SRC_V1.elf verify reset exit"
