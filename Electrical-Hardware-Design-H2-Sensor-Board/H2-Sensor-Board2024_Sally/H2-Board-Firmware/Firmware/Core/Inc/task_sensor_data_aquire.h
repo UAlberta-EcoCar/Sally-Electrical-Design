@@ -22,9 +22,9 @@ typedef struct {
 	uint32_t IMON_7V_mA;
 	uint32_t IMON_12V_mA;
 
-	uint32_t humidity_per;
-	uint32_t temprature_C;
-	uint32_t pressure_hPa;
+	int32_t humidity_per;
+	int32_t temprature_C;
+	int32_t pressure_hPa;
 
 	uint32_t mcu_temp_C;
 	uint32_t vbat_mV;

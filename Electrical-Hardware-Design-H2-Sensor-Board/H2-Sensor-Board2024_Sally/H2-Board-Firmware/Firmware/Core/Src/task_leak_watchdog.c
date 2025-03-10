@@ -60,7 +60,7 @@ void StartLeakWatchdogTask(void *argument) {
 			// One of the alarms have tripped, figure out which one and respond appropriatly.
 			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
 				if (HAL_OK == HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2, &h2_sensor_data)) {
-					log_info_success("Successfully transmitted H2 Alarm");
+					log_info("Successfully transmitted H2 Alarm");
 				}
 			} else {
 				log_err("Failed to send H2 Alarm signal, fifo full");

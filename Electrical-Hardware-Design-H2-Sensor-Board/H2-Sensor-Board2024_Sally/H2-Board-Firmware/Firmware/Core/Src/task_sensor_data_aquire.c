@@ -13,7 +13,6 @@
 #include "cmsis_os.h"
 #include "bme280.h"
 
-
 H2_Sensor_Data_t h2_sensor_data;
 
 uint32_t adc1_results[3] = { 0 }; // 0: h2sense1 1:imon12v 2:imon7V
@@ -43,12 +42,24 @@ void StartSensorDataAquireTask(void *argument) {
 	// initialize bme
 
 	struct bme280_dev dev;
+	struct bme280_data comp_data;
+	int8_t rslt;
 
-	bme280_init(&dev);
+	dev.dev_id = BME280_I2C_ADDR_PRIM;
+	dev.intf = BME280_I2C_INTF;
+	dev.read = user_i2c_read;
+	dev.write = user_i2c_write;
+	dev.delay_ms = user_delay_ms;
+	rslt = bme280_init(&dev);
 
-	bme280_set_sensor_mode(BME280_NORMAL_MODE, &dev);
-
-
+	dev.settings.osr_h = BME280_OVERSAMPLING_1X;
+	dev.settings.osr_p = BME280_OVERSAMPLING_16X;
+	dev.settings.osr_t = BME280_OVERSAMPLING_2X;
+	dev.settings.filter = BME280_FILTER_COEFF_16;
+	rslt = bme280_set_sensor_settings(
+			BME280_OSR_PRESS_SEL | BME280_OSR_TEMP_SEL | BME280_OSR_HUM_SEL
+					| BME280_FILTER_SEL, &dev);
+	rslt = bme280_set_sensor_mode(BME280_NORMAL_MODE, &dev);
 
 	/* Infinite loop */
 	for (;;) {
@@ -69,6 +80,12 @@ void StartSensorDataAquireTask(void *argument) {
 		h2_sensor_data.vbat_mV = adc5_results[2] * ADC_CONV_CONST;
 
 		h2_sensor_data.mcu_temp_C = adc5_results[1] * ADC_CONV_CONST;
+
+		rslt = bme280_get_sensor_data(BME280_ALL, &comp_data, &dev);
+
+		h2_sensor_data.temprature_C = comp_data.temperature / 100.0; /* °C  */
+		h2_sensor_data.humidity_per = comp_data.humidity / 1024.0; /* %   */
+		h2_sensor_data.pressure_hPa = comp_data.pressure / 10000.0; /* hPa */
 
 		osDelay(1);
 	}
