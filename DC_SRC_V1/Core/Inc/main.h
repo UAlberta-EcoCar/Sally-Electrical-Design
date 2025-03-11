@@ -71,30 +71,30 @@ void Error_Handler(void);
 #define ADC_12V_ILM_GPIO_Port GPIOA
 #define ADC_7V_ILM_Pin GPIO_PIN_6
 #define ADC_7V_ILM_GPIO_Port GPIOA
-#define GPIO_LED5_Pin GPIO_PIN_7
-#define GPIO_LED5_GPIO_Port GPIOA
+#define LED5_Pin GPIO_PIN_7
+#define LED5_GPIO_Port GPIOA
 #define CAN_LED_Pin GPIO_PIN_0
 #define CAN_LED_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_8
 #define OLED_SDA_GPIO_Port GPIOA
 #define OLED_SCL_Pin GPIO_PIN_9
 #define OLED_SCL_GPIO_Port GPIOA
-#define GPIO_LED4_Pin GPIO_PIN_10
-#define GPIO_LED4_GPIO_Port GPIOA
+#define LED4_Pin GPIO_PIN_10
+#define LED4_GPIO_Port GPIOA
 #define USB_D__Pin GPIO_PIN_11
 #define USB_D__GPIO_Port GPIOA
 #define USB_D_A12_Pin GPIO_PIN_12
 #define USB_D_A12_GPIO_Port GPIOA
-#define GPIO_LED1_Pin GPIO_PIN_15
-#define GPIO_LED1_GPIO_Port GPIOA
-#define GPIO_LED2_Pin GPIO_PIN_3
-#define GPIO_LED2_GPIO_Port GPIOB
-#define GPIO_LED3_Pin GPIO_PIN_4
-#define GPIO_LED3_GPIO_Port GPIOB
+#define LED3_Pin GPIO_PIN_15
+#define LED3_GPIO_Port GPIOA
+#define LED2_Pin GPIO_PIN_3
+#define LED2_GPIO_Port GPIOB
+#define LED1_Pin GPIO_PIN_4
+#define LED1_GPIO_Port GPIOB
 #define CAN_STBY_Pin GPIO_PIN_7
 #define CAN_STBY_GPIO_Port GPIOB
-#define TOGGLE_Pin GPIO_PIN_8
-#define TOGGLE_GPIO_Port GPIOB
+#define Toggle_Pin GPIO_PIN_8
+#define Toggle_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

@@ -317,6 +317,12 @@ static int8_t CDC_TransmitCplt_FS(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */
 
+  
+int _write(int file, char *ptr, int len) {
+    CDC_Transmit_FS((uint8_t*) ptr, len); // Send data over USB CDC
+    return len;
+}
+
 /* USER CODE END PRIVATE_FUNCTIONS_IMPLEMENTATION */
 
 /**
