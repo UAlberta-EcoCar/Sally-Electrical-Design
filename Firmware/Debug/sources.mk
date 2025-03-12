@@ -26,5 +26,5 @@ Core/Src \
 Core/Startup \
 Drivers/STM32G4xx_HAL_Driver \
 Middlewares/FreeRTOS \
-ecolib/drivers/semtech/hoperf/rfm95/src \
+ecolib/EcoLib/drivers/semtech/hoperf/rfm95/src \
 
