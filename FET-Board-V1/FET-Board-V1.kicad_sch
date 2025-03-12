@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "49eeaae5-d819-4258-b051-773c4f6ae51f")
 	(paper "A4")
 	(title_block
@@ -91,12 +91,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GNDA"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -187,12 +192,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GNDD"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -294,12 +304,72 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
 	(bus_alias "FET_BUS"
 		(members "CNTRL_1" "CNTRL_2" "CNTRL_3" "CNTRL_4" "CURR_SENS_1" "CURR_SENS_2"
 			"CURR_SENS_3" "VOLT_INPUT_SENSE" "VOLT_CAP_SENSE"
 		)
+	)
+	(rectangle
+		(start 121.92 107.95)
+		(end 167.64 115.57)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 0 255 1)
+		)
+		(fill
+			(type color)
+			(color 0 0 255 0.2)
+		)
+		(uuid 0eaf6872-de19-4f83-b739-be1774b291bd)
+	)
+	(text "REV: 140R resistors assembled with 150R"
+		(exclude_from_sim no)
+		(at 144.78 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 255 1)
+			)
+		)
+		(uuid "0ba3afbc-ba4f-4711-9acb-de82403b9621")
+	)
+	(text "FET_S-Board"
+		(exclude_from_sim no)
+		(at 38.1 20.32 0)
+		(effects
+			(font
+				(size 5 5)
+				(thickness 1)
+				(bold yes)
+				(italic yes)
+			)
+		)
+		(uuid "56559c2a-b893-4b27-a55d-3d8deafa0c24")
+	)
+	(text "IMPORTANT"
+		(exclude_from_sim no)
+		(at 132.08 105.41 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+		)
+		(uuid "81aa160d-9dd9-41f8-b78c-eb3d80ec0927")
+	)
+	(text "Important notes about this schematic:\n	- This is a multi-board project and so there are two sub\n	  root pages that define each board\n	- Do not use any global labels besides ground symbols so\n	  we can avoid any DRC issues when it comes to laying out\n	  the PCB. KiKit will allow us to extract each PCB as its\n	  own set of gerber files\n	- We will have to be careful with DRC in the PCB layout\n	  because the higher power traces will require different\n	  trace spacings (current and voltage specs)\n	- Connections between boards will be represented on the\n	  root page"
+		(exclude_from_sim no)
+		(at 41.91 -25.4 0)
+		(effects
+			(font
+				(size 2 2)
+			)
+			(justify left)
+		)
+		(uuid "e32adf8e-cbea-43e8-8ea2-678508f992e9")
 	)
 	(junction
 		(at 101.6 45.72)
@@ -1007,68 +1077,8 @@
 		)
 		(uuid "fea8da86-9bdd-4128-8d6c-121f5326ce6d")
 	)
-	(rectangle
-		(start 121.92 107.95)
-		(end 167.64 115.57)
-		(stroke
-			(width 0)
-			(type default)
-			(color 0 0 255 1)
-		)
-		(fill
-			(type color)
-			(color 0 0 255 0.2)
-		)
-		(uuid 0eaf6872-de19-4f83-b739-be1774b291bd)
-	)
-	(text "REV: 140R resistors assembled with 150R"
-		(exclude_from_sim no)
-		(at 144.78 111.76 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 0 0 255 1)
-			)
-		)
-		(uuid "0ba3afbc-ba4f-4711-9acb-de82403b9621")
-	)
-	(text "FET_S-Board"
-		(exclude_from_sim no)
-		(at 38.1 20.32 0)
-		(effects
-			(font
-				(size 5 5)
-				(thickness 1)
-				(bold yes)
-				(italic yes)
-			)
-		)
-		(uuid "56559c2a-b893-4b27-a55d-3d8deafa0c24")
-	)
-	(text "IMPORTANT"
-		(exclude_from_sim no)
-		(at 132.08 105.41 0)
-		(effects
-			(font
-				(size 2.54 2.54)
-			)
-		)
-		(uuid "81aa160d-9dd9-41f8-b78c-eb3d80ec0927")
-	)
-	(text "Important notes about this schematic:\n	- This is a multi-board project and so there are two sub\n	  root pages that define each board\n	- Do not use any global labels besides ground symbols so\n	  we can avoid any DRC issues when it comes to laying out\n	  the PCB. KiKit will allow us to extract each PCB as its\n	  own set of gerber files\n	- We will have to be careful with DRC in the PCB layout\n	  because the higher power traces will require different\n	  trace spacings (current and voltage specs)\n	- Connections between boards will be represented on the\n	  root page"
-		(exclude_from_sim no)
-		(at 41.91 -25.4 0)
-		(effects
-			(font
-				(size 2 2)
-			)
-			(justify left)
-		)
-		(uuid "e32adf8e-cbea-43e8-8ea2-678508f992e9")
-	)
 	(label "FET_SIGS_LS.VOLT_INPUT_SENSE"
 		(at 116.84 66.04 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1079,7 +1089,6 @@
 	)
 	(label "FET_SIGS{FET_BUS}"
 		(at 203.2 39.37 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1090,7 +1099,6 @@
 	)
 	(label "FET_SIGS.CNTRL_1"
 		(at 153.67 48.26 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1101,7 +1109,6 @@
 	)
 	(label "5V_LOW_SIDE"
 		(at 121.92 153.67 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1112,7 +1119,6 @@
 	)
 	(label "12V_LOW_SIDE"
 		(at 121.92 148.59 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1123,7 +1129,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_3"
 		(at 153.67 63.5 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1134,7 +1139,6 @@
 	)
 	(label "FET_SIGS_LS.CNTRL_4"
 		(at 116.84 55.88 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1145,7 +1149,6 @@
 	)
 	(label "FET_SIGS.CNTRL_2"
 		(at 153.67 50.8 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1156,7 +1159,6 @@
 	)
 	(label "FET_SIGS_LS.CNTRL_2"
 		(at 116.84 50.8 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1167,7 +1169,6 @@
 	)
 	(label "FET_SIGS_LS.CURR_SENS_1"
 		(at 116.84 58.42 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1178,7 +1179,6 @@
 	)
 	(label "3V3_LOW_SIDE"
 		(at 121.92 156.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1189,7 +1189,6 @@
 	)
 	(label "FET_SIGS_LS.VOLT_CAP_SENSE"
 		(at 116.84 68.58 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1200,7 +1199,6 @@
 	)
 	(label "FET_SIGS_LS.CNTRL_1"
 		(at 116.84 48.26 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1211,7 +1209,6 @@
 	)
 	(label "FET_SIGS.CNTRL_3"
 		(at 153.67 53.34 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1222,7 +1219,6 @@
 	)
 	(label "7V_LOW_SIDE"
 		(at 121.92 151.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1233,7 +1229,6 @@
 	)
 	(label "FET_SIGS_LS.CNTRL_3"
 		(at 116.84 53.34 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1244,7 +1239,6 @@
 	)
 	(label "3V3_HIGH_SIDE"
 		(at 166.37 156.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1255,7 +1249,6 @@
 	)
 	(label "FET_SIGS_LS{FET_BUS}"
 		(at 81.28 45.72 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1266,7 +1259,6 @@
 	)
 	(label "FET_SIGS.CNTRL_4"
 		(at 153.67 55.88 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1277,7 +1269,6 @@
 	)
 	(label "FET_SIGS_LS.CURR_SENS_3"
 		(at 116.84 63.5 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1288,7 +1279,6 @@
 	)
 	(label "FET_SIGS.VOLT_INPUT_SENSE"
 		(at 153.67 66.04 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1299,7 +1289,6 @@
 	)
 	(label "FET_SIGS.VOLT_CAP_SENSE"
 		(at 153.67 68.58 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1310,7 +1299,6 @@
 	)
 	(label "7V_HIGH_SIDE"
 		(at 166.37 151.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1321,7 +1309,6 @@
 	)
 	(label "FET_SIGS_LS.CURR_SENS_2"
 		(at 116.84 60.96 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1332,7 +1319,6 @@
 	)
 	(label "12V_HIGH_SIDE"
 		(at 166.37 148.59 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1343,7 +1329,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_1"
 		(at 153.67 58.42 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1354,7 +1339,6 @@
 	)
 	(label "5V_HIGH_SIDE"
 		(at 166.37 153.67 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1365,7 +1349,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_2"
 		(at 153.67 60.96 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1767,6 +1750,10 @@
 	(sheet
 		(at 195.58 50.8)
 		(size 50.8 106.68)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -1798,93 +1785,93 @@
 		)
 		(pin "FET_SIGS{FET_BUS}" bidirectional
 			(at 195.58 53.34 180)
+			(uuid "d290d371-3b24-4f3f-b8de-8a195b18ce36")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "d290d371-3b24-4f3f-b8de-8a195b18ce36")
 		)
 		(pin "12V_HIGH_SIDE" output
 			(at 195.58 148.59 180)
+			(uuid "395952d2-c153-445a-b45b-56c49a3e1582")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "395952d2-c153-445a-b45b-56c49a3e1582")
 		)
 		(pin "7V_HIGH_SIDE" output
 			(at 195.58 151.13 180)
+			(uuid "c22a6fb4-0029-4074-a22c-b13fe0092591")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "c22a6fb4-0029-4074-a22c-b13fe0092591")
 		)
 		(pin "5V_HIGH_SIDE" input
 			(at 195.58 153.67 180)
+			(uuid "43146fe2-3c37-457b-a039-74116d7064f5")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "43146fe2-3c37-457b-a039-74116d7064f5")
 		)
 		(pin "3V3_HIGH_SIDE" input
 			(at 195.58 156.21 180)
+			(uuid "d75e57a6-6908-44f0-b0a7-e5247c3098fa")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "d75e57a6-6908-44f0-b0a7-e5247c3098fa")
 		)
 		(pin "USB_HIGH_D-" bidirectional
 			(at 195.58 90.17 180)
+			(uuid "42f396e4-a53b-4f17-9cc8-7b0d44147d91")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "42f396e4-a53b-4f17-9cc8-7b0d44147d91")
 		)
 		(pin "USB_HIGH_D+" bidirectional
 			(at 195.58 87.63 180)
+			(uuid "0e074b15-74a3-4b6b-9eca-bfae1a1ae7d6")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "0e074b15-74a3-4b6b-9eca-bfae1a1ae7d6")
 		)
 		(pin "CAN_H" bidirectional
 			(at 195.58 82.55 180)
+			(uuid "52d0922a-0989-434a-85f3-254e836dabf6")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "52d0922a-0989-434a-85f3-254e836dabf6")
 		)
 		(pin "CAN_L" bidirectional
 			(at 195.58 85.09 180)
+			(uuid "36cb9341-70a6-40b5-a1b1-b9ecdf86945f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "36cb9341-70a6-40b5-a1b1-b9ecdf86945f")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -1897,6 +1884,10 @@
 	(sheet
 		(at 48.26 55.88)
 		(size 50.8 101.6)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -1928,93 +1919,93 @@
 		)
 		(pin "3V3_LOW_SIDE" output
 			(at 99.06 156.21 0)
+			(uuid "04b99397-d855-47cc-a05f-ca5bb3146e0f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "04b99397-d855-47cc-a05f-ca5bb3146e0f")
 		)
 		(pin "5V_LOW_SIDE" output
 			(at 99.06 153.67 0)
+			(uuid "3cce32fb-769b-43fc-b5a5-1dd9df2f00d7")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "3cce32fb-769b-43fc-b5a5-1dd9df2f00d7")
 		)
 		(pin "7V_LOW_SIDE" input
 			(at 99.06 151.13 0)
+			(uuid "29c83405-2dec-46ab-870b-c07c824a2ed6")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "29c83405-2dec-46ab-870b-c07c824a2ed6")
 		)
 		(pin "12V_LOW_SIDE" input
 			(at 99.06 148.59 0)
+			(uuid "de655e43-9e02-4a23-8dcb-954dccd6e4f8")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "de655e43-9e02-4a23-8dcb-954dccd6e4f8")
 		)
 		(pin "USB_LOW_D-" bidirectional
 			(at 99.06 90.17 0)
+			(uuid "8c02ab05-dece-4c1d-bc47-d888965e8f89")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "8c02ab05-dece-4c1d-bc47-d888965e8f89")
 		)
 		(pin "USB_LOW_D+" bidirectional
 			(at 99.06 87.63 0)
+			(uuid "ab147559-e1a3-4d2d-9bc0-c219b5b7601b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "ab147559-e1a3-4d2d-9bc0-c219b5b7601b")
 		)
 		(pin "FET_SIGS_LS{FET_BUS}" bidirectional
 			(at 99.06 58.42 0)
+			(uuid "17ad3f85-7add-4a89-9a79-18bf4c89a57e")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "17ad3f85-7add-4a89-9a79-18bf4c89a57e")
 		)
 		(pin "CAN_H" bidirectional
 			(at 99.06 82.55 0)
+			(uuid "56a9c58a-b9e1-4799-a508-fb422d9f059c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "56a9c58a-b9e1-4799-a508-fb422d9f059c")
 		)
 		(pin "CAN_L" bidirectional
 			(at 99.06 85.09 0)
+			(uuid "fad26fbb-b5e0-45ed-9363-ec2457341263")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "fad26fbb-b5e0-45ed-9363-ec2457341263")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -2029,4 +2020,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )

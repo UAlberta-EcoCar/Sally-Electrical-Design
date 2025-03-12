@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "ead7378a-b61c-4cfa-b782-0a3b1b3fffd0")
 	(paper "A4")
 	(title_block
@@ -10,7 +10,9 @@
 	)
 	(lib_symbols
 		(symbol "Device:C"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -83,7 +85,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -95,7 +97,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -144,9 +146,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -265,9 +270,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R_45deg"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -411,11 +419,16 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Jumper:SolderJumper_2_Open"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim yes)
 			(in_bom no)
 			(on_board yes)
@@ -481,30 +494,6 @@
 				)
 			)
 			(symbol "SolderJumper_2_Open_0_1"
-				(arc
-					(start -0.254 1.016)
-					(mid -1.2656 0)
-					(end -0.254 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -0.254 1.016)
-					(mid -1.2656 0)
-					(end -0.254 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
 				(polyline
 					(pts
 						(xy -0.254 1.016) (xy -0.254 -1.016)
@@ -517,6 +506,54 @@
 						(type none)
 					)
 				)
+				(arc
+					(start -0.254 -1.016)
+					(mid -1.2656 0)
+					(end -0.254 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -0.254 -1.016)
+					(mid -1.2656 0)
+					(end -0.254 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(arc
+					(start 0.254 1.016)
+					(mid 1.2656 0)
+					(end 0.254 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0.254 1.016)
+					(mid 1.2656 0)
+					(end 0.254 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 				(polyline
 					(pts
 						(xy 0.254 1.016) (xy 0.254 -1.016)
@@ -527,30 +564,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(arc
-					(start 0.254 -1.016)
-					(mid 1.2656 0)
-					(end 0.254 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0.254 -1.016)
-					(mid 1.2656 0)
-					(end 0.254 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
 					)
 				)
 			)
@@ -592,9 +605,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Transistor_FET:BSC028N06LS3"
-			(pin_names hide)
+			(pin_names
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -667,18 +683,6 @@
 			(symbol "BSC028N06LS3_0_1"
 				(polyline
 					(pts
-						(xy 0.254 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy 0.254 1.905) (xy 0.254 -1.905)
 					)
 					(stroke
@@ -691,7 +695,19 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 -1.27) (xy 0.762 -2.286)
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -715,34 +731,10 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
+						(xy 0.762 -1.27) (xy 0.762 -2.286)
 					)
 					(stroke
 						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
 						(type default)
 					)
 					(fill
@@ -773,6 +765,63 @@
 						(type outline)
 					)
 				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(polyline
 					(pts
 						(xy 2.794 0.508) (xy 2.921 0.381) (xy 3.683 0.381) (xy 3.81 0.254)
@@ -797,95 +846,8 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 1.651 0)
-					(radius 2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 -1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
 			)
 			(symbol "BSC028N06LS3_1_1"
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54) hide
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54) hide
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin passive line
 					(at -5.08 0 0)
 					(length 2.54)
@@ -922,7 +884,64 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(hide yes)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(hide yes)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "ecocad_lib_symbols:LTV-816S"
 			(pin_names
@@ -1006,6 +1025,18 @@
 				)
 				(polyline
 					(pts
+						(xy -5.08 2.54) (xy -2.54 2.54) (xy -2.54 -0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
 						(xy -3.175 -0.635) (xy -1.905 -0.635)
 					)
 					(stroke
@@ -1018,7 +1049,91 @@
 				)
 				(polyline
 					(pts
+						(xy -2.54 -0.635) (xy -2.54 -2.54) (xy -5.08 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -0.635) (xy -3.175 0.635) (xy -1.905 0.635) (xy -2.54 -0.635)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.508 0.508) (xy 0.762 0.508) (xy 0.381 0.381) (xy 0.381 0.635) (xy 0.762 0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.508 -0.508) (xy 0.762 -0.508) (xy 0.381 -0.635) (xy 0.381 -0.381) (xy 0.762 -0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 1.905) (xy 2.54 -1.905) (xy 2.54 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
 						(xy 2.54 0.635) (xy 4.445 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.048 -1.651) (xy 3.556 -1.143) (xy 4.064 -2.159) (xy 3.048 -1.651) (xy 3.048 -1.651)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.445 2.54) (xy 5.08 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1050,102 +1165,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.445 2.54) (xy 5.08 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 2.54) (xy -2.54 2.54) (xy -2.54 -0.762)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -0.635) (xy -2.54 -2.54) (xy -5.08 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 1.905) (xy 2.54 -1.905) (xy 2.54 -1.905)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -0.635) (xy -3.175 0.635) (xy -1.905 0.635) (xy -2.54 -0.635)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.508 -0.508) (xy 0.762 -0.508) (xy 0.381 -0.635) (xy 0.381 -0.381) (xy 0.762 -0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.508 0.508) (xy 0.762 0.508) (xy 0.381 0.381) (xy 0.381 0.635) (xy 0.762 0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.048 -1.651) (xy 3.556 -1.143) (xy 4.064 -2.159) (xy 3.048 -1.651) (xy 3.048 -1.651)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
 					)
 				)
 				(pin passive line
@@ -1185,24 +1204,6 @@
 					)
 				)
 				(pin passive line
-					(at 7.62 -2.54 180)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
 					(at 7.62 2.54 180)
 					(length 2.54)
 					(name "~"
@@ -1220,7 +1221,26 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "ecocad_lib_symbols:PHNX_CONN_1017521"
 			(pin_names
@@ -1328,7 +1348,7 @@
 					)
 				)
 				(circle
-					(center -1.905 -2.54)
+					(center -1.905 0)
 					(radius 0.635)
 					(stroke
 						(width 0.1524)
@@ -1339,7 +1359,7 @@
 					)
 				)
 				(circle
-					(center -1.905 0)
+					(center -1.905 -2.54)
 					(radius 0.635)
 					(stroke
 						(width 0.1524)
@@ -1388,12 +1408,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GNDD"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1495,12 +1520,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GNDPWR"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1560,18 +1590,6 @@
 			(symbol "GNDPWR_0_1"
 				(polyline
 					(pts
-						(xy 0 -1.27) (xy 0 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy -1.016 -1.27) (xy -1.27 -2.032) (xy -1.27 -2.032)
 					)
 					(stroke
@@ -1588,6 +1606,18 @@
 					)
 					(stroke
 						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -1.27) (xy 0 0)
+					)
+					(stroke
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -1663,7 +1693,125 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(bezier
+		(pts
+			(xy 113.03 95.25) (xy 119.38 87.63) (xy 114.3 91.44) (xy 116.84 85.09)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+			(color 255 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 2d44e2ee-e1b9-4ac0-8500-a6f663b90692)
+	)
+	(bezier
+		(pts
+			(xy 234.95 96.52) (xy 241.3 88.9) (xy 236.22 92.71) (xy 238.76 86.36)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+			(color 255 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid b9738c25-2e9d-4083-9da3-2558be93034e)
+	)
+	(text "C_B = 33nC*3/1V + 10*CG\n    = 33nC*3/1V + 10*2u2\n    = 22uF"
+		(exclude_from_sim no)
+		(at 21.59 166.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "2f6f620a-cb74-45b1-b0ee-b89e06ccf8aa")
+	)
+	(text "Adding Bi-directional TVS across DS"
+		(exclude_from_sim no)
+		(at 120.904 83.312 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 0 0 1)
+			)
+		)
+		(uuid "33c56499-b06e-42ca-a6b3-e22e5de81201")
+	)
+	(text "REV: assembled with\n2M"
+		(exclude_from_sim no)
+		(at 49.53 95.25 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 255 1)
+			)
+		)
+		(uuid "3843e27c-4076-41a2-9852-7ebaaa796acb")
+	)
+	(text "REV: assembled with\n51k"
+		(exclude_from_sim no)
+		(at 152.4 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 255 1)
+			)
+		)
+		(uuid "3cdafdad-84bb-464b-9644-44ac195b2793")
+	)
+	(text "The boot strap cap for this sheet will be updated\nto 22uF. The series resistor will have 5M"
+		(exclude_from_sim no)
+		(at 45.974 179.832 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 0 0 1)
+			)
+		)
+		(uuid "863a707b-7fbd-44fe-890d-4e1a63dbd5a7")
+	)
+	(text "I_(InRush) = 0.7*12V*C_(Load)/RG/CG\n		   = 0.7*12V*(22.6F)/(5M)/(2u2)\n		   = 17.25A"
+		(exclude_from_sim no)
+		(at 21.59 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "8e95ab5b-54f3-472f-9915-3a425d9f3e67")
+	)
+	(text "Adding Bi-directional TVS across DS"
+		(exclude_from_sim no)
+		(at 242.824 84.582 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 0 0 1)
+			)
+		)
+		(uuid "d15caa8c-6e60-443d-99a4-69caf09a40b5")
+	)
+	(text "De-float bus"
+		(exclude_from_sim no)
+		(at 137.16 102.87 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e33e8a10-b87b-45d3-a74a-1e36edcbc749")
 	)
 	(junction
 		(at 109.22 120.65)
@@ -2172,6 +2320,16 @@
 	)
 	(wire
 		(pts
+			(xy 68.58 86.36) (xy 68.58 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2c1c66d3-98f1-43d9-aaab-2679c656d130")
+	)
+	(wire
+		(pts
 			(xy 242.57 30.48) (xy 265.43 30.48)
 		)
 		(stroke
@@ -2302,7 +2460,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 94.615) (xy 68.58 92.71)
+			(xy 68.58 94.615) (xy 68.58 93.98)
 		)
 		(stroke
 			(width 0)
@@ -2884,12 +3042,12 @@
 	)
 	(polyline
 		(pts
-			(xy 31.75 161.29) (xy 31.75 118.11)
+			(xy 31.75 161.29) (xy 31.75 119.38)
 		)
 		(stroke
 			(width 0)
-			(type default)
-			(color 0 0 255 1)
+			(type solid)
+			(color 255 0 0 1)
 		)
 		(uuid "a883f8e4-6cee-49a0-854a-68cc221a0e3f")
 	)
@@ -3415,65 +3573,8 @@
 		)
 		(uuid "ff6645bb-155d-44d3-946b-197eac459308")
 	)
-	(text "C_B = 33nC*3/1V + 10*CG\n    = 33nC*3/1V + 10*2u2\n    = 22uF"
-		(exclude_from_sim no)
-		(at 21.59 166.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 0 0 255 1)
-			)
-			(justify left)
-		)
-		(uuid "2f6f620a-cb74-45b1-b0ee-b89e06ccf8aa")
-	)
-	(text "REV: assembled with\n2M"
-		(exclude_from_sim no)
-		(at 49.53 95.25 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 0 0 255 1)
-			)
-		)
-		(uuid "3843e27c-4076-41a2-9852-7ebaaa796acb")
-	)
-	(text "REV: assembled with\n51k"
-		(exclude_from_sim no)
-		(at 152.4 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 0 0 255 1)
-			)
-		)
-		(uuid "3cdafdad-84bb-464b-9644-44ac195b2793")
-	)
-	(text "I_(InRush) = 0.7*12V*C_(Load)/RG/CG\n		   = 0.7*12V*(22.6F)/(5M)/(2u2)\n		   = 17.25A"
-		(exclude_from_sim no)
-		(at 21.59 173.99 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 0 0 255 1)
-			)
-			(justify left)
-		)
-		(uuid "8e95ab5b-54f3-472f-9915-3a425d9f3e67")
-	)
-	(text "De-float bus"
-		(exclude_from_sim no)
-		(at 137.16 102.87 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "e33e8a10-b87b-45d3-a74a-1e36edcbc749")
-	)
 	(label "FET_SIGS.CNTRL_1"
 		(at 265.43 27.94 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3484,7 +3585,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_1"
 		(at 265.43 38.1 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3495,7 +3595,6 @@
 	)
 	(label "FET_SIGS.CNTRL_2"
 		(at 38.1 96.52 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3506,7 +3605,6 @@
 	)
 	(label "FET_SIGS.CNTRL_2"
 		(at 265.43 30.48 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3517,7 +3615,6 @@
 	)
 	(label "FET_SIGS.CNTRL_1"
 		(at 13.97 69.85 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3528,7 +3625,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_3"
 		(at 265.43 43.18 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3539,7 +3635,6 @@
 	)
 	(label "FET_SIGS.CNTRL_3"
 		(at 265.43 33.02 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3550,7 +3645,6 @@
 	)
 	(label "FET_SIGS.VOLT_INPUT_SENSE"
 		(at 265.43 45.72 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3561,7 +3655,6 @@
 	)
 	(label "FET_SIGS.VOLT_CAP_SENSE"
 		(at 265.43 48.26 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3572,7 +3665,6 @@
 	)
 	(label "FET_SIGS.CNTRL_4"
 		(at 265.43 35.56 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3583,7 +3675,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_1"
 		(at 100.33 123.19 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3594,7 +3685,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_2"
 		(at 265.43 40.64 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3605,7 +3695,6 @@
 	)
 	(label "FET_SIGS.VOLT_CAP_SENSE"
 		(at 102.87 151.13 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3616,7 +3705,6 @@
 	)
 	(label "TO_SUPCAP"
 		(at 123.19 120.65 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3627,7 +3715,6 @@
 	)
 	(label "PWR_BUS"
 		(at 142.24 97.79 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3638,7 +3725,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_3"
 		(at 222.25 123.19 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3649,7 +3735,6 @@
 	)
 	(label "TO_STRTRES"
 		(at 182.88 139.7 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3660,7 +3745,6 @@
 	)
 	(label "VOLTAGE_OUT"
 		(at 245.11 120.65 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3671,7 +3755,6 @@
 	)
 	(label "VOLTAGE_IN"
 		(at 58.42 46.99 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3682,7 +3765,6 @@
 	)
 	(label "FET_SIGS.VOLT_INPUT_SENSE"
 		(at 144.78 50.8 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3693,7 +3775,6 @@
 	)
 	(label "FET_SIGS.CURR_SENS_2"
 		(at 171.45 142.24 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3704,7 +3785,6 @@
 	)
 	(label "FET_SIGS{FET_BUS}"
 		(at 241.3 25.4 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3715,7 +3795,6 @@
 	)
 	(label "FET_SIGS.CNTRL_4"
 		(at 210.82 121.92 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3726,7 +3805,6 @@
 	)
 	(label "FET_SIGS.CNTRL_3"
 		(at 114.3 156.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3737,7 +3815,6 @@
 	)
 	(label "LOW_RES"
 		(at 165.1 121.92 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3749,7 +3826,6 @@
 	(hierarchical_label "FET_SIGS{FET_BUS}"
 		(shape bidirectional)
 		(at 228.6 25.4 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3757,6 +3833,51 @@
 			(justify right)
 		)
 		(uuid "6ebb9c61-e8b9-4235-97c6-a87ff1cc9e9d")
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 73.66 95.25) (xy 113.03 95.25) (xy 113.03 114.3) (xy 73.66 114.3)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid 2e75c3df-be75-47d3-ac16-b0e6055cdc6d)
+		)
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 20.32 99.06) (xy 48.26 99.06) (xy 48.26 118.11) (xy 20.32 118.11) (xy 20.32 116.84)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid c51c2215-ac03-42c8-a671-5ebc3f7573db)
+		)
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 227.33 96.52) (xy 251.46 96.52) (xy 251.46 111.76) (xy 227.33 111.76)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid cc4a34e4-9dc3-45f8-bcdf-7222d0870407)
+		)
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
@@ -6540,7 +6661,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 68.58 88.9 0)
+		(at 68.58 90.17 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6549,7 +6670,7 @@
 		(dnp yes)
 		(uuid "f973bc79-7b6f-4bb3-96e3-2f42175414f9")
 		(property "Reference" "R413"
-			(at 72.39 87.63 0)
+			(at 72.39 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6557,7 +6678,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 72.39 90.17 0)
+			(at 72.39 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6565,7 +6686,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 70.358 88.9 90)
+			(at 70.358 90.17 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6574,7 +6695,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 68.58 88.9 0)
+			(at 68.58 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6583,7 +6704,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 68.58 88.9 0)
+			(at 68.58 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6609,6 +6730,10 @@
 	(sheet
 		(at 193.04 102.87)
 		(size 21.59 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -6637,43 +6762,43 @@
 		)
 		(pin "CNTRL_SIG_IN" input
 			(at 193.04 105.41 180)
+			(uuid "ac3648f9-7855-4222-814e-a90b445cc28c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "ac3648f9-7855-4222-814e-a90b445cc28c")
 		)
 		(pin "TGDN" bidirectional
 			(at 214.63 107.95 0)
+			(uuid "55c3c168-8905-49f4-be81-687b1d7508b5")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "55c3c168-8905-49f4-be81-687b1d7508b5")
 		)
 		(pin "TGUP" bidirectional
 			(at 214.63 105.41 0)
+			(uuid "8d64f46c-cb8f-47bd-b83b-0bcb0db5da1b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "8d64f46c-cb8f-47bd-b83b-0bcb0db5da1b")
 		)
 		(pin "TS" bidirectional
 			(at 214.63 110.49 0)
+			(uuid "725bb371-fa24-41e9-ba7b-f3948d0f8160")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "725bb371-fa24-41e9-ba7b-f3948d0f8160")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -6686,6 +6811,10 @@
 	(sheet
 		(at 91.44 44.45)
 		(size 22.86 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -6715,23 +6844,23 @@
 		)
 		(pin "VOLT_INPUT" input
 			(at 91.44 46.99 180)
+			(uuid "0952c384-a619-4cce-aa31-3ac3a7894031")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "0952c384-a619-4cce-aa31-3ac3a7894031")
 		)
 		(pin "ISO_VOLT" output
 			(at 114.3 50.8 0)
+			(uuid "6027bc0b-788b-4990-8dc4-04ed5d2eea55")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "6027bc0b-788b-4990-8dc4-04ed5d2eea55")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -6744,6 +6873,10 @@
 	(sheet
 		(at 124.46 118.11)
 		(size 19.05 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -6772,33 +6905,33 @@
 		)
 		(pin "CURR_SENSE_OUT" output
 			(at 124.46 123.19 180)
+			(uuid "6a12b598-5331-467b-9885-4fdfa364ac7e")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "6a12b598-5331-467b-9885-4fdfa364ac7e")
 		)
 		(pin "CURR_IN" input
 			(at 124.46 120.65 180)
+			(uuid "ff6d1060-c3fc-4d66-a7e2-c5647e432ad9")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "ff6d1060-c3fc-4d66-a7e2-c5647e432ad9")
 		)
 		(pin "CURR_OUT" output
 			(at 124.46 125.73 180)
+			(uuid "ed582530-4ad3-43c3-8c3c-c25b1ab93d52")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "ed582530-4ad3-43c3-8c3c-c25b1ab93d52")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -6811,6 +6944,10 @@
 	(sheet
 		(at 246.38 118.11)
 		(size 19.05 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -6840,33 +6977,33 @@
 		)
 		(pin "CURR_SENSE_OUT" output
 			(at 246.38 123.19 180)
+			(uuid "6705225f-6966-4d6e-b936-604cfb4aeef3")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "6705225f-6966-4d6e-b936-604cfb4aeef3")
 		)
 		(pin "CURR_IN" input
 			(at 246.38 120.65 180)
+			(uuid "12bd76e6-15e2-44b5-8f56-94d1263b355e")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "12bd76e6-15e2-44b5-8f56-94d1263b355e")
 		)
 		(pin "CURR_OUT" output
 			(at 246.38 125.73 180)
+			(uuid "c5968a66-d36a-4aa7-8ae1-65fbe79bb1ff")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "c5968a66-d36a-4aa7-8ae1-65fbe79bb1ff")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -6879,6 +7016,10 @@
 	(sheet
 		(at 53.34 144.78)
 		(size 22.86 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -6908,23 +7049,23 @@
 		)
 		(pin "VOLT_INPUT" input
 			(at 53.34 147.32 180)
+			(uuid "125c549c-f97e-4817-8108-a3fc748e1713")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "125c549c-f97e-4817-8108-a3fc748e1713")
 		)
 		(pin "ISO_VOLT" output
 			(at 76.2 151.13 0)
+			(uuid "a8f03535-2188-44ab-9226-7d5455ea19e5")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "a8f03535-2188-44ab-9226-7d5455ea19e5")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -6937,6 +7078,10 @@
 	(sheet
 		(at 34.29 67.31)
 		(size 21.59 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -6965,43 +7110,43 @@
 		)
 		(pin "CNTRL_SIG_IN" input
 			(at 34.29 69.85 180)
+			(uuid "51b33184-16ad-4f1b-81d9-7fec02cf4dc4")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "51b33184-16ad-4f1b-81d9-7fec02cf4dc4")
 		)
 		(pin "TGDN" bidirectional
 			(at 55.88 72.39 0)
+			(uuid "3612dc06-3175-4991-9385-659c66c5913c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "3612dc06-3175-4991-9385-659c66c5913c")
 		)
 		(pin "TGUP" bidirectional
 			(at 55.88 69.85 0)
+			(uuid "53f926cc-2780-4d34-aa92-cb65c99ce2db")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "53f926cc-2780-4d34-aa92-cb65c99ce2db")
 		)
 		(pin "TS" bidirectional
 			(at 55.88 74.93 0)
+			(uuid "30d7de08-da46-4a60-9776-09c9dd33ccbd")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "30d7de08-da46-4a60-9776-09c9dd33ccbd")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -7014,6 +7159,10 @@
 	(sheet
 		(at 24.13 102.87)
 		(size 21.59 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -7042,43 +7191,43 @@
 		)
 		(pin "CNTRL_SIG_IN" input
 			(at 24.13 105.41 180)
+			(uuid "bb4a429a-287d-4d14-a416-4d190d8c1bd1")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "bb4a429a-287d-4d14-a416-4d190d8c1bd1")
 		)
 		(pin "TGDN" bidirectional
 			(at 45.72 107.95 0)
+			(uuid "cc32293b-b44c-4d03-a478-94f46d7d7566")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "cc32293b-b44c-4d03-a478-94f46d7d7566")
 		)
 		(pin "TGUP" bidirectional
 			(at 45.72 105.41 0)
+			(uuid "f4aa5777-3444-4b21-a4c9-01f05562f12d")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "f4aa5777-3444-4b21-a4c9-01f05562f12d")
 		)
 		(pin "TS" bidirectional
 			(at 45.72 110.49 0)
+			(uuid "7a5aebb7-26bd-45e6-ab6f-0eb99c8012b0")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "7a5aebb7-26bd-45e6-ab6f-0eb99c8012b0")
 		)
 		(instances
 			(project "FET-Board-V1"
@@ -7091,6 +7240,10 @@
 	(sheet
 		(at 196.85 137.16)
 		(size 19.05 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -7119,33 +7272,33 @@
 		)
 		(pin "CURR_SENSE_OUT" output
 			(at 196.85 142.24 180)
+			(uuid "1535ceea-924a-4b37-a3e1-a2f660fd5d86")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "1535ceea-924a-4b37-a3e1-a2f660fd5d86")
 		)
 		(pin "CURR_IN" input
 			(at 196.85 139.7 180)
+			(uuid "7c32cc08-aee4-4290-b2a3-ca2d8458d71c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "7c32cc08-aee4-4290-b2a3-ca2d8458d71c")
 		)
 		(pin "CURR_OUT" output
 			(at 196.85 144.78 180)
+			(uuid "a9bde664-1bf3-4051-b280-68356d212a41")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "a9bde664-1bf3-4051-b280-68356d212a41")
 		)
 		(instances
 			(project "FET-Board-V1"
