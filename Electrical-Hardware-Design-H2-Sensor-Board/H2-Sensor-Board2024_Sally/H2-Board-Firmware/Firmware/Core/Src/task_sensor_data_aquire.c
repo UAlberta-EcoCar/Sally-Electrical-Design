@@ -108,6 +108,10 @@ void StartSensorDataAquireTask(void *argument) {
 	/* Infinite loop */
 	for (;;) {
 
+		// Thread Heart Beat
+
+		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_SET);
+
 		if (HAL_OK == HAL_I2C_IsDeviceReady(&hi2c4, BME280_I2C_ADDR_SEC, 1,
 		HAL_MAX_DELAY)) {
 			log_info("Device Found");
@@ -136,7 +140,7 @@ void StartSensorDataAquireTask(void *argument) {
 		// [V_30 - V_Sense] / AVERAGE_SLOPE + 25
 
 		vsense = adc5_results[1] * ADC_CONV_CONST;
-		temp = (((VOLTAGE_AT_30C_MCU_TEMP - vsense) * 1000.0f) / AVERAGE_SLOPE_MCU_TEMP) + 25;
+		temp = (((VOLTAGE_AT_30C_MCU_TEMP - vsense) * 1000.0f) / AVERAGE_SLOPE_MCU_TEMP) + 30;
 		h2_sensor_data.mcu_temp_C = (uint32_t) temp;
 
 		rslt = bme280_get_sensor_data(BME280_ALL, &comp_data, &dev);
@@ -146,8 +150,9 @@ void StartSensorDataAquireTask(void *argument) {
 			h2_sensor_data.humidity_per = comp_data.humidity / 1024.0; /* %   */
 			h2_sensor_data.pressure_hPa = comp_data.pressure / 10000.0; /* hPa */
 		}
-
-		osDelay(10);
+		osDelay(5);
+		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_RESET);
+		osDelay(5);
 	}
 	/* USER CODE END StartSensorDataAquireTask */
 }

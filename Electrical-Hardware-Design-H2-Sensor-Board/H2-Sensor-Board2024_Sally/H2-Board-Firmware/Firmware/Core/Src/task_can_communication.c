@@ -8,6 +8,7 @@
 #include "task_can_communication.h"
 #include "main.h"
 #include "fdcan.h"
+#include "log/debug-log.h"
 
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
@@ -35,8 +36,24 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 
 void StartCANCommunicationTask(void *argument) {
 	/* USER CODE BEGIN StartCANCommunicationTask */
+
+	// Take CAN Tranciever out of standby.
+	HAL_GPIO_WritePin(CAN_STDBY_GPIO_Port, CAN_STDBY_Pin, GPIO_PIN_RESET);
+
+	FDCAN_RxHeaderTypeDef incomming = {0};
+	uint8_t incomming_data[64] = {0};
+
 	/* Infinite loop */
 	for (;;) {
+
+//		if (0 == osMessageQueueGetCount(CANMessageRecieveQHandle)) { // If theres nothing in the queue
+//			break;
+//		}
+
+		if (osOK != osMessageQueueGet(CANMessageRecieveQHandle, &incomming_data, 0, osWaitForever)) {
+			log_err("Error Getting message from queue.");
+		}
+
 		osDelay(1);
 	}
 	/* USER CODE END StartCANCommunicationTask */
