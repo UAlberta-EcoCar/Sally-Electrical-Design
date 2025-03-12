@@ -68,8 +68,6 @@ void Error_Handler(void);
 #define VOLT_CAP_SENSE_GPIO_Port GPIOA
 #define CNTRL_1_Pin GPIO_PIN_5
 #define CNTRL_1_GPIO_Port GPIOA
-#define CNTRL_2_Pin GPIO_PIN_6
-#define CNTRL_2_GPIO_Port GPIOA
 #define CNTRL_3_Pin GPIO_PIN_7
 #define CNTRL_3_GPIO_Port GPIOA
 #define LED3_Pin GPIO_PIN_0
