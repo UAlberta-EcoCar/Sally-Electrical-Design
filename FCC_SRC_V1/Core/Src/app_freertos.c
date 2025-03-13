@@ -84,8 +84,9 @@ uint32_t purge_tbuffer;
 pidParam_t myPid;
 float fcSetpointTemp = 20; // Celsius
 // Default Purge values
-volatile uint32_t purgeDelay_ms = 15000; // time delay between purge is ms
-volatile uint32_t purgeTime_ms = 1000;   // purge duration
+volatile uint32_t purgeDelay_ms = 60000; // time delay between purge is ms
+volatile uint32_t purgeTime_ms = 250;   // purge duration
+volatile uint8_t purge_timer_flag = 0;
 
 float pdelay_unconfirmed = 0;
 float ptime_unconfirmed = 0;
@@ -212,13 +213,12 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		}
 	}
 }
-uint8_t pulseCountA = 0;
-uint8_t pulseCountB = 0;
-uint32_t pulseA = 0;
-uint32_t pulseB = 0;
+
 uint32_t ticks, lastTicks = 0;
 uint32_t ticks2, lastTicks2 = 0;
-uint8_t y_scroll = 0;
+int8_t oled_page = 0;
+uint8_t encode_state, encode_last_state = 0;
+uint32_t encode_ticks, encode_last_tick = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	/* Prevent unused argument(s) compilation warning */
 
@@ -250,36 +250,75 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 		if (ticks2 - lastTicks2 >= 1000) {
 			purgeDelay_ms = (uint32_t) pdelay_unconfirmed;
 			purgeTime_ms = (uint32_t) ptime_unconfirmed;
+			purge_timer_flag = 1;
 		}
 		//"confirms" the purge timers
 
 		break;
 
 	case EncoderA_Pin:
-		pulseA = osKernelGetTickCount();
-
-		if (pulseA > pulseB) {
-		} else if (pulseB > pulseA) {
-			y_scroll = 0;
-		}
-	break;
-
 	case EncoderB_Pin:
-	pulseB = osKernelGetTickCount();
+		encode_ticks = osKernelGetTickCount();
 
-	if (pulseA > pulseB) {
-		y_scroll = 10;
+		if (encode_ticks - encode_last_tick >= 750) {
+			encode_state =
+					((HAL_GPIO_ReadPin(EncoderA_GPIO_Port, EncoderA_Pin) << 1)
+							| (HAL_GPIO_ReadPin(EncoderB_GPIO_Port,
+									EncoderB_Pin)));
+
+			if (encode_last_state == 3 && encode_state == 2) { // 3 -> 2 transition
+				oled_page++;
+				if (oled_page >= 2) { // page limit, of 2 (page 0 & 1
+					oled_page = 0;
+				}
+			} else if (encode_last_state == 2 && encode_state == 0) { // 2 -> 0 transition
+				oled_page++;
+				if (oled_page >= 2) { // page limit, of 2 (page 0 & 1
+					oled_page = 0;
+				}
+			} else if (encode_last_state == 0 && encode_state == 1) { // 0 -> 1 transition
+				oled_page++;
+				if (oled_page >= 2) { // page limit, of 2 (page 0 & 1
+					oled_page = 0;
+				}
+			} else if (encode_last_state == 1 && encode_state == 3) { // 1 -> 3 transition
+				oled_page++;
+				if (oled_page >= 2) { // page limit, of 2 (page 0 & 1
+					oled_page = 0;
+				}
+			} else if (encode_last_state == 3 && encode_state == 1) { // 3 -> 1 transition
+				oled_page--;
+				if (oled_page < 0) { // page limit, of 2 (page 0 & 1
+					oled_page = 1;
+				}
+			} else if (encode_last_state == 1 && encode_state == 0) { // 1 -> 0 transition
+				oled_page--;
+				if (oled_page < 0) { // page limit, of 2 (page 0 & 1
+					oled_page = 1;
+				}
+			} else if (encode_last_state == 0 && encode_state == 2) { // 0 -> 2 transition
+				oled_page--;
+				if (oled_page < 0) { // page limit, of 2 (page 0 & 1
+					oled_page = 1;
+				}
+			} else if (encode_last_state == 2 && encode_state == 3) { // 2 -> 3 transition
+				oled_page--;
+				if (oled_page < 0) { // page limit, of 2 (page 0 & 1
+					oled_page = 1;
+				}
+			}
+			encode_last_state = encode_state;
+			encode_last_tick = encode_ticks;
+		}
+
 		break;
-	} else if (pulseB > pulseA) {
-	}
-break;
 
-default:
-break;
-}
-/* NOTE: This function should not be modified, when the callback is needed,
- the HAL_GPIO_EXTI_Callback could be implemented in the user file
- */
+	default:
+		break;
+	}
+	/* NOTE: This function should not be modified, when the callback is needed,
+	 the HAL_GPIO_EXTI_Callback could be implemented in the user file
+	 */
 }
 
 void PID_Init(pidParam_t *pid);
@@ -304,83 +343,85 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
  * @retval None
  */
 void MX_FREERTOS_Init(void) {
-/* USER CODE BEGIN Init */
+	/* USER CODE BEGIN Init */
 
-/* USER CODE END Init */
+	/* USER CODE END Init */
 
-/* USER CODE BEGIN RTOS_MUTEX */
-/* add mutexes, ... */
-/* USER CODE END RTOS_MUTEX */
+	/* USER CODE BEGIN RTOS_MUTEX */
+	/* add mutexes, ... */
+	/* USER CODE END RTOS_MUTEX */
 
-/* Create the semaphores(s) */
-/* creation of i2cSema */
-i2cSemaHandle = osSemaphoreNew(1, 1, &i2cSema_attributes);
+	/* Create the semaphores(s) */
+	/* creation of i2cSema */
+	i2cSemaHandle = osSemaphoreNew(1, 1, &i2cSema_attributes);
 
-/* USER CODE BEGIN RTOS_SEMAPHORES */
-/* add semaphores, ... */
-/* USER CODE END RTOS_SEMAPHORES */
+	/* USER CODE BEGIN RTOS_SEMAPHORES */
+	/* add semaphores, ... */
+	/* USER CODE END RTOS_SEMAPHORES */
 
-/* Create the timer(s) */
-/* creation of purgetimer */
-purgetimerHandle = osTimerNew(purgeValveTimer, osTimerPeriodic, NULL,
-	&purgetimer_attributes);
+	/* Create the timer(s) */
+	/* creation of purgetimer */
+	purgetimerHandle = osTimerNew(purgeValveTimer, osTimerPeriodic, NULL,
+			&purgetimer_attributes);
 
-/* USER CODE BEGIN RTOS_TIMERS */
-tachtimerHandle = osTimerNew(calcTachRpmTimer, osTimerPeriodic, NULL,
-	&tachtimer_attributes);
-pidtimerHandle = osTimerNew(calcPidTimer, osTimerPeriodic, NULL,
-	&pidtimer_attributes);
-/* start timers, add new ones, ... */
-/* USER CODE END RTOS_TIMERS */
+	/* USER CODE BEGIN RTOS_TIMERS */
+	tachtimerHandle = osTimerNew(calcTachRpmTimer, osTimerPeriodic, NULL,
+			&tachtimer_attributes);
+	pidtimerHandle = osTimerNew(calcPidTimer, osTimerPeriodic, NULL,
+			&pidtimer_attributes);
+	/* start timers, add new ones, ... */
+	/* USER CODE END RTOS_TIMERS */
 
-/* Create the queue(s) */
-/* creation of canQueRxHeader */
-canQueRxHeaderHandle = osMessageQueueNew(512, sizeof(uint32_t),
-	&canQueRxHeader_attributes);
+	/* Create the queue(s) */
+	/* creation of canQueRxHeader */
+	canQueRxHeaderHandle = osMessageQueueNew(512, sizeof(uint32_t),
+			&canQueRxHeader_attributes);
 
-/* creation of canQueRxData */
-canQueRxDataHandle = osMessageQueueNew(512, sizeof(uint8_t),
-	&canQueRxData_attributes);
+	/* creation of canQueRxData */
+	canQueRxDataHandle = osMessageQueueNew(512, sizeof(uint8_t),
+			&canQueRxData_attributes);
 
-/* USER CODE BEGIN RTOS_QUEUES */
-/* add queues, ... */
+	/* USER CODE BEGIN RTOS_QUEUES */
+	/* add queues, ... */
 
-/* creation of usbQueReceive */
-usbQueReceiveHandle = osMessageQueueNew(2048, sizeof(char),
-	&usbQueReceive_attributes);
+	/* creation of usbQueReceive */
+	usbQueReceiveHandle = osMessageQueueNew(2048, sizeof(char),
+			&usbQueReceive_attributes);
 
-/* creation of usbQueSend */
-usbQueSendHandle = osMessageQueueNew(2048, sizeof(char),
-	&usbQueSend_attributes);
+	/* creation of usbQueSend */
+	usbQueSendHandle = osMessageQueueNew(2048, sizeof(char),
+			&usbQueSend_attributes);
 
-/* USER CODE END RTOS_QUEUES */
+	/* USER CODE END RTOS_QUEUES */
 
-/* Create the thread(s) */
-/* creation of defaultTask */
-defaultTaskHandle = osThreadNew(StartDefaultTask, NULL,
-	&defaultTask_attributes);
+	/* Create the thread(s) */
+	/* creation of defaultTask */
+	defaultTaskHandle = osThreadNew(StartDefaultTask, NULL,
+			&defaultTask_attributes);
 
-/* creation of canReceive */
-canReceiveHandle = osThreadNew(StartTaskReceive, NULL, &canReceive_attributes);
+	/* creation of canReceive */
+	canReceiveHandle = osThreadNew(StartTaskReceive, NULL,
+			&canReceive_attributes);
 
-/* creation of canSend */
-canSendHandle = osThreadNew(StartTaskSend, NULL, &canSend_attributes);
+	/* creation of canSend */
+	canSendHandle = osThreadNew(StartTaskSend, NULL, &canSend_attributes);
 
-/* creation of valveControl */
-valveControlHandle = osThreadNew(valveContrl, NULL, &valveControl_attributes);
+	/* creation of valveControl */
+	valveControlHandle = osThreadNew(valveContrl, NULL,
+			&valveControl_attributes);
 
-/* creation of fuelCellData */
-fuelCellDataHandle = osThreadNew(StartFuelCellData, NULL,
-	&fuelCellData_attributes);
+	/* creation of fuelCellData */
+	fuelCellDataHandle = osThreadNew(StartFuelCellData, NULL,
+			&fuelCellData_attributes);
 
-/* USER CODE BEGIN RTOS_THREADS */
-/* add threads, ... */
-usbTaskHandle = osThreadNew(StartUsb, NULL, &usbTask_attributes);
-/* USER CODE END RTOS_THREADS */
+	/* USER CODE BEGIN RTOS_THREADS */
+	/* add threads, ... */
+	usbTaskHandle = osThreadNew(StartUsb, NULL, &usbTask_attributes);
+	/* USER CODE END RTOS_THREADS */
 
-/* USER CODE BEGIN RTOS_EVENTS */
-/* add events, ... */
-/* USER CODE END RTOS_EVENTS */
+	/* USER CODE BEGIN RTOS_EVENTS */
+	/* add events, ... */
+	/* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -392,78 +433,96 @@ usbTaskHandle = osThreadNew(StartUsb, NULL, &usbTask_attributes);
  */
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument) {
-/* init code for USB_Device */
-MX_USB_Device_Init();
-/* USER CODE BEGIN StartDefaultTask */
- // Let other tasks use i2c during startup
-osDelay(5000);
+	/* init code for USB_Device */
+	MX_USB_Device_Init();
+	/* USER CODE BEGIN StartDefaultTask */
+	// Let other tasks use i2c during startup
+	osDelay(5000);
 
- // Init screen
-osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
-ssd1306_Init();
+	// Init screen
+	osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
+	ssd1306_Init();
 
- // Display the test bitmap for 2.5 seconds
-ssd1306_TestDrawBitmap();
-osSemaphoreRelease(i2cSemaHandle);
-osDelay(2500); // Delay for 2.5 seconds
+	// Display the test bitmap for 2.5 seconds
+	ssd1306_TestDrawBitmap();
+	osSemaphoreRelease(i2cSemaHandle);
+	osDelay(2500); // Delay for 2.5 seconds
 
-osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
-ssd1306_Fill(Black);
-ssd1306_UpdateScreen();
+	osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
+	ssd1306_Fill(Black);
+	ssd1306_UpdateScreen();
 
-ssd1306_TestDrawBitmap2();
-ssd1306_Fill(Black);
-ssd1306_UpdateScreen();
-osSemaphoreRelease(i2cSemaHandle);
+	ssd1306_TestDrawBitmap2();
+	ssd1306_Fill(Black);
+	ssd1306_UpdateScreen();
+	osSemaphoreRelease(i2cSemaHandle);
 
-HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
-HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
-HAL_ADC_Start_DMA(&hadc1, &purge_tbuffer, 1);
-HAL_ADC_Start_DMA(&hadc2, &purge_dbuffer, 1);
+	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
+	HAL_ADC_Start_DMA(&hadc1, &purge_tbuffer, 1);
+	HAL_ADC_Start_DMA(&hadc2, &purge_dbuffer, 1);
 
-/* TODO: More screen stuff */
+	/* TODO: More screen stuff */
 
-for (;;) {
+	for (;;) {
 // Used for non-essential peripheral control; OLED,POTS,Encoder,
 
-ptime_unconfirmed = (float) purge_tbuffer / 4096 * 4750 + 250; // Max time of 5 second, min of 0.25
-pdelay_unconfirmed = (float) purge_dbuffer / 4096 * 55000 + 5000; //max time 60 seconds, min time of 5
+		ptime_unconfirmed = (float) purge_tbuffer / 4096 * 900 + 100; // Max time of 1 second, min of 0.1 s
+		pdelay_unconfirmed = (float) purge_dbuffer / 4096 * 40000 + 25000; //max time 70 seconds, min time of 25 s
 
-osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
+		osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
 
-ssd1306_SetCursor(0,0 - y_scroll); // Adjust Y position as needed
-ssd1306_Fill(Black);
-//ssd1306_UpdateScreen();
+		if ((oled_page == 0x0 || oled_page == 0x2)) {
+			ssd1306_SetCursor(0, 0); // Adjust Y position as needed
+			ssd1306_Fill(Black);
+			//ssd1306_UpdateScreen();
 
-sprintf(ScreenBuffer, "STATE: %s", (fet_state == FET_STBY) ? "STBY" : "RUN");
-ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
-sprintf(ScreenBuffer, "Delay: %.2f(s)", (float) purgeDelay_ms / 1000);
-ssd1306_SetCursor(0, 10 - y_scroll);
+			sprintf(ScreenBuffer, "STATE: %s",
+					(fet_state == FET_STBY) ? "STBY" : "RUN");
+			ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+			sprintf(ScreenBuffer, "Delay: %.2f(s)",
+					(float) purgeDelay_ms / 1000);
+			ssd1306_SetCursor(0, 20);
 
-ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-sprintf(ScreenBuffer, "Duration:%.2f(s)", (float) purgeTime_ms / 1000);
-ssd1306_SetCursor(0, 20 - y_scroll);
-ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+			sprintf(ScreenBuffer, "Duration:%.2f(s)",
+					(float) purgeTime_ms / 1000);
+			ssd1306_SetCursor(0, 30);
+			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-ssd1306_SetCursor(0, 30- y_scroll);
-sprintf(ScreenBuffer, "~~~UNCONFIRMED~~~");
-ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+			sprintf(ScreenBuffer, "FC Pres:%.1f",
+					(float)fc_data.fc_press / FDCAN_FOUR_FLT_PREC);
+			ssd1306_SetCursor(0, 40);
+			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-sprintf(ScreenBuffer, "Delay: %.2f(s)", pdelay_unconfirmed / 1000);
-ssd1306_SetCursor(0, 40- y_scroll);
-ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+			sprintf(ScreenBuffer, "FC Temp:%.1f",
+					(float)fc_data.fc_temp / FDCAN_FOUR_FLT_PREC);
+			ssd1306_SetCursor(0, 50);
+			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-		sprintf(ScreenBuffer, "Duration:%.2f(s)", ptime_unconfirmed/1000);
-		ssd1306_SetCursor(0, 50);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+		} else if ((oled_page == 0x01 || oled_page == 0x03)) {
+			ssd1306_SetCursor(0, 0);
+			sprintf(ScreenBuffer, "UNCONFIRMED");
+			ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
-ssd1306_UpdateScreen(); // Update the screen
-osSemaphoreRelease(i2cSemaHandle);
+			sprintf(ScreenBuffer, "Delay: %.2f(s)", pdelay_unconfirmed / 1000);
+			ssd1306_SetCursor(0, 20);
+			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-osDelay(1000);
-}
-/* USER CODE END StartDefaultTask */
+			sprintf(ScreenBuffer, "Duration:%.2f(s)", ptime_unconfirmed / 1000);
+			ssd1306_SetCursor(0, 30);
+			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+
+			ssd1306_FillRectangle(0, 40, 128, 60, Black);
+
+		}
+		ssd1306_UpdateScreen(); // Update the screen
+		osSemaphoreRelease(i2cSemaHandle);
+
+		osDelay(100);
+	}
+	/* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartTaskReceive */
@@ -474,64 +533,68 @@ osDelay(1000);
  */
 /* USER CODE END Header_StartTaskReceive */
 void StartTaskReceive(void *argument) {
-/* USER CODE BEGIN StartTaskReceive */
-/* Infinite loop */
-FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
-uint8_t ret[64] = { 0 };
+	/* USER CODE BEGIN StartTaskReceive */
+	/* Infinite loop */
+	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
+	uint8_t ret[64] = { 0 };
 
-/* TODO: Implement receive CAN stuff */
+	/* TODO: Implement receive CAN stuff */
 
-for (;;) {
-if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier, 0,
-osWaitForever) == osOK) {
+	for (;;) {
+		if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier,
+				0,
+				osWaitForever) == osOK) {
 
-	if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.DataLength, 0, 0)
-			!= osOK) {
-		Error_Handler();
+			if (osMessageQueueGet(canQueRxHeaderHandle,
+					&localRxHeader.DataLength, 0, 0) != osOK) {
+				Error_Handler();
+			}
+
+			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
+					i++) {
+				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0)
+						!= osOK) {
+					Error_Handler();
+				}
+			}
+
+			switch (localRxHeader.Identifier) {
+			case FDCAN_H2ALARM_ID:
+				// H2 ALARM
+				if (ret[0] == 1) {
+					// Once this flag is raised, system reset needs to occur
+					// to clear
+					SET_BIT(button_flags, 0x80);
+				}
+				break;
+			case FDCAN_SYNCLED_ID:
+				// CAN SYNC LED
+				if (ret[0] == 1) {
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+				} else {
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+				}
+				break;
+			case FDCAN_FETPACK_ID:
+				memcpy(&fet_data.FDCAN_RawFetPack, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
+
+				// It is possible for the fet state to be updated via usb so
+				// we should ensure that this board state aligns with it.
+				if (fet_state != fet_data.fet_config) {
+					log_info(
+							"Updating FCC (0x%x) state to align with FET (0x%x)",
+							fet_state, (unsigned int )fet_data.fet_config);
+					fet_state = fet_data.fet_config;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		osDelay(1);
 	}
-
-	for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength); i++) {
-		if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0) != osOK) {
-			Error_Handler();
-		}
-	}
-
-	switch (localRxHeader.Identifier) {
-	case FDCAN_H2ALARM_ID:
-		// H2 ALARM
-		if (ret[0] == 1) {
-			// Once this flag is raised, system reset needs to occur
-			// to clear
-			SET_BIT(button_flags, 0x80);
-		}
-		break;
-	case FDCAN_SYNCLED_ID:
-		// CAN SYNC LED
-		if (ret[0] == 1) {
-			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-		} else {
-			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-		}
-		break;
-	case FDCAN_FETPACK_ID:
-		memcpy(&fet_data.FDCAN_RawFetPack, ret,
-				mapDlcToBytes(localRxHeader.DataLength));
-
-		// It is possible for the fet state to be updated via usb so
-		// we should ensure that this board state aligns with it.
-		if (fet_state != fet_data.fet_config) {
-			log_info("Updating FCC (0x%x) state to align with FET (0x%x)",
-					fet_state, (unsigned int )fet_data.fet_config);
-			fet_state = fet_data.fet_config;
-		}
-		break;
-	default:
-		break;
-	}
-}
-osDelay(1);
-}
-/* USER CODE END StartTaskReceive */
+	/* USER CODE END StartTaskReceive */
 }
 
 /* USER CODE BEGIN Header_StartTaskSend */
@@ -542,63 +605,63 @@ osDelay(1);
  */
 /* USER CODE END Header_StartTaskSend */
 void StartTaskSend(void *argument) {
-/* USER CODE BEGIN StartTaskSend */
-/* Infinite loop */
-UNUSED(argument);
+	/* USER CODE BEGIN StartTaskSend */
+	/* Infinite loop */
+	UNUSED(argument);
 
-FDCAN_TxHeaderTypeDef localTxHeader;
-const uint8_t msg_delay = 1;
-uint8_t updateState;
+	FDCAN_TxHeaderTypeDef localTxHeader;
+	const uint8_t msg_delay = 1;
+	uint8_t updateState;
 
-localTxHeader.IdType = FDCAN_STANDARD_ID;
-localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
-localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
-localTxHeader.FDFormat = FDCAN_FD_CAN;
-localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-localTxHeader.MessageMarker = 0;
+	localTxHeader.IdType = FDCAN_STANDARD_ID;
+	localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+	localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
+	localTxHeader.FDFormat = FDCAN_FD_CAN;
+	localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+	localTxHeader.MessageMarker = 0;
 
-for (;;) {
-localTxHeader.Identifier = FDCAN_FCCPACK_ID;
-localTxHeader.DataLength = FDCAN_DLC_BYTES_24;
-if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
-	if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
-			(uint8_t*) &fc_data.FDCAN_RawFccPack) != HAL_OK) {
-		Error_Handler();
-	}
-} else {
-	log_warn("Tx Buffer Full");
-}
-osDelay(msg_delay);
+	for (;;) {
+		localTxHeader.Identifier = FDCAN_FCCPACK_ID;
+		localTxHeader.DataLength = FDCAN_DLC_BYTES_24;
+		if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+			if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+					(uint8_t*) &fc_data.FDCAN_RawFccPack) != HAL_OK) {
+				Error_Handler();
+			}
+		} else {
+			log_warn("Tx Buffer Full");
+		}
+		osDelay(msg_delay);
 
 // If the appropriate button flag is raised and bit 8 is not raised (h2
 // alarm) try to send a new state to FET board
-if (READ_BIT(button_flags, 0x01) == 1 &&
-READ_BIT(button_flags, 0x80) == 0) {
+		if (READ_BIT(button_flags, 0x01) == 1 &&
+		READ_BIT(button_flags, 0x80) == 0) {
 
-	localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
-	localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
+			localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
+			localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
 
-	// If in STBY go to CHRGE otherwise goto STBY
-	updateState = (fet_state == FET_STBY) ? FET_CHRGE : FET_STBY;
+			// If in STBY go to CHRGE otherwise goto STBY
+			updateState = (fet_state == FET_STBY) ? FET_CHRGE : FET_STBY;
 
-	if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+			if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
 
-		if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
-				(uint8_t*) &updateState) != HAL_OK) {
-			Error_Handler();
+				if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+						(uint8_t*) &updateState) != HAL_OK) {
+					Error_Handler();
+				}
+
+				// Clear the button flag
+				CLEAR_BIT(button_flags, 0x01);
+			} else {
+				// Button flag not cleared
+				log_warn("Tx Buffer Full: button flag 0x01 not cleared");
+			}
 		}
-
-		// Clear the button flag
-		CLEAR_BIT(button_flags, 0x01);
-	} else {
-		// Button flag not cleared
-		log_warn("Tx Buffer Full: button flag 0x01 not cleared");
+		osDelay(msg_delay);
 	}
-}
-osDelay(msg_delay);
-}
-/* USER CODE END StartTaskSend */
+	/* USER CODE END StartTaskSend */
 }
 
 /* USER CODE BEGIN Header_valveContrl */
@@ -609,49 +672,60 @@ osDelay(msg_delay);
  */
 /* USER CODE END Header_valveContrl */
 void valveContrl(void *argument) {
-/* USER CODE BEGIN valveContrl */
-/* Infinite loop */
-uint8_t status = 0;
-uint8_t startupPurge = 0;
-for (;;) {
+	/* USER CODE BEGIN valveContrl */
+	/* Infinite loop */
+	uint8_t status = 0;
+	uint8_t startupPurge = 0;
+	for (;;) {
 // returns 1 or 0 depending on status
-status = osTimerIsRunning(purgetimerHandle);
+		status = osTimerIsRunning(purgetimerHandle);
 
 // Switch through valid solenoid states
-if (fet_state == FET_STBY) {
-	HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+		if (fet_state == FET_STBY) {
+			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+					GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+					GPIO_PIN_RESET);
 
-	if (status == 1) {
-		osTimerStop(purgetimerHandle); // kill purge cycle
+			if (status == 1) {
+				osTimerStop(purgetimerHandle); // kill purge cycle
+			}
+
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+
+			startupPurge = 0;
+
+		} else {
+			// If either FET_CHRGE or FET_RUN this code is what we need
+
+			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+					GPIO_PIN_SET);
+			if ((startupPurge == 0)) {
+				HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+						GPIO_PIN_SET);
+				osDelay(purgeTime_ms);
+				HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+						GPIO_PIN_RESET);
+				startupPurge = 1;
+				purge_timer_flag = 0;
+			}
+
+			if (purge_timer_flag == 1) {
+				osTimerStop(purgetimerHandle);
+				osTimerStart(purgetimerHandle, purgeDelay_ms);
+				purge_timer_flag = 0;
+			}
+			if (status == 0) {
+				osTimerStart(purgetimerHandle, purgeDelay_ms);
+			}
+
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+		}
+		osDelay(1);
 	}
-
-	HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-
-	startupPurge = 0;
-
-} else {
-	// If either FET_CHRGE or FET_RUN this code is what we need
-
-	HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin, GPIO_PIN_SET);
-	if (startupPurge == 0) {
-		HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
-		osDelay(purgeTime_ms);
-		HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
-		startupPurge = 1;
-	}
-
-	if (status == 0) {
-		osTimerStart(purgetimerHandle, purgeDelay_ms);
-	}
-
-	HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-}
-osDelay(1);
-}
-/* USER CODE END valveContrl */
+	/* USER CODE END valveContrl */
 }
 
 /* USER CODE BEGIN Header_StartFuelCellData */
@@ -662,8 +736,8 @@ osDelay(1);
  */
 /* USER CODE END Header_StartFuelCellData */
 void StartFuelCellData(void *argument) {
-/* USER CODE BEGIN StartFuelCellData */
- // Following for
+	/* USER CODE BEGIN StartFuelCellData */
+	// Following for
 #define DELAY_FOR_CHANNEL_SWITCH 20
 #define B 3950.0f
 #define VOLT_2_TEMP(x)                                                         \
@@ -672,149 +746,150 @@ void StartFuelCellData(void *argument) {
       273.15f
 #define VOLT_2_PRES(x) (x - 2.3555F) / 0.1038F
 
-const float VOLT_CONVERSION = 4.094F / 32768.0F;
-const float TRANSFER_FUNC_P = 0.657F;
+	const float VOLT_CONVERSION = 4.094F / 32768.0F;
+	const float TRANSFER_FUNC_P = 0.657F;
 
-uint16_t step;
-float step2, step3;
+	uint16_t step;
+	float step2, step3;
 
-uint32_t this_print, last_print = 0;
+	uint32_t this_print, last_print = 0;
 
-HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
- // Initialize the PID loop
- // Refer to documentation on the parameters and
- // transfer function used
-PID_Init(&myPid);
+	// Initialize the PID loop
+	// Refer to documentation on the parameters and
+	// transfer function used
+	PID_Init(&myPid);
 
-if (osTimerStart(tachtimerHandle, TACH_TIMER_INTERVAL) != osOK
-	|| osTimerStart(pidtimerHandle, PID_TIMER_INTERVAL) != osOK) {
-Error_Handler();
-}
+	if (osTimerStart(tachtimerHandle, TACH_TIMER_INTERVAL) != osOK
+			|| osTimerStart(pidtimerHandle, PID_TIMER_INTERVAL) != osOK) {
+		Error_Handler();
+	}
 
-osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
+	osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
 	// TODO: Add lis3dh initialization code here
-osSemaphoreRelease(i2cSemaHandle);
+	osSemaphoreRelease(i2cSemaHandle);
 
-/* Infinite loop */
-for (;;) {
+	/* Infinite loop */
+	for (;;) {
 
 // Gather ADC Values for temp & pressure from fuel cell over I2C
-configReg.channel = CHANNEL_AIN0_GND;
-if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
-	ADS1115_updateConfig(pADS_1, configReg);
-	osSemaphoreRelease(i2cSemaHandle);
-}
-osDelay(DELAY_FOR_CHANNEL_SWITCH);
-if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
-	step = ADS1115_getData(pADS_1);
-	osSemaphoreRelease(i2cSemaHandle);
-}
-step2 = step * VOLT_CONVERSION;
-step3 = VOLT_2_TEMP(step2);
-fc_data.fc_temp = (int32_t) (step3 * FDCAN_FOUR_FLT_PREC);
+		configReg.channel = CHANNEL_AIN0_GND;
+		if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
+			ADS1115_updateConfig(pADS_1, configReg);
+			osSemaphoreRelease(i2cSemaHandle);
+		}
+		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+		if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
+			step = ADS1115_getData(pADS_1);
+			osSemaphoreRelease(i2cSemaHandle);
+		}
+		step2 = step * VOLT_CONVERSION;
+		step3 = VOLT_2_TEMP(step2);
+		fc_data.fc_temp = (int32_t) (step3 * FDCAN_FOUR_FLT_PREC);
 
-configReg.channel = CHANNEL_AIN1_GND;
-if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
-	ADS1115_updateConfig(pADS_1, configReg);
-	osSemaphoreRelease(i2cSemaHandle);
-}
-osDelay(DELAY_FOR_CHANNEL_SWITCH);
-if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
-	step = ADS1115_getData(pADS_1);
-	osSemaphoreRelease(i2cSemaHandle);
-}
-step2 = step * VOLT_CONVERSION;
-fc_data.fc_press = (uint32_t) (VOLT_2_PRES(step2 / TRANSFER_FUNC_P)
-		* FDCAN_FOUR_FLT_PREC);
+		configReg.channel = CHANNEL_AIN1_GND;
+		if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
+			ADS1115_updateConfig(pADS_1, configReg);
+			osSemaphoreRelease(i2cSemaHandle);
+		}
+		osDelay(DELAY_FOR_CHANNEL_SWITCH);
+		if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
+			step = ADS1115_getData(pADS_1);
+			osSemaphoreRelease(i2cSemaHandle);
+		}
+		step2 = step * VOLT_CONVERSION;
+		fc_data.fc_press = (uint32_t) (VOLT_2_PRES(step2 / TRANSFER_FUNC_P)
+				* FDCAN_FOUR_FLT_PREC);
 
-this_print = osKernelGetTickCount();
-if (this_print - last_print >= 1000) {
-	last_print = this_print;
-	log_info("FC PRES: %f, FC TEMP: %f, PID: %f, Duty %d, RPMs: %d %d",
-			(float)fc_data.fc_press / FDCAN_FOUR_FLT_PREC,
-			(float)fc_data.fc_temp / FDCAN_FOUR_FLT_PREC, myPid.y[0],
-			100 - htim2.Instance->CCR2, fc_data.fan_rpm1, fc_data.fan_rpm2);
-}
-}
-/* USER CODE END StartFuelCellData */
+		this_print = osKernelGetTickCount();
+		if (this_print - last_print >= 1000) {
+			last_print = this_print;
+			log_info("FC PRES: %f, FC TEMP: %f, PID: %f, Duty %d, RPMs: %d %d",
+					(float)fc_data.fc_press / FDCAN_FOUR_FLT_PREC,
+					(float)fc_data.fc_temp / FDCAN_FOUR_FLT_PREC, myPid.y[0],
+					100 - htim2.Instance->CCR2, fc_data.fan_rpm1,
+					fc_data.fan_rpm2);
+		}
+	}
+	/* USER CODE END StartFuelCellData */
 }
 
 /* purgeValveTimer function */
 void purgeValveTimer(void *argument) {
-/* USER CODE BEGIN purgeValveTimer */
-HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
-osDelay(purgeTime_ms);
-HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
-/* USER CODE END purgeValveTimer */
+	/* USER CODE BEGIN purgeValveTimer */
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
+	osDelay(purgeTime_ms);
+	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+	/* USER CODE END purgeValveTimer */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 void calcTachRpmTimer(void *argument) {
 	// TACH_TIMER_INTERVAL is in ms and there are two pulses per period
-fc_data.fan_rpm1 = (TachTracker[0] / (TACH_TIMER_INTERVAL / 1000 * 2));
-fc_data.fan_rpm2 = (TachTracker[1] / (TACH_TIMER_INTERVAL / 1000 * 2));
-TachTracker[0] = TachTracker[1] = 0;
+	fc_data.fan_rpm1 = (TachTracker[0] / (TACH_TIMER_INTERVAL / 1000 * 2));
+	fc_data.fan_rpm2 = (TachTracker[1] / (TACH_TIMER_INTERVAL / 1000 * 2));
+	TachTracker[0] = TachTracker[1] = 0;
 
 	// Currently these are unused
-TachTracker[2] = TachTracker[3] = 0;
+	TachTracker[2] = TachTracker[3] = 0;
 }
 
 void calcPidTimer(void *argument) {
-float duty_cycle;
-duty_cycle = PID_Compute(&myPid, fcSetpointTemp,
-	(float) fc_data.fc_temp / FDCAN_FOUR_FLT_PREC);
-htim2.Instance->CCR2 = 100 - (uint32_t) duty_cycle;
-htim3.Instance->CCR1 = 100 - (uint32_t) duty_cycle;
+	float duty_cycle;
+	duty_cycle = PID_Compute(&myPid, fcSetpointTemp,
+			(float) fc_data.fc_temp / FDCAN_FOUR_FLT_PREC);
+	htim2.Instance->CCR2 = 100 - (uint32_t) duty_cycle;
+	htim3.Instance->CCR1 = 100 - (uint32_t) duty_cycle;
 }
 
 // Initialize PID controller
 void PID_Init(pidParam_t *pid) {
 	// Discrete transfer function coefficients (Tustin approximation)
 	// Retrieved from matlab script
-pid->num[0] = 5.0f;
-pid->num[1] = -5.0f;
-pid->num[2] = 0.0f;
+	pid->num[0] = 5.0f;
+	pid->num[1] = -5.0f;
+	pid->num[2] = 0.0f;
 
-pid->den[0] = 1.0f; // technically dont need this but show for completeness
-pid->den[1] = -1.0f;
-pid->den[2] = 0.0f;
+	pid->den[0] = 1.0f; // technically dont need this but show for completeness
+	pid->den[1] = -1.0f;
+	pid->den[2] = 0.0f;
 
- // Initialize history buffers
-for (uint8_t i = 0; i < 3; i++) {
-pid->u[i] = 0.0;
-pid->y[i] = 0.0;
-}
+	// Initialize history buffers
+	for (uint8_t i = 0; i < 3; i++) {
+		pid->u[i] = 0.0;
+		pid->y[i] = 0.0;
+	}
 }
 
 // Compute PID output using discrete transfer function
 float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
-float error = measured_temp - setpoint;
-float out;
+	float error = measured_temp - setpoint;
+	float out;
 
- // Shift previous values
-pid->u[2] = pid->u[1];
-pid->u[1] = pid->u[0];
-pid->u[0] = error;
-pid->y[2] = pid->y[1];
-pid->y[1] = pid->y[0];
+	// Shift previous values
+	pid->u[2] = pid->u[1];
+	pid->u[1] = pid->u[0];
+	pid->u[0] = error;
+	pid->y[2] = pid->y[1];
+	pid->y[1] = pid->y[0];
 
- // Compute output using transfer function
-pid->y[0] = (pid->num[0] * pid->u[0] + pid->num[1] * pid->u[1]
-	+ pid->num[2] * pid->u[2])
-	- (pid->den[1] * pid->y[1] + pid->den[2] * pid->y[2]);
+	// Compute output using transfer function
+	pid->y[0] = (pid->num[0] * pid->u[0] + pid->num[1] * pid->u[1]
+			+ pid->num[2] * pid->u[2])
+			- (pid->den[1] * pid->y[1] + pid->den[2] * pid->y[2]);
 
- // Clamp output to valid duty cycle range (0-100%)
-out = pid->y[0];
-if (out > 100.0)
-out = 100.0;
-if (out < 20.0)
+	// Clamp output to valid duty cycle range (0-100%)
+	out = pid->y[0];
+	if (out > 100.0)
+		out = 100.0;
+	if (out < 20.0)
 // Minimum airflow
-out = 20.0;
+		out = 20.0;
 
-return out;
+	return out;
 }
 /* USER CODE END Application */
 
