@@ -48,18 +48,17 @@ void StartLeakWatchdogTask(void *argument) {
 	h2.MessageMarker = 0xAA;
 	h2.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
 
-
 	/* Infinite loop */
 	for (;;) {
 
-
 //		if (H2_THRESH_1 <= h2_sensor_data.h2_sense1_mV)
-
 
 		if (osOK == osSemaphoreAcquire(H2AlarmSemHandle, osWaitForever)) {
 			// One of the alarms have tripped, figure out which one and respond appropriatly.
 			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
-				if (HAL_OK == HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2, &h2_sensor_data)) {
+				if (HAL_OK
+						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
+								&h2_sensor_data)) {
 					log_info("Successfully transmitted H2 Alarm");
 				}
 			} else {
@@ -70,7 +69,25 @@ void StartLeakWatchdogTask(void *argument) {
 				}
 			}
 		}
-		osDelay(10);
+
+
+
+		if (H2_THRESH_1 <= h2_sensor_data.h2_sense1_mV) {
+			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+				if (HAL_OK
+						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
+								&h2_sensor_data)) {
+					log_info("Successfully transmitted H2 Alarm");
+				}
+			} else {
+				log_err("Failed to send H2 Alarm signal, fifo full");
+				// this means there was no room in the tx fifo, so give the semaphore again and retry.
+				if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
+					log_info("Retrying");
+				}
+			}
+		}
+		osDelay(50);
 	}
 	/* USER CODE END StartLeakWatchdogTask */
 }

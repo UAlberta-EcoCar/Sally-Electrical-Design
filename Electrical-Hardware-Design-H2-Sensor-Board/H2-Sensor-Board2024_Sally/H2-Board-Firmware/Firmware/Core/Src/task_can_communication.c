@@ -9,7 +9,9 @@
 #include "main.h"
 #include "fdcan.h"
 #include "log/debug-log.h"
-
+#include <FreeRTOS.h>
+#include <task.h>
+#include "ecocar_can.h"
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
 	FDCAN_RxHeaderTypeDef RxHeader;
@@ -40,21 +42,44 @@ void StartCANCommunicationTask(void *argument) {
 	// Take CAN Tranciever out of standby.
 	HAL_GPIO_WritePin(CAN_STDBY_GPIO_Port, CAN_STDBY_Pin, GPIO_PIN_RESET);
 
-	FDCAN_RxHeaderTypeDef incomming = {0};
-	uint8_t incomming_data[64] = {0};
+	FDCAN_RxHeaderTypeDef incomming = { 0 };
+
+	uint8_t dlc = 0;
+	uint8_t id = 0;
+
+	uint8_t incomming_data[64] = { 0 };
 
 	/* Infinite loop */
 	for (;;) {
 
-//		if (0 == osMessageQueueGetCount(CANMessageRecieveQHandle)) { // If theres nothing in the queue
-//			break;
-//		}
+		if (0 != osMessageQueueGetCount(CANMessageRecieveQHandle)) { // If theres something in the queue
+			if (osOK
+					!= osMessageQueueGet(CANMessageRecieveQHandle, &id, 0,
+							10)) {
+				log_err("Error Reading q");
+			}
+			if (osOK
+					!= osMessageQueueGet(CANMessageRecieveQHandle, &dlc, 0,
+							10)) {
+				log_err("Error Reading q");
+			}
 
-		if (osOK != osMessageQueueGet(CANMessageRecieveQHandle, &incomming_data, 0, osWaitForever)) {
-			log_err("Error Getting message from queue.");
+			for (uint8_t i = 0; i < mapDlcToBytes(dlc); i++) {
+				if (osOK
+						!= osMessageQueueGet(CANMessageRecieveQHandle,
+								&incomming_data[i], 0, 10)) {
+					log_err("Error Reading q");
+				}
+			}
+			switch (id) {
+			case FDCAN_SYNCLED_ID:
+
+				break;
+			default:
+				break;
+			}
 		}
-
-		osDelay(1);
+		osDelay(10);
 	}
 	/* USER CODE END StartCANCommunicationTask */
 }
