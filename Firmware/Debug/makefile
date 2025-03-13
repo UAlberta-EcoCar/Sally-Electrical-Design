@@ -9,9 +9,12 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include ecolib/EcoLib/drivers/semtech/hoperf/rfm95/src/subdir.mk
--include Middlewares/FreeRTOS/subdir.mk
--include Drivers/STM32G4xx_HAL_Driver/subdir.mk
+-include ecolib/drivers/semtech/hoperf/rfm95/src/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
+-include Drivers/STM32G4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
@@ -62,8 +65,8 @@ all: main-build
 main-build: RF-Board-V1-2024-Firmware.elf secondary-outputs
 
 # Tool invocations
-RF-Board-V1-2024-Firmware.elf RF-Board-V1-2024-Firmware.map: $(OBJS) $(USER_OBJS) C:\Users\abina\Desktop\side\EcoCar\RF-Module-UltraCom-Series-1\Firmware\STM32G484RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "RF-Board-V1-2024-Firmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\abina\Desktop\side\EcoCar\RF-Module-UltraCom-Series-1\Firmware\STM32G484RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RF-Board-V1-2024-Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+RF-Board-V1-2024-Firmware.elf RF-Board-V1-2024-Firmware.map: $(OBJS) $(USER_OBJS) C:\Users\abina\Desktop\EcoCar\RF-Board-UltraComm-Series-1\Firmware\STM32G484RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "RF-Board-V1-2024-Firmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\abina\Desktop\EcoCar\RF-Board-UltraComm-Series-1\Firmware\STM32G484RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RF-Board-V1-2024-Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

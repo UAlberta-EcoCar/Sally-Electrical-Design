@@ -42,7 +42,12 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
  C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
  C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
- C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
+ C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
+ C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
+ C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/Firmware/ecolib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/Firmware/ecolib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95-resgisters.h \
+ ../Core/Inc/spi.h ../Core/Inc/main.h
 C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -87,3 +92,9 @@ C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL
 C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:
 C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
+C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
+C:/Users/abina/STM32Cube/Repository/STM32Cube_FW_G4_V1.6.1/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/Firmware/ecolib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/Firmware/ecolib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95-resgisters.h:
+../Core/Inc/spi.h:
+../Core/Inc/main.h:
