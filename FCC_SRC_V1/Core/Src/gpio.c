@@ -53,7 +53,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, PURGEvlve_Pin|SUPPLYvlve_Pin|LED1_Pin|LED4_Pin
-                          |GPIO_PIN_11|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
+                          |CAN_STBY_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -92,12 +92,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  /*Configure GPIO pin : CAN_STBY_Pin */
+  GPIO_InitStruct.Pin = CAN_STBY_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(CAN_STBY_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : TACH4_Pin */
   GPIO_InitStruct.Pin = TACH4_Pin;
