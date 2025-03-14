@@ -252,44 +252,53 @@ void StartDefaultTask(void *argument)
 					osDelay, .rf_spi_timeout = HAL_MAX_DELAY,
 			.rf_carrier_frequency = 868000000 };
 
-	//	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
-	//			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
-	//			.rf_nss_pin = NSS_915_GPIO_Port, .rf_spi_handle = &hspi1,
-	//			.rf_delay_func = osDelay, .rf_spi_timeout = 100,
-	//			.rf_carrier_frequency = 915000000 };
+	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
+			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
+			.rf_nss_pin = NSS_915_Pin, .rf_spi_handle = &hspi1, .rf_delay_func =
+					osDelay, .rf_spi_timeout = 100, .rf_carrier_frequency =
+					915000000 };
 
 	rf_initialize_radio(&rfm95_868);
 
-	//	rf_initialize_radio(&rfm95_915);
+	rf_initialize_radio(&rfm95_915);
 
 	rf_set_frequency(&rfm95_868, 868000000);
 
-	//	rf_set_frequency(&rfm95_915, 915000000);
+	rf_set_frequency(&rfm95_915, 915000000);
 
 	uint8_t data[] = "hello";
 	uint8_t rdata[6] = { 0 };
+	uint8_t rdata2[6] = { 0 };
 	uint8_t rec_legth = 0;
+	uint8_t rec_legth2 = 0;
 	/* Infinite loop */
 	for (;;) {
 
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-		osDelay(100);
-//		rf_send(&rfm95_868, data, 5);
-
-		while (0 == rec_legth) {
-			rf_recieve_single(&rfm95_868, &rec_legth);
-			//osDelay(10);
+		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
+			rf_send(&rfm95_868, data, 5);
+			rf_send(&rfm95_915, data, 5);
 		}
-		if (rec_legth > 0) {
-			rf_read_packet(&rfm95_868, rec_legth, rdata);
-			rec_legth = 0;
+		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
+			while (0 == rec_legth) {
+				rf_recieve_single(&rfm95_868, &rec_legth);
+				//osDelay(10);
+			}
+			if (rec_legth > 0) {
+				rf_read_packet(&rfm95_868, rec_legth, rdata);
+				rec_legth = 0;
+			}
+
+			while (0 == rec_legth2) {
+				rf_recieve_single(&rfm95_915, &rec_legth2);
+				//osDelay(10);
+			}
+			if (rec_legth2 > 0) {
+				rf_read_packet(&rfm95_915, rec_legth2, rdata2);
+				rec_legth2 = 0;
+			}
+
 		}
-
-		//		rf_initialize_radio(&rfm95_915);
-
-		//		rf_set_frequency(&rfm95_868, 868000000);
-
-		//		rf_set_frequency(&rfm95_915, 915000000);
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 		osDelay(100);
 	}
