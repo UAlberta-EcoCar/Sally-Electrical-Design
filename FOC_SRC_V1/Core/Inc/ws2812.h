@@ -26,14 +26,14 @@ typedef union {
     uint8_t g;
     uint8_t r;
     uint8_t b;
-  };
+  } color;
   uint32_t rgb_data;
 } ws2812Colors_t;
 
 // Variables
 
 extern ws2812Colors_t ws2812_color_data[WS2812_NUM_LEDS];
-extern uint8_t ws2812_dma_buffer[WS2812_NUM_LEDS];
+extern uint8_t ws2812_dma_buffer[WS2812_DMA_BUFF_LEN];
 extern volatile uint8_t ws2812_dma_complete_flag;
 
 // Functions

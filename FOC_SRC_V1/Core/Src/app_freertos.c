@@ -20,12 +20,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
+#include "cmsis_os2.h"
 #include "main.h"
 #include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ecocar_can.h"
+#include "exported_typedef.h"
 #include "fdcan.h"
 #include "tim.h"
 #include "ws2812.h"
@@ -37,9 +39,8 @@
 /* Private typedef -----------------------------------------------------------*/
 typedef StaticTask_t osStaticThreadDef_t;
 typedef StaticSemaphore_t osStaticSemaphoreDef_t;
-typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
-
+typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -58,6 +59,8 @@ FDCAN_FccPack_t fcc_data;
 FDCAN_FetPack_t fet_data;
 FDCAN_H2Pack_t h2_data;
 FDCAN_BOOSTPack_t boost_data;
+uint8_t can_sync_led;
+rbState_t relay_state;
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -81,7 +84,7 @@ const osThreadAttr_t canReceiveMsg_attributes = {
     .stack_size = sizeof(CanReceiveMsgBuffer),
     .cb_mem = &CanReceiveMsgControlBlock,
     .cb_size = sizeof(CanReceiveMsgControlBlock),
-    .priority = (osPriority_t)osPriorityAboveNormal1,
+    .priority = (osPriority_t)osPriorityNormal1,
 };
 /* Definitions for canSendMsg */
 osThreadId_t canSendMsgHandle;
@@ -95,9 +98,16 @@ const osThreadAttr_t canSendMsg_attributes = {
     .cb_size = sizeof(CanSendMsgControlBlock),
     .priority = (osPriority_t)osPriorityNormal2,
 };
+/* Definitions for canSemaphore */
+osSemaphoreId_t canSemaphoreHandle;
+osStaticSemaphoreDef_t canSemaphoreControlBlock;
+const osSemaphoreAttr_t canSemaphore_attributes = {
+    .name = "canSemaphore",
+    .cb_mem = &canSemaphoreControlBlock,
+    .cb_size = sizeof(canSemaphoreControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
-
 /* USER CODE BEGIN FunctionPrototypes */
 /* Definitions for canQueRxHeader */
 osMessageQueueId_t canQueRxHeaderHandle;
@@ -127,6 +137,29 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
   }
 }
 
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
+                               uint32_t RxFifo0ITs) {
+  FDCAN_RxHeaderTypeDef RxHeader;
+  uint8_t RxData[64];
+  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+    /* Retreive Rx messages from RX FIFO0 */
+    if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) !=
+        HAL_OK) {
+      /* Reception Error */
+      Error_Handler();
+    }
+    if (HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
+                                       0) != HAL_OK) {
+      /* Notification Error */
+      Error_Handler();
+    }
+    osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
+    osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
+    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+      osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
+    }
+  }
+}
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -151,6 +184,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the semaphores(s) */
   /* creation of canSemaphore */
+  canSemaphoreHandle = osSemaphoreNew(1, 0, &canSemaphore_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -212,21 +246,31 @@ void StartDefaultTask(void *argument) {
     Error_Handler();
   }
 
-  // Start each led off at a different color point
-  for (uint8_t ledIndex = 0; ledIndex < WS2812_NUM_LEDS; ledIndex++) {
-    r[ledIndex] = ledIndex * offSet;
-    g[ledIndex] = ledIndex * offSet;
-    b[ledIndex] = ledIndex * offSet;
-  }
+  /*// Start each led off at a different color point*/
+  /*for (uint8_t ledIndex = 0; ledIndex < WS2812_NUM_LEDS; ledIndex++) {*/
+  /*  r[ledIndex] = ledIndex * offSet;*/
+  /*  g[ledIndex] = ledIndex * offSet;*/
+  /*  b[ledIndex] = ledIndex * offSet;*/
+  /*}*/
+  uint8_t iter = 0;
 
   for (;;) {
-    for (uint8_t ledIndex = 0; ledIndex < WS2812_NUM_LEDS; ledIndex++) {
-      WS2812_SetColor(ledIndex, r[ledIndex]++, g[ledIndex]++, b[ledIndex]++);
+    if (can_sync_led == 1) {
+      WS2812_SetColor(0, 1, 0, 0);
+      WS2812_SetColor(1, 0, 1, 0);
+      WS2812_SetColor(2, 0, 0, 1);
+      WS2812_SetColor(3, 1, 1, 0);
+      WS2812_SetColor(4, 1, 0, 1);
+      WS2812_Update();
+    } else {
+      WS2812_SetColor(0, 0, 0, 0);
+      WS2812_SetColor(1, 0, 0, 0);
+      WS2812_SetColor(2, 0, 0, 0);
+      WS2812_SetColor(3, 0, 0, 0);
+      WS2812_SetColor(4, 0, 0, 0);
+      WS2812_Update();
     }
-    do {
-      hal_stat = WS2812_Update();
-    } while (hal_stat != HAL_OK);
-    osDelay(ws2812_color_time);
+    osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -268,9 +312,7 @@ void StartCanReceive(void *argument) {
         break;
       case FDCAN_SYNCLED_ID:
         // CAN SYNC LED
-        if (ret[0] == 1) {
-        } else {
-        }
+        can_sync_led = ret[0];
         break;
       case FDCAN_FCCPACK_ID:
         memcpy(&fcc_data, ret, mapDlcToBytes(localRxHeader.DataLength));

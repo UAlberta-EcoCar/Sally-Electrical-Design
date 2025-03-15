@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 ws2812Colors_t ws2812_color_data[WS2812_NUM_LEDS];
-uint8_t ws2812_dma_buffer[WS2812_NUM_LEDS];
+uint8_t ws2812_dma_buffer[WS2812_DMA_BUFF_LEN];
 volatile uint8_t ws2812_dma_complete_flag;
 
 HAL_StatusTypeDef WS2812_Init(void) {
@@ -30,7 +30,7 @@ HAL_StatusTypeDef WS2812_Init(void) {
 
 HAL_StatusTypeDef WS2812_Update(void) {
 
-  if (ws2812_dma_complete_flag != 1) {
+  if (!ws2812_dma_complete_flag) {
     return HAL_BUSY;
   }
 
@@ -63,9 +63,9 @@ HAL_StatusTypeDef WS2812_Update(void) {
 
 void WS2812_SetColor(uint8_t index, uint8_t r, uint8_t g, uint8_t b) {
 
-  ws2812_color_data[index].r = r;
-  ws2812_color_data[index].g = g;
-  ws2812_color_data[index].b = b;
+  ws2812_color_data[index].color.r = r;
+  ws2812_color_data[index].color.g = g;
+  ws2812_color_data[index].color.b = b;
 }
 
 /* Call in HAL_TIM_PWM_PulseFinishedCallback() */
