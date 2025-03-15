@@ -22,8 +22,6 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
-#include "rf-rfm95.h"
-#include "spi.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -52,69 +50,100 @@ typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-uint32_t defaultTaskBuffer[512];
+uint32_t defaultTaskBuffer[ 512 ];
 osStaticThreadDef_t defaultTaskControlBlock;
-const osThreadAttr_t defaultTask_attributes = { .name = "defaultTask",
-		.stack_mem = &defaultTaskBuffer[0], .stack_size =
-				sizeof(defaultTaskBuffer), .cb_mem = &defaultTaskControlBlock,
-		.cb_size = sizeof(defaultTaskControlBlock), .priority =
-				(osPriority_t) osPriorityNormal, };
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
+  .stack_mem = &defaultTaskBuffer[0],
+  .stack_size = sizeof(defaultTaskBuffer),
+  .cb_mem = &defaultTaskControlBlock,
+  .cb_size = sizeof(defaultTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for TaskCan */
 osThreadId_t TaskCanHandle;
-uint32_t CanTaskBuffer[256];
+uint32_t CanTaskBuffer[ 256 ];
 osStaticThreadDef_t CanTaskControlBlock;
-const osThreadAttr_t TaskCan_attributes = { .name = "TaskCan", .stack_mem =
-		&CanTaskBuffer[0], .stack_size = sizeof(CanTaskBuffer), .cb_mem =
-		&CanTaskControlBlock, .cb_size = sizeof(CanTaskControlBlock),
-		.priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t TaskCan_attributes = {
+  .name = "TaskCan",
+  .stack_mem = &CanTaskBuffer[0],
+  .stack_size = sizeof(CanTaskBuffer),
+  .cb_mem = &CanTaskControlBlock,
+  .cb_size = sizeof(CanTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for Task24 */
 osThreadId_t Task24Handle;
-uint32_t Task24Buffer[256];
+uint32_t Task24Buffer[ 256 ];
 osStaticThreadDef_t Task24ControlBlock;
-const osThreadAttr_t Task24_attributes = { .name = "Task24", .stack_mem =
-		&Task24Buffer[0], .stack_size = sizeof(Task24Buffer), .cb_mem =
-		&Task24ControlBlock, .cb_size = sizeof(Task24ControlBlock), .priority =
-		(osPriority_t) osPriorityBelowNormal, };
+const osThreadAttr_t Task24_attributes = {
+  .name = "Task24",
+  .stack_mem = &Task24Buffer[0],
+  .stack_size = sizeof(Task24Buffer),
+  .cb_mem = &Task24ControlBlock,
+  .cb_size = sizeof(Task24ControlBlock),
+  .priority = (osPriority_t) osPriorityBelowNormal,
+};
 /* Definitions for Task915 */
 osThreadId_t Task915Handle;
-uint32_t Task915Buffer[256];
+uint32_t Task915Buffer[ 256 ];
 osStaticThreadDef_t Task915ControlBlock;
-const osThreadAttr_t Task915_attributes = { .name = "Task915", .stack_mem =
-		&Task915Buffer[0], .stack_size = sizeof(Task915Buffer), .cb_mem =
-		&Task915ControlBlock, .cb_size = sizeof(Task915ControlBlock),
-		.priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t Task915_attributes = {
+  .name = "Task915",
+  .stack_mem = &Task915Buffer[0],
+  .stack_size = sizeof(Task915Buffer),
+  .cb_mem = &Task915ControlBlock,
+  .cb_size = sizeof(Task915ControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for Task868 */
 osThreadId_t Task868Handle;
-uint32_t Task868Buffer[256];
+uint32_t Task868Buffer[ 256 ];
 osStaticThreadDef_t Task868ControlBlock;
-const osThreadAttr_t Task868_attributes = { .name = "Task868", .stack_mem =
-		&Task868Buffer[0], .stack_size = sizeof(Task868Buffer), .cb_mem =
-		&Task868ControlBlock, .cb_size = sizeof(Task868ControlBlock),
-		.priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t Task868_attributes = {
+  .name = "Task868",
+  .stack_mem = &Task868Buffer[0],
+  .stack_size = sizeof(Task868Buffer),
+  .cb_mem = &Task868ControlBlock,
+  .cb_size = sizeof(Task868ControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for TaskGNSS */
 osThreadId_t TaskGNSSHandle;
-uint32_t GNSSTaskBuffer[256];
+uint32_t GNSSTaskBuffer[ 256 ];
 osStaticThreadDef_t GNSSTaskControlBlock;
-const osThreadAttr_t TaskGNSS_attributes = { .name = "TaskGNSS", .stack_mem =
-		&GNSSTaskBuffer[0], .stack_size = sizeof(GNSSTaskBuffer), .cb_mem =
-		&GNSSTaskControlBlock, .cb_size = sizeof(GNSSTaskControlBlock),
-		.priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t TaskGNSS_attributes = {
+  .name = "TaskGNSS",
+  .stack_mem = &GNSSTaskBuffer[0],
+  .stack_size = sizeof(GNSSTaskBuffer),
+  .cb_mem = &GNSSTaskControlBlock,
+  .cb_size = sizeof(GNSSTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for TaskSD */
 osThreadId_t TaskSDHandle;
-uint32_t SDTaskBuffer[256];
+uint32_t SDTaskBuffer[ 256 ];
 osStaticThreadDef_t SDTaskControlBlock;
-const osThreadAttr_t TaskSD_attributes = { .name = "TaskSD", .stack_mem =
-		&SDTaskBuffer[0], .stack_size = sizeof(SDTaskBuffer), .cb_mem =
-		&SDTaskControlBlock, .cb_size = sizeof(SDTaskControlBlock), .priority =
-		(osPriority_t) osPriorityNormal, };
+const osThreadAttr_t TaskSD_attributes = {
+  .name = "TaskSD",
+  .stack_mem = &SDTaskBuffer[0],
+  .stack_size = sizeof(SDTaskBuffer),
+  .cb_mem = &SDTaskControlBlock,
+  .cb_size = sizeof(SDTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for TaskAUX */
 osThreadId_t TaskAUXHandle;
-uint32_t TaskAUXBuffer[256];
+uint32_t TaskAUXBuffer[ 256 ];
 osStaticThreadDef_t TaskAUXControlBlock;
-const osThreadAttr_t TaskAUX_attributes = { .name = "TaskAUX", .stack_mem =
-		&TaskAUXBuffer[0], .stack_size = sizeof(TaskAUXBuffer), .cb_mem =
-		&TaskAUXControlBlock, .cb_size = sizeof(TaskAUXControlBlock),
-		.priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t TaskAUX_attributes = {
+  .name = "TaskAUX",
+  .stack_mem = &TaskAUXBuffer[0],
+  .stack_size = sizeof(TaskAUXBuffer),
+  .cb_mem = &TaskAUXControlBlock,
+  .cb_size = sizeof(TaskAUXControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -133,64 +162,63 @@ void StartAUXTask(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
 void MX_FREERTOS_Init(void) {
-	/* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-	/* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-	/* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-	/* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-	/* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-	/* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-	/* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-	/* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-	/* Create the thread(s) */
-	/* creation of defaultTask */
-	defaultTaskHandle = osThreadNew(StartDefaultTask, NULL,
-			&defaultTask_attributes);
+  /* Create the thread(s) */
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
-	/* creation of TaskCan */
-	TaskCanHandle = osThreadNew(StartCanTask, NULL, &TaskCan_attributes);
+  /* creation of TaskCan */
+  TaskCanHandle = osThreadNew(StartCanTask, NULL, &TaskCan_attributes);
 
-	/* creation of Task24 */
-	Task24Handle = osThreadNew(Start24Task, NULL, &Task24_attributes);
+  /* creation of Task24 */
+  Task24Handle = osThreadNew(Start24Task, NULL, &Task24_attributes);
 
-	/* creation of Task915 */
-	Task915Handle = osThreadNew(Start915Task, NULL, &Task915_attributes);
+  /* creation of Task915 */
+  Task915Handle = osThreadNew(Start915Task, NULL, &Task915_attributes);
 
-	/* creation of Task868 */
-	Task868Handle = osThreadNew(Start868Task, NULL, &Task868_attributes);
+  /* creation of Task868 */
+  Task868Handle = osThreadNew(Start868Task, NULL, &Task868_attributes);
 
-	/* creation of TaskGNSS */
-	TaskGNSSHandle = osThreadNew(StartGNSSTask, NULL, &TaskGNSS_attributes);
+  /* creation of TaskGNSS */
+  TaskGNSSHandle = osThreadNew(StartGNSSTask, NULL, &TaskGNSS_attributes);
 
-	/* creation of TaskSD */
-	TaskSDHandle = osThreadNew(StartSDTask, NULL, &TaskSD_attributes);
+  /* creation of TaskSD */
+  TaskSDHandle = osThreadNew(StartSDTask, NULL, &TaskSD_attributes);
 
-	/* creation of TaskAUX */
-	TaskAUXHandle = osThreadNew(StartAUXTask, NULL, &TaskAUX_attributes);
+  /* creation of TaskAUX */
+  TaskAUXHandle = osThreadNew(StartAUXTask, NULL, &TaskAUX_attributes);
 
-	/* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	/* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
-	/* USER CODE BEGIN RTOS_EVENTS */
+  /* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
-	/* USER CODE END RTOS_EVENTS */
+  /* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -201,8 +229,9 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument) {
-	/* USER CODE BEGIN StartDefaultTask */
+void StartDefaultTask(void *argument)
+{
+  /* USER CODE BEGIN StartDefaultTask */
 	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 
 	HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
@@ -264,7 +293,7 @@ void StartDefaultTask(void *argument) {
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 		osDelay(100);
 	}
-	/* USER CODE END StartDefaultTask */
+  /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartCanTask */
@@ -274,13 +303,14 @@ void StartDefaultTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartCanTask */
-void StartCanTask(void *argument) {
-	/* USER CODE BEGIN StartCanTask */
+void StartCanTask(void *argument)
+{
+  /* USER CODE BEGIN StartCanTask */
 	/* Infinite loop */
 	for (;;) {
 		osDelay(10);
 	}
-	/* USER CODE END StartCanTask */
+  /* USER CODE END StartCanTask */
 }
 
 /* USER CODE BEGIN Header_Start24Task */
@@ -290,13 +320,14 @@ void StartCanTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_Start24Task */
-void Start24Task(void *argument) {
-	/* USER CODE BEGIN Start24Task */
+void Start24Task(void *argument)
+{
+  /* USER CODE BEGIN Start24Task */
 	/* Infinite loop */
 	for (;;) {
 		osDelay(10);
 	}
-	/* USER CODE END Start24Task */
+  /* USER CODE END Start24Task */
 }
 
 /* USER CODE BEGIN Header_Start915Task */
@@ -306,13 +337,14 @@ void Start24Task(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_Start915Task */
-void Start915Task(void *argument) {
-	/* USER CODE BEGIN Start915Task */
+void Start915Task(void *argument)
+{
+  /* USER CODE BEGIN Start915Task */
 	/* Infinite loop */
 	for (;;) {
 		osDelay(10);
 	}
-	/* USER CODE END Start915Task */
+  /* USER CODE END Start915Task */
 }
 
 /* USER CODE BEGIN Header_Start868Task */
@@ -322,13 +354,14 @@ void Start915Task(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_Start868Task */
-void Start868Task(void *argument) {
-	/* USER CODE BEGIN Start868Task */
+void Start868Task(void *argument)
+{
+  /* USER CODE BEGIN Start868Task */
 	/* Infinite loop */
 	for (;;) {
 		osDelay(10);
 	}
-	/* USER CODE END Start868Task */
+  /* USER CODE END Start868Task */
 }
 
 /* USER CODE BEGIN Header_StartGNSSTask */
@@ -338,13 +371,14 @@ void Start868Task(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartGNSSTask */
-void StartGNSSTask(void *argument) {
-	/* USER CODE BEGIN StartGNSSTask */
+void StartGNSSTask(void *argument)
+{
+  /* USER CODE BEGIN StartGNSSTask */
 	/* Infinite loop */
 	for (;;) {
 		osDelay(10);
 	}
-	/* USER CODE END StartGNSSTask */
+  /* USER CODE END StartGNSSTask */
 }
 
 /* USER CODE BEGIN Header_StartSDTask */
@@ -354,13 +388,14 @@ void StartGNSSTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartSDTask */
-void StartSDTask(void *argument) {
-	/* USER CODE BEGIN StartSDTask */
+void StartSDTask(void *argument)
+{
+  /* USER CODE BEGIN StartSDTask */
 	/* Infinite loop */
 	for (;;) {
 		osDelay(10);
 	}
-	/* USER CODE END StartSDTask */
+  /* USER CODE END StartSDTask */
 }
 
 /* USER CODE BEGIN Header_StartAUXTask */
@@ -370,13 +405,15 @@ void StartSDTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartAUXTask */
-void StartAUXTask(void *argument) {
-	/* USER CODE BEGIN StartAUXTask */
+void StartAUXTask(void *argument)
+{
+  /* USER CODE BEGIN StartAUXTask */
 	/* Infinite loop */
+
 	for (;;) {
 		osDelay(10);
 	}
-	/* USER CODE END StartAUXTask */
+  /* USER CODE END StartAUXTask */
 }
 
 /* Private application code --------------------------------------------------*/
