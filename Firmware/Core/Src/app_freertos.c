@@ -25,11 +25,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "spi.h"
+#include "rf-rfm95.h"
+#include "ecocar_can.h"
+#include "fdcan.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 typedef StaticTask_t osStaticThreadDef_t;
+typedef StaticQueue_t osStaticMessageQDef_t;
+typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -147,17 +152,35 @@ const osThreadAttr_t TaskAUX_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
+	FDCAN_RxHeaderTypeDef RxHeader;
+	uint8_t RxData[64];
+	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+		/* Retrieve Rx messages from RX FIFO0 */
+		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData)
+				!= HAL_OK) {
+			/* Reception Error */
+			Error_Handler();
+		}
+		if (osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0)
+				!= osOK
+				|| osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength,
+						0, 0) != osOK) {
+			Error_Handler();
+		}
+		for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+			if (osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0)
+					!= osOK) {
+				Error_Handler();
+			}
+		}
+	}
+}
 
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
 void StartCanTask(void *argument);
-void Start24Task(void *argument);
-void Start915Task(void *argument);
-void Start868Task(void *argument);
-void StartGNSSTask(void *argument);
-void StartSDTask(void *argument);
-void StartAUXTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -242,6 +265,9 @@ void StartDefaultTask(void *argument)
 
 	HAL_GPIO_WritePin(RST_868_GPIO_Port, RST_868_Pin, GPIO_PIN_SET);
 
+	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
 	//	HAL_GPIO_WritePin(RST_915_GPIO_Port, RST_915_Pin, GPIO_PIN_SET);
 	//
 	//	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
@@ -271,18 +297,31 @@ void StartDefaultTask(void *argument)
 	uint8_t rdata2[6] = { 0 };
 	uint8_t rec_legth = 0;
 	uint8_t rec_legth2 = 0;
+
+	FDCAN_TxHeaderTypeDef loctx = {0};
+	loctx.BitRateSwitch = FDCAN_BRS_ON;
+	loctx.DataLength = 6;
+	loctx.FDFormat = FDCAN_FRAME_FD_BRS;
+	loctx.IdType = FDCAN_STANDARD_ID;
+	loctx.Identifier = 0x020;
+	loctx.TxFrameType = FDCAN_DATA_FRAME;
+
+
 	/* Infinite loop */
 	for (;;) {
 
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 			rf_send(&rfm95_868, data, 5);
 			rf_send(&rfm95_915, data, 5);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 		}
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 			while (0 == rec_legth) {
 				rf_recieve_single(&rfm95_868, &rec_legth);
-				//osDelay(10);
+				osDelay(10);
 			}
 			if (rec_legth > 0) {
 				rf_read_packet(&rfm95_868, rec_legth, rdata);
@@ -297,9 +336,14 @@ void StartDefaultTask(void *argument)
 				rf_read_packet(&rfm95_915, rec_legth2, rdata2);
 				rec_legth2 = 0;
 			}
-
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 		}
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
+		if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+			if (HAL_OK == HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &loctx, &data)) {
+				HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
+			}
+		}
 		osDelay(100);
 	}
   /* USER CODE END StartDefaultTask */

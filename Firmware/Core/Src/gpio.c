@@ -67,17 +67,22 @@ void MX_GPIO_Init(void)
                           |LED8_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : BTN1_Pin BTN2_Pin LED6_Pin TXEN_24_Pin
-                           RXEN_24_Pin SPI2_NSS_Pin SWT1_Pin NSS_915_Pin
-                           NSS_868_Pin DIO2_24_Pin DIO1_24_Pin DIO0_868_Pin
-                           DIO4_868_Pin */
+                           RXEN_24_Pin SPI2_NSS_Pin NSS_915_Pin NSS_868_Pin
+                           DIO2_24_Pin DIO1_24_Pin DIO0_868_Pin DIO4_868_Pin */
   GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|LED6_Pin|TXEN_24_Pin
-                          |RXEN_24_Pin|SPI2_NSS_Pin|SWT1_Pin|NSS_915_Pin
-                          |NSS_868_Pin|DIO2_24_Pin|DIO1_24_Pin|DIO0_868_Pin
-                          |DIO4_868_Pin;
+                          |RXEN_24_Pin|SPI2_NSS_Pin|NSS_915_Pin|NSS_868_Pin
+                          |DIO2_24_Pin|DIO1_24_Pin|DIO0_868_Pin|DIO4_868_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : SWT1_Pin */
+  GPIO_InitStruct.Pin = SWT1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SWT1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin LED4_Pin
                            SWT2_Pin */
