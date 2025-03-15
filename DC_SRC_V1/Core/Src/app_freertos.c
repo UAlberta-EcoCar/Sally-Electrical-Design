@@ -65,6 +65,8 @@ typedef struct {
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 FDCAN_BOOSTPack_t boost_data = { 0 };
+FDCAN_BOOSTPack2_t boost_data2 = { 0 };
+
 static uint8_t voltage_reached = 0;  // Flag to track first detection
 
 bool lock_state = false;
@@ -318,7 +320,7 @@ void StartDefaultTask(void *argument)
 		}
 
 
-		if ((float) boost_data.in_volt / FDCAN_FOUR_FLT_PREC > 1) { 
+		if ((float) boost_data.in_volt / FDCAN_FOUR_FLT_PREC > 1.5) {
 			if (voltage_reached == 0) { 
 				HAL_GPIO_WritePin(GPIOF, ENABLE_Pin, GPIO_PIN_RESET); // Ensure it's OFF before delay
 				HAL_Delay(2000);  
@@ -363,7 +365,7 @@ void StartCanSend(void *argument)
 	localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
 	localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
 	localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
-	localTxHeader.FDFormat = FDCAN_FD_CAN;
+	localTxHeader.FDFormat = FDCAN_CLASSIC_CAN;
 	localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
 	localTxHeader.MessageMarker = 0;
 	/* Infinite loop */
@@ -371,24 +373,24 @@ void StartCanSend(void *argument)
 	for (;;) {
 
 	//Sync LEDs
-	sync_led_this = osKernelGetTickCount();
-	if (sync_led_this - sync_led_last > 500) {
-		sync_led_last = sync_led_this;
-		localTxHeader.Identifier = FDCAN_SYNCLED_ID;
-		localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
-		can_sync_led = (can_sync_led == 0) ? 1 : 0;
-		if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
-		if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
-											&can_sync_led) != HAL_OK) {
-			Error_Handler();
-			}
+	// sync_led_this = osKernelGetTickCount();
+	// if (sync_led_this - sync_led_last > 500) {
+	// 	sync_led_last = sync_led_this;
+	// 	localTxHeader.Identifier = FDCAN_SYNCLED_ID;
+	// 	localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
+	// 	can_sync_led = (can_sync_led == 0) ? 1 : 0;
+	// 	if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+	// 	if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+	// 										&can_sync_led) != HAL_OK) {
+	// 		Error_Handler();
+	// 		}
 
-		}
-	}
+	// 	}
+	// }
 
 		// Transmit boost data
 		localTxHeader.Identifier = FDCAN_BOOSTPACK_ID;
-		localTxHeader.DataLength = FDCAN_DLC_BYTES_24;
+		localTxHeader.DataLength = FDCAN_DLC_BYTES_8;
 		if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
 			if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
 					(uint8_t*) &boost_data.FDCAN_RawBOOSTPack) != HAL_OK) {
@@ -397,6 +399,19 @@ void StartCanSend(void *argument)
 		} //else {
 		  //log_warn("Tx Buffer Full");
 		  //}
+
+
+		localTxHeader.Identifier = FDCAN_BOOSTPACK2_ID;
+		localTxHeader.DataLength = FDCAN_DLC_BYTES_8;
+		if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+			if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+					(uint8_t*) &boost_data2.FDCAN_RawBOOSTPack2) != HAL_OK) {
+				Error_Handler();
+			}
+		} //else {
+		  //log_warn("Tx Buffer Full");
+		  //}
+
 		osDelay(msg_delay);
 		}	
 
@@ -460,6 +475,13 @@ void StartRecieveMsg(void *argument)
 					mapDlcToBytes(localRxHeader.DataLength));
 				break;
 
+			case FDCAN_BOOSTPACK2_ID:
+				memcpy(&boost_data2.FDCAN_RawBOOSTPack2, ret,
+					mapDlcToBytes(localRxHeader.DataLength));
+				break;
+
+
+
 			default:
 				break;
 			}
@@ -490,6 +512,9 @@ void StartAdcConv(void *argument)
 	static float in_curr_buffer[ADC_BUFFER_SIZE] = {0};
 	static uint8_t in_curr_index = 0;
 
+	static float out_curr_buffer[ADC_BUFFER_SIZE] = {0};
+	static uint8_t out_curr_index = 0;
+
 	HAL_ADC_Start_DMA(&hadc1, ADC1_VALUE, 4);
 	HAL_ADC_Start_DMA(&hadc2, ADC2_VALUE, 2);
 
@@ -506,22 +531,30 @@ void StartAdcConv(void *argument)
 			sum_in_curr += in_curr_buffer[i];
 		}
 
-		boost_data.out_volt = (ADC1_VALUE[3] * ADC_VOLT_REF / VOLT_TRANSFER_OUT + 0.6)* FDCAN_FOUR_FLT_PREC;
+		float new_out_curr = ((ADC1_VALUE[1] + 69.5) * ADC_VOLT_REF / CURR_TRANSFER2 - 0.510) / VOLT_TO_CURR_UNI * FDCAN_FOUR_FLT_PREC;
+		out_curr_buffer[out_curr_index] = new_out_curr;
+		out_curr_index = (out_curr_index + 1) % ADC_BUFFER_SIZE;
+		float sum_out_curr = 0;
+		for (uint8_t i = 0; i < ADC_BUFFER_SIZE; i++) {
+			sum_out_curr += out_curr_buffer[i];
+		}
+
+		boost_data2.out_volt = (ADC1_VALUE[3] * ADC_VOLT_REF / VOLT_TRANSFER_OUT + 0.6)* FDCAN_FOUR_FLT_PREC;
 		boost_data.in_volt = (ADC1_VALUE[2] * ADC_VOLT_REF / VOLT_TRANSFER_IN + 0.9)* FDCAN_FOUR_FLT_PREC;
 		boost_data.in_curr = sum_in_curr / ADC_BUFFER_SIZE;
-		boost_data.out_curr = ((ADC1_VALUE[1] + 52.5) * ADC_VOLT_REF/ CURR_TRANSFER2 - 0.512) / VOLT_TO_CURR_UNI * FDCAN_FOUR_FLT_PREC;
+		boost_data2.out_curr = sum_out_curr / ADC_BUFFER_SIZE;
 
 		printf(
 				"IN CURR: %.3f OUT CURR: %.3f IN VOLT: %.1f OUT VOLT: %.1f SET VOLT: %.0f  ENABLE PIN: %0.f\r\n",
 				(float)boost_data.in_curr / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data.out_curr / FDCAN_FOUR_FLT_PREC,
+				(float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC,
 				(float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data.out_volt / FDCAN_FOUR_FLT_PREC,
+				(float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC,
 				SET_VOLT,
 				en_pin
 				);
 
-		osDelay(500);
+		osDelay(10);
 	}
   /* USER CODE END StartAdcConv */
 }
@@ -571,7 +604,7 @@ void startScreenPrint(void *argument)
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 		ssd1306_SetCursor(64, 20);
-		sprintf(ScreenBuffer, "OUT:%.1f", (float)boost_data.out_volt / FDCAN_FOUR_FLT_PREC);
+		sprintf(ScreenBuffer, "OUT:%.1f", (float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC);
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 		// Currents
@@ -584,14 +617,14 @@ void startScreenPrint(void *argument)
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 		ssd1306_SetCursor(64, 50);
-		sprintf(ScreenBuffer, "OUT:%.2f", (float)boost_data.out_curr / FDCAN_FOUR_FLT_PREC);
+		sprintf(ScreenBuffer, "OUT:%.2f", (float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC);
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 		ssd1306_UpdateScreen(); // Refresh display
 
 		}
 
-		osDelay(500); // Slow down update rate
+		osDelay(100); // Slow down update rate
 	}
   /* USER CODE END startScreenPrint */
 }
@@ -639,12 +672,12 @@ void StartStatusLED(void *argument)
 	for (;;) {
 
 		// Voltage regulation LED. If the output voltage is within 1V of the set voltage, the LED is at 100% brightness
-		if ((boost_data.out_volt / FDCAN_FOUR_FLT_PREC) < (SET_VOLT - 1) || (boost_data.out_volt / FDCAN_FOUR_FLT_PREC) > (SET_VOLT + 1)) {
+		if ((boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) < (SET_VOLT - 1) || (boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) > (SET_VOLT + 1)) {
 
-			htim8.Instance->CCR1 = SET_BRIGHTNESS(40); // change this to 0 when not regulated
+			htim8.Instance->CCR1 = SET_BRIGHTNESS(0); // change this to 0 when not regulated
 
 		} else {
-			htim8.Instance->CCR1 = SET_BRIGHTNESS(100); // change to 40 when regulated
+			htim8.Instance->CCR1 = SET_BRIGHTNESS(50); // change to 40 when regulated
 		}
 
 
