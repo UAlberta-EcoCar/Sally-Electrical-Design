@@ -23,6 +23,18 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "ssd1306.h"
+#include "ssd1306_tests.h"
+#include "ssd1306_fonts.h"
+#include "ecocar_can.h"
+//#include "usb_device.h"  // Add this line to include the USB device header
+//#include "usbd_cdc_if.h" // Add this line to include the USB device header
+#include <string.h>
+#include <stdbool.h>
+
+
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,27 +97,27 @@ const osThreadAttr_t canSend_attributes = {
   .cb_size = sizeof(canSendControlBlock),
   .priority = (osPriority_t) osPriorityNormal1,
 };
-/* Definitions for canQueRXHeader */
-osMessageQueueId_t canQueRXHeaderHandle;
-uint8_t canQueRXHeaderBuffer[ 512 * sizeof( uint32_t ) ];
-osStaticMessageQDef_t canQueRXHeaderControlBlock;
-const osMessageQueueAttr_t canQueRXHeader_attributes = {
-  .name = "canQueRXHeader",
-  .cb_mem = &canQueRXHeaderControlBlock,
-  .cb_size = sizeof(canQueRXHeaderControlBlock),
-  .mq_mem = &canQueRXHeaderBuffer,
-  .mq_size = sizeof(canQueRXHeaderBuffer)
+/* Definitions for canQueueRXHeader */
+osMessageQueueId_t canQueueRXHeaderHandle;
+uint8_t canQueueRXHeaderBuffer[ 512 * sizeof( uint32_t ) ];
+osStaticMessageQDef_t canQueueRXHeaderControlBlock;
+const osMessageQueueAttr_t canQueueRXHeader_attributes = {
+  .name = "canQueueRXHeader",
+  .cb_mem = &canQueueRXHeaderControlBlock,
+  .cb_size = sizeof(canQueueRXHeaderControlBlock),
+  .mq_mem = &canQueueRXHeaderBuffer,
+  .mq_size = sizeof(canQueueRXHeaderBuffer)
 };
-/* Definitions for canQueRXData */
-osMessageQueueId_t canQueRXDataHandle;
-uint8_t canQueRXDataBuffer[ 512 * sizeof( uint8_t ) ];
-osStaticMessageQDef_t canQueRXDataControlBlock;
-const osMessageQueueAttr_t canQueRXData_attributes = {
-  .name = "canQueRXData",
-  .cb_mem = &canQueRXDataControlBlock,
-  .cb_size = sizeof(canQueRXDataControlBlock),
-  .mq_mem = &canQueRXDataBuffer,
-  .mq_size = sizeof(canQueRXDataBuffer)
+/* Definitions for canQueueRXData */
+osMessageQueueId_t canQueueRXDataHandle;
+uint8_t canQueueRXDataBuffer[ 512 * sizeof( uint8_t ) ];
+osStaticMessageQDef_t canQueueRXDataControlBlock;
+const osMessageQueueAttr_t canQueueRXData_attributes = {
+  .name = "canQueueRXData",
+  .cb_mem = &canQueueRXDataControlBlock,
+  .cb_size = sizeof(canQueueRXDataControlBlock),
+  .mq_mem = &canQueueRXDataBuffer,
+  .mq_size = sizeof(canQueueRXDataBuffer)
 };
 /* USER CODE BEGIN PV */
 
@@ -115,6 +127,30 @@ uint32_t adc2_results[3] = { 0 };
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
+
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
+	FDCAN_RxHeaderTypeDef RxHeader;
+	uint8_t RxData[64];
+	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+		/* Retreive Rx messages from RX FIFO0 */
+		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData)
+				!= HAL_OK) {
+			/* Reception Error */
+			Error_Handler();
+		}
+		if (HAL_FDCAN_ActivateNotification(hfdcan,
+		FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK) {
+			/* Notification Error */
+			Error_Handler();
+		}
+		osMessageQueuePut(canQueueRXHeaderHandle, &RxHeader.Identifier, 0, 0);
+		osMessageQueuePut(canQueueRXHeaderHandle, &RxHeader.DataLength, 0, 0);
+		for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+			osMessageQueuePut(canQueueRXDataHandle, &RxData[i], 0, 0);
+		}
+	}
+}
+
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
@@ -126,6 +162,8 @@ static void MX_USB_PCD_Init(void);
 void StartDefaultTask(void *argument);
 void StartTaskReceive(void *argument);
 void StartTaskSend(void *argument);
+
+
 
 /* USER CODE BEGIN PFP */
 
@@ -196,16 +234,16 @@ int main(void)
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
-  /* Create the queue(s) */
-  /* creation of canQueRXHeader */
-  canQueRXHeaderHandle = osMessageQueueNew (512, sizeof(uint32_t), &canQueRXHeader_attributes);
+  /* Create the Queue(s) */
+  /* creation of canQueueRXHeader */
+  canQueueRXHeaderHandle = osMessageQueueNew (512, sizeof(uint32_t), &canQueueRXHeader_attributes);
 
-  /* creation of canQueRXData */
-  canQueRXDataHandle = osMessageQueueNew (512, sizeof(uint8_t), &canQueRXData_attributes);
+  /* creation of canQueueRXData */
+  canQueueRXDataHandle = osMessageQueueNew (512, sizeof(uint8_t), &canQueueRXData_attributes);
 
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QueueS */
+  /* add Queues, ... */
+  /* USER CODE END RTOS_QueueS */
 
   /* Create the thread(s) */
   /* creation of defaultTask */
@@ -498,33 +536,74 @@ static void MX_FDCAN2_Init(void)
   /* USER CODE BEGIN FDCAN2_Init 1 */
 
   /* USER CODE END FDCAN2_Init 1 */
-  hfdcan2.Instance = FDCAN2;
-  hfdcan2.Init.ClockDivider = FDCAN_CLOCK_DIV1;
-  hfdcan2.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
-  hfdcan2.Init.Mode = FDCAN_MODE_NORMAL;
-  hfdcan2.Init.AutoRetransmission = DISABLE;
-  hfdcan2.Init.TransmitPause = DISABLE;
-  hfdcan2.Init.ProtocolException = DISABLE;
-  hfdcan2.Init.NominalPrescaler = 16;
-  hfdcan2.Init.NominalSyncJumpWidth = 1;
-  hfdcan2.Init.NominalTimeSeg1 = 1;
-  hfdcan2.Init.NominalTimeSeg2 = 1;
-  hfdcan2.Init.DataPrescaler = 1;
-  hfdcan2.Init.DataSyncJumpWidth = 1;
-  hfdcan2.Init.DataTimeSeg1 = 1;
-  hfdcan2.Init.DataTimeSeg2 = 1;
-  hfdcan2.Init.StdFiltersNbr = 0;
-  hfdcan2.Init.ExtFiltersNbr = 0;
-  hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+	  hfdcan2.Instance = FDCAN2;
+	  hfdcan2.Init.ClockDivider = FDCAN_CLOCK_DIV1;
+	  hfdcan2.Init.FrameFormat = FDCAN_FRAME_FD_BRS;
+	  hfdcan2.Init.Mode = FDCAN_MODE_NORMAL;
+	  hfdcan2.Init.AutoRetransmission = DISABLE;
+	  hfdcan2.Init.TransmitPause = DISABLE;
+	  hfdcan2.Init.ProtocolException = DISABLE;
+	  hfdcan2.Init.NominalPrescaler = 1;
+	  hfdcan2.Init.NominalSyncJumpWidth = 2;
+	  hfdcan2.Init.NominalTimeSeg1 = 5;
+	  hfdcan2.Init.NominalTimeSeg2 = 2;
+	  hfdcan2.Init.DataPrescaler = 1;
+	  hfdcan2.Init.DataSyncJumpWidth = 1;
+	  hfdcan2.Init.DataTimeSeg1 = 1;
+	  hfdcan2.Init.DataTimeSeg2 = 2;
+	  hfdcan2.Init.StdFiltersNbr = 1;
+	  hfdcan2.Init.ExtFiltersNbr = 0;
+	  hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
   if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK)
   {
     Error_Handler();
   }
   /* USER CODE BEGIN FDCAN2_Init 2 */
+  FDCAN_FilterTypeDef sFilterConfig;
 
+  // Accept high priority messages
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 0;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x000; // 0b00000000000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
+
+
+  if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT,
+                                   FDCAN_REJECT, FDCAN_REJECT) != HAL_OK) {
+    Error_Handler();
+  }
+
+  if (HAL_FDCAN_ConfigTxDelayCompensation(
+          &hfdcan2, hfdcan2.Init.DataTimeSeg1 * hfdcan2.Init.DataPrescaler,
+          0) != HAL_OK) {
+    Error_Handler();
+  }
+  if (HAL_FDCAN_EnableTxDelayCompensation(&hfdcan2) != HAL_OK) {
+    Error_Handler();
+  }
+
+  /* START FDCAN PERIPHERAL */
+  if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK) {
+    Error_Handler();
+  }
+
+  if (HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
+                                     0) != HAL_OK) {
+    Error_Handler();
+  }
   /* USER CODE END FDCAN2_Init 2 */
-
 }
+
+
+
+
+
 
 /**
   * @brief I2C1 Initialization Function
@@ -682,6 +761,11 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
+	ssd1306_Init();
+	// Display the test bitmap for 2.5 seconds
+	ssd1306_TestDrawBitmap();
+	ssd1306_UpdateScreen();
+
   for(;;)
   {
     osDelay(1);
@@ -699,11 +783,57 @@ void StartDefaultTask(void *argument)
 void StartTaskReceive(void *argument)
 {
   /* USER CODE BEGIN StartTaskReceive */
+	UNUSED(argument);
+	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
+	uint8_t ret[64] = { 0 };
+	//HAL_GPIO_WritePin(GPIOB, CAN_STBY_Pin, GPIO_PIN_RESET);
+
   /* Infinite loop */
+
   for(;;)
   {
+		if (osMessageQueueGet(canQueueRXHeaderHandle, &localRxHeader.Identifier,
+				0,
+				osWaitForever) == osOK) {
+			if (osMessageQueueGet(canQueueRXHeaderHandle,
+					&localRxHeader.DataLength, 0, 0) != osOK) {
+				Error_Handler();
+			}
+			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
+					i++) {
+				if (osMessageQueueGet(canQueueRXDataHandle, &ret[i], 0, 0)
+						!= osOK) {
+					Error_Handler();
+				}
+			}
+
+			switch (localRxHeader.Identifier) {
+			case FDCAN_H2ALARM_ID:
+				// H2 ALARM
+				if (ret[0] == 1) {
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 1);
+				} else {
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0);
+				}
+				break;
+
+			case FDCAN_SYNCLED_ID:
+				// CAN SYNC LED
+				if (ret[0] == 1) {
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 1);
+				} else {
+					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 0);
+				}
+				break;
+
+
+			default:
+				break;
+			}
+		}
+	}
     osDelay(1);
-  }
+
   /* USER CODE END StartTaskReceive */
 }
 
