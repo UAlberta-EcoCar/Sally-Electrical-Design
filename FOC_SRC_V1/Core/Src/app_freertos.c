@@ -50,7 +50,15 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+/*Reverse order of bits in a byte */
+uint8_t flipByte(uint8_t c)
+{
+  c = ((c >> 1) & 0x55) | ((c << 1) & 0xAA);
+  c = ((c >> 2) & 0x33) | ((c << 2) & 0xCC);
+  c = (c >> 4) | (c << 4);
 
+  return c;
+}
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -131,31 +139,38 @@ const osMessageQueueAttr_t canQueRxData_attributes = {
     .mq_size = sizeof(canQueRxDataBuffer)};
 
 // Callback needed for LEDs
-void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance == htim2.Instance) {
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
+{
+  if (htim->Instance == htim2.Instance)
+  {
     WS2812_Callback();
   }
 }
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan,
-                               uint32_t RxFifo0ITs) {
+                               uint32_t RxFifo0ITs)
+{
   FDCAN_RxHeaderTypeDef RxHeader;
   uint8_t RxData[64];
-  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
+  {
     /* Retreive Rx messages from RX FIFO0 */
     if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) !=
-        HAL_OK) {
+        HAL_OK)
+    {
       /* Reception Error */
       Error_Handler();
     }
     if (HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
-                                       0) != HAL_OK) {
+                                       0) != HAL_OK)
+    {
       /* Notification Error */
       Error_Handler();
     }
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0);
     osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0);
-    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+    for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++)
+    {
       osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0);
     }
   }
@@ -173,7 +188,8 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
  * @param  None
  * @retval None
  */
-void MX_FREERTOS_Init(void) {
+void MX_FREERTOS_Init(void)
+{
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -232,17 +248,19 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument) {
+void StartDefaultTask(void *argument)
+{
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
   HAL_StatusTypeDef hal_stat;
-  uint8_t r[WS2812_NUM_LEDS] = {0};
-  uint8_t g[WS2812_NUM_LEDS] = {0};
-  uint8_t b[WS2812_NUM_LEDS] = {0};
-  uint8_t offSet = floor(256.0F / WS2812_NUM_LEDS);
-  const uint8_t ws2812_color_time = 250;
+  // uint8_t r[WS2812_NUM_LEDS] = {0};
+  // uint8_t g[WS2812_NUM_LEDS] = {0};
+  // uint8_t b[WS2812_NUM_LEDS] = {0};
+  // uint8_t offSet = floor(256.0F / WS2812_NUM_LEDS);
+  // const uint8_t ws2812_color_time = 250;
 
-  if (WS2812_Init() != HAL_OK) {
+  if (WS2812_Init() != HAL_OK)
+  {
     Error_Handler();
   }
 
@@ -252,25 +270,36 @@ void StartDefaultTask(void *argument) {
   /*  g[ledIndex] = ledIndex * offSet;*/
   /*  b[ledIndex] = ledIndex * offSet;*/
   /*}*/
-  uint8_t iter = 0;
-
-  for (;;) {
-    if (can_sync_led == 1) {
+  // uint8_t iter = 0;
+  uint8_t brightness = 5;
+  uint8_t data = 0;
+  for (;;)
+  {
+    if (can_sync_led == 1)
+    {
       WS2812_SetColor(0, 1, 0, 0);
       WS2812_SetColor(1, 0, 1, 0);
       WS2812_SetColor(2, 0, 0, 1);
       WS2812_SetColor(3, 1, 1, 0);
       WS2812_SetColor(4, 1, 0, 1);
-      WS2812_Update();
-    } else {
-      WS2812_SetColor(0, 0, 0, 0);
-      WS2812_SetColor(1, 0, 0, 0);
-      WS2812_SetColor(2, 0, 0, 0);
-      WS2812_SetColor(3, 0, 0, 0);
-      WS2812_SetColor(4, 0, 0, 0);
-      WS2812_Update();
+      hal_stat = WS2812_Update();
     }
-    osDelay(1);
+    else
+    {
+      data = flipByte(brightness);
+      WS2812_SetColor(0, data, 0, 0);
+      WS2812_SetColor(1, 0, data, 0);
+      WS2812_SetColor(2, 0, 0, data);
+      WS2812_SetColor(3, data, data, 0);
+      WS2812_SetColor(4, 0, data, data);
+      hal_stat = WS2812_Update();
+    }
+    // brightness++;
+    // if (brightness > 30)
+    // {
+    //   brightness = 0;
+    // }
+    osDelay(40);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -282,7 +311,8 @@ void StartDefaultTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartCanReceive */
-void StartCanReceive(void *argument) {
+void StartCanReceive(void *argument)
+{
   /* USER CODE BEGIN StartCanReceive */
   /**
    * THIS SECTION OF CODE UTILIZES A HIGHER PRIORITY SO NO BLOCKING
@@ -292,22 +322,29 @@ void StartCanReceive(void *argument) {
   FDCAN_RxHeaderTypeDef localRxHeader = {0};
   uint8_t ret[64] = {0};
   /* Infinite loop */
-  for (;;) {
+  for (;;)
+  {
     if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier, 0,
-                          osWaitForever) == osOK) {
+                          osWaitForever) == osOK)
+    {
       if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.DataLength, 0,
-                            0) != osOK) {
+                            0) != osOK)
+      {
         Error_Handler();
       }
-      for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength); i++) {
-        if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0) != osOK) {
+      for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength); i++)
+      {
+        if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0) != osOK)
+        {
           Error_Handler();
         }
       }
-      switch (localRxHeader.Identifier) {
+      switch (localRxHeader.Identifier)
+      {
       case FDCAN_H2ALARM_ID:
         // H2 ALARM
-        if (ret[0] == 1) {
+        if (ret[0] == 1)
+        {
         }
         break;
       case FDCAN_SYNCLED_ID:
@@ -342,7 +379,8 @@ void StartCanReceive(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartCanSend */
-void StartCanSend(void *argument) {
+void StartCanSend(void *argument)
+{
   /* USER CODE BEGIN StartCanSend */
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef localTxHeader;
@@ -356,7 +394,8 @@ void StartCanSend(void *argument) {
   localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
   localTxHeader.MessageMarker = 0;
   /* Infinite loop */
-  for (;;) {
+  for (;;)
+  {
     osDelay(msg_delay);
   }
   /* USER CODE END StartCanSend */
