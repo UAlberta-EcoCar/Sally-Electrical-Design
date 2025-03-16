@@ -29,6 +29,7 @@
 #include "rf-rfm95.h"
 #include "ecocar_can.h"
 #include "fdcan.h"
+#include "usart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -133,6 +134,13 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			}
 		}
 	}
+}
+
+// Syscall implementation that printf will use
+int _write(int file, char *ptr, int len) {
+  UNUSED(file);
+  HAL_UART_Transmit(&huart1, ptr, len, 100);
+  return len;
 }
 
 /* USER CODE END FunctionPrototypes */
@@ -310,92 +318,7 @@ void StartDefaultTask(void *argument)
 void StartCanTask(void *argument)
 {
   /* USER CODE BEGIN StartCanTask */
-
-	FDCAN_RxHeaderTypeDef localrx = { 0 };
-	uint8_t ret[64] = { 0 };
-
 	/* Infinite loop */
-	for (;;) {
-		osDelay(10);
-	}
-	/* USER CODE END Start24Task */
-}
-
-/* USER CODE BEGIN Header_Start915Task */
-/**
- * @brief Function implementing the Task915 thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_Start915Task */
-void Start915Task(void *argument) {
-	/* USER CODE BEGIN Start915Task */
-	/* Infinite loop */
-	for (;;) {
-		osDelay(10);
-	}
-	/* USER CODE END Start915Task */
-}
-
-/* USER CODE BEGIN Header_Start868Task */
-/**
- * @brief Function implementing the Task868 thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_Start868Task */
-void Start868Task(void *argument) {
-	/* USER CODE BEGIN Start868Task */
-	/* Infinite loop */
-	for (;;) {
-		osDelay(10);
-	}
-	/* USER CODE END Start868Task */
-}
-
-/* USER CODE BEGIN Header_StartGNSSTask */
-/**
- * @brief Function implementing the TaskGNSS thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartGNSSTask */
-void StartGNSSTask(void *argument) {
-	/* USER CODE BEGIN StartGNSSTask */
-	/* Infinite loop */
-	for (;;) {
-		osDelay(10);
-	}
-	/* USER CODE END StartGNSSTask */
-}
-
-/* USER CODE BEGIN Header_StartSDTask */
-/**
- * @brief Function implementing the TaskSD thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartSDTask */
-void StartSDTask(void *argument) {
-	/* USER CODE BEGIN StartSDTask */
-	/* Infinite loop */
-	for (;;) {
-		osDelay(10);
-	}
-	/* USER CODE END StartSDTask */
-}
-
-/* USER CODE BEGIN Header_StartAUXTask */
-/**
- * @brief Function implementing the TaskAUX thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartAUXTask */
-void StartAUXTask(void *argument) {
-	/* USER CODE BEGIN StartAUXTask */
-	/* Infinite loop */
-
 	for (;;) {
 		osDelay(10);
 	}
