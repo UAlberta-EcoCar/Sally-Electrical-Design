@@ -84,6 +84,18 @@ const osThreadAttr_t auxilary_attributes = {
   .cb_size = sizeof(auxilaryControlBlock),
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for CANHandler */
+osThreadId_t CANHandlerHandle;
+uint32_t CANHandlerBuffer[ 512 ];
+osStaticThreadDef_t CANHandlerControlBlock;
+const osThreadAttr_t CANHandler_attributes = {
+  .name = "CANHandler",
+  .stack_mem = &CANHandlerBuffer[0],
+  .stack_size = sizeof(CANHandlerBuffer),
+  .cb_mem = &CANHandlerControlBlock,
+  .cb_size = sizeof(CANHandlerControlBlock),
+  .priority = (osPriority_t) osPriorityNormal3,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -93,6 +105,7 @@ const osThreadAttr_t auxilary_attributes = {
 void StartDefaultTask(void *argument);
 void StartTelemetryTransmitTask(void *argument);
 void StartAuxilaryTask(void *argument);
+void StartCANHandler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -131,6 +144,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of auxilary */
   auxilaryHandle = osThreadNew(StartAuxilaryTask, NULL, &auxilary_attributes);
+
+  /* creation of CANHandler */
+  CANHandlerHandle = osThreadNew(StartCANHandler, NULL, &CANHandler_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -194,6 +210,24 @@ __weak void StartAuxilaryTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END StartAuxilaryTask */
+}
+
+/* USER CODE BEGIN Header_StartCANHandler */
+/**
+* @brief Function implementing the CANHandler thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartCANHandler */
+__weak void StartCANHandler(void *argument)
+{
+  /* USER CODE BEGIN StartCANHandler */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartCANHandler */
 }
 
 /* Private application code --------------------------------------------------*/

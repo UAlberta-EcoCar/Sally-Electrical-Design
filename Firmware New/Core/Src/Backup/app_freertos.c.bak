@@ -62,7 +62,7 @@ const osThreadAttr_t defaultTask_attributes = {
 };
 /* Definitions for telemetryTransm */
 osThreadId_t telemetryTransmHandle;
-uint32_t telemetryTransmBuffer[ 128 ];
+uint32_t telemetryTransmBuffer[ 512 ];
 osStaticThreadDef_t telemetryTransmControlBlock;
 const osThreadAttr_t telemetryTransm_attributes = {
   .name = "telemetryTransm",
@@ -74,7 +74,7 @@ const osThreadAttr_t telemetryTransm_attributes = {
 };
 /* Definitions for auxilary */
 osThreadId_t auxilaryHandle;
-uint32_t auxilaryBuffer[ 128 ];
+uint32_t auxilaryBuffer[ 512 ];
 osStaticThreadDef_t auxilaryControlBlock;
 const osThreadAttr_t auxilary_attributes = {
   .name = "auxilary",
@@ -83,6 +83,18 @@ const osThreadAttr_t auxilary_attributes = {
   .cb_mem = &auxilaryControlBlock,
   .cb_size = sizeof(auxilaryControlBlock),
   .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for CANHandler */
+osThreadId_t CANHandlerHandle;
+uint32_t CANHandlerBuffer[ 512 ];
+osStaticThreadDef_t CANHandlerControlBlock;
+const osThreadAttr_t CANHandler_attributes = {
+  .name = "CANHandler",
+  .stack_mem = &CANHandlerBuffer[0],
+  .stack_size = sizeof(CANHandlerBuffer),
+  .cb_mem = &CANHandlerControlBlock,
+  .cb_size = sizeof(CANHandlerControlBlock),
+  .priority = (osPriority_t) osPriorityNormal3,
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -93,6 +105,7 @@ const osThreadAttr_t auxilary_attributes = {
 void StartDefaultTask(void *argument);
 void StartTelemetryTransmitTask(void *argument);
 void StartAuxilaryTask(void *argument);
+extern void StartCANHandler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -131,6 +144,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of auxilary */
   auxilaryHandle = osThreadNew(StartAuxilaryTask, NULL, &auxilary_attributes);
+
+  /* creation of CANHandler */
+  CANHandlerHandle = osThreadNew(StartCANHandler, NULL, &CANHandler_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
