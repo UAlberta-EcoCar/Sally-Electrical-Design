@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * File Name          : app_freertos.c
-  * Description        : Code for freertos applications
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2025 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * File Name          : app_freertos.c
+ * Description        : Code for freertos applications
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -35,6 +35,7 @@
 //#include "usbd_cdc_if.h" // Add this line to include the USB device header
 #include <string.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 /* USER CODE END Includes */
 
@@ -57,9 +58,9 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-uint32_t adc1_results[6] = { 0 };
-uint32_t adc2_results[3] = { 0 };
-const float RESOLUTION =  4096.0;
+uint32_t adc1_results[5] = { 0 };
+uint32_t adc2_results[4] = { 0 };
+const float RESOLUTION = 4096.0;
 const float ref_voltage = 3.3;
 
 /* USER CODE END Variables */
@@ -94,23 +95,23 @@ const osThreadAttr_t canSend_attributes = {
   .cb_size = sizeof(canSendControlBlock),
   .priority = (osPriority_t) osPriorityNormal1,
 };
-/* Definitions for canQueRXHeader */
-osMessageQueueId_t canQueRXHeaderHandle;
+/* Definitions for canQueRxHeader */
+osMessageQueueId_t canQueRxHeaderHandle;
 uint8_t canQueRXHeaderBuffer[ 512 * sizeof( uint32_t ) ];
 osStaticMessageQDef_t canQueRXHeaderControlBlock;
-const osMessageQueueAttr_t canQueRXHeader_attributes = {
-  .name = "canQueRXHeader",
+const osMessageQueueAttr_t canQueRxHeader_attributes = {
+  .name = "canQueRxHeader",
   .cb_mem = &canQueRXHeaderControlBlock,
   .cb_size = sizeof(canQueRXHeaderControlBlock),
   .mq_mem = &canQueRXHeaderBuffer,
   .mq_size = sizeof(canQueRXHeaderBuffer)
 };
-/* Definitions for canQueRXData */
-osMessageQueueId_t canQueRXDataHandle;
+/* Definitions for canQueRxData */
+osMessageQueueId_t canQueRxDataHandle;
 uint8_t canQueRXDataBuffer[ 512 * sizeof( uint8_t ) ];
 osStaticMessageQDef_t canQueRXDataControlBlock;
-const osMessageQueueAttr_t canQueRXData_attributes = {
-  .name = "canQueRXData",
+const osMessageQueueAttr_t canQueRxData_attributes = {
+  .name = "canQueRxData",
   .cb_mem = &canQueRXDataControlBlock,
   .cb_size = sizeof(canQueRXDataControlBlock),
   .mq_mem = &canQueRXDataBuffer,
@@ -119,7 +120,30 @@ const osMessageQueueAttr_t canQueRXData_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
+	FDCAN_RxHeaderTypeDef RxHeader;
+	uint8_t RxData[64];
+	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+		/* Retrieve Rx messages from RX FIFO0 */
+		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData)
+				!= HAL_OK) {
+			/* Reception Error */
+			Error_Handler();
+		}
+		if (osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0)
+				!= osOK
+				|| osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength,
+						0, 0) != osOK) {
+			Error_Handler();
+		}
+		for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+			if (osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0)
+					!= osOK) {
+				Error_Handler();
+			}
+		}
+	}
+}
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -135,30 +159,29 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
+	/* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+	/* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
+	/* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
-  /* creation of canQueRXHeader */
-  canQueRXHeaderHandle = osMessageQueueNew (512, sizeof(uint32_t), &canQueRXHeader_attributes);
+  /* creation of canQueRxHeader */
+  canQueRxHeaderHandle = osMessageQueueNew (512, sizeof(uint32_t), &canQueRxHeader_attributes);
 
-  /* creation of canQueRXData */
-  canQueRXDataHandle = osMessageQueueNew (512, sizeof(uint8_t), &canQueRXData_attributes);
+  /* creation of canQueRxData */
+  canQueRxDataHandle = osMessageQueueNew (512, sizeof(uint8_t), &canQueRxData_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+	/* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -172,87 +195,146 @@ void MX_FREERTOS_Init(void) {
   canSendHandle = osThreadNew(StartTaskSend, NULL, &canSend_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+	/* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
-  /* add events, ... */
+	/* add events, ... */
   /* USER CODE END RTOS_EVENTS */
 
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
+ * @brief  Function implementing the defaultTask thread.
+ * @param  argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-  /* Infinite loop */
+	/* Infinite loop */
 
+	// Calibrate and start the leds
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
-	HAL_ADC_Start_DMA(&hadc1, &adc1_results, 6);
+	HAL_ADC_Start_DMA(&hadc1, &adc1_results, 5);
 
 	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
-	HAL_ADC_Start_DMA(&hadc2, &adc2_results, 3);
+	HAL_ADC_Start_DMA(&hadc2, &adc2_results, 4);
 
-  for(;;)
-  {
-	 float Buc_temp_sense_Voltage =  (( adc1_results[0] * ref_voltage)  / RESOLUTION);
-	 float Op_temp_sense_Voltage  =  (( adc1_results[1] * ref_voltage) /  RESOLUTION);
-	 float Cntrl_temp_sense_Voltage =(( adc1_results[2] * ref_voltage)/   RESOLUTION);
+	// Init the screen
+	ssd1306_Init();
 
-	 float Buc_temp_sense = (Buc_temp_sense_Voltage - 0.5)/ (0.1);
-	 float Op_temp_sense = (Op_temp_sense_Voltage - 0.5) / (0.1);
-	 float Cntrl_temp_sense = (Cntrl_temp_sense_Voltage -0.5) / (0.1);
+	for (;;) {
 
+		float Buc_temp_sense_Voltage = ((((adc1_results[0] * ref_voltage)
+				/ RESOLUTION)) - 0.193);  //buc voltage
+		float Op_temp_sense_Voltage = ((((adc1_results[1] * ref_voltage)
+				/ RESOLUTION)) - 0.13); //op voltage
+		float Cntrl_temp_sense_Voltage = ((((adc1_results[2] * ref_voltage)
+				/ RESOLUTION)) + 0.26); //cntrl voltage
 
+		float Buc_temp = (Buc_temp_sense_Voltage - 0.5) / (0.01);  //buc temp
+		float Op_temp = (Op_temp_sense_Voltage - 0.5) / (0.01);  //op temp
+		float Cntrl_temp = (Cntrl_temp_sense_Voltage - 0.5) / (0.01); //cntrl temp
 
+		char buc_temp[20];
+		char op_temp[20];
+		char cntrl_temp[20];
+		sprintf(buc_temp, "BUCK T:%.2f C", Buc_temp);
+		sprintf(op_temp, "OP T: %.2f C", Op_temp);
+		sprintf(cntrl_temp, "CNTRL T: %.2f C", Cntrl_temp);
 
+		ssd1306_WriteString(buc_temp, Font_7x10, White);
+		ssd1306_UpdateScreen();
 
+		ssd1306_SetCursor(0, 15);
+		ssd1306_WriteString(op_temp, Font_7x10, White);
+		ssd1306_UpdateScreen();
 
+		ssd1306_SetCursor(0, 30);
+		ssd1306_WriteString(cntrl_temp, Font_7x10, White);
+		ssd1306_UpdateScreen();
+		ssd1306_SetCursor(0, 0);
 
-    osDelay(1);
-  }
+		osDelay(1);
+	}
   /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartTaskReceive */
 /**
-* @brief Function implementing the canReceive thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the canReceive thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartTaskReceive */
 void StartTaskReceive(void *argument)
 {
   /* USER CODE BEGIN StartTaskReceive */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
+	uint8_t ret[64] = { 0 };
+
+	for (;;) {
+		if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier,
+				0,
+				osWaitForever) == osOK) {
+
+			if (osMessageQueueGet(canQueRxHeaderHandle,
+					&localRxHeader.DataLength, 0, 0) != osOK) {
+				Error_Handler();
+			}
+
+			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
+					i++) {
+				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0)
+						!= osOK) {
+					Error_Handler();
+				}
+			}
+
+			switch (localRxHeader.Identifier) {
+			case FDCAN_H2ALARM_ID:
+				// H2 ALARM
+				if (ret[0] == 1) {
+					// Do something?
+				}
+				break;
+			case FDCAN_SYNCLED_ID:
+				// CAN SYNC LED
+				//HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, ret[0] ? GPIO_PIN_SET : GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPLED2_GPIO_Port, GPLED2_Pin, !ret[0] ? GPIO_PIN_SET : GPIO_PIN_RESET);
+				//HAL_GPIO_WritePin(GPLED3_GPIO_Port, GPLED3_Pin, ret[0] ? GPIO_PIN_SET : GPIO_PIN_RESET);
+			default:
+				//log_info("Received CANID 0x%x but did nothing with it!",
+				//		localRxHeader.Identifier);
+				break;
+			}
+
+		} else {
+			//log_err("Something strange is happening!");
+		}
+	}
   /* USER CODE END StartTaskReceive */
 }
 
 /* USER CODE BEGIN Header_StartTaskSend */
 /**
-* @brief Function implementing the canSend thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the canSend thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_StartTaskSend */
 void StartTaskSend(void *argument)
 {
   /* USER CODE BEGIN StartTaskSend */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+
+	/* Infinite loop */
+	for (;;) {
+
+		osDelay(1);
+	}
   /* USER CODE END StartTaskSend */
 }
 
