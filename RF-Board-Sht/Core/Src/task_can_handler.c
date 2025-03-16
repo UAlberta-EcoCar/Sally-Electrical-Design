@@ -1,0 +1,132 @@
+#include "main.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "fdcan.h"
+
+#include "ecocar_can.h"
+#include "exported_typedef.h"
+#include "debug-log.h"
+
+extern osMessageQueueId_t canQueRxHeaderHandle;
+extern osMessageQueueId_t canQueRxDataHandle;
+
+FDCAN_FccPack1_t fc_data1 = { 0 };
+FDCAN_RelPackFc_t RelPackFc = {0};
+//FDCAN_FccPack1_t fc_data1 = { 0 };
+
+
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
+	FDCAN_RxHeaderTypeDef RxHeader;
+	uint8_t RxData[64];
+	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+		/* Retrieve Rx messages from RX FIFO0 */
+		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData)
+				!= HAL_OK) {
+			/* Reception Error */
+			Error_Handler();
+		}
+
+		if (FDCAN_SYNCLED_ID == RxHeader.Identifier) {
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+					(RxData[0]) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+		} else {
+
+			if (osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0,
+					0) != osOK
+					|| osMessageQueuePut(canQueRxHeaderHandle,
+							&RxHeader.DataLength, 0, 0) != osOK) {
+				Error_Handler();
+			}
+			for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+				if (osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0)
+						!= osOK) {
+					Error_Handler();
+				}
+			}
+		}
+	}
+}
+
+/* USER CODE BEGIN Header_StartCANHandler */
+/**
+ * @brief Function implementing the CANHandler thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartCANHandler */
+void StartCanSend(void *argument) {
+	/* USER CODE BEGIN StartCANHandler */
+
+	FDCAN_TxHeaderTypeDef TxHeader;
+	uint8_t TxData[8] = "H";
+
+	TxHeader.Identifier = 0x321;
+	TxHeader.IdType = FDCAN_STANDARD_ID;
+	TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	TxHeader.DataLength = FDCAN_DLC_BYTES_1;
+	TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+	TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
+	TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+	TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+	TxHeader.MessageMarker = 0;
+
+	/* Infinite loop */
+	for (;;) {
+//		printf("HEllo");
+//		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader, &TxData);
+
+		osDelay(100);
+	}
+	/* USER CODE END StartCANHandler */
+}
+
+/* USER CODE BEGIN Header_StartCanReceive */
+/**
+ * @brief Function implementing the CANReceive thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartCanReceive */
+void StartCanReceive(void *argument) {
+	/* USER CODE BEGIN StartCanReceive */
+	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
+	uint8_t ret[64] = { 0 };
+	/* Infinite loop */
+	for (;;) {
+		if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier,
+				0, osWaitForever) == osOK) {
+
+			if (osMessageQueueGet(canQueRxHeaderHandle,
+					&localRxHeader.DataLength, 0, osWaitForever) != osOK) {
+				Error_Handler();
+			}
+			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
+					i++) {
+				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0,
+				osWaitForever) != osOK) {
+					Error_Handler();
+				}
+			}
+			switch (localRxHeader.Identifier) {
+			case FDCAN_SYNCLED_ID:
+//				HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+//						(ret[0]) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+				break;
+			case FDCAN_FCCPACK1_ID:
+				// Copy data fc pres and temp
+				memcpy(fc_data1.FDCAN_RawFccPack, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
+			case FDCAN_RELPACKFC_ID:
+				// Copy data fc pres and temp
+				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
+
+			default:
+				log_err("CANID 0x%x not handled!", localRxHeader.Identifier);
+				break;
+			}
+		}
+//		osDelay(1);
+	}
+	/* USER CODE END StartCanReceive */
+}
