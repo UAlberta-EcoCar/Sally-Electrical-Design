@@ -37,82 +37,50 @@ void MX_FDCAN2_Init(void)
   /* USER CODE BEGIN FDCAN2_Init 1 */
 
   /* USER CODE END FDCAN2_Init 1 */
-  hfdcan2.Instance = FDCAN2;
-  hfdcan2.Init.ClockDivider = FDCAN_CLOCK_DIV1;
-  hfdcan2.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
-  hfdcan2.Init.Mode = FDCAN_MODE_INTERNAL_LOOPBACK;
-  hfdcan2.Init.AutoRetransmission = DISABLE;
-  hfdcan2.Init.TransmitPause = DISABLE;
-  hfdcan2.Init.ProtocolException = DISABLE;
-  hfdcan2.Init.NominalPrescaler = 1;
-  hfdcan2.Init.NominalSyncJumpWidth = 2;
-  hfdcan2.Init.NominalTimeSeg1 = 5;
-  hfdcan2.Init.NominalTimeSeg2 = 2;
-  hfdcan2.Init.DataPrescaler = 1;
-  hfdcan2.Init.DataSyncJumpWidth = 1;
-  hfdcan2.Init.DataTimeSeg1 = 1;
-  hfdcan2.Init.DataTimeSeg2 = 2;
-  hfdcan2.Init.StdFiltersNbr = 3;
-  hfdcan2.Init.ExtFiltersNbr = 0;
-  hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
-  if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN FDCAN2_Init 2 */
+	hfdcan2.Instance = FDCAN2;
+	hfdcan2.Init.ClockDivider = FDCAN_CLOCK_DIV1;
+	hfdcan2.Init.FrameFormat = FDCAN_FRAME_FD_BRS;
+	hfdcan2.Init.Mode = FDCAN_MODE_INTERNAL_LOOPBACK;
+	hfdcan2.Init.AutoRetransmission = ENABLE;
+	hfdcan2.Init.TransmitPause = ENABLE;
+	hfdcan2.Init.ProtocolException = DISABLE;
+	hfdcan2.Init.NominalPrescaler = 16;
+	hfdcan2.Init.NominalSyncJumpWidth = 16;
+	hfdcan2.Init.NominalTimeSeg1 = 63;
+	hfdcan2.Init.NominalTimeSeg2 = 16;
+	hfdcan2.Init.DataPrescaler = 1;
+	hfdcan2.Init.DataSyncJumpWidth = 4;
+	hfdcan2.Init.DataTimeSeg1 = 5;
+	hfdcan2.Init.DataTimeSeg2 = 4;
+	hfdcan2.Init.StdFiltersNbr = 1;
+	hfdcan2.Init.ExtFiltersNbr = 0;
+	hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+	if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK) {
+		Error_Handler();
+	}
+	/* USER CODE BEGIN FDCAN2_Init 2 */
 	FDCAN_FilterTypeDef sFilterConfig;
 
-	// Accept high priority messages
+	/* Configure Rx filter */
 	sFilterConfig.IdType = FDCAN_STANDARD_ID;
 	sFilterConfig.FilterIndex = 0;
 	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
 	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-	sFilterConfig.FilterID1 = 0x000; // 0b00000000000
-	sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+	sFilterConfig.FilterID1 = 0x321;
+	sFilterConfig.FilterID2 = 0x7FF;
 	if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
-		/* Filter configuration Error */
 		Error_Handler();
 	}
 
-	// Accept messages from Fet Board
-	sFilterConfig.IdType = FDCAN_STANDARD_ID;
-	sFilterConfig.FilterIndex = 1;
-	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
-	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-	sFilterConfig.FilterID1 = 0x010; // 0b00000100000
-	sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
-	if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
-		/* Filter configuration Error */
-		Error_Handler();
-	}
-
-	// Accept messages from Fet Board
-	sFilterConfig.IdType = FDCAN_STANDARD_ID;
-	sFilterConfig.FilterIndex = 2;
-	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
-	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-	sFilterConfig.FilterID1 = 0x020; // 0b00000100000
-	sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
-	if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
-		/* Filter configuration Error */
-		Error_Handler();
-	}
-
+	/* Configure global filter:
+	 Filter all remote frames with STD and EXT ID
+	 Reject non matching frames with STD ID and EXT ID */
 	if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT,
-	FDCAN_REJECT, FDCAN_REJECT) != HAL_OK) {
+	FDCAN_FILTER_REMOTE, FDCAN_FILTER_REMOTE) != HAL_OK) {
 		Error_Handler();
 	}
 
-	if (HAL_FDCAN_ConfigTxDelayCompensation(&hfdcan2,
-			hfdcan2.Init.DataTimeSeg1 * hfdcan2.Init.DataPrescaler, 0)
-			!= HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_FDCAN_EnableTxDelayCompensation(&hfdcan2) != HAL_OK) {
-		Error_Handler();
-	}
-
-	/* START FDCAN PERIPHERAL */
+	/* Start the FDCAN module */
 	if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK) {
 		Error_Handler();
 	}
@@ -121,6 +89,9 @@ void MX_FDCAN2_Init(void)
 			0) != HAL_OK) {
 		Error_Handler();
 	}
+
+	/* Prepare Tx Header */
+
   /* USER CODE END FDCAN2_Init 2 */
 
 }
