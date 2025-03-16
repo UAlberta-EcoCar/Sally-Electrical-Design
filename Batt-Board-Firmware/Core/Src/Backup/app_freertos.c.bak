@@ -135,6 +135,7 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -197,55 +198,21 @@ void StartDefaultTask(void *argument)
 
 	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 	HAL_ADC_Start_DMA(&hadc2, &adc2_results, 3);
-	ssd1306_Init();
-	//ssd1306_TestDrawBitmap();
-	//ssd1306_UpdateScreen();
 
   for(;;)
   {
+	 float Buc_temp_sense_Voltage =  (( adc1_results[0] * ref_voltage)  / RESOLUTION);
+	 float Op_temp_sense_Voltage  =  (( adc1_results[1] * ref_voltage) /  RESOLUTION);
+	 float Cntrl_temp_sense_Voltage =(( adc1_results[2] * ref_voltage)/   RESOLUTION);
 
-	 float Buc_temp_sense_Voltage =  (((( adc1_results[0] * ref_voltage)  / RESOLUTION))- 0.193);  //buc voltage
-	 float Op_temp_sense_Voltage  =  (((( adc1_results[1] * ref_voltage)  / RESOLUTION))- 0.13); //op voltage
-	 float Cntrl_temp_sense_Voltage =(((( adc1_results[2] * ref_voltage)/   RESOLUTION))+ 0.26); //cntrl voltage
-
-	 float Buc_temp = (Buc_temp_sense_Voltage - 0.5)/ (0.01);  //buc temp
-	 float Op_temp = (Op_temp_sense_Voltage - 0.5) / (0.01);  //op temp
-	 float Cntrl_temp = (Cntrl_temp_sense_Voltage -0.5) / (0.01); //cntrl temp
-
-	char buc_temp[15];
-	char op_temp[15];
-	char cntrl_temp[15];
-	sprintf(buc_temp, "BUC T:%.0f C ",  Buc_temp);
-	sprintf(op_temp, "OP T: %.0f C ",  Op_temp);
-	sprintf(cntrl_temp, "CNTRL T: %.0f C ", Cntrl_temp);
-
-	ssd1306_WriteString(buc_temp,Font_7x10 , White);
-	ssd1306_UpdateScreen();
-
-	ssd1306_SetCursor(0,15);
-	ssd1306_WriteString(op_temp,Font_7x10 , White);
-	ssd1306_UpdateScreen();
-
-	ssd1306_SetCursor(0,30);
-	ssd1306_WriteString(cntrl_temp,Font_7x10 , White);
-	ssd1306_UpdateScreen();
-	ssd1306_SetCursor(0,0);
+	 float Buc_temp_sense = (Buc_temp_sense_Voltage - 0.5)/ (0.1);
+	 float Op_temp_sense = (Op_temp_sense_Voltage - 0.5) / (0.1);
+	 float Cntrl_temp_sense = (Cntrl_temp_sense_Voltage -0.5) / (0.1);
 
 
 
 
 
-	 // HAL_GPIO_WritePin(GPLED1_GPIO_Port,GPLED1_Pin, GPIO_PIN_SET);
-	 // osDelay(1000);
-	  //HAL_GPIO_WritePin(GPLED1_GPIO_Port,GPLED1_Pin, GPIO_PIN_RESET);
-
-	 // HAL_GPIO_WritePin(GPLED2_GPIO_Port,GPLED2_Pin, GPIO_PIN_SET);
-	//  osDelay(100);
-	 // HAL_GPIO_WritePin(GPLED2_GPIO_Port,GPLED2_Pin, GPIO_PIN_RESET);
-
-	 // HAL_GPIO_WritePin(GPLED3_GPIO_Port,GPLED3_Pin, GPIO_PIN_SET);
-	 // osDelay(1000);
-	 // HAL_GPIO_WritePin(GPLED3_GPIO_Port,GPLED3_Pin, GPIO_PIN_RESET);
 
 
     osDelay(1);
@@ -266,7 +233,6 @@ void StartTaskReceive(void *argument)
   /* Infinite loop */
   for(;;)
   {
-
     osDelay(1);
   }
   /* USER CODE END StartTaskReceive */
@@ -282,12 +248,9 @@ void StartTaskReceive(void *argument)
 void StartTaskSend(void *argument)
 {
   /* USER CODE BEGIN StartTaskSend */
-
-
   /* Infinite loop */
   for(;;)
   {
-
     osDelay(1);
   }
   /* USER CODE END StartTaskSend */
