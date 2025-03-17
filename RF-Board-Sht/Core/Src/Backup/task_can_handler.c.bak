@@ -11,6 +11,8 @@ extern osMessageQueueId_t canQueRxHeaderHandle;
 extern osMessageQueueId_t canQueRxDataHandle;
 
 FDCAN_FccPack1_t fc_data1 = { 0 };
+FDCAN_RelPackFc_t RelPackFc = { 0 };
+//FDCAN_FccPack1_t fc_data1 = { 0 };
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
 	FDCAN_RxHeaderTypeDef RxHeader;
@@ -69,7 +71,7 @@ void StartCanSend(void *argument) {
 
 	/* Infinite loop */
 	for (;;) {
-		printf("HEllo");
+//		printf("HEllo");
 //		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader, &TxData);
 
 		osDelay(100);
@@ -112,6 +114,10 @@ void StartCanReceive(void *argument) {
 			case FDCAN_FCCPACK1_ID:
 				// Copy data fc pres and temp
 				memcpy(fc_data1.FDCAN_RawFccPack, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
+			case FDCAN_RELPACKFC_ID:
+				// Copy data fc pres and temp
+				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
 						mapDlcToBytes(localRxHeader.DataLength));
 
 			default:

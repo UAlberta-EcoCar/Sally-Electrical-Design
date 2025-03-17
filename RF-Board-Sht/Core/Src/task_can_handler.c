@@ -10,10 +10,26 @@
 extern osMessageQueueId_t canQueRxHeaderHandle;
 extern osMessageQueueId_t canQueRxDataHandle;
 
-FDCAN_FccPack1_t fc_data1 = { 0 };
-FDCAN_RelPackFc_t RelPackFc = {0};
-//FDCAN_FccPack1_t fc_data1 = { 0 };
+typedef struct {
+	//FDCAN_FetPack_t fet_data;
+	FDCAN_RelPackMtr_t mtr_data;
+	FDCAN_RelPackCap_t cap_data;
+	FDCAN_FccPack1_t fc_data1;
+	FDCAN_FccPack2_t fc_data2;
 
+} telemetry_data1_t;
+
+typedef struct {
+	FDCAN_FccPack3_t fc_data3;
+	//FDCAN_H2Pack_t h2_data;
+	FDCAN_BOOSTPack_t boost_data1;
+	FDCAN_BOOSTPack2_t boost_data2;
+	FDCAN_RelPackFc_t RelPackFc;
+} telemetry_data2_t;
+
+telemetry_data1_t data1;
+telemetry_data2_t data2;
+//FDCAN_FccPack1_t fc_data1 = { 0 };
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
 	FDCAN_RxHeaderTypeDef RxHeader;
@@ -114,13 +130,30 @@ void StartCanReceive(void *argument) {
 				break;
 			case FDCAN_FCCPACK1_ID:
 				// Copy data fc pres and temp
-				memcpy(fc_data1.FDCAN_RawFccPack, ret,
-						mapDlcToBytes(localRxHeader.DataLength));
+//				memcpy(fc_data1.FDCAN_RawFccPack, ret,
+//						mapDlcToBytes(localRxHeader.DataLength));
 			case FDCAN_RELPACKFC_ID:
 				// Copy data fc pres and temp
-				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
-						mapDlcToBytes(localRxHeader.DataLength));
-
+//				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
+//						mapDlcToBytes(localRxHeader.DataLength));
+			case FDCAN_FETPACK_ID:
+				break;
+			case FDCAN_RELPACKMTR_ID:
+				break;
+			case FDCAN_RELPACKCAP_ID:
+				break;
+			case FDCAN_RELSTATE_ID:
+				break;
+			case FDCAN_FCCPACK2_ID:
+				break;
+			case FDCAN_FCCPACK3_ID:
+				break;
+			case FDCAN_H2PACK_ID:
+				break;
+			case FDCAN_BOOSTPACK_ID:
+				break;
+			case FDCAN_BOOSTPACK2_ID:
+				break;
 			default:
 				log_err("CANID 0x%x not handled!", localRxHeader.Identifier);
 				break;
