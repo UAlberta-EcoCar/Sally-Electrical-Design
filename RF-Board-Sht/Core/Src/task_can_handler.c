@@ -130,12 +130,12 @@ void StartCanReceive(void *argument) {
 				break;
 			case FDCAN_FCCPACK1_ID:
 				// Copy data fc pres and temp
-//				memcpy(fc_data1.FDCAN_RawFccPack, ret,
-//						mapDlcToBytes(localRxHeader.DataLength));
+				memcpy(fc_data1.FDCAN_RawFccPack, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
 			case FDCAN_RELPACKFC_ID:
 				// Copy data fc pres and temp
-//				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
-//						mapDlcToBytes(localRxHeader.DataLength));
+				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
 			case FDCAN_FETPACK_ID:
 				break;
 			case FDCAN_RELPACKMTR_ID:

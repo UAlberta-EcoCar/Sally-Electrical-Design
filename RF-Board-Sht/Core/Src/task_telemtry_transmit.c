@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include "debug-log.h"
 
+#define MAX_TELEMTRY_PACKET_SIZE 63 // Not including packet ID.
+
 typedef struct {
 	//FDCAN_FetPack_t fet_data;
 	FDCAN_RelPackMtr_t mtr_data;
@@ -30,6 +32,28 @@ typedef struct {
 	FDCAN_BOOSTPack2_t boost_data2;
 	FDCAN_RelPackFc_t RelPackFc;
 } telemetry_data2_t;
+
+typedef struct {
+	uint8_t latitude;
+	uint8_t longitude;
+} telemetry_gps_t;
+
+typedef enum {
+	BASIC_DATA_1 = sizeof(telemetry_data1_t),
+	BASIC_DATA_2 = sizeof(telemetry_data2_t),
+	GPS_DATA_1 = sizeof(telemetry_gps_t)
+} packet_id_size_t;
+
+typedef enum {
+	BASIC_DATA_1 = 0x01,
+	BASIC_DATA_2 = 0x02,
+	GPS_DATA_1 = 0x03
+} packet_id_t; // must be 1 byte
+
+typedef struct {
+	packet_id_t packet_id;
+	uint8_t packet_data[MAX_TELEMTRY_PACKET_SIZE];
+} telemetry_packet_t;
 
 FDCAN_FccPack1_t fc_dfe;
 FDCAN_RelPackFc_t Rel;
