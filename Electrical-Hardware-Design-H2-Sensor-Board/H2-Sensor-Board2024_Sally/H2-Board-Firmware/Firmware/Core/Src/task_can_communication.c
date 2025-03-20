@@ -13,9 +13,13 @@
 #include <task.h>
 #include "ecocar_can.h"
 
+extern osMessageQueueId_t CANMessageRecieveQHandle;
+extern osSemaphoreId_t H2AlarmSemHandle;
+extern osMessageQueueId_t CANMessageTransmitQHandle;
+
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
 	FDCAN_RxHeaderTypeDef RxHeader;
-	uint8_t RxData[64];
+	uint8_t RxData[64]; // kept this so it is compatible with CAN FD aswell so i dont rip my hair out next year.
 	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
 		/* Retreive Rx messages from RX FIFO0 */
 		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData)
@@ -23,11 +27,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			/* Reception Error */
 			Error_Handler();
 		}
-		if (HAL_FDCAN_ActivateNotification(hfdcan,
-		FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK) {
-			/* Notification Error */
-			Error_Handler();
-		}
+
 		osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.Identifier, 0, 0);
 		osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.DataLength, 0, 0);
 		for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
@@ -36,10 +36,50 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 	}
 }
 
-void StartCANCommunicationTask(void *argument) {
-	/* USER CODE BEGIN StartCANCommunicationTask */
+/* USER CODE BEGIN Header_StartCANTransmitTask */
+/**
+ * @brief Function implementing the CANTransmit thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartCANTransmitTask */
+void StartCANTransmitTask(void *argument) {
+	/* USER CODE BEGIN StartCANTransmitTask */
+	uint8_t send_data[64];
+	FDCAN_TxHeaderTypeDef TxHeader = { 0 };
+	/* Infinite loop */
+	for (;;) {
 
-	// Take CAN Tranciever out of standby.
+		if (0 != osMessageQueueGetCount(CANMessageTransmitQHandle)) {
+			if (osOK
+					== osMessageQueueGet(CANMessageTransmitQHandle,
+							&TxHeader.Identifier, 0, 0)) {
+				osMessageQueueGet(CANMessageTransmitQHandle,
+						&TxHeader.DataLength, 0, 0);
+				for (uint8_t i = 0; i < mapDlcToBytes(TxHeader.DataLength);
+						i++) {
+					osMessageQueueGet(CANMessageTransmitQHandle, &send_data[i],
+							0, 0);
+				}
+
+			} else {
+				log_err("CAN Transmit Message Queue Error.");
+			}
+		}
+		osDelay(1);
+	}
+	/* USER CODE END StartCANTransmitTask */
+}
+
+/* USER CODE BEGIN Header_StartCANRecieve */
+/**
+ * @brief Function implementing the CANRecieve thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartCANRecieve */
+void StartCANRecieve(void *argument) {
+	/* USER CODE BEGIN StartCANRecieve */
 	HAL_GPIO_WritePin(CAN_STDBY_GPIO_Port, CAN_STDBY_Pin, GPIO_PIN_RESET);
 
 	FDCAN_RxHeaderTypeDef incomming = { 0 };
@@ -80,6 +120,6 @@ void StartCANCommunicationTask(void *argument) {
 			}
 		}
 		osDelay(10);
+		/* USER CODE END StartCANRecieve */
 	}
-	/* USER CODE END StartCANCommunicationTask */
 }

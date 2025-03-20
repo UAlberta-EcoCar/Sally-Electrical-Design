@@ -95,21 +95,33 @@ const osThreadAttr_t leakWatchdo_attributes = {
   .cb_size = sizeof(leakWatchdoControlBlock),
   .priority = (osPriority_t) osPriorityHigh,
 };
-/* Definitions for CANCommunicatio */
-osThreadId_t CANCommunicatioHandle;
-uint32_t CANCommunicatioBuffer[ 256 ];
-osStaticThreadDef_t CANCommunicatioControlBlock;
-const osThreadAttr_t CANCommunicatio_attributes = {
-  .name = "CANCommunicatio",
-  .stack_mem = &CANCommunicatioBuffer[0],
-  .stack_size = sizeof(CANCommunicatioBuffer),
-  .cb_mem = &CANCommunicatioControlBlock,
-  .cb_size = sizeof(CANCommunicatioControlBlock),
-  .priority = (osPriority_t) osPriorityNormal4,
+/* Definitions for CANTransmit */
+osThreadId_t CANTransmitHandle;
+uint32_t CANTransmitBuffer[ 128 ];
+osStaticThreadDef_t CANTransmitControlBlock;
+const osThreadAttr_t CANTransmit_attributes = {
+  .name = "CANTransmit",
+  .stack_mem = &CANTransmitBuffer[0],
+  .stack_size = sizeof(CANTransmitBuffer),
+  .cb_mem = &CANTransmitControlBlock,
+  .cb_size = sizeof(CANTransmitControlBlock),
+  .priority = (osPriority_t) osPriorityAboveNormal1,
+};
+/* Definitions for CANRecieve */
+osThreadId_t CANRecieveHandle;
+uint32_t CANRecieveBuffer[ 256 ];
+osStaticThreadDef_t CANRecieveControlBlock;
+const osThreadAttr_t CANRecieve_attributes = {
+  .name = "CANRecieve",
+  .stack_mem = &CANRecieveBuffer[0],
+  .stack_size = sizeof(CANRecieveBuffer),
+  .cb_mem = &CANRecieveControlBlock,
+  .cb_size = sizeof(CANRecieveControlBlock),
+  .priority = (osPriority_t) osPriorityNormal5,
 };
 /* Definitions for CANMessageRecieveQ */
 osMessageQueueId_t CANMessageRecieveQHandle;
-uint8_t CANMessageRecieveQBuffer[ 32 * sizeof( uint32_t ) ];
+uint8_t CANMessageRecieveQBuffer[ 64 * sizeof( uint8_t ) ];
 osStaticMessageQDef_t CANMessageRecieveQControlBlock;
 const osMessageQueueAttr_t CANMessageRecieveQ_attributes = {
   .name = "CANMessageRecieveQ",
@@ -117,6 +129,17 @@ const osMessageQueueAttr_t CANMessageRecieveQ_attributes = {
   .cb_size = sizeof(CANMessageRecieveQControlBlock),
   .mq_mem = &CANMessageRecieveQBuffer,
   .mq_size = sizeof(CANMessageRecieveQBuffer)
+};
+/* Definitions for CANMessageTransmitQ */
+osMessageQueueId_t CANMessageTransmitQHandle;
+uint8_t CANMessageTransmitQBuffer[ 64 * sizeof( uint8_t ) ];
+osStaticMessageQDef_t CANMessageTransmitQControlBlock;
+const osMessageQueueAttr_t CANMessageTransmitQ_attributes = {
+  .name = "CANMessageTransmitQ",
+  .cb_mem = &CANMessageTransmitQControlBlock,
+  .cb_size = sizeof(CANMessageTransmitQControlBlock),
+  .mq_mem = &CANMessageTransmitQBuffer,
+  .mq_size = sizeof(CANMessageTransmitQBuffer)
 };
 /* Definitions for H2AlarmSem */
 osSemaphoreId_t H2AlarmSemHandle;
@@ -136,7 +159,8 @@ void StartDefaultTask(void *argument);
 void StartSensorDataAquireTask(void *argument);
 void StartUpdateOLEDTask(void *argument);
 void StartLeakWatchdogTask(void *argument);
-void StartCANCommunicationTask(void *argument);
+void StartCANTransmitTask(void *argument);
+void StartCANRecieve(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -168,7 +192,10 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of CANMessageRecieveQ */
-  CANMessageRecieveQHandle = osMessageQueueNew (32, sizeof(uint32_t), &CANMessageRecieveQ_attributes);
+  CANMessageRecieveQHandle = osMessageQueueNew (64, sizeof(uint8_t), &CANMessageRecieveQ_attributes);
+
+  /* creation of CANMessageTransmitQ */
+  CANMessageTransmitQHandle = osMessageQueueNew (64, sizeof(uint8_t), &CANMessageTransmitQ_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -187,8 +214,11 @@ void MX_FREERTOS_Init(void) {
   /* creation of leakWatchdo */
   leakWatchdoHandle = osThreadNew(StartLeakWatchdogTask, NULL, &leakWatchdo_attributes);
 
-  /* creation of CANCommunicatio */
-  CANCommunicatioHandle = osThreadNew(StartCANCommunicationTask, NULL, &CANCommunicatio_attributes);
+  /* creation of CANTransmit */
+  CANTransmitHandle = osThreadNew(StartCANTransmitTask, NULL, &CANTransmit_attributes);
+
+  /* creation of CANRecieve */
+  CANRecieveHandle = osThreadNew(StartCANRecieve, NULL, &CANRecieve_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -274,22 +304,40 @@ __weak void StartLeakWatchdogTask(void *argument)
   /* USER CODE END StartLeakWatchdogTask */
 }
 
-/* USER CODE BEGIN Header_StartCANCommunicationTask */
+/* USER CODE BEGIN Header_StartCANTransmitTask */
 /**
-* @brief Function implementing the CANCommunicatio thread.
+* @brief Function implementing the CANTransmit thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_StartCANCommunicationTask */
-__weak void StartCANCommunicationTask(void *argument)
+/* USER CODE END Header_StartCANTransmitTask */
+__weak void StartCANTransmitTask(void *argument)
 {
-  /* USER CODE BEGIN StartCANCommunicationTask */
+  /* USER CODE BEGIN StartCANTransmitTask */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END StartCANCommunicationTask */
+  /* USER CODE END StartCANTransmitTask */
+}
+
+/* USER CODE BEGIN Header_StartCANRecieve */
+/**
+* @brief Function implementing the CANRecieve thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartCANRecieve */
+__weak void StartCANRecieve(void *argument)
+{
+  /* USER CODE BEGIN StartCANRecieve */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartCANRecieve */
 }
 
 /* Private application code --------------------------------------------------*/

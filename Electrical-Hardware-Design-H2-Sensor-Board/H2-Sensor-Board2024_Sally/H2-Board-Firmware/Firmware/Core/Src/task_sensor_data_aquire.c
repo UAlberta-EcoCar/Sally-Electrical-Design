@@ -16,7 +16,7 @@
 #include "log/debug-log.h"
 #include "ecocar_can.h"
 
-H2_Sensor_Data_t h2_sensor_data;
+Sensor_Data_t sensor_data;
 
 uint32_t adc1_results[3] = { 0 }; // 0: h2sense1 1:imon12v 2:imon7V
 uint32_t adc2_results[2] = { 0 }; // 0: h2sense3 1: h2sense2
@@ -117,23 +117,23 @@ void StartSensorDataAquireTask(void *argument) {
 			log_info("Device Found");
 		}
 
-		h2_sensor_data.h2_sense1_mV = (uint32_t) (adc1_results[H2_SENSE_1_IDX]
+		sensor_data.h2_sense1_mV = (uint32_t) (adc1_results[H2_SENSE_1_IDX]
 				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
-		h2_sensor_data.h2_sense2_mV = (uint32_t) (adc2_results[H2_SENSE_2_IDX]
+		sensor_data.h2_sense2_mV = (uint32_t) (adc2_results[H2_SENSE_2_IDX]
 				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
-		h2_sensor_data.h2_sense3_mV = (uint32_t) (adc2_results[H2_SENSE_3_IDX]
+		sensor_data.h2_sense3_mV = (uint32_t) (adc2_results[H2_SENSE_3_IDX]
 				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
-		h2_sensor_data.h2_sense4_mV = (uint32_t) (adc5_results[H2_SENSE_4_IDX]
+		sensor_data.h2_sense4_mV = (uint32_t) (adc5_results[H2_SENSE_4_IDX]
 				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
 
-		h2_sensor_data.IMON_12V_mA = (uint32_t) (adc1_results[1]
+		sensor_data.IMON_12V_mA = (uint32_t) (adc1_results[1]
 				* ADC_CONV_CONST * FDCAN_FOUR_FLT_PREC);
-		h2_sensor_data.IMON_7V_mA = (uint32_t) (adc1_results[2] * ADC_CONV_CONST
+		sensor_data.IMON_7V_mA = (uint32_t) (adc1_results[2] * ADC_CONV_CONST
 				* FDCAN_FOUR_FLT_PREC);
 
-		h2_sensor_data.vref_mV = (uint32_t) (adc5_results[3] * ADC_CONV_CONST
+		sensor_data.vref_mV = (uint32_t) (adc5_results[3] * ADC_CONV_CONST
 				* FDCAN_FOUR_FLT_PREC);
-		h2_sensor_data.vbat_mV = (uint32_t) (adc5_results[2] * ADC_CONV_CONST
+		sensor_data.vbat_mV = (uint32_t) (adc5_results[2] * ADC_CONV_CONST
 				* FDCAN_FOUR_FLT_PREC);
 
 		// temp equation
@@ -141,14 +141,14 @@ void StartSensorDataAquireTask(void *argument) {
 
 		vsense = adc5_results[1] * ADC_CONV_CONST;
 		temp = (((VOLTAGE_AT_30C_MCU_TEMP - vsense) * 1000.0f) / AVERAGE_SLOPE_MCU_TEMP) + 30;
-		h2_sensor_data.mcu_temp_C = (uint32_t) temp;
+		sensor_data.mcu_temp_C = (uint32_t) temp;
 
 		rslt = bme280_get_sensor_data(BME280_ALL, &comp_data, &dev);
 
 		if (rslt == BME280_OK) {
-			h2_sensor_data.temprature_C = comp_data.temperature / 100.0; /* °C  */
-			h2_sensor_data.humidity_per = comp_data.humidity / 1024.0; /* %   */
-			h2_sensor_data.pressure_hPa = comp_data.pressure / 10000.0; /* hPa */
+			sensor_data.temprature_C = comp_data.temperature / 100.0; /* °C  */
+			sensor_data.humidity_per = comp_data.humidity / 1024.0; /* %   */
+			sensor_data.pressure_hPa = comp_data.pressure / 10000.0; /* hPa */
 		}
 		osDelay(5);
 		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_RESET);

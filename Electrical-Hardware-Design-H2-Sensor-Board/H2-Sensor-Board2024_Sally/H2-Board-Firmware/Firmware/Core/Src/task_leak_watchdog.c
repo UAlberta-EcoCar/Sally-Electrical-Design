@@ -21,6 +21,11 @@
 #define H2_THRESH_3 1000
 #define H2_THRESH_4 1000
 
+
+extern osMessageQueueId_t CANMessageRecieveQHandle;
+extern osSemaphoreId_t H2AlarmSemHandle;
+extern osMessageQueueId_t CANMessageTransmitQHandle;
+
 // DAC1.OUT1 -> COMP1.Reference
 // DAC1.OUT2 -> COMP2.Reference
 // DAC2.OUT1 -> COMP6.Reference
@@ -58,7 +63,7 @@ void StartLeakWatchdogTask(void *argument) {
 			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
 				if (HAL_OK
 						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
-								&h2_sensor_data)) {
+								&sensor_data)) {
 					log_info("Successfully transmitted H2 Alarm");
 				}
 			} else {
@@ -72,11 +77,11 @@ void StartLeakWatchdogTask(void *argument) {
 
 
 
-		if (H2_THRESH_1 <= h2_sensor_data.h2_sense1_mV) {
+		if (H2_THRESH_1 <= sensor_data.h2_sense1_mV) {
 			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
 				if (HAL_OK
 						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
-								&h2_sensor_data)) {
+								&sensor_data)) {
 					log_info("Successfully transmitted H2 Alarm");
 				}
 			} else {
