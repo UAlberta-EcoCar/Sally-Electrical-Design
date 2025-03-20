@@ -1,6 +1,8 @@
 /*
  * leak_watchdog_task.c
  *
+ * This task monitors h2 levels and sets the alarm.
+ *
  *  Created on: Feb 26, 2025
  *      Author: abina
  */
@@ -57,25 +59,34 @@ void StartLeakWatchdogTask(void *argument) {
 
 	alarm_state = H2_ALARM_ARMED;
 
+	ECOCAN_H2Pack1_t data1 = { 0 };
+	ECOCAN_H2Pack2_t data2 = { 0 };
+
 	/* Infinite loop */
 	for (;;) {
 		// if the comparator releases a semaphore.
 		if (osOK == osSemaphoreAcquire(H2AlarmSemHandle, 0)
 				|| H2_ALARM_TRIGGERED == alarm_state) {
 			// One of the alarms have tripped, figure out which one and respond appropriatly.
-			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
-				if (HAL_OK
-						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
-								&sensor_data)) {
-					log_info("Successfully transmitted H2 Alarm");
-				}
-			} else {
-				log_err("Failed to send H2 Alarm signal, fifo full");
-				// this means there was no room in the tx fifo, so give the semaphore again and retry.
-				if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
-					log_info("Retrying");
-				}
+//			if (0 == HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+
+			data1.h2_sense_1 = sensor_data.h2_sense1_mV;
+			data1.h2_sense_2 = sensor_data.h2_sense2_mV;
+			data1.h2_sense_3 = sensor_data.h2_sense3_mV;
+			data1.h2_sense_4 = sensor_data.h2_sense4_mV;
+
+			if (HAL_OK
+					== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
+							&sensor_data)) {
+				log_info("Successfully transmitted H2 Alarm");
 			}
+//			} else {
+//				log_err("Failed to send H2 Alarm signal, fifo full");
+//				// this means there was no room in the tx fifo, so give the semaphore again and retry.
+//				if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
+//					log_info("Retrying");
+//				}
+//			}
 
 			alarm_state = H2_ALARM_TRIGGERED;
 
@@ -106,6 +117,8 @@ void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
 				"High H2 Concentration Detected. Triggering System Shutdown.");
 //		return;
 	}
+
+	alarm_state = H2_ALARM_TRIGGERED;
 
 }
 

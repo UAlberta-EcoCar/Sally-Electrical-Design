@@ -40,26 +40,26 @@ extern "C" {
 /* USER CODE BEGIN ET */
 
 typedef struct {
-	uint32_t h2_sense1_ppm;
-	uint32_t h2_sense2_ppm;
-	uint32_t h2_sense3_ppm;
-	uint32_t h2_sense4_ppm;
+	uint16_t h2_sense1_ppm;
+	uint16_t h2_sense2_ppm;
+	uint16_t h2_sense3_ppm;
+	uint16_t h2_sense4_ppm;
 
-	uint32_t h2_sense1_mV;
-	uint32_t h2_sense2_mV;
-	uint32_t h2_sense3_mV;
-	uint32_t h2_sense4_mV;
+	uint16_t h2_sense1_mV;
+	uint16_t h2_sense2_mV;
+	uint16_t h2_sense3_mV;
+	uint16_t h2_sense4_mV;
 
-	uint32_t IMON_7V_mA;
-	uint32_t IMON_12V_mA;
+	uint16_t IMON_7V_mA;
+	uint16_t IMON_12V_mA;
 
-	int32_t humidity_per;
-	int32_t temprature_C;
-	int32_t pressure_hPa;
+	uint16_t humidity_per;
+	uint16_t temprature_C;
+	uint16_t pressure_hPa;
 
-	uint32_t mcu_temp_C;
-	uint32_t vbat_mV;
-	uint32_t vref_mV;
+	uint16_t mcu_temp_C;
+	uint16_t vbat_mV;
+	uint16_t vref_mV;
 } Sensor_Data_t;
 
 extern Sensor_Data_t sensor_data;
@@ -75,7 +75,6 @@ typedef enum {
 extern H2_Alarm_State_t alarm_state;
 
 extern osSemaphoreId_t H2AlarmSemHandle;
-
 
 /* USER CODE END ET */
 

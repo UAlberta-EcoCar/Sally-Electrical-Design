@@ -61,27 +61,43 @@ void StartCANTransmitTask(void *argument) {
 					osMessageQueueGet(CANMessageTransmitQHandle, &send_data[i],
 							0, 0);
 				}
-
+				// Handle Sending
 			} else {
 				log_err("CAN Transmit Message Queue Error.");
 			}
 		}
 
-		if (H2_ALARM_TRIGGERED == alarm_state) {
-			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
-				if (HAL_OK
-						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
-								&sensor_data)) {
-					log_info("Successfully transmitted H2 Alarm");
-				}
-			} else {
-				log_err("Failed to send H2 Alarm signal, fifo full");
-				// this means there was no room in the tx fifo, so give the semaphore again and retry.
-				if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
-					log_info("Retrying");
-				}
+		// Transmit the basic data
+
+		if (0 == HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+			if (HAL_OK
+					== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
+							&sensor_data)) {
+				log_info("Successfully transmitted H2 Alarm");
+			}
+		} else {
+			log_err("Failed to send H2 Alarm signal, fifo full");
+			// this means there was no room in the tx fifo, so give the semaphore again and retry.
+			if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
+				log_info("Retrying");
 			}
 		}
+
+//		if (H2_ALARM_TRIGGERED == alarm_state) {
+//			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+//				if (HAL_OK
+//						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
+//								&sensor_data)) {
+//					log_info("Successfully transmitted H2 Alarm");
+//				}
+//			} else {
+//				log_err("Failed to send H2 Alarm signal, fifo full");
+//				// this means there was no room in the tx fifo, so give the semaphore again and retry.
+//				if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
+//					log_info("Retrying");
+//				}
+//			}
+//		}
 
 		osDelay(20);
 	}
