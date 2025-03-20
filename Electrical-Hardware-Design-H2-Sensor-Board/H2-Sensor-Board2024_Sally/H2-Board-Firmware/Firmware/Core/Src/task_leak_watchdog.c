@@ -21,10 +21,12 @@
 #define H2_THRESH_3 1000
 #define H2_THRESH_4 1000
 
-
 extern osMessageQueueId_t CANMessageRecieveQHandle;
 extern osSemaphoreId_t H2AlarmSemHandle;
 extern osMessageQueueId_t CANMessageTransmitQHandle;
+
+// global state
+H2_Alarm_State_t alarm_state = H2_ALARM_DISARMED;
 
 // DAC1.OUT1 -> COMP1.Reference
 // DAC1.OUT2 -> COMP2.Reference
@@ -53,12 +55,13 @@ void StartLeakWatchdogTask(void *argument) {
 	h2.MessageMarker = 0xAA;
 	h2.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
 
+	alarm_state = H2_ALARM_ARMED;
+
 	/* Infinite loop */
 	for (;;) {
-
-//		if (H2_THRESH_1 <= h2_sensor_data.h2_sense1_mV)
-
-		if (osOK == osSemaphoreAcquire(H2AlarmSemHandle, osWaitForever)) {
+		// if the comparator releases a semaphore.
+		if (osOK == osSemaphoreAcquire(H2AlarmSemHandle, 0)
+				|| H2_ALARM_TRIGGERED == alarm_state) {
 			// One of the alarms have tripped, figure out which one and respond appropriatly.
 			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
 				if (HAL_OK
@@ -73,24 +76,9 @@ void StartLeakWatchdogTask(void *argument) {
 					log_info("Retrying");
 				}
 			}
-		}
 
+			alarm_state = H2_ALARM_TRIGGERED;
 
-
-		if (H2_THRESH_1 <= sensor_data.h2_sense1_mV) {
-			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
-				if (HAL_OK
-						== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
-								&sensor_data)) {
-					log_info("Successfully transmitted H2 Alarm");
-				}
-			} else {
-				log_err("Failed to send H2 Alarm signal, fifo full");
-				// this means there was no room in the tx fifo, so give the semaphore again and retry.
-				if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
-					log_info("Retrying");
-				}
-			}
 		}
 		osDelay(50);
 	}
@@ -114,6 +102,8 @@ void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
 //	}
 
 	if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
+		log_critical(
+				"High H2 Concentration Detected. Triggering System Shutdown.");
 //		return;
 	}
 

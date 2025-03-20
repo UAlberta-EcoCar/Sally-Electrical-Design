@@ -72,7 +72,7 @@ typedef enum {
 	H2_ALARM_TEST
 } H2_Alarm_State_t;
 
-extern H2_Alarm_State_t current_alarm_state;
+extern H2_Alarm_State_t alarm_state;
 
 extern osSemaphoreId_t H2AlarmSemHandle;
 
