@@ -39,15 +39,15 @@ typedef struct {
 } telemetry_gps_t;
 
 typedef enum {
-	BASIC_DATA_1 = sizeof(telemetry_data1_t),
-	BASIC_DATA_2 = sizeof(telemetry_data2_t),
-	GPS_DATA_1 = sizeof(telemetry_gps_t)
+	BASIC_DATA_1_SIZE = sizeof(telemetry_data1_t),
+	BASIC_DATA_2_SIZE = sizeof(telemetry_data2_t),
+	GPS_DATA_1_SIZE = sizeof(telemetry_gps_t)
 } packet_id_size_t;
 
 typedef enum {
-	BASIC_DATA_1 = 0x01,
-	BASIC_DATA_2 = 0x02,
-	GPS_DATA_1 = 0x03
+	BASIC_DATA_1_ID = 0x01,
+	BASIC_DATA_2_ID = 0x02,
+	GPS_DATA_1_ID = 0x03
 } packet_id_t; // must be 1 byte
 
 typedef struct {
@@ -62,6 +62,8 @@ extern telemetry_data1_t data1;
 extern telemetry_data2_t data2;
 
 char h2[6] = { 0 };
+telemetry_data1_t data_rc = { 0 };
+telemetry_data2_t data_rc2 = { 0 };
 
 void StartTelemetryTransmitTask(void *argument) {
 
@@ -100,15 +102,17 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_initialize_radio(&rfm95_868);
 	rf_initialize_radio(&rfm95_915);
 
-	rf_set_spread_factor(&rfm95_868);
-	rf_set_spread_factor(&rfm95_915);
+//	rf_set_spread_factor(&rfm95_868, 8);
+//	rf_set_spread_factor(&rfm95_915, 8);
+
+	rf_set_tx_power(&rfm95_868, 20);
+	rf_set_tx_power(&rfm95_915, 20);
 
 	FDCAN_FccPack1_t fc = { 0 };
 	FDCAN_RelPackFc_t rel = { 0 };
 	uint32_t test = 322;
 	uint32_t test2 = 0;
-	telemetry_data1_t data_rc = { 0 };
-	telemetry_data2_t data_rc2 = { 0 };
+
 	char h[] = "Hello";
 
 //	uint8_t normalized_temp = 0;
@@ -138,6 +142,9 @@ void StartTelemetryTransmitTask(void *argument) {
 						rec_legth);
 //				printf("%d %d", rel.fc_volt, rel.fc_curr);
 				printf("\r\n");
+
+				log_info("FC: %d", data_rc.fc_data1.fc_temp);
+
 				rec_legth = 0;
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 			}

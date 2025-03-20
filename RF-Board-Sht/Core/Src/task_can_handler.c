@@ -107,6 +107,7 @@ void StartCanReceive(void *argument) {
 	/* USER CODE BEGIN StartCanReceive */
 	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
 	uint8_t ret[64] = { 0 };
+	uint32_t *pointer_to_data_store = 0;
 	/* Infinite loop */
 	for (;;) {
 		if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier,
@@ -123,40 +124,61 @@ void StartCanReceive(void *argument) {
 					Error_Handler();
 				}
 			}
-			switch (localRxHeader.Identifier) {
-			case FDCAN_SYNCLED_ID:
+			if (FDCAN_REMOTE_FRAME != localRxHeader.RxFrameType) {
+				switch (localRxHeader.Identifier) {
+				case FDCAN_SYNCLED_ID:
 //				HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
 //						(ret[0]) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-				break;
-			case FDCAN_FCCPACK1_ID:
-				// Copy data fc pres and temp
-				memcpy(fc_data1.FDCAN_RawFccPack, ret,
+					break;
+				case FDCAN_FCCPACK1_ID:
+					// Copy data fc pres and temp
+//				memcpy(fc_data1.FDCAN_RawFccPack, ret,
+//						mapDlcToBytes(localRxHeader.DataLength));
+					pointer_to_data_store = &data1.fc_data1.FDCAN_RawFccPack;
+					break;
+				case FDCAN_RELPACKFC_ID:
+					// Copy data fc pres and temp
+//				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
+//						mapDlcToBytes(localRxHeader.DataLength));
+					pointer_to_data_store = &data2.RelPackFc.FDCAN_RawRelPackFc;
+					break;
+				case FDCAN_FETPACK_ID:
+//					pointer_to_data_store = &data2.;
+					break;
+				case FDCAN_RELPACKMTR_ID:
+					pointer_to_data_store = &data1.mtr_data.FDCAN_RawRelPackMtr;
+					break;
+				case FDCAN_RELPACKCAP_ID:
+					pointer_to_data_store = &data1.cap_data.FDCAN_RawRelPackCap;
+					break;
+				case FDCAN_RELSTATE_ID:
+//					pointer_to_data_store =;
+					break;
+				case FDCAN_FCCPACK2_ID:
+					pointer_to_data_store = &data1.fc_data2.FDCAN_RawFccPack;
+					break;
+				case FDCAN_FCCPACK3_ID:
+					pointer_to_data_store = &data2.fc_data3.FDCAN_RawFccPack;
+					break;
+				case FDCAN_H2PACK_ID:
+					pointer_to_data_store = &data1.fc_data1.FDCAN_RawFccPack;
+					break;
+				case FDCAN_BOOSTPACK_ID:
+					pointer_to_data_store = &data2.boost_data1.FDCAN_RawBOOSTPack;
+					break;
+				case FDCAN_BOOSTPACK2_ID:
+					pointer_to_data_store = &data2.boost_data2.FDCAN_RawBOOSTPack2;
+					break;
+				default:
+					log_err("CANID 0x%x not handled!",
+							localRxHeader.Identifier);
+					break;
+
+				}
+				memcpy(pointer_to_data_store, ret,
 						mapDlcToBytes(localRxHeader.DataLength));
-			case FDCAN_RELPACKFC_ID:
-				// Copy data fc pres and temp
-				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
-						mapDlcToBytes(localRxHeader.DataLength));
-			case FDCAN_FETPACK_ID:
-				break;
-			case FDCAN_RELPACKMTR_ID:
-				break;
-			case FDCAN_RELPACKCAP_ID:
-				break;
-			case FDCAN_RELSTATE_ID:
-				break;
-			case FDCAN_FCCPACK2_ID:
-				break;
-			case FDCAN_FCCPACK3_ID:
-				break;
-			case FDCAN_H2PACK_ID:
-				break;
-			case FDCAN_BOOSTPACK_ID:
-				break;
-			case FDCAN_BOOSTPACK2_ID:
-				break;
-			default:
-				log_err("CANID 0x%x not handled!", localRxHeader.Identifier);
-				break;
+			} else {
+				log_err("Some Thing is sending remote frames. %x", localRxHeader.Identifier);
 			}
 		}
 //		osDelay(1);

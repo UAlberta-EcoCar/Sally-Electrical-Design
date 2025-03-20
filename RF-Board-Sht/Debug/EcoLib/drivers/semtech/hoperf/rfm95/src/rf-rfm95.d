@@ -1,6 +1,6 @@
 EcoLib/drivers/semtech/hoperf/rfm95/src/rf-rfm95.o: \
  ../EcoLib/drivers/semtech/hoperf/rfm95/src/rf-rfm95.c \
- C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95.h \
+ C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -35,9 +35,9 @@ EcoLib/drivers/semtech/hoperf/rfm95/src/rf-rfm95.o: \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
- C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95-resgisters.h \
- C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h
-C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95.h:
+ C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95-resgisters.h \
+ C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h
+C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h:
@@ -72,5 +72,5 @@ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/dr
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
-C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95-resgisters.h:
-C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h:
+C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc/rf-rfm95-resgisters.h:
+C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h:
