@@ -26,6 +26,7 @@ Core/Src \
 Core/Startup \
 Drivers/STM32G4xx_HAL_Driver/Src \
 EcoLib/drivers/semtech/hoperf/rfm95/src \
+EcoLib/drivers/semtech/sx1281/src \
 EcoLib/ecocan \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
 Middlewares/Third_Party/FreeRTOS/Source \

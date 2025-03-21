@@ -5,23 +5,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c 
+../EcoLib/drivers/semtech/sx1281/src/sx1281.c 
 
 OBJS += \
-./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o 
+./EcoLib/drivers/semtech/sx1281/src/sx1281.o 
 
 C_DEPS += \
-./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.d 
+./EcoLib/drivers/semtech/sx1281/src/sx1281.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/%.o Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/%.su Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/%.cyclo: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/%.c Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
+EcoLib/drivers/semtech/sx1281/src/%.o EcoLib/drivers/semtech/sx1281/src/%.su EcoLib/drivers/semtech/sx1281/src/%.cyclo: ../EcoLib/drivers/semtech/sx1281/src/%.c EcoLib/drivers/semtech/sx1281/src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I"C:/Users/GRHRehabTech/Desktop/Sally-Electrical-Design/RF-Board-Sht/EcoLib/ecocan" -I"C:/Users/GRHRehabTech/Desktop/Sally-Electrical-Design/RF-Board-Sht/EcoLib/util/typedef" -I"C:/Users/GRHRehabTech/Desktop/Sally-Electrical-Design/RF-Board-Sht/EcoLib/util/log" -I"C:/Users/GRHRehabTech/Desktop/Sally-Electrical-Design/RF-Board-Sht/EcoLib/drivers/semtech/hoperf/rfm95/inc" -I"C:/Users/GRHRehabTech/Desktop/Sally-Electrical-Design/RF-Board-Sht/EcoLib/drivers/semtech/sx1281/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
-clean: clean-Middlewares-2f-Third_Party-2f-FreeRTOS-2f-Source-2f-CMSIS_RTOS_V2
+clean: clean-EcoLib-2f-drivers-2f-semtech-2f-sx1281-2f-src
 
-clean-Middlewares-2f-Third_Party-2f-FreeRTOS-2f-Source-2f-CMSIS_RTOS_V2:
-	-$(RM) ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.cyclo ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.d ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.su
+clean-EcoLib-2f-drivers-2f-semtech-2f-sx1281-2f-src:
+	-$(RM) ./EcoLib/drivers/semtech/sx1281/src/sx1281.cyclo ./EcoLib/drivers/semtech/sx1281/src/sx1281.d ./EcoLib/drivers/semtech/sx1281/src/sx1281.o ./EcoLib/drivers/semtech/sx1281/src/sx1281.su
 
-.PHONY: clean-Middlewares-2f-Third_Party-2f-FreeRTOS-2f-Source-2f-CMSIS_RTOS_V2
+.PHONY: clean-EcoLib-2f-drivers-2f-semtech-2f-sx1281-2f-src
 

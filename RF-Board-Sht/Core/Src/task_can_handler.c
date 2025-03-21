@@ -160,9 +160,9 @@ void StartCanReceive(void *argument) {
 				case FDCAN_FCCPACK3_ID:
 					pointer_to_data_store = &data2.fc_data3.FDCAN_RawFccPack;
 					break;
-				case FDCAN_H2PACK_ID:
-					pointer_to_data_store = &data1.fc_data1.FDCAN_RawFccPack;
-					break;
+//				case ECOCAN_H2PACK_ID:
+//					pointer_to_data_store = &data1.fc_data1.FDCAN_RawFccPack;
+//					break;
 				case FDCAN_BOOSTPACK_ID:
 					pointer_to_data_store = &data2.boost_data1.FDCAN_RawBOOSTPack;
 					break;
