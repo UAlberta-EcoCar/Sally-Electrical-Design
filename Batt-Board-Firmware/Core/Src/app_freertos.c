@@ -233,24 +233,62 @@ void StartDefaultTask(void *argument)
 
 	for (;;) {
 
-		float Buc_temp_sense_Voltage = ((((adc1_results[0] * ref_voltage)
-				/ RESOLUTION)) - 0.193);  //buc voltage
-		float Op_temp_sense_Voltage = ((((adc1_results[1] * ref_voltage)
-				/ RESOLUTION)) - 0.13); //op voltage
-		float Cntrl_temp_sense_Voltage = ((((adc1_results[2] * ref_voltage)
-				/ RESOLUTION)) + 0.26); //cntrl voltage
+		float Buc_temp_sense_Voltage = ((((adc1_results[0] * ref_voltage) / RESOLUTION)) - 0.193);  //buc voltage
+		float Op_temp_sense_Voltage = ((((adc1_results[1] * ref_voltage) / RESOLUTION)) - 0.13); //op voltage
+		float Cntrl_temp_sense_Voltage = ((((adc1_results[2] * ref_voltage) / RESOLUTION)) + 0.26); //cntrl voltage
+		float Battery_Input_Voltage = adc1_results[3] * ref_voltage / RESOLUTION / 0.0909 ; // VOltage divider: R2 = 4.7k R1 = 47K
+		float Battery_Input_Current = (adc2_results[3] * ref_voltage / RESOLUTION - 2.5) / 0.400;
+		float Volt_Output_12V = (adc2_results[2] * ref_voltage / RESOLUTION) / 0.2655; // Voltage Divider R2: 4.7k R1 = 13k
+		float Curr_Output_12V = (adc1_results[4] * ref_voltage / RESOLUTION -2.5) / 0.400;
+		float Volt_Output_7V =  (adc2_results[1] * ref_voltage / RESOLUTION) / (4.7/17.7); // VOltage Divider R2:4.7k R1: 13k
+		float Curr_Output_7V =  (adc2_results[0] * ref_voltage / RESOLUTION -2.5) / 0.400; // VOltage Divider R2:4.7k R1: 13k
+
 
 		float Buc_temp = (Buc_temp_sense_Voltage - 0.5) / (0.01);  //buc temp
 		float Op_temp = (Op_temp_sense_Voltage - 0.5) / (0.01);  //op temp
 		float Cntrl_temp = (Cntrl_temp_sense_Voltage - 0.5) / (0.01); //cntrl temp
+		float Batt_Input = Battery_Input_Voltage ; // Batter Input Volt
+		float Batt_Current = Battery_Input_Current ; // Battery Input Current
+		float Output_12V = Volt_Output_12V ; // 12 Volt Output
+		float Output_12V_Curr = Curr_Output_12V ;
+		float Output_7V = Volt_Output_7V ; // 7 Volt Output
+		float Output_7V_Curr = Curr_Output_7V ;
 
-		char buc_temp[20];
-		char op_temp[20];
-		char cntrl_temp[20];
+		printf(
+				"BATT CURR: %.2f BATT VOLT: %.3f 12V VOLT: %.2f 12V CURR: %.2f 7V VOLT: %.2f 7V CURR: %.2f \r\n",
+				(float)boost_data.in_curr   / FDCAN_FOUR_FLT_PREC,
+				(float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC,
+				(float)boost_data.in_volt   / FDCAN_FOUR_FLT_PREC,
+				(float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC,
+				(float)effiency,
+				SET_VOLT,
+				en_pin
+				);
+
+
+
+		char buc_temp[100];
+		char op_temp[100];
+		char cntrl_temp[100];
+		char batt_volt[100];
+		char batt_current[100];
+		char output_12V [100];
+		char output_curr_12V [100];
+		char output_7V [100];
+		char output_curr_7V [100];
+
 		sprintf(buc_temp, "BUCK T:%.2f C", Buc_temp);
 		sprintf(op_temp, "OP T: %.2f C", Op_temp);
 		sprintf(cntrl_temp, "CNTRL T: %.2f C", Cntrl_temp);
+		sprintf(batt_volt, "Batt Volt: %.2f V", Batt_Input);
+		sprintf(batt_current, "Batt Curr: %.2f A", Batt_Current);
+		sprintf(output_12V, "12V Out: %.2f V", Output_12V);
+		sprintf(output_curr_12V, "12V Out: %.2f A", Output_12V_Curr);
+		sprintf(output_7V, "7V Out: %.2f V", Output_7V);
+		sprintf(output_curr_7V, "7V Out: %.2f A", Output_7V_Curr);
 
+
+		ssd1306_SetCursor(0, 0);
 		ssd1306_WriteString(buc_temp, Font_7x10, White);
 		ssd1306_UpdateScreen();
 
@@ -261,7 +299,10 @@ void StartDefaultTask(void *argument)
 		ssd1306_SetCursor(0, 30);
 		ssd1306_WriteString(cntrl_temp, Font_7x10, White);
 		ssd1306_UpdateScreen();
-		ssd1306_SetCursor(0, 0);
+
+		ssd1306_SetCursor(0, 45);
+		ssd1306_WriteString(output_curr_12V, Font_7x10, White);
+		ssd1306_UpdateScreen();
 
 		osDelay(1);
 	}
@@ -335,9 +376,42 @@ void StartTaskSend(void *argument)
 {
   /* USER CODE BEGIN StartTaskSend */
 
+	UNUSED(argument);
+	FDCAN_TxHeaderTypeDef localTxHeader;
+	const uint8_t msg_delay = 100;
+
+	localTxHeader.IdType = FDCAN_STANDARD_ID;
+	localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+	localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
+	localTxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+	localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+	localTxHeader.MessageMarker = 0;
 	/* Infinite loop */
 	for (;;) {
+		// Transmit boost data
+//		localTxHeader.Identifier = FDCAN_BOOSTPACK_ID;
+//		localTxHeader.DataLength = FDCAN_DLC_BYTES_8;
+//		if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+//			if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+//					(uint8_t*) &boost_data.FDCAN_RawBOOSTPack) != HAL_OK) {
+//				Error_Handler();
+//			}
+//		} //else {
+		  //log_warn("Tx Buffer Full");
+		  //}
 
+
+//		localTxHeader.Identifier = FDCAN_BOOSTPACK2_ID;
+//		localTxHeader.DataLength = FDCAN_DLC_BYTES_8;
+//		if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+//			if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+//					(uint8_t*) &boost_data2.FDCAN_RawBOOSTPack2) != HAL_OK) {
+//				Error_Handler();
+//			}
+//		} //else {
+//		  //log_warn("Tx Buffer Full");
+//		  //}
 		osDelay(1);
 	}
   /* USER CODE END StartTaskSend */
