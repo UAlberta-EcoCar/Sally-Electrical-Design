@@ -28,10 +28,17 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			Error_Handler();
 		}
 
-		osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.Identifier, 0, 0);
-		osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.DataLength, 0, 0);
-		for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
-			osMessageQueuePut(CANMessageRecieveQHandle, &RxData[i], 0, 0);
+		if (FDCAN_SYNCLED_ID == RxHeader.Identifier) {
+			HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, RxData[0]);
+		} else {
+
+			osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.Identifier, 0,
+					0);
+			osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.DataLength, 0,
+					0);
+			for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
+				osMessageQueuePut(CANMessageRecieveQHandle, &RxData[i], 0, 0);
+			}
 		}
 	}
 }
@@ -45,6 +52,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 /* USER CODE END Header_StartCANTransmitTask */
 void StartCANTransmitTask(void *argument) {
 	/* USER CODE BEGIN StartCANTransmitTask */
+	HAL_GPIO_WritePin(CAN_STDBY_GPIO_Port, CAN_STDBY_Pin, GPIO_PIN_RESET);
 	uint8_t send_data[64];
 	FDCAN_TxHeaderTypeDef TxHeader = { 0 };
 	/* Infinite loop */
