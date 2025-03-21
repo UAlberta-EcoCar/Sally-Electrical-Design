@@ -59,8 +59,8 @@ void StartLeakWatchdogTask(void *argument) {
 
 	alarm_state = H2_ALARM_ARMED;
 
-	ECOCAN_H2Pack1_t data1 = { 0 };
-	ECOCAN_H2Pack2_t data2 = { 0 };
+	// ECOCAN_H2Pack1_t data1 = { 0 };
+	// ECOCAN_H2Pack2_t data2 = { 0 };
 
 	/* Infinite loop */
 	for (;;) {
@@ -87,10 +87,10 @@ void StartLeakWatchdogTask(void *argument) {
 			// One of the alarms have tripped, figure out which one and respond appropriatly.
 //			if (0 == HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
 
-			data1.h2_sense_1 = sensor_data.h2_sense1_mV;
-			data1.h2_sense_2 = sensor_data.h2_sense2_mV;
-			data1.h2_sense_3 = sensor_data.h2_sense3_mV;
-			data1.h2_sense_4 = sensor_data.h2_sense4_mV;
+//			data1.h2_sense_1 = sensor_data.h2_sense1_mV;
+//			data1.h2_sense_2 = sensor_data.h2_sense2_mV;
+//			data1.h2_sense_3 = sensor_data.h2_sense3_mV;
+//			data1.h2_sense_4 = sensor_data.h2_sense4_mV;
 
 			if (HAL_OK
 					== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
@@ -130,8 +130,8 @@ void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
 	}
 
 	if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
-		log_critical(
-				"High H2 Concentration Detected. Triggering System Shutdown.");
+		//log_critical(
+			//	"High H2 Concentration Detected. Triggering System Shutdown.");
 //		return;
 	}
 

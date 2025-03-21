@@ -117,7 +117,7 @@ const osThreadAttr_t CANRecieve_attributes = {
   .stack_size = sizeof(CANRecieveBuffer),
   .cb_mem = &CANRecieveControlBlock,
   .cb_size = sizeof(CANRecieveControlBlock),
-  .priority = (osPriority_t) osPriorityNormal5,
+  .priority = (osPriority_t) osPriorityAboveNormal5,
 };
 /* Definitions for CANMessageRecieveQ */
 osMessageQueueId_t CANMessageRecieveQHandle;
@@ -215,10 +215,10 @@ void MX_FREERTOS_Init(void) {
   leakWatchdoHandle = osThreadNew(StartLeakWatchdogTask, NULL, &leakWatchdo_attributes);
 
   /* creation of CANTransmit */
-  CANTransmitHandle = osThreadNew(StartCANTransmitTask, NULL, &CANTransmit_attributes);
+  // CANTransmitHandle = osThreadNew(StartCANTransmitTask, NULL, &CANTransmit_attributes);
 
   /* creation of CANRecieve */
-  CANRecieveHandle = osThreadNew(StartCANRecieve, NULL, &CANRecieve_attributes);
+  // CANRecieveHandle = osThreadNew(StartCANRecieve, NULL, &CANRecieve_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

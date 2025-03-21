@@ -29,7 +29,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		}
 
 		if (FDCAN_SYNCLED_ID == RxHeader.Identifier) {
-			HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, RxData[0]);
+			HAL_GPIO_WritePin(GPLED5_GPIO_Port, GPLED5_Pin, RxData[0]);
 		} else {
 
 			osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.Identifier, 0,
@@ -77,19 +77,19 @@ void StartCANTransmitTask(void *argument) {
 
 		// Transmit the basic data
 
-		if (0 == HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
-			if (HAL_OK
-					== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
-							&sensor_data)) {
-				log_info("Successfully transmitted H2 Alarm");
-			}
-		} else {
-			log_err("Failed to send H2 Alarm signal, fifo full");
-			// this means there was no room in the tx fifo, so give the semaphore again and retry.
-			if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
-				log_info("Retrying");
-			}
-		}
+//		if (0 == HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+//			if (HAL_OK
+//					== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
+//							&sensor_data)) {
+//				log_info("Successfully transmitted H2 Alarm");
+//			}
+//		} else {
+//			log_err("Failed to send H2 Alarm signal, fifo full");
+//			// this means there was no room in the tx fifo, so give the semaphore again and retry.
+//			if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
+//				log_info("Retrying");
+//			}
+//		}
 
 //		if (H2_ALARM_TRIGGERED == alarm_state) {
 //			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
@@ -154,7 +154,7 @@ void StartCANRecieve(void *argument) {
 			}
 			switch (id) {
 			case FDCAN_SYNCLED_ID:
-
+				HAL_GPIO_WritePin(GPLED5_GPIO_Port, GPLED5_Pin, incomming_data[0] ? GPIO_PIN_SET : GPIO_PIN_RESET);
 				break;
 			default:
 				break;
