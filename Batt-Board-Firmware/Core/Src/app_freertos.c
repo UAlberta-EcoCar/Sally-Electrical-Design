@@ -218,10 +218,13 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
+  /* init code for USB_Device */
+  MX_USB_Device_Init();
   /* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 
 	// Calibrate and start the leds
+
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 	HAL_ADC_Start_DMA(&hadc1, &adc1_results, 5);
 
@@ -239,9 +242,9 @@ void StartDefaultTask(void *argument)
 		float Battery_Input_Voltage = adc1_results[3] * ref_voltage / RESOLUTION / 0.0909 ; // VOltage divider: R2 = 4.7k R1 = 47K
 		float Battery_Input_Current = (adc2_results[3] * ref_voltage / RESOLUTION - 2.5) / 0.400;
 		float Volt_Output_12V = (adc2_results[2] * ref_voltage / RESOLUTION) / 0.2655; // Voltage Divider R2: 4.7k R1 = 13k
-		float Curr_Output_12V = (adc1_results[4] * ref_voltage / RESOLUTION -2.5) / 0.400;
+		float Curr_Output_12V = (adc1_results[4] * ref_voltage / RESOLUTION - 2.5) / 0.400;
 		float Volt_Output_7V =  (adc2_results[1] * ref_voltage / RESOLUTION) / (4.7/17.7); // VOltage Divider R2:4.7k R1: 13k
-		float Curr_Output_7V =  (adc2_results[0] * ref_voltage / RESOLUTION -2.5) / 0.400; // VOltage Divider R2:4.7k R1: 13k
+		float Curr_Output_7V =  (adc2_results[0] * ref_voltage / RESOLUTION - 2.5) / 0.400; // VOltage Divider R2:4.7k R1: 13k
 
 
 		float Buc_temp = (Buc_temp_sense_Voltage - 0.5) / (0.01);  //buc temp
@@ -254,16 +257,17 @@ void StartDefaultTask(void *argument)
 		float Output_7V = Volt_Output_7V ; // 7 Volt Output
 		float Output_7V_Curr = Curr_Output_7V ;
 
-		printf(
-				"BATT CURR: %.2f BATT VOLT: %.3f 12V VOLT: %.2f 12V CURR: %.2f 7V VOLT: %.2f 7V CURR: %.2f \r\n",
-				(float)boost_data.in_curr   / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data.in_volt   / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC,
-				(float)effiency,
-				SET_VOLT,
-				en_pin
-				);
+	    printf(
+	             "BATT CURR: %.2f BATT VOLT: %.3f 12V VOLT: %.2f 12V CURR: %.2f 7V VOLT: %.2f 7V CURR: %.2f \r\n",
+				 Batt_Input,
+				 Batt_Current,
+				 Output_12V,
+				 Output_12V_Curr,
+				 Output_7V,
+				 Output_7V_Curr
+
+	    );
+
 
 
 
@@ -301,7 +305,7 @@ void StartDefaultTask(void *argument)
 		ssd1306_UpdateScreen();
 
 		ssd1306_SetCursor(0, 45);
-		ssd1306_WriteString(output_curr_12V, Font_7x10, White);
+		ssd1306_WriteString(batt_current, Font_7x10, White);
 		ssd1306_UpdateScreen();
 
 		osDelay(1);
