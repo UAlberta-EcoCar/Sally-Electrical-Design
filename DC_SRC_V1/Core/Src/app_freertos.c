@@ -68,9 +68,13 @@ FDCAN_BOOSTPack_t boost_data = { 0 };
 FDCAN_BOOSTPack2_t boost_data2 = { 0 };
 
 static uint8_t voltage_reached = 0;  // Flag to track first detection
-
 bool lock_state = false;
+
 float SET_VOLT = 47;
+float actual_voltage = 48;
+float button_time = 0;
+
+float effiency;
 const float VOLT_MCU = 3.283;
 
 float en_pin = 0;
@@ -312,11 +316,20 @@ void StartDefaultTask(void *argument)
 
 		// Incraese the set output voltage using the push button. Since it is connected to the BOOT0 Pin, will need to push this button with the NRST button each time when flashing 
 		if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET) { 
-
+			button_time = osKernelGetTickCount(); //could try osKernelGetTickCount() instead
 			SET_VOLT ++;
-			if (SET_VOLT > 55) {
-				SET_VOLT = 15;   
+
+
+			if (SET_VOLT > 55 || SET_VOLT < 15) {
+				SET_VOLT = roundf(boost_data.in_volt / FDCAN_FOUR_FLT_PREC + 3); 
+				if (SET_VOLT < 15) {
+					SET_VOLT = 15;
+				}  
 			}
+		}
+
+		if (osKernelGetTickCount() - button_time >= 1500) {
+			actual_voltage = SET_VOLT;
 		}
 
 
@@ -357,9 +370,9 @@ void StartCanSend(void *argument)
 	const uint8_t msg_delay = 100;
 
 	//LED SYNC
-	uint8_t can_sync_led = 0;
-	uint32_t sync_led_last = 0;
-	uint32_t sync_led_this = osKernelGetSysTimerCount();
+//	uint8_t can_sync_led = 0;
+//	uint32_t sync_led_last = 0;
+//	uint32_t sync_led_this = osKernelGetSysTimerCount();
 
 	localTxHeader.IdType = FDCAN_STANDARD_ID;
 	localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
@@ -464,7 +477,7 @@ void StartRecieveMsg(void *argument)
 			case FDCAN_SYNCLED_ID:
 				// CAN SYNC LED
 				if (ret[0] == 1) {
-					htim3.Instance->CCR3 = SET_BRIGHTNESS(20); // CAN LED
+					htim3.Instance->CCR3 = SET_BRIGHTNESS(80); // CAN LED
 				} else {
 					htim3.Instance->CCR3 = SET_BRIGHTNESS(0); // CAN LED
 				}
@@ -515,6 +528,8 @@ void StartAdcConv(void *argument)
 	static float out_curr_buffer[ADC_BUFFER_SIZE] = {0};
 	static uint8_t out_curr_index = 0;
 
+
+
 	HAL_ADC_Start_DMA(&hadc1, ADC1_VALUE, 4);
 	HAL_ADC_Start_DMA(&hadc2, ADC2_VALUE, 2);
 
@@ -544,17 +559,21 @@ void StartAdcConv(void *argument)
 		boost_data.in_curr = sum_in_curr / ADC_BUFFER_SIZE;
 		boost_data2.out_curr = sum_out_curr / ADC_BUFFER_SIZE;
 
+		effiency = ((float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC * (float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) /
+				   ((float)boost_data.in_curr   / FDCAN_FOUR_FLT_PREC * (float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC) * 100;
+
 		printf(
-				"IN CURR: %.3f OUT CURR: %.3f IN VOLT: %.1f OUT VOLT: %.1f SET VOLT: %.0f  ENABLE PIN: %0.f\r\n",
-				(float)boost_data.in_curr / FDCAN_FOUR_FLT_PREC,
+				"IN CURR: %.3f OUT CURR: %.3f IN VOLT: %.1f OUT VOLT: %.1f Efficiency: %.1f  SET VOLT: %.0f  ENABLE PIN: %0.f\r\n",
+				(float)boost_data.in_curr   / FDCAN_FOUR_FLT_PREC,
 				(float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC,
+				(float)boost_data.in_volt   / FDCAN_FOUR_FLT_PREC,
 				(float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC,
+				(float)effiency,
 				SET_VOLT,
 				en_pin
 				);
 
-		osDelay(10);
+		osDelay(50);
 	}
   /* USER CODE END StartAdcConv */
 }
@@ -571,33 +590,44 @@ void startScreenPrint(void *argument)
   /* USER CODE BEGIN startScreenPrint */
 	/* Infinite loop */
 	ssd1306_Init();
-	// Display the test bitmap for 2.5 seconds
+	// Display the ecocar logo for 1.5 seconds
 	ssd1306_TestDrawBitmap();
 	ssd1306_UpdateScreen();
-	osDelay(2500); // Delay for 2.5 seconds
+	osDelay(1000);
 	ssd1306_Fill(Black);
 	ssd1306_UpdateScreen();
 
-	ssd1306_TestDrawBitmap2();
+	ssd1306_TestDrawBitmap2(); // rocket ship
 	ssd1306_UpdateScreen();
 	ssd1306_Fill(Black);
 	ssd1306_UpdateScreen();
 	for (;;) {
 
-	ssd1306_Fill(Black); // Clear the screen before updating
+	// If this doesnt work, change change it back to a single ss3d1306_Fill(Black) line
+//	if (SET_VOLT != actual_voltage) {
+//		ssd1306_Fill(Black); // Clear the screen before updating
+//		ssd1306_UpdateScreen();
+//		osDelay(100);
+//	} else {
+//		ssd1306_Fill(Black); // Clear the screen before updating
+//	}
 
      if (lock_state) {
 
 		ssd1306_SetCursor(0, 20);
 		sprintf(ScreenBuffer, "  H2 ALARM");
 		ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
-		ssd1306_UpdateScreen(); // Refresh display
+		ssd1306_UpdateScreen(); 
 		
 	 } else { 
 		// Voltages
 		ssd1306_SetCursor(0, 5);
-		sprintf(ScreenBuffer, "Voltage(V) (%.1f)", SET_VOLT);
+		sprintf(ScreenBuffer, "Voltage(V)");
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+
+		ssd1306_SetCursor(80, 5);
+		sprintf(ScreenBuffer, "(%.1f)", SET_VOLT);
+		ssd1306_WriteString(ScreenBuffer, Font_7x10, (SET_VOLT != actual_voltage) ? Black : White);
 
 		ssd1306_SetCursor(0, 20);
 		sprintf(ScreenBuffer, "IN:%.1f", (float) boost_data.in_volt / FDCAN_FOUR_FLT_PREC);
@@ -609,7 +639,7 @@ void startScreenPrint(void *argument)
 
 		// Currents
 		ssd1306_SetCursor(0, 38);
-		sprintf(ScreenBuffer, "Current(A)");
+		sprintf(ScreenBuffer, "Current(A) (n=%.0f%%)", effiency);
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 		ssd1306_SetCursor(0, 50);
@@ -624,7 +654,7 @@ void startScreenPrint(void *argument)
 
 		}
 
-		osDelay(100); // Slow down update rate
+		osDelay(200); // Slow down update rate
 	}
   /* USER CODE END startScreenPrint */
 }
@@ -645,7 +675,7 @@ void StartTRKPin(void *argument)
 	/* Infinite loop */
 	for (;;) {
 
-	float TRK_VOLT = SET_VOLT / 60; // Desired voltage output  
+	float TRK_VOLT = actual_voltage / 60; // Desired voltage output  
 
 		// Convert to DAC value
 		DAC_VALUE = TRK_VOLT * 4096 / VOLT_MCU;
@@ -681,8 +711,8 @@ void StartStatusLED(void *argument)
 		}
 
 
-		htim1.Instance->CCR3 = SET_BRIGHTNESS(20); // LED4
-		htim3.Instance->CCR2 = SET_BRIGHTNESS(20); //LED5
+		htim1.Instance->CCR3 = SET_BRIGHTNESS(30); // LED4
+		htim3.Instance->CCR2 = SET_BRIGHTNESS(90); //LED5
 
 
 		// Reads the state of the enable pin and stores it in the en_pin variable. 0 is off, 1 is on
