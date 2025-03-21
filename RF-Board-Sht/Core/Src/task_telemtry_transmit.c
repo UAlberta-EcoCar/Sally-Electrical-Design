@@ -102,11 +102,22 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_initialize_radio(&rfm95_868);
 	rf_initialize_radio(&rfm95_915);
 
-//	rf_set_spread_factor(&rfm95_868, 8);
-//	rf_set_spread_factor(&rfm95_915, 8);
+	rf_set_spread_factor(&rfm95_868, 7);
+	rf_set_spread_factor(&rfm95_915, 7);
 
 	rf_set_tx_power(&rfm95_868, 20);
 	rf_set_tx_power(&rfm95_915, 20);
+
+	rf_set_bandwidth(&rfm95_868, RF_BW_500K);
+	rf_set_bandwidth(&rfm95_915, RF_BW_500K);
+
+	rf_set_ocp(&rfm95_868, 240);
+	rf_set_ocp(&rfm95_915, 240);
+
+	rf_set_coding_rate(&rfm95_868, 4);
+	rf_set_coding_rate(&rfm95_915, 4);
+
+
 
 	FDCAN_FccPack1_t fc = { 0 };
 	FDCAN_RelPackFc_t rel = { 0 };
