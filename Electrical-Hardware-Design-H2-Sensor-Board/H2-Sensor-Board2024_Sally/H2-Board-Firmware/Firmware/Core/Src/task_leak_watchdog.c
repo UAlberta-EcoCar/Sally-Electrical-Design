@@ -64,6 +64,23 @@ void StartLeakWatchdogTask(void *argument) {
 
 	/* Infinite loop */
 	for (;;) {
+
+		if (H2_THRESH_1 <= sensor_data.h2_sense1_mV) {
+			alarm_state = H2_ALARM_TRIGGERED;
+		}
+
+		if (H2_THRESH_2 <= sensor_data.h2_sense2_mV) {
+			alarm_state = H2_ALARM_TRIGGERED;
+		}
+
+		if (H2_THRESH_3 <= sensor_data.h2_sense3_mV) {
+			alarm_state = H2_ALARM_TRIGGERED;
+		}
+
+		if (H2_THRESH_4 <= sensor_data.h2_sense4_mV) {
+			alarm_state = H2_ALARM_TRIGGERED;
+		}
+
 		// if the comparator releases a semaphore.
 		if (osOK == osSemaphoreAcquire(H2AlarmSemHandle, 0)
 				|| H2_ALARM_TRIGGERED == alarm_state) {
@@ -102,15 +119,15 @@ void StartLeakWatchdogTask(void *argument) {
  * @retval None
  */
 void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
-//	if (hcomp->Instance == hcomp1.Instance) {
-//		// Alarm
-//	} else if (hcomp->Instance == hcomp2.Instance){
-//
-//	} else if (hcomp->Instance == hcomp6.Instance){
-//
-//	} else if (hcomp->Instance == hcomp7.Instance){
-//
-//	}
+	if (COMP1 == hcomp->Instance) {
+		// Alarm
+	} else if (COMP2 == hcomp->Instance) {
+
+	} else if (COMP6 == hcomp->Instance) {
+
+	} else if (COMP7 == hcomp->Instance) {
+
+	}
 
 	if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
 		log_critical(
@@ -120,5 +137,28 @@ void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
 
 	alarm_state = H2_ALARM_TRIGGERED;
 
+}
+
+uint32_t debaunce_h2_test_btn = 0;
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+	switch (GPIO_Pin) {
+	case GPBTN1_Pin:
+
+		if (debaunce_h2_test_btn == 0) {
+			debaunce_h2_test_btn = HAL_GetTick();
+		} else {
+			if ((HAL_GetTick() - debaunce_h2_test_btn) >= 100) {
+				log_info("Activating H2 Alarm Test");
+				debaunce_h2_test_btn = 0;
+				osSemaphoreRelease(H2AlarmSemHandle);
+				alarm_state = H2_ALARM_TRIGGERED;
+			}
+		}
+
+		break;
+	default:
+		break;
+	}
 }
 

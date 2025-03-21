@@ -98,6 +98,9 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define GPLED5_Pin GPIO_PIN_13
 #define GPLED5_GPIO_Port GPIOC
+#define GPBTN1_Pin GPIO_PIN_14
+#define GPBTN1_GPIO_Port GPIOC
+#define GPBTN1_EXTI_IRQn EXTI15_10_IRQn
 #define CAN_STDBY_Pin GPIO_PIN_15
 #define CAN_STDBY_GPIO_Port GPIOC
 #define LIFE_SENSE_LED_Pin GPIO_PIN_1
@@ -138,6 +141,7 @@ void Error_Handler(void);
 #define H2_SENSE4_GPIO_Port GPIOA
 #define H2_TARE_Pin GPIO_PIN_10
 #define H2_TARE_GPIO_Port GPIOA
+#define H2_TARE_EXTI_IRQn EXTI15_10_IRQn
 #define DEBUG_SWDIO_Pin GPIO_PIN_13
 #define DEBUG_SWDIO_GPIO_Port GPIOA
 #define DEBUG_SWCLK_Pin GPIO_PIN_14
