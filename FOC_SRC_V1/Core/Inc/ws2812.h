@@ -43,6 +43,7 @@ extern volatile uint8_t ws2812_dma_complete_flag;
 HAL_StatusTypeDef WS2812_Init(void);
 HAL_StatusTypeDef WS2812_Update(void);
 void WS2812_SetColor(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
+void WS2812_SetColor_and_Brightness(uint8_t index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 void WS2812_Callback(void);
 // Animation
 HAL_StatusTypeDef WS2812_Idle_Animation(const uint32_t);
