@@ -10,19 +10,21 @@
 #include "tim.h"
 
 // Defines
-#define WS2812_NUM_LEDS       5
-#define WS2812_TIM            htim2
-#define WS2812_TIM_CHANNEL    TIM_CHANNEL_1
+#define WS2812_NUM_LEDS 5
+#define WS2812_TIM htim2
+#define WS2812_TIM_CHANNEL TIM_CHANNEL_1
 
 /* Set up ratios assuming clock speed 800kHz */
-#define WS2812_HI_VAL         64 // 0.8us of 1.25us
-#define WS2812_LOW_VAL        32 // 0.4us of 1.25us
-#define WS2812_RESET_PERIODS  40 // >50us/1.25us
-#define WS2812_LED_BITS       24 // G7 ... G0 R7 ... R0 B7 ... B0
-#define WS2812_DMA_BUFF_LEN   ((WS2812_NUM_LEDS*WS2812_LED_BITS)+WS2812_RESET_PERIODS)
+#define WS2812_HI_VAL 64        // 0.8us of 1.25us
+#define WS2812_LOW_VAL 32       // 0.4us of 1.25us
+#define WS2812_RESET_PERIODS 40 // >50us/1.25us
+#define WS2812_LED_BITS 24      // G7 ... G0 R7 ... R0 B7 ... B0
+#define WS2812_DMA_BUFF_LEN ((WS2812_NUM_LEDS * WS2812_LED_BITS) + WS2812_RESET_PERIODS)
 
-typedef union {
-  struct {
+typedef union
+{
+  struct
+  {
     uint8_t g;
     uint8_t r;
     uint8_t b;
@@ -40,8 +42,12 @@ extern volatile uint8_t ws2812_dma_complete_flag;
 
 HAL_StatusTypeDef WS2812_Init(void);
 HAL_StatusTypeDef WS2812_Update(void);
-void              WS2812_SetColor(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
-void              WS2812_Callback(void);
-
+void WS2812_SetColor(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
+void WS2812_Callback(void);
+// Animation
+HAL_StatusTypeDef WS2812_Idle_Animation(const uint32_t);
+HAL_StatusTypeDef WS2812_Charging_Animation(const uint32_t);
+HAL_StatusTypeDef WS2812_Driving_Animation(const uint32_t);
+HAL_StatusTypeDef WS2812_Stop_Animation(const uint32_t); // Not sure what last state was
 
 #endif /* WS2812_RGB_LED_H */

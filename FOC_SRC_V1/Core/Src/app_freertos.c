@@ -50,15 +50,7 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-/*Reverse order of bits in a byte */
-uint8_t flipByte(uint8_t c)
-{
-  c = ((c >> 1) & 0x55) | ((c << 1) & 0xAA);
-  c = ((c >> 2) & 0x33) | ((c << 2) & 0xCC);
-  c = (c >> 4) | (c << 4);
 
-  return c;
-}
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -251,28 +243,13 @@ void MX_FREERTOS_Init(void)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-  /* Infinite loop */
-  HAL_StatusTypeDef hal_stat;
-  // uint8_t r[WS2812_NUM_LEDS] = {0};
-  // uint8_t g[WS2812_NUM_LEDS] = {0};
-  // uint8_t b[WS2812_NUM_LEDS] = {0};
-  // uint8_t offSet = floor(256.0F / WS2812_NUM_LEDS);
-  // const uint8_t ws2812_color_time = 250;
-
   if (WS2812_Init() != HAL_OK)
   {
     Error_Handler();
   }
 
-  /*// Start each led off at a different color point*/
-  /*for (uint8_t ledIndex = 0; ledIndex < WS2812_NUM_LEDS; ledIndex++) {*/
-  /*  r[ledIndex] = ledIndex * offSet;*/
-  /*  g[ledIndex] = ledIndex * offSet;*/
-  /*  b[ledIndex] = ledIndex * offSet;*/
-  /*}*/
-  // uint8_t iter = 0;
-  uint8_t brightness = 5;
-  uint8_t data = 0;
+  /* Infinite loop */
+  HAL_StatusTypeDef hal_stat;
   for (;;)
   {
     if (can_sync_led == 1)
@@ -286,20 +263,8 @@ void StartDefaultTask(void *argument)
     }
     else
     {
-      data = flipByte(brightness);
-      WS2812_SetColor(0, data, 0, 0);
-      WS2812_SetColor(1, 0, data, 0);
-      WS2812_SetColor(2, 0, 0, data);
-      WS2812_SetColor(3, data, data, 0);
-      WS2812_SetColor(4, 0, data, data);
-      hal_stat = WS2812_Update();
+      hal_stat = WS2812_Idle_Animation(50);
     }
-    // brightness++;
-    // if (brightness > 30)
-    // {
-    //   brightness = 0;
-    // }
-    osDelay(40);
   }
   /* USER CODE END StartDefaultTask */
 }

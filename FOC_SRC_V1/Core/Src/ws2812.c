@@ -1,7 +1,7 @@
 /*
  * WS2812 Driver
  */
-
+#include "cmsis_os.h"
 #include "ws2812.h"
 #include "stm32g4xx_hal.h"
 #include "stm32g4xx_hal_def.h"
@@ -11,6 +11,28 @@
 ws2812Colors_t ws2812_color_data[WS2812_NUM_LEDS];
 uint8_t ws2812_dma_buffer[WS2812_DMA_BUFF_LEN];
 volatile uint8_t ws2812_dma_complete_flag;
+
+// Default Brightness for an LED, range 0 -255
+#define WS2812_BRIGHTNESS 5
+
+// Default Colors [g, r, b]
+
+const ws2812Colors_t LED_RED = {0, WS2812_BRIGHTNESS, 0};
+const ws2812Colors_t LED_GREEN = {WS2812_BRIGHTNESS, 0, 0};
+const ws2812Colors_t LED_BLUE = {0, 0, WS2812_BRIGHTNESS};
+const ws2812Colors_t LED_PURPLE = {0, WS2812_BRIGHTNESS, WS2812_BRIGHTNESS};
+const ws2812Colors_t LED_YELLOW = {WS2812_BRIGHTNESS, WS2812_BRIGHTNESS, 0};
+
+/*Reverse order of bits in a byte */
+uint8_t
+flipByte(uint8_t c)
+{
+  c = ((c >> 1) & 0x55) | ((c << 1) & 0xAA);
+  c = ((c >> 2) & 0x33) | ((c << 2) & 0xCC);
+  c = (c >> 4) | (c << 4);
+
+  return c;
+}
 
 HAL_StatusTypeDef WS2812_Init(void)
 {
@@ -77,10 +99,9 @@ HAL_StatusTypeDef WS2812_Update(void)
 
 void WS2812_SetColor(uint8_t index, uint8_t r, uint8_t g, uint8_t b)
 {
-
-  ws2812_color_data[index].color.r = r;
-  ws2812_color_data[index].color.g = g;
-  ws2812_color_data[index].color.b = b;
+  ws2812_color_data[index].color.r = flipByte(r);
+  ws2812_color_data[index].color.g = flipByte(g);
+  ws2812_color_data[index].color.b = flipByte(b);
 }
 
 /* Call in HAL_TIM_PWM_PulseFinishedCallback() */
@@ -88,4 +109,46 @@ void WS2812_Callback(void)
 {
   HAL_TIM_PWM_Stop_DMA(&WS2812_TIM, WS2812_TIM_CHANNEL);
   ws2812_dma_complete_flag = 1;
+}
+
+HAL_StatusTypeDef WS2812_Idle_Animation(const uint32_t delay)
+{
+  static uint8_t color_index = 0;
+  const ws2812Colors_t led_colors[] = {LED_RED,
+                                       LED_YELLOW,
+                                       LED_GREEN,
+                                       LED_BLUE,
+                                       LED_PURPLE};
+  for (uint8_t led_index = 0; led_index < WS2812_NUM_LEDS; led_index++)
+  {
+    const ws2812Colors_t led_color = led_colors[color_index % WS2812_NUM_LEDS];
+    WS2812_SetColor(led_index, led_color.color.r, led_color.color.g, led_color.color.b);
+  }
+  // Set LED colors
+  const HAL_StatusTypeDef hal_status = WS2812_Update();
+  ++color_index;
+
+  // Animation Delay
+  osDelay(delay);
+
+  return hal_status;
+}
+
+HAL_StatusTypeDef WS2812_Charging_Animation(const uint32_t delay)
+{
+  static uint8_t animation_index = 0;
+  const ws2812Colors_t led_color = LED_GREEN;
+
+  for (uint8_t led_index = 0; led_index < (animation_index % WS2812_NUM_LEDS) + 1; led_index++)
+  {
+    WS2812_SetColor(led_index, led_color.color.r, led_color.color.g, led_color.color.b);
+  }
+  // Set LED colors
+  const HAL_StatusTypeDef hal_status = WS2812_Update();
+  ++animation_index;
+
+  // Animation Delay
+  osDelay(delay);
+
+  return hal_status;
 }
