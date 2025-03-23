@@ -38,7 +38,6 @@
         * Output
         * EVENT_OUT
         * EXTI
-     PC12   ------> S_TIM5_CH2
 */
 void MX_GPIO_Init(void)
 {
@@ -71,11 +70,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GPBTN1_Pin GPLED3_Pin */
-  GPIO_InitStruct.Pin = GPBTN1_Pin|GPLED3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  /*Configure GPIO pin : GPBTN1_Pin */
+  GPIO_InitStruct.Pin = GPBTN1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPBTN1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LIFE_SENSE_LED_Pin */
   GPIO_InitStruct.Pin = LIFE_SENSE_LED_Pin;
@@ -84,19 +83,23 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LIFE_SENSE_LED_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : GPLED3_Pin */
+  GPIO_InitStruct.Pin = GPLED3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPLED3_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : H2_TARE_Pin */
   GPIO_InitStruct.Pin = H2_TARE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(H2_TARE_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : H2_ALARM_BUZZER_Pin */
-  GPIO_InitStruct.Pin = H2_ALARM_BUZZER_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF1_TIM5;
-  HAL_GPIO_Init(H2_ALARM_BUZZER_GPIO_Port, &GPIO_InitStruct);
+  /*Configure GPIO pin : GPBTN2_Pin */
+  GPIO_InitStruct.Pin = GPBTN2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPBTN2_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PD2_Pin */
   GPIO_InitStruct.Pin = PD2_Pin;

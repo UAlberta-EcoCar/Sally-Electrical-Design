@@ -121,7 +121,7 @@ const osThreadAttr_t CANRecieve_attributes = {
 };
 /* Definitions for CANMessageRecieveQ */
 osMessageQueueId_t CANMessageRecieveQHandle;
-uint8_t CANMessageRecieveQBuffer[ 64 * sizeof( uint8_t ) ];
+uint8_t CANMessageRecieveQBuffer[ 64 * sizeof( uint32_t ) ];
 osStaticMessageQDef_t CANMessageRecieveQControlBlock;
 const osMessageQueueAttr_t CANMessageRecieveQ_attributes = {
   .name = "CANMessageRecieveQ",
@@ -132,7 +132,7 @@ const osMessageQueueAttr_t CANMessageRecieveQ_attributes = {
 };
 /* Definitions for CANMessageTransmitQ */
 osMessageQueueId_t CANMessageTransmitQHandle;
-uint8_t CANMessageTransmitQBuffer[ 64 * sizeof( uint8_t ) ];
+uint8_t CANMessageTransmitQBuffer[ 64 * sizeof( uint32_t ) ];
 osStaticMessageQDef_t CANMessageTransmitQControlBlock;
 const osMessageQueueAttr_t CANMessageTransmitQ_attributes = {
   .name = "CANMessageTransmitQ",
@@ -180,7 +180,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the semaphores(s) */
   /* creation of H2AlarmSem */
-  H2AlarmSemHandle = osSemaphoreNew(1, 1, &H2AlarmSem_attributes);
+  H2AlarmSemHandle = osSemaphoreNew(1, 0, &H2AlarmSem_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -192,10 +192,10 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of CANMessageRecieveQ */
-  CANMessageRecieveQHandle = osMessageQueueNew (64, sizeof(uint8_t), &CANMessageRecieveQ_attributes);
+  CANMessageRecieveQHandle = osMessageQueueNew (64, sizeof(uint32_t), &CANMessageRecieveQ_attributes);
 
   /* creation of CANMessageTransmitQ */
-  CANMessageTransmitQHandle = osMessageQueueNew (64, sizeof(uint8_t), &CANMessageTransmitQ_attributes);
+  CANMessageTransmitQHandle = osMessageQueueNew (64, sizeof(uint32_t), &CANMessageTransmitQ_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */

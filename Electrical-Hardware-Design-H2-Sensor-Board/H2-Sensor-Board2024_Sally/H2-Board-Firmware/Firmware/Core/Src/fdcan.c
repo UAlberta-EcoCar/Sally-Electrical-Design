@@ -45,7 +45,7 @@ void MX_FDCAN2_Init(void)
   hfdcan2.Init.TransmitPause = DISABLE;
   hfdcan2.Init.ProtocolException = DISABLE;
   hfdcan2.Init.NominalPrescaler = 1;
-  hfdcan2.Init.NominalSyncJumpWidth = 1;
+  hfdcan2.Init.NominalSyncJumpWidth = 2;
   hfdcan2.Init.NominalTimeSeg1 = 5;
   hfdcan2.Init.NominalTimeSeg2 = 2;
   hfdcan2.Init.DataPrescaler = 1;
@@ -76,11 +76,11 @@ void MX_FDCAN2_Init(void)
 //	}
 
 	// Accept messages from Fuel Cell Controller
-	sFilterConfig.IdType = FDCAN_EXTENDED_ID;
-	sFilterConfig.FilterIndex = 1;
+	sFilterConfig.IdType = FDCAN_STANDARD_ID;
+	sFilterConfig.FilterIndex = 0;
 	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
 	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-	sFilterConfig.FilterID1 = 0x020; // 0b00000100000
+	sFilterConfig.FilterID1 = 0x000; // 0b00000100000
 	sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
 	if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
 		/* Filter configuration Error */

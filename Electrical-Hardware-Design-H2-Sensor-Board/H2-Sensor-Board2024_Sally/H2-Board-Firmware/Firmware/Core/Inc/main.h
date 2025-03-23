@@ -146,6 +146,9 @@ void Error_Handler(void);
 #define DEBUG_SWDIO_GPIO_Port GPIOA
 #define DEBUG_SWCLK_Pin GPIO_PIN_14
 #define DEBUG_SWCLK_GPIO_Port GPIOA
+#define GPBTN2_Pin GPIO_PIN_15
+#define GPBTN2_GPIO_Port GPIOA
+#define GPBTN2_EXTI_IRQn EXTI15_10_IRQn
 #define SDA_OLED_Pin GPIO_PIN_11
 #define SDA_OLED_GPIO_Port GPIOC
 #define H2_ALARM_BUZZER_Pin GPIO_PIN_12

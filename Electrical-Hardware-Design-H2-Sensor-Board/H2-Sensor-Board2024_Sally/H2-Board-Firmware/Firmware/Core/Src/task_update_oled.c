@@ -30,6 +30,7 @@ void StartUpdateOLEDTask(void *argument) {
 	/* Infinite loop */
 	for (;;) {
 
+//		ssd1306_Fill(Black);
 		if (alarm_state == H2_ALARM_TRIGGERED) {
 			current_color = Black;
 			flash_screen_temp = !flash_screen_temp;
@@ -75,9 +76,10 @@ void StartUpdateOLEDTask(void *argument) {
 		ssd1306_SetCursor(0, 40);
 		ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
+		ssd1306_SetCursor(0, 50);
 		switch (alarm_state) {
 		case H2_ALARM_ARMED:
-			sprintf(screen_text, "ALARM ARMED");
+			sprintf(screen_text, "ALARM ARMED   ");
 			break;
 		case H2_ALARM_DISARMED:
 			sprintf(screen_text, "ALARM DISARMED");
@@ -90,11 +92,15 @@ void StartUpdateOLEDTask(void *argument) {
 			break;
 		}
 
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+
+//		ssd1306_FillRectangle(0, 50, 70, 100, Black);
+//		ssd1306_UpdateScreen();
+
+		ssd1306_WriteString(screen_text, Font_7x10, current_color);
 
 		ssd1306_UpdateScreen();
 
-		osDelay(300);
+		osDelay(100);
 	}
 	/* USER CODE END StartUpdateOLEDTask */
 }

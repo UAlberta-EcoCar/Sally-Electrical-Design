@@ -28,10 +28,11 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			Error_Handler();
 		}
 
-		if (FDCAN_SYNCLED_ID == RxHeader.Identifier) {
-			HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, RxData[0]);
-		} else {
-
+		switch (RxHeader.Identifier) {
+		case FDCAN_SYNCLED_ID:
+			HAL_GPIO_WritePin(GPLED5_GPIO_Port, GPLED5_Pin, RxData[0]);
+			break;
+		default:
 			osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.Identifier, 0,
 					0);
 			osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.DataLength, 0,
@@ -39,6 +40,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
 				osMessageQueuePut(CANMessageRecieveQHandle, &RxData[i], 0, 0);
 			}
+			break;
 		}
 	}
 }
@@ -77,19 +79,19 @@ void StartCANTransmitTask(void *argument) {
 
 		// Transmit the basic data
 
-		if (0 == HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
-			if (HAL_OK
-					== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
-							&sensor_data)) {
-				log_info("Successfully transmitted H2 Alarm");
-			}
-		} else {
-			log_err("Failed to send H2 Alarm signal, fifo full");
-			// this means there was no room in the tx fifo, so give the semaphore again and retry.
-			if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
-				log_info("Retrying");
-			}
-		}
+//		if (0 == HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+//			if (HAL_OK
+//					== HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2,
+//							&sensor_data)) {
+//				log_info("Successfully transmitted H2 Alarm");
+//			}
+//		} else {
+//			log_err("Failed to send H2 Alarm signal, fifo full");
+//			// this means there was no room in the tx fifo, so give the semaphore again and retry.
+//			if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
+//				log_info("Retrying");
+//			}
+//		}
 
 //		if (H2_ALARM_TRIGGERED == alarm_state) {
 //			if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
@@ -153,8 +155,11 @@ void StartCANRecieve(void *argument) {
 				}
 			}
 			switch (id) {
-			case FDCAN_SYNCLED_ID:
-
+			case ECOCAN_H2_ARM_ALARM_ID:
+//				HAL_GPIO_WritePin(GPLED4_GPIO_Port, GPLED4_Pin, RxD)
+				ECOCAN_H2_ARM_ALARM_t inc = {0};
+				memcpy(inc.ECOCAN_raw_pack, incomming_data, FDCAN_BYTES_8);
+				alarm_state = inc.h2_alarm_armed;
 				break;
 			default:
 				break;

@@ -110,7 +110,7 @@ void StartSensorDataAquireTask(void *argument) {
 
 		// Thread Heart Beat
 
-		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_SET);
 
 		if (HAL_OK == HAL_I2C_IsDeviceReady(&hi2c4, BME280_I2C_ADDR_SEC, 1,
 		HAL_MAX_DELAY)) {
@@ -151,7 +151,7 @@ void StartSensorDataAquireTask(void *argument) {
 			sensor_data.pressure_hPa = comp_data.pressure / 10000.0; /* hPa */
 		}
 		osDelay(5);
-		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_RESET);
 		osDelay(5);
 	}
 	/* USER CODE END StartSensorDataAquireTask */
