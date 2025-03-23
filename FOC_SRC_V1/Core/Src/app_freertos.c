@@ -60,7 +60,11 @@ FDCAN_FetPack_t fet_data;
 FDCAN_H2Pack_t h2_data;
 FDCAN_BOOSTPack_t boost_data;
 uint8_t can_sync_led;
+
 rbState_t relay_state;
+FDCAN_RelPackFc_t relay_fc_pack;
+FDCAN_RelPackCap_t relay_cap_pack;
+FDCAN_RelPackMtr_t relay_motor_pack;
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -254,16 +258,28 @@ void StartDefaultTask(void *argument)
   {
     if (can_sync_led == 1)
     {
-      WS2812_SetColor(0, 1, 0, 0);
-      WS2812_SetColor(1, 0, 1, 0);
-      WS2812_SetColor(2, 0, 0, 1);
-      WS2812_SetColor(3, 1, 1, 0);
-      WS2812_SetColor(4, 1, 0, 1);
-      hal_stat = WS2812_Update();
+      switch (relay_state)
+      {
+      case RELAY_STBY:
+        hal_stat = WS2812_Idle_Animation(200);
+        break;
+      case RELAY_CHRGE:
+        hal_stat = WS2812_Charging_Animation(200);
+        break;
+      case RELAY_RUN:
+        hal_stat = WS2812_Driving_Animation(200);
+        break;
+      case RELAY_STRTP:
+        hal_stat = WS2812_Stop_Animation(200);
+        break;
+      }
     }
     else
     {
-      hal_stat = WS2812_Idle_Animation(50);
+      // hal_stat = WS2812_Charging_Animation(300);
+      // hal_stat = WS2812_Driving_Animation(300);
+      hal_stat = WS2812_Idle_Animation(200);
+      // hal_stat = WS2812_Stop_Animation(200);
     }
   }
   /* USER CODE END StartDefaultTask */
@@ -327,6 +343,18 @@ void StartCanReceive(void *argument)
         break;
       case FDCAN_BOOSTPACK_ID:
         memcpy(&boost_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      case FDCAN_RELSTATE_ID:
+        memcpy(&relay_state, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      case FDCAN_RELPACKFC_ID:
+        memcpy(&relay_fc_pack, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      case FDCAN_RELPACKCAP_ID:
+        memcpy(&relay_cap_pack, ret, mapDlcToBytes(localRxHeader.DataLength));
+        break;
+      case FDCAN_RELPACKMTR_ID:
+        memcpy(&relay_motor_pack, ret, mapDlcToBytes(localRxHeader.DataLength));
         break;
       default:
         break;
