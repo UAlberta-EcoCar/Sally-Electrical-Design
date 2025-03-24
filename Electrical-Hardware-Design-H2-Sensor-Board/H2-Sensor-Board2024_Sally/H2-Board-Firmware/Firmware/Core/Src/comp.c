@@ -44,9 +44,9 @@ void MX_COMP1_Init(void)
   hcomp1.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp1.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH1;
   hcomp1.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp1.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
+  hcomp1.Init.Hysteresis = COMP_HYSTERESIS_50MV;
   hcomp1.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp1.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
+  hcomp1.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING_FALLING;
   if (HAL_COMP_Init(&hcomp1) != HAL_OK)
   {
     Error_Handler();
@@ -71,9 +71,9 @@ void MX_COMP2_Init(void)
   hcomp2.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp2.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH2;
   hcomp2.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp2.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
+  hcomp2.Init.Hysteresis = COMP_HYSTERESIS_50MV;
   hcomp2.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp2.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
+  hcomp2.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING_FALLING;
   if (HAL_COMP_Init(&hcomp2) != HAL_OK)
   {
     Error_Handler();
@@ -98,9 +98,9 @@ void MX_COMP6_Init(void)
   hcomp6.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp6.Init.InputMinus = COMP_INPUT_MINUS_DAC2_CH1;
   hcomp6.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp6.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
+  hcomp6.Init.Hysteresis = COMP_HYSTERESIS_50MV;
   hcomp6.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp6.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
+  hcomp6.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING_FALLING;
   if (HAL_COMP_Init(&hcomp6) != HAL_OK)
   {
     Error_Handler();
@@ -125,9 +125,9 @@ void MX_COMP7_Init(void)
   hcomp7.Init.InputPlus = COMP_INPUT_PLUS_IO1;
   hcomp7.Init.InputMinus = COMP_INPUT_MINUS_DAC4_CH1;
   hcomp7.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
-  hcomp7.Init.Hysteresis = COMP_HYSTERESIS_MEDIUM;
+  hcomp7.Init.Hysteresis = COMP_HYSTERESIS_50MV;
   hcomp7.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
-  hcomp7.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING;
+  hcomp7.Init.TriggerMode = COMP_TRIGGERMODE_IT_RISING_FALLING;
   if (HAL_COMP_Init(&hcomp7) != HAL_OK)
   {
     Error_Handler();

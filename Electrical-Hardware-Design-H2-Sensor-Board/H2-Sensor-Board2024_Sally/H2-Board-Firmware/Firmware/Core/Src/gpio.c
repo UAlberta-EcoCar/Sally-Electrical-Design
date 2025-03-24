@@ -89,17 +89,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPLED3_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : H2_TARE_Pin */
-  GPIO_InitStruct.Pin = H2_TARE_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(H2_TARE_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : GPBTN2_Pin */
-  GPIO_InitStruct.Pin = GPBTN2_Pin;
+  /*Configure GPIO pins : H2_TARE_Pin GPBTN2_Pin */
+  GPIO_InitStruct.Pin = H2_TARE_Pin|GPBTN2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPBTN2_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PD2_Pin */
   GPIO_InitStruct.Pin = PD2_Pin;

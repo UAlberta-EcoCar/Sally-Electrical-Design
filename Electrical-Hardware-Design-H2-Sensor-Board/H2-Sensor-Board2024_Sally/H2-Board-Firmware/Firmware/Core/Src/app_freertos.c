@@ -117,7 +117,7 @@ const osThreadAttr_t CANRecieve_attributes = {
   .stack_size = sizeof(CANRecieveBuffer),
   .cb_mem = &CANRecieveControlBlock,
   .cb_size = sizeof(CANRecieveControlBlock),
-  .priority = (osPriority_t) osPriorityAboveNormal5,
+  .priority = (osPriority_t) osPriorityNormal5,
 };
 /* Definitions for CANMessageRecieveQ */
 osMessageQueueId_t CANMessageRecieveQHandle;
@@ -148,6 +148,14 @@ const osSemaphoreAttr_t H2AlarmSem_attributes = {
   .name = "H2AlarmSem",
   .cb_mem = &H2AlarmSemControlBlock,
   .cb_size = sizeof(H2AlarmSemControlBlock),
+};
+/* Definitions for H2tareCurrentEnviorment */
+osSemaphoreId_t H2tareCurrentEnviormentHandle;
+osStaticSemaphoreDef_t H2tareCurrentEnviormentControlBlock;
+const osSemaphoreAttr_t H2tareCurrentEnviorment_attributes = {
+  .name = "H2tareCurrentEnviorment",
+  .cb_mem = &H2tareCurrentEnviormentControlBlock,
+  .cb_size = sizeof(H2tareCurrentEnviormentControlBlock),
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -182,6 +190,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of H2AlarmSem */
   H2AlarmSemHandle = osSemaphoreNew(1, 0, &H2AlarmSem_attributes);
 
+  /* creation of H2tareCurrentEnviorment */
+  H2tareCurrentEnviormentHandle = osSemaphoreNew(1, 0, &H2tareCurrentEnviorment_attributes);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -215,10 +226,10 @@ void MX_FREERTOS_Init(void) {
   leakWatchdoHandle = osThreadNew(StartLeakWatchdogTask, NULL, &leakWatchdo_attributes);
 
   /* creation of CANTransmit */
-  // CANTransmitHandle = osThreadNew(StartCANTransmitTask, NULL, &CANTransmit_attributes);
+  CANTransmitHandle = osThreadNew(StartCANTransmitTask, NULL, &CANTransmit_attributes);
 
   /* creation of CANRecieve */
-  // CANRecieveHandle = osThreadNew(StartCANRecieve, NULL, &CANRecieve_attributes);
+  CANRecieveHandle = osThreadNew(StartCANRecieve, NULL, &CANRecieve_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

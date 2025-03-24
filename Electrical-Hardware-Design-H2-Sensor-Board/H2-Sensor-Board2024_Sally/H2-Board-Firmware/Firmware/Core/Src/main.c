@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "adc.h"
 #include "comp.h"
+#include "crc.h"
 #include "dac.h"
 #include "dma.h"
 #include "fdcan.h"
@@ -111,6 +112,7 @@ int main(void)
   MX_DAC2_Init();
   MX_DAC4_Init();
   MX_TIM5_Init();
+  MX_CRC_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
