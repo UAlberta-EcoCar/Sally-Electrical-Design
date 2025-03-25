@@ -86,7 +86,7 @@ void Error_Handler(void);
 #define RST_915_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+#define HARDFAULT_TIMER 500000
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

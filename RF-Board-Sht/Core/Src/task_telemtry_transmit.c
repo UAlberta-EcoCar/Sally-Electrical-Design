@@ -22,7 +22,6 @@ typedef struct {
 	FDCAN_RelPackCap_t cap_data;
 	FDCAN_FccPack1_t fc_data1;
 	FDCAN_FccPack2_t fc_data2;
-
 } telemetry_data1_t;
 
 typedef struct {
@@ -45,9 +44,7 @@ typedef enum {
 } packet_id_size_t;
 
 typedef enum {
-	BASIC_DATA_1_ID = 0x01,
-	BASIC_DATA_2_ID = 0x02,
-	GPS_DATA_1_ID = 0x03
+	BASIC_DATA_1_ID = 0x01, BASIC_DATA_2_ID = 0x02, GPS_DATA_1_ID = 0x03
 } packet_id_t; // must be 1 byte
 
 typedef struct {
@@ -117,8 +114,6 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_set_coding_rate(&rfm95_868, 4);
 	rf_set_coding_rate(&rfm95_915, 4);
 
-
-
 	FDCAN_FccPack1_t fc = { 0 };
 	FDCAN_RelPackFc_t rel = { 0 };
 	uint32_t test = 322;
@@ -126,52 +121,84 @@ void StartTelemetryTransmitTask(void *argument) {
 
 	char h[] = "Hello";
 
-//	uint8_t normalized_temp = 0;
+	telemetry_packet_t dat1 = { 0 };
+	telemetry_packet_t dat2 = { 0 };
+	memcpy(&dat1.packet_data, &data1, sizeof(telemetry_data1_t));
 
+	memcpy(&dat2.packet_data, &data2, sizeof(telemetry_data2_t));
+//	uint8_t normalized_temp = 0;
+	dat1.packet_id = BASIC_DATA_1_ID;
+	dat2.packet_id = BASIC_DATA_2_ID;
 	for (;;) {
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
+
+			data1.fc_data1.fc_temp += 1;
+
+			memcpy(&dat1.packet_data, &data1, sizeof(telemetry_data1_t));
+
+			memcpy(&dat2.packet_data, &data2, sizeof(telemetry_data2_t));
+
 			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 //			rf_send(&rfm95_868, &Rel, sizeof(FDCAN_RelPackFc_t));
-			rf_send(&rfm95_868, &data1, sizeof(telemetry_data1_t));
+//			rf_send(&rfm95_868, &data1, sizeof(telemetry_data1_t));
+			rf_send(&rfm95_868, &dat1, 1 + sizeof(telemetry_data1_t));
 			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
 //			rf_send(&rfm95_915, &fc_dfe, sizeof(FDCAN_FccPack1_t));
-			rf_send(&rfm95_915, &data2, sizeof(telemetry_data2_t));
+//			rf_send(&rfm95_915, &data2, sizeof(telemetry_data2_t));
+			rf_send(&rfm95_915, &dat2, 1 + sizeof(telemetry_data2_t));
 			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 		}
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
 			rf_recieve_single(&rfm95_868, &rec_legth);
 
-			if (rec_legth == sizeof(telemetry_data1_t)) {
+//			if (rec_legth == sizeof(telemetry_data1_t)) {
+			if (rec_legth != 0) {
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-				rf_read_packet(&rfm95_868, rec_legth, &data_rc);
+				rf_read_packet(&rfm95_868, rec_legth, &dat1);
 				rf_packet_snr(&rfm95_868, &snr);
 				rf_packet_rssi(&rfm95_868, &rssi);
+
+				memcpy(&data_rc, &dat1.packet_data, BASIC_DATA_1_SIZE);
+
 				printf("[868] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
 						rec_legth);
 //				printf("%d %d", rel.fc_volt, rel.fc_curr);
 				printf("\r\n");
 
-				log_info("FC: %d", data_rc.fc_data1.fc_temp);
+				log_info(
+						"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
+						data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
+						data_rc.fc_data2.fan_rpm1, data_rc.fc_data2.fan_rpm2,
+						data_rc.mtr_data.mtr_volt, data_rc.mtr_data.mtr_curr,
+						data_rc.cap_data.cap_volt, data_rc.cap_data.cap_curr);
 
-				rec_legth = 0;
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+//			}
+				rec_legth = 0;
 			}
-			rec_legth = 0;
 			rf_recieve_single(&rfm95_915, &rec_legth1);
-
-			if (rec_legth1 == sizeof(telemetry_data2_t)) {
+			if (rec_legth1 != 0) {
+//			if (rec_legth1 == sizeof(telemetry_data2_t)) {
 				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
-				rf_read_packet(&rfm95_915, rec_legth1, &data_rc2);
+				rf_read_packet(&rfm95_915, rec_legth1, &dat2);
 				rf_packet_snr(&rfm95_915, &snr);
 				rf_packet_rssi(&rfm95_915, &rssi);
 				printf("[915] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
 						rec_legth1);
+				memcpy(&data_rc2, &dat2.packet_data, BASIC_DATA_2_SIZE);
 //				printf("%d %d", fc.fc_temp, fc.fc_press);
 //				printf("");
 				printf("\r\n");
+
+//			log_info(
+//					"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
+//					data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
+//					data_rc.fc_data2.fan_rpm1, data_rc.fc_data2.fan_rpm2,
+//					data_rc.mtr_data.mtr_volt, data_rc.mtr_data.mtr_curr,
+//					data_rc.cap_data.cap_volt, data_rc.cap_data.cap_curr);
 				rec_legth1 = 0;
 				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
 			}
