@@ -58,11 +58,8 @@ FDCAN_RelPackFc_t Rel;
 extern telemetry_data1_t data1;
 extern telemetry_data2_t data2;
 
-char h2[6] = { 0 };
-telemetry_data1_t data_rc = { 0 };
-telemetry_data2_t data_rc2 = { 0 };
-
-extern uint8_t gps_can[8];
+telemetry_data1_t data_recieved_1 = { 0 };
+telemetry_data2_t data_recieved_2 = { 0 };
 
 void StartTelemetryTransmitTask(void *argument) {
 
@@ -74,14 +71,7 @@ void StartTelemetryTransmitTask(void *argument) {
 	HAL_GPIO_WritePin(RST_915_GPIO_Port, RST_915_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(RST_24_GPIO_Port, RST_24_Pin, GPIO_PIN_SET);
 
-	fc_dfe.fc_press = 100;
-	fc_dfe.fc_temp = 9932;
-	Rel.fc_curr = 12;
-	Rel.fc_volt = 21;
 	int snr = 0, rssi = 0;
-	FDCAN_FccPack1_t recpac = { 0 };
-	int32_t temp = 0;
-	uint8_t temp8[4] = { 0 };
 	uint8_t rec_legth = 0;
 	uint8_t rec_legth1 = 0;
 	rf_handle_t rfm95_868 = { .rf_carrier_frequency = 868000000,
@@ -104,8 +94,8 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_set_spread_factor(&rfm95_868, 7);
 	rf_set_spread_factor(&rfm95_915, 7);
 
-	rf_set_tx_power(&rfm95_868, 20);
-	rf_set_tx_power(&rfm95_915, 20);
+	rf_set_tx_power(&rfm95_868, 5);
+	rf_set_tx_power(&rfm95_915, 5);
 
 	rf_set_bandwidth(&rfm95_868, RF_BW_500K);
 	rf_set_bandwidth(&rfm95_915, RF_BW_500K);
@@ -116,15 +106,12 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_set_coding_rate(&rfm95_868, 4);
 	rf_set_coding_rate(&rfm95_915, 4);
 
-	FDCAN_FccPack1_t fc = { 0 };
-	FDCAN_RelPackFc_t rel = { 0 };
-	uint32_t test = 322;
-	uint32_t test2 = 0;
-
-	char h[] = "Hello";
-
 	telemetry_packet_t dat1 = { 0 };
 	telemetry_packet_t dat2 = { 0 };
+
+	dat1.packet_id = BASIC_DATA_1_ID;
+	dat2.packet_id = BASIC_DATA_2_ID;
+
 	memcpy(&dat1.packet_data, &data1, sizeof(telemetry_data1_t));
 
 	memcpy(&dat2.packet_data, &data2, sizeof(telemetry_data2_t));
@@ -132,99 +119,177 @@ void StartTelemetryTransmitTask(void *argument) {
 	telemetry_gps_t gps = { 0 };
 
 	telemetry_packet_t gps_pack = { 0 };
-	memcpy(&gps_pack.packet_data, gps_can, 8);
 
 	gps_pack.packet_id = GPS_DATA_1_ID;
 
-//	uint8_t normalized_temp = 0;
-	dat1.packet_id = BASIC_DATA_1_ID;
-	dat2.packet_id = BASIC_DATA_2_ID;
+	telemetry_packet_t recieved_data = { 0 };
+
 	for (;;) {
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
-			memcpy(&gps_pack.packet_data, gps_can, 8);
-			data1.fc_data1.fc_temp += 1;
+//			memcpy(&gps_pack.packet_data, gps_can, 8);
+
+			data1.mtr_data.mtr_curr += 1;
+
+			data2.fc_data3.bme_temp += 1;
 
 			memcpy(&dat1.packet_data, &data1, sizeof(telemetry_data1_t));
 
 			memcpy(&dat2.packet_data, &data2, sizeof(telemetry_data2_t));
 
 			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-//			rf_send(&rfm95_868, &Rel, sizeof(FDCAN_RelPackFc_t));
-//			rf_send(&rfm95_868, &data1, sizeof(telemetry_data1_t));
-//			rf_send(&rfm95_868, &dat1, 1 + sizeof(telemetry_data1_t));
-			if (0 != rf_send(&rfm95_868, &gps_pack, 1 + 8)) {
+			if (0
+					!= rf_send(&rfm95_868, &dat1,
+							1 + sizeof(telemetry_data1_t))) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
-
-//			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-//			rf_send(&rfm95_915, &fc_dfe, sizeof(FDCAN_FccPack1_t));
-//			rf_send(&rfm95_915, &data2, sizeof(telemetry_data2_t));
-//			rf_send(&rfm95_915, &dat2, 1 + sizeof(telemetry_data2_t));
-//			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
-//			osDelay(100);
+			osDelay(10);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+			if (0
+					!= rf_send(&rfm95_868, &dat2,
+							1 + sizeof(telemetry_data2_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+			if (0
+					!= rf_send(&rfm95_868, &gps_pack,
+							1 + sizeof(telemetry_gps_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+			if (0
+					!= rf_send(&rfm95_915, &dat1,
+							1 + sizeof(telemetry_data1_t))) {
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+			if (0
+					!= rf_send(&rfm95_915, &dat2,
+							1 + sizeof(telemetry_data2_t))) {
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+			if (0
+					!= rf_send(&rfm95_915, &gps_pack,
+							1 + sizeof(telemetry_gps_t))) {
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
 		}
 
+		// reciever
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
 			rf_recieve_single(&rfm95_868, &rec_legth);
-
-//			if (rec_legth == sizeof(telemetry_data1_t)) {
 			if (rec_legth != 0) {
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-				rf_read_packet(&rfm95_868, rec_legth, &dat1);
+				rf_read_packet(&rfm95_868, rec_legth, &recieved_data);
 				rf_packet_snr(&rfm95_868, &snr);
 				rf_packet_rssi(&rfm95_868, &rssi);
-				if (dat1.packet_id == GPS_DATA_1_ID) {
-//					memcpy(&gps, &dat1.packet_data, GPS_DATA_1_SIZE);
-					log_info("GPS: %d", dat1.packet_data[0]);
-				} else {
-					memcpy(&data_rc, &dat1.packet_data, BASIC_DATA_1_SIZE);
 
-					printf("[868] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
-							rec_legth);
-//				printf("%d %d", rel.fc_volt, rel.fc_curr);
-					printf("\r\n");
+				switch (recieved_data.packet_id) {
+				case BASIC_DATA_1_ID:
+					log_info("[868]GOT BASIC 1");
+					memcpy(&data_recieved_1, &recieved_data,
+							1 + BASIC_DATA_1_SIZE);
+					log_info("CAP CURR: %d CAP VOLT %d",
+							data_recieved_1.cap_data.cap_curr,
+							data_recieved_1.cap_data.cap_volt);
+					log_info("FC PRESSURE: %d FC TEMP %d",
+							data_recieved_1.fc_data1.fc_press,
+							data_recieved_1.fc_data1.fc_temp);
+					log_info("FC FAN 1 %d RPM FC FAN 2 %d RPM",
+							data_recieved_1.fc_data2.fan_rpm1,
+							data_recieved_1.fc_data2.fan_rpm2);
+					log_info("MTR CURR: %d MTR VOLT %d",
+							data_recieved_1.mtr_data.mtr_curr,
+							data_recieved_1.mtr_data.mtr_volt);
 
-					log_info(
-							"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
-							data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
-							data_rc.fc_data2.fan_rpm1,
-							data_rc.fc_data2.fan_rpm2,
-							data_rc.mtr_data.mtr_volt,
-							data_rc.mtr_data.mtr_curr,
-							data_rc.cap_data.cap_volt,
-							data_rc.cap_data.cap_curr);
-
-//			}
+					break;
+				case BASIC_DATA_2_ID:
+					log_info("[868]GOT BASIC 2");
+					memcpy(&data_recieved_2, &recieved_data,
+							1 + BASIC_DATA_2_SIZE);
+					log_info("FC CURR: %d FC VOLT %d",
+							data_recieved_2.RelPackFc.fc_curr,
+							data_recieved_2.RelPackFc.fc_volt);
+					log_info("BOOST CURR IN %d BOOST VOLT IN %d",
+							data_recieved_2.boost_data1.in_curr,
+							data_recieved_2.boost_data1.in_volt);
+					log_info("BOOST CURR OUT %d BOOST VOLT OUT %d",
+							data_recieved_2.boost_data2.out_curr,
+							data_recieved_2.boost_data2.out_volt);
+					log_info("FC BME HUMID: %d FC BME TEMP %d",
+							data_recieved_2.fc_data3.bme_humid,
+							data_recieved_2.fc_data3.bme_temp);
+					break;
+				case GPS_DATA_1_ID:
+					log_info("[868]GOT GPS 1");
+					break;
+				default:
+					break;
 				}
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 				rec_legth = 0;
 			}
-			rf_recieve_single(&rfm95_915, &rec_legth1);
-			if (rec_legth1 != 0) {
-//			if (rec_legth1 == sizeof(telemetry_data2_t)) {
-				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
-				rf_read_packet(&rfm95_915, rec_legth1, &dat2);
+			rec_legth = 0;
+			rf_recieve_single(&rfm95_915, &rec_legth);
+			if (rec_legth != 0) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+				rf_read_packet(&rfm95_915, rec_legth, &recieved_data);
 				rf_packet_snr(&rfm95_915, &snr);
 				rf_packet_rssi(&rfm95_915, &rssi);
-				printf("[915] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
-						rec_legth1);
-				memcpy(&data_rc2, &dat2.packet_data, BASIC_DATA_2_SIZE);
-//				printf("%d %d", fc.fc_temp, fc.fc_press);
-//				printf("");
-				printf("\r\n");
 
-//			log_info(
-//					"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
-//					data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
-//					data_rc.fc_data2.fan_rpm1, data_rc.fc_data2.fan_rpm2,
-//					data_rc.mtr_data.mtr_volt, data_rc.mtr_data.mtr_curr,
-//					data_rc.cap_data.cap_volt, data_rc.cap_data.cap_curr);
-				rec_legth1 = 0;
-				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
+				switch (recieved_data.packet_id) {
+				case BASIC_DATA_1_ID:
+					log_info("[915]GOT BASIC 1");
+					memcpy(&data_recieved_1, &recieved_data,
+							1 + BASIC_DATA_1_SIZE);
+					log_info("CAP CURR: %d CAP VOLT %d",
+							data_recieved_1.cap_data.cap_curr,
+							data_recieved_1.cap_data.cap_volt);
+					log_info("FC PRESSURE: %d FC TEMP %d",
+							data_recieved_1.fc_data1.fc_press,
+							data_recieved_1.fc_data1.fc_temp);
+					log_info("FC FAN 1 %d RPM FC FAN 2 %d RPM",
+							data_recieved_1.fc_data2.fan_rpm1,
+							data_recieved_1.fc_data2.fan_rpm2);
+					log_info("MTR CURR: %d MTR VOLT %d",
+							data_recieved_1.mtr_data.mtr_curr,
+							data_recieved_1.mtr_data.mtr_volt);
+
+					break;
+				case BASIC_DATA_2_ID:
+					log_info("[915]GOT BASIC 2");
+					memcpy(&data_recieved_2, &recieved_data,
+							1 + BASIC_DATA_2_SIZE);
+					log_info("FC CURR: %d FC VOLT %d",
+							data_recieved_2.RelPackFc.fc_curr,
+							data_recieved_2.RelPackFc.fc_volt);
+					log_info("BOOST CURR IN %d BOOST VOLT IN %d",
+							data_recieved_2.boost_data1.in_curr,
+							data_recieved_2.boost_data1.in_volt);
+					log_info("BOOST CURR OUT %d BOOST VOLT OUT %d",
+							data_recieved_2.boost_data2.out_curr,
+							data_recieved_2.boost_data2.out_volt);
+					log_info("FC BME HUMID: %d FC BME TEMP %d",
+							data_recieved_2.fc_data3.bme_humid,
+							data_recieved_2.fc_data3.bme_temp);
+					break;
+				case GPS_DATA_1_ID:
+					log_info("[915]GOT GPS 1");
+					break;
+				default:
+					break;
+				}
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+				rec_legth = 0;
 			}
-			osDelay(5);
+			rec_legth = 0;
+			osDelay(1);
 		}
-
 	}
 }

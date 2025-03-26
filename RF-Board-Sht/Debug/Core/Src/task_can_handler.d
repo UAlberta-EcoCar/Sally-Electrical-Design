@@ -43,11 +43,11 @@ Core/Src/task_can_handler.o: ../Core/Src/task_can_handler.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../Core/Inc/fdcan.h ../Core/Inc/main.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/debug-log.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/debug-log.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -94,8 +94,8 @@ Core/Src/task_can_handler.o: ../Core/Src/task_can_handler.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
 ../Core/Inc/fdcan.h:
 ../Core/Inc/main.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/debug-log.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/debug-log.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h:

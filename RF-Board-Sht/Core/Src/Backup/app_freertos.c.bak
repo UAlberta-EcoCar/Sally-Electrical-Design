@@ -63,7 +63,7 @@ const osThreadAttr_t defaultTask_attributes = {
 };
 /* Definitions for telemetryTransm */
 osThreadId_t telemetryTransmHandle;
-uint32_t telemetryTransmBuffer[ 648 ];
+uint32_t telemetryTransmBuffer[ 1024 ];
 osStaticThreadDef_t telemetryTransmControlBlock;
 const osThreadAttr_t telemetryTransm_attributes = {
   .name = "telemetryTransm",
