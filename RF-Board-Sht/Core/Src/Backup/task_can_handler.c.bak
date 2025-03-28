@@ -10,6 +10,8 @@
 extern osMessageQueueId_t canQueRxHeaderHandle;
 extern osMessageQueueId_t canQueRxDataHandle;
 
+uint8_t gps_can[8] = {0};
+
 typedef struct {
 	//FDCAN_FetPack_t fet_data;
 	FDCAN_RelPackMtr_t mtr_data;
@@ -168,6 +170,9 @@ void StartCanReceive(void *argument) {
 					break;
 				case FDCAN_BOOSTPACK2_ID:
 					pointer_to_data_store = &data2.boost_data2.FDCAN_RawBOOSTPack2;
+					break;
+				case 0x123:
+//					memcpy(gps_can, ret, 8);
 					break;
 				default:
 					log_err("CANID 0x%x not handled!",

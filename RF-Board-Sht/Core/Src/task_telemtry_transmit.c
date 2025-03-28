@@ -166,6 +166,7 @@ void StartTelemetryTransmitTask(void *argument) {
 		}
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
+//			printf(SCR_CLR_ALL);
 			rf_recieve_single(&rfm95_868, &rec_legth);
 
 //			if (rec_legth == sizeof(telemetry_data1_t)) {
@@ -184,7 +185,6 @@ void StartTelemetryTransmitTask(void *argument) {
 							rec_legth);
 //				printf("%d %d", rel.fc_volt, rel.fc_curr);
 					printf("\r\n");
-
 					log_info(
 							"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
 							data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
@@ -194,7 +194,6 @@ void StartTelemetryTransmitTask(void *argument) {
 							data_rc.mtr_data.mtr_curr,
 							data_rc.cap_data.cap_volt,
 							data_rc.cap_data.cap_curr);
-
 //			}
 				}
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
@@ -223,6 +222,7 @@ void StartTelemetryTransmitTask(void *argument) {
 				rec_legth1 = 0;
 				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
 			}
+
 			osDelay(5);
 		}
 

@@ -62,6 +62,8 @@ char h2[6] = { 0 };
 telemetry_data1_t data_rc = { 0 };
 telemetry_data2_t data_rc2 = { 0 };
 
+extern uint8_t gps_can[8];
+
 void StartTelemetryTransmitTask(void *argument) {
 
 	HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
@@ -126,13 +128,21 @@ void StartTelemetryTransmitTask(void *argument) {
 	memcpy(&dat1.packet_data, &data1, sizeof(telemetry_data1_t));
 
 	memcpy(&dat2.packet_data, &data2, sizeof(telemetry_data2_t));
+
+	telemetry_gps_t gps = { 0 };
+
+	telemetry_packet_t gps_pack = { 0 };
+	memcpy(&gps_pack.packet_data, gps_can, 8);
+
+	gps_pack.packet_id = GPS_DATA_1_ID;
+
 //	uint8_t normalized_temp = 0;
 	dat1.packet_id = BASIC_DATA_1_ID;
 	dat2.packet_id = BASIC_DATA_2_ID;
 	for (;;) {
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
-
+			memcpy(&gps_pack.packet_data, gps_can, 8);
 			data1.fc_data1.fc_temp += 1;
 
 			memcpy(&dat1.packet_data, &data1, sizeof(telemetry_data1_t));
@@ -142,16 +152,21 @@ void StartTelemetryTransmitTask(void *argument) {
 			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 //			rf_send(&rfm95_868, &Rel, sizeof(FDCAN_RelPackFc_t));
 //			rf_send(&rfm95_868, &data1, sizeof(telemetry_data1_t));
-			rf_send(&rfm95_868, &dat1, 1 + sizeof(telemetry_data1_t));
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+//			rf_send(&rfm95_868, &dat1, 1 + sizeof(telemetry_data1_t));
+			if (0 != rf_send(&rfm95_868, &gps_pack, 1 + 8)) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+
+//			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
 //			rf_send(&rfm95_915, &fc_dfe, sizeof(FDCAN_FccPack1_t));
 //			rf_send(&rfm95_915, &data2, sizeof(telemetry_data2_t));
-			rf_send(&rfm95_915, &dat2, 1 + sizeof(telemetry_data2_t));
-			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+//			rf_send(&rfm95_915, &dat2, 1 + sizeof(telemetry_data2_t));
+//			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+//			osDelay(100);
 		}
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
+//			printf(SCR_CLR_ALL);
 			rf_recieve_single(&rfm95_868, &rec_legth);
 
 //			if (rec_legth == sizeof(telemetry_data1_t)) {
@@ -160,21 +175,20 @@ void StartTelemetryTransmitTask(void *argument) {
 				rf_read_packet(&rfm95_868, rec_legth, &dat1);
 				rf_packet_snr(&rfm95_868, &snr);
 				rf_packet_rssi(&rfm95_868, &rssi);
+				if (dat1.packet_id == GPS_DATA_1_ID) {
+//					memcpy(&gps, &dat1.packet_data, GPS_DATA_1_SIZE);
+					log_info("GPS: %d", dat1.packet_data[0]);
+				} else {
+					memcpy(&data_rc, &dat1.packet_data, BASIC_DATA_1_SIZE);
 
-				printf("[868] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
-						rec_legth);
+					printf("[868] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
+							rec_legth);
 //				printf("%d %d", rel.fc_volt, rel.fc_curr);
-				printf("\r\n");
+					printf("\r\n");
 
-				log_info(
-						"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
-						data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
-						data_rc.fc_data2.fan_rpm1, data_rc.fc_data2.fan_rpm2,
-						data_rc.mtr_data.mtr_volt, data_rc.mtr_data.mtr_curr,
-						data_rc.cap_data.cap_volt, data_rc.cap_data.cap_curr);
-
-				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 //			}
+				}
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 				rec_legth = 0;
 			}
 			rf_recieve_single(&rfm95_915, &rec_legth1);
@@ -186,7 +200,7 @@ void StartTelemetryTransmitTask(void *argument) {
 				rf_packet_rssi(&rfm95_915, &rssi);
 				printf("[915] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
 						rec_legth1);
-
+				memcpy(&data_rc2, &dat2.packet_data, BASIC_DATA_2_SIZE);
 //				printf("%d %d", fc.fc_temp, fc.fc_press);
 //				printf("");
 				printf("\r\n");
@@ -200,6 +214,14 @@ void StartTelemetryTransmitTask(void *argument) {
 				rec_legth1 = 0;
 				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
 			}
+
+			log_info(
+					"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
+					data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
+					data_rc.fc_data2.fan_rpm1, data_rc.fc_data2.fan_rpm2,
+					data_rc.mtr_data.mtr_volt, data_rc.mtr_data.mtr_curr,
+					data_rc.cap_data.cap_volt, data_rc.cap_data.cap_curr);
+
 			osDelay(5);
 		}
 

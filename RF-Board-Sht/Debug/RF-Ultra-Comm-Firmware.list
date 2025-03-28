@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0002d151  00000000  00000000  0003fa70  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0002a63c  00000000  00000000  0006cbc1  2**0
+ 17 .debug_line   0002a63a  00000000  00000000  0006cbc1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0011520f  00000000  00000000  000971fd  2**0
+ 18 .debug_str    0011520f  00000000  00000000  000971fb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  001ac40c  2**0
+ 19 .comment      00000043  00000000  00000000  001ac40a  2**0
                   CONTENTS, READONLY
  20 .debug_frame  000096bc  00000000  00000000  001ac450  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -3582,6 +3582,7 @@ void StartTelemetryTransmitTask(void *argument) {
  80018d8:	4603      	mov	r3, r0
  80018da:	2b01      	cmp	r3, #1
  80018dc:	d1ba      	bne.n	8001854 <StartTelemetryTransmitTask+0x278>
+//			printf(SCR_CLR_ALL);
 			rf_recieve_single(&rfm95_868, &rec_legth);
  80018de:	f207 1247 	addw	r2, r7, #327	@ 0x147
  80018e2:	f507 738c 	add.w	r3, r7, #280	@ 0x118
@@ -3593,7 +3594,7 @@ void StartTelemetryTransmitTask(void *argument) {
 			if (rec_legth != 0) {
  80018ee:	f897 3147 	ldrb.w	r3, [r7, #327]	@ 0x147
  80018f2:	2b00      	cmp	r3, #0
- 80018f4:	d07d      	beq.n	80019f2 <StartTelemetryTransmitTask+0x416>
+ 80018f4:	d061      	beq.n	80019ba <StartTelemetryTransmitTask+0x3de>
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
  80018f6:	2201      	movs	r2, #1
  80018f8:	2104      	movs	r1, #4
@@ -3627,7 +3628,7 @@ void StartTelemetryTransmitTask(void *argument) {
  8001940:	4619      	mov	r1, r3
  8001942:	480e      	ldr	r0, [pc, #56]	@ (800197c <StartTelemetryTransmitTask+0x3a0>)
  8001944:	f008 fea2 	bl	800a68c <iprintf>
- 8001948:	e04a      	b.n	80019e0 <StartTelemetryTransmitTask+0x404>
+ 8001948:	e02e      	b.n	80019a8 <StartTelemetryTransmitTask+0x3cc>
  800194a:	bf00      	nop
  800194c:	48000400 	.word	0x48000400
  8001950:	48000800 	.word	0x48000800
@@ -3663,115 +3664,118 @@ void StartTelemetryTransmitTask(void *argument) {
  80019a2:	483c      	ldr	r0, [pc, #240]	@ (8001a94 <StartTelemetryTransmitTask+0x4b8>)
  80019a4:	f008 feda 	bl	800a75c <puts>
 
-					log_info(
- 80019a8:	4b38      	ldr	r3, [pc, #224]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019aa:	6a1d      	ldr	r5, [r3, #32]
- 80019ac:	4b37      	ldr	r3, [pc, #220]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019ae:	6a5e      	ldr	r6, [r3, #36]	@ 0x24
- 80019b0:	4b36      	ldr	r3, [pc, #216]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019b2:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 80019b4:	603b      	str	r3, [r7, #0]
- 80019b6:	4b35      	ldr	r3, [pc, #212]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019b8:	6adb      	ldr	r3, [r3, #44]	@ 0x2c
- 80019ba:	4a34      	ldr	r2, [pc, #208]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019bc:	6812      	ldr	r2, [r2, #0]
- 80019be:	4933      	ldr	r1, [pc, #204]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019c0:	6849      	ldr	r1, [r1, #4]
- 80019c2:	4832      	ldr	r0, [pc, #200]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019c4:	6900      	ldr	r0, [r0, #16]
- 80019c6:	4c31      	ldr	r4, [pc, #196]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
- 80019c8:	6964      	ldr	r4, [r4, #20]
- 80019ca:	9404      	str	r4, [sp, #16]
- 80019cc:	9003      	str	r0, [sp, #12]
- 80019ce:	9102      	str	r1, [sp, #8]
- 80019d0:	9201      	str	r2, [sp, #4]
- 80019d2:	9300      	str	r3, [sp, #0]
- 80019d4:	683b      	ldr	r3, [r7, #0]
- 80019d6:	4632      	mov	r2, r6
- 80019d8:	4629      	mov	r1, r5
- 80019da:	482f      	ldr	r0, [pc, #188]	@ (8001a98 <StartTelemetryTransmitTask+0x4bc>)
- 80019dc:	f008 fe56 	bl	800a68c <iprintf>
-							data_rc.cap_data.cap_volt,
-							data_rc.cap_data.cap_curr);
-
 //			}
 				}
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
- 80019e0:	2200      	movs	r2, #0
- 80019e2:	2104      	movs	r1, #4
- 80019e4:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 80019e8:	f001 f9de 	bl	8002da8 <HAL_GPIO_WritePin>
+ 80019a8:	2200      	movs	r2, #0
+ 80019aa:	2104      	movs	r1, #4
+ 80019ac:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 80019b0:	f001 f9fa 	bl	8002da8 <HAL_GPIO_WritePin>
 				rec_legth = 0;
- 80019ec:	2300      	movs	r3, #0
- 80019ee:	f887 3147 	strb.w	r3, [r7, #327]	@ 0x147
+ 80019b4:	2300      	movs	r3, #0
+ 80019b6:	f887 3147 	strb.w	r3, [r7, #327]	@ 0x147
 			}
 			rf_recieve_single(&rfm95_915, &rec_legth1);
- 80019f2:	f507 72a3 	add.w	r2, r7, #326	@ 0x146
- 80019f6:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
- 80019fa:	4611      	mov	r1, r2
- 80019fc:	4618      	mov	r0, r3
- 80019fe:	f005 fb49 	bl	8007094 <rf_recieve_single>
+ 80019ba:	f507 72a3 	add.w	r2, r7, #326	@ 0x146
+ 80019be:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
+ 80019c2:	4611      	mov	r1, r2
+ 80019c4:	4618      	mov	r0, r3
+ 80019c6:	f005 fb65 	bl	8007094 <rf_recieve_single>
 			if (rec_legth1 != 0) {
- 8001a02:	f897 3146 	ldrb.w	r3, [r7, #326]	@ 0x146
- 8001a06:	2b00      	cmp	r3, #0
- 8001a08:	d03b      	beq.n	8001a82 <StartTelemetryTransmitTask+0x4a6>
+ 80019ca:	f897 3146 	ldrb.w	r3, [r7, #326]	@ 0x146
+ 80019ce:	2b00      	cmp	r3, #0
+ 80019d0:	d03b      	beq.n	8001a4a <StartTelemetryTransmitTask+0x46e>
 //			if (rec_legth1 == sizeof(telemetry_data2_t)) {
 				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
- 8001a0a:	2201      	movs	r2, #1
- 8001a0c:	2108      	movs	r1, #8
- 8001a0e:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 8001a12:	f001 f9c9 	bl	8002da8 <HAL_GPIO_WritePin>
+ 80019d2:	2201      	movs	r2, #1
+ 80019d4:	2108      	movs	r1, #8
+ 80019d6:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 80019da:	f001 f9e5 	bl	8002da8 <HAL_GPIO_WritePin>
 				rf_read_packet(&rfm95_915, rec_legth1, &dat2);
- 8001a16:	f897 1146 	ldrb.w	r1, [r7, #326]	@ 0x146
- 8001a1a:	f107 024c 	add.w	r2, r7, #76	@ 0x4c
- 8001a1e:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
- 8001a22:	4618      	mov	r0, r3
- 8001a24:	f005 fc5e 	bl	80072e4 <rf_read_packet>
+ 80019de:	f897 1146 	ldrb.w	r1, [r7, #326]	@ 0x146
+ 80019e2:	f107 024c 	add.w	r2, r7, #76	@ 0x4c
+ 80019e6:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
+ 80019ea:	4618      	mov	r0, r3
+ 80019ec:	f005 fc7a 	bl	80072e4 <rf_read_packet>
 				rf_packet_snr(&rfm95_915, &snr);
- 8001a28:	f507 72ac 	add.w	r2, r7, #344	@ 0x158
- 8001a2c:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
- 8001a30:	4611      	mov	r1, r2
- 8001a32:	4618      	mov	r0, r3
- 8001a34:	f005 fd04 	bl	8007440 <rf_packet_snr>
+ 80019f0:	f507 72ac 	add.w	r2, r7, #344	@ 0x158
+ 80019f4:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
+ 80019f8:	4611      	mov	r1, r2
+ 80019fa:	4618      	mov	r0, r3
+ 80019fc:	f005 fd20 	bl	8007440 <rf_packet_snr>
 				rf_packet_rssi(&rfm95_915, &rssi);
- 8001a38:	f507 72aa 	add.w	r2, r7, #340	@ 0x154
- 8001a3c:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
- 8001a40:	4611      	mov	r1, r2
- 8001a42:	4618      	mov	r0, r3
- 8001a44:	f005 fcd2 	bl	80073ec <rf_packet_rssi>
+ 8001a00:	f507 72aa 	add.w	r2, r7, #340	@ 0x154
+ 8001a04:	f107 03ec 	add.w	r3, r7, #236	@ 0xec
+ 8001a08:	4611      	mov	r1, r2
+ 8001a0a:	4618      	mov	r0, r3
+ 8001a0c:	f005 fcee 	bl	80073ec <rf_packet_rssi>
 				printf("[915] RSSI: %d SNR: %d Packet Size: %d", rssi, snr,
- 8001a48:	f8d7 1154 	ldr.w	r1, [r7, #340]	@ 0x154
- 8001a4c:	f8d7 2158 	ldr.w	r2, [r7, #344]	@ 0x158
- 8001a50:	f897 3146 	ldrb.w	r3, [r7, #326]	@ 0x146
- 8001a54:	4811      	ldr	r0, [pc, #68]	@ (8001a9c <StartTelemetryTransmitTask+0x4c0>)
- 8001a56:	f008 fe19 	bl	800a68c <iprintf>
+ 8001a10:	f8d7 1154 	ldr.w	r1, [r7, #340]	@ 0x154
+ 8001a14:	f8d7 2158 	ldr.w	r2, [r7, #344]	@ 0x158
+ 8001a18:	f897 3146 	ldrb.w	r3, [r7, #326]	@ 0x146
+ 8001a1c:	481e      	ldr	r0, [pc, #120]	@ (8001a98 <StartTelemetryTransmitTask+0x4bc>)
+ 8001a1e:	f008 fe35 	bl	800a68c <iprintf>
 						rec_legth1);
 				memcpy(&data_rc2, &dat2.packet_data, BASIC_DATA_2_SIZE);
- 8001a5a:	f107 034c 	add.w	r3, r7, #76	@ 0x4c
- 8001a5e:	3301      	adds	r3, #1
- 8001a60:	2228      	movs	r2, #40	@ 0x28
- 8001a62:	4619      	mov	r1, r3
- 8001a64:	480e      	ldr	r0, [pc, #56]	@ (8001aa0 <StartTelemetryTransmitTask+0x4c4>)
- 8001a66:	f008 ffd4 	bl	800aa12 <memcpy>
+ 8001a22:	f107 034c 	add.w	r3, r7, #76	@ 0x4c
+ 8001a26:	3301      	adds	r3, #1
+ 8001a28:	2228      	movs	r2, #40	@ 0x28
+ 8001a2a:	4619      	mov	r1, r3
+ 8001a2c:	481b      	ldr	r0, [pc, #108]	@ (8001a9c <StartTelemetryTransmitTask+0x4c0>)
+ 8001a2e:	f008 fff0 	bl	800aa12 <memcpy>
 //				printf("%d %d", fc.fc_temp, fc.fc_press);
 //				printf("");
 				printf("\r\n");
- 8001a6a:	480a      	ldr	r0, [pc, #40]	@ (8001a94 <StartTelemetryTransmitTask+0x4b8>)
- 8001a6c:	f008 fe76 	bl	800a75c <puts>
+ 8001a32:	4818      	ldr	r0, [pc, #96]	@ (8001a94 <StartTelemetryTransmitTask+0x4b8>)
+ 8001a34:	f008 fe92 	bl	800a75c <puts>
 //					"FCT: %d FCP: %d FCRPM1: %d FCRPM2: %d MTRV: %d MTRC: %d CAPV: %d CAPC: %d",
 //					data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
 //					data_rc.fc_data2.fan_rpm1, data_rc.fc_data2.fan_rpm2,
 //					data_rc.mtr_data.mtr_volt, data_rc.mtr_data.mtr_curr,
 //					data_rc.cap_data.cap_volt, data_rc.cap_data.cap_curr);
 				rec_legth1 = 0;
- 8001a70:	2300      	movs	r3, #0
- 8001a72:	f887 3146 	strb.w	r3, [r7, #326]	@ 0x146
+ 8001a38:	2300      	movs	r3, #0
+ 8001a3a:	f887 3146 	strb.w	r3, [r7, #326]	@ 0x146
 				HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
- 8001a76:	2200      	movs	r2, #0
- 8001a78:	2108      	movs	r1, #8
- 8001a7a:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 8001a7e:	f001 f993 	bl	8002da8 <HAL_GPIO_WritePin>
+ 8001a3e:	2200      	movs	r2, #0
+ 8001a40:	2108      	movs	r1, #8
+ 8001a42:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 8001a46:	f001 f9af 	bl	8002da8 <HAL_GPIO_WritePin>
 			}
+
+			log_info(
+ 8001a4a:	4b10      	ldr	r3, [pc, #64]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a4c:	6a1d      	ldr	r5, [r3, #32]
+ 8001a4e:	4b0f      	ldr	r3, [pc, #60]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a50:	6a5e      	ldr	r6, [r3, #36]	@ 0x24
+ 8001a52:	4b0e      	ldr	r3, [pc, #56]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a54:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 8001a56:	603b      	str	r3, [r7, #0]
+ 8001a58:	4b0c      	ldr	r3, [pc, #48]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a5a:	6adb      	ldr	r3, [r3, #44]	@ 0x2c
+ 8001a5c:	4a0b      	ldr	r2, [pc, #44]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a5e:	6812      	ldr	r2, [r2, #0]
+ 8001a60:	490a      	ldr	r1, [pc, #40]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a62:	6849      	ldr	r1, [r1, #4]
+ 8001a64:	4809      	ldr	r0, [pc, #36]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a66:	6900      	ldr	r0, [r0, #16]
+ 8001a68:	4c08      	ldr	r4, [pc, #32]	@ (8001a8c <StartTelemetryTransmitTask+0x4b0>)
+ 8001a6a:	6964      	ldr	r4, [r4, #20]
+ 8001a6c:	9404      	str	r4, [sp, #16]
+ 8001a6e:	9003      	str	r0, [sp, #12]
+ 8001a70:	9102      	str	r1, [sp, #8]
+ 8001a72:	9201      	str	r2, [sp, #4]
+ 8001a74:	9300      	str	r3, [sp, #0]
+ 8001a76:	683b      	ldr	r3, [r7, #0]
+ 8001a78:	4632      	mov	r2, r6
+ 8001a7a:	4629      	mov	r1, r5
+ 8001a7c:	4808      	ldr	r0, [pc, #32]	@ (8001aa0 <StartTelemetryTransmitTask+0x4c4>)
+ 8001a7e:	f008 fe05 	bl	800a68c <iprintf>
+					data_rc.fc_data1.fc_temp, data_rc.fc_data1.fc_press,
+					data_rc.fc_data2.fan_rpm1, data_rc.fc_data2.fan_rpm2,
+					data_rc.mtr_data.mtr_volt, data_rc.mtr_data.mtr_curr,
+					data_rc.cap_data.cap_volt, data_rc.cap_data.cap_curr);
+
 			osDelay(5);
  8001a82:	2005      	movs	r0, #5
  8001a84:	f005 feaa 	bl	80077dc <osDelay>
@@ -3782,8 +3786,8 @@ void StartTelemetryTransmitTask(void *argument) {
  8001a90:	0800b57c 	.word	0x0800b57c
  8001a94:	0800b5a4 	.word	0x0800b5a4
  8001a98:	0800b5a8 	.word	0x0800b5a8
- 8001a9c:	0800b608 	.word	0x0800b608
- 8001aa0:	20004188 	.word	0x20004188
+ 8001a9c:	20004188 	.word	0x20004188
+ 8001aa0:	0800b5d0 	.word	0x0800b5d0
 
 08001aa4 <MX_USART1_UART_Init>:
 UART_HandleTypeDef huart1;
@@ -3803,9 +3807,9 @@ void MX_USART1_UART_Init(void)
  8001aa8:	4b22      	ldr	r3, [pc, #136]	@ (8001b34 <MX_USART1_UART_Init+0x90>)
  8001aaa:	4a23      	ldr	r2, [pc, #140]	@ (8001b38 <MX_USART1_UART_Init+0x94>)
  8001aac:	601a      	str	r2, [r3, #0]
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 9600;
  8001aae:	4b21      	ldr	r3, [pc, #132]	@ (8001b34 <MX_USART1_UART_Init+0x90>)
- 8001ab0:	f44f 32e1 	mov.w	r2, #115200	@ 0x1c200
+ 8001ab0:	f44f 5216 	mov.w	r2, #9600	@ 0x2580
  8001ab4:	605a      	str	r2, [r3, #4]
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
  8001ab6:	4b1f      	ldr	r3, [pc, #124]	@ (8001b34 <MX_USART1_UART_Init+0x90>)
