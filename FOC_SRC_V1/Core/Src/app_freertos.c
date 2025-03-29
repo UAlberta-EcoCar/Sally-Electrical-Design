@@ -34,6 +34,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,6 +61,8 @@ FDCAN_FetPack_t fet_data;
 FDCAN_H2Pack_t h2_data;
 FDCAN_BOOSTPack_t boost_data;
 uint8_t can_sync_led;
+
+bool btn1_pressed = false;
 
 rbState_t relay_state;
 FDCAN_RelPackFc_t relay_fc_pack; // Fuel Cell Reading
@@ -384,11 +387,31 @@ void StartCanSend(void *argument)
   /* Infinite loop */
   for (;;)
   {
-    localTxHeader.Identifier = 0x11;
-    localTxHeader.DataLength = FDCAN_DLC_BYTES_64;
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, fet_TxData) != HAL_OK)
+    if (btn1_pressed)
     {
-      Error_Handler();
+      switch (relay_state)
+      {
+      case RELAY_STBY:
+        localTxHeader.Identifier = 0x11;
+        localTxHeader.DataLength = FDCAN_DLC_BYTES_64;
+        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, fet_TxData) != HAL_OK)
+        {
+          Error_Handler();
+        }
+        break;
+      case RELAY_RUN:
+        localTxHeader.Identifier = 0x11;
+        localTxHeader.DataLength = FDCAN_DLC_BYTES_64;
+        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, fet_TxData) != HAL_OK)
+        {
+          Error_Handler();
+        }
+        break;
+      default:
+        // do nothing
+        break;
+      }
+      btn1_pressed = false;
     }
     osDelay(msg_delay);
   }
@@ -402,7 +425,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   switch (GPIO_Pin)
   {
   case GPIO_PIN_3:
-
+    btn1_pressed = true;
     break;
   default:
     break;
