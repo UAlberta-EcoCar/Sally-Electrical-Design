@@ -259,19 +259,19 @@ void StartDefaultTask(void *argument)
     switch (relay_state)
     {
     case RELAY_STBY:
-      hal_stat = WS2812_Idle_Animation(200);
+      hal_stat = WS2812_Standby_Animation(200);
+      break;
+    case RELAY_STRTP:
+      hal_stat = WS2812_Startup_Animation(500);
       break;
     case RELAY_CHRGE:
       hal_stat = WS2812_Charging_Animation(400);
       break;
     case RELAY_RUN:
-      hal_stat = WS2812_Driving_Animation(300);
-      break;
-    case RELAY_STRTP:
-      hal_stat = WS2812_Stop_Animation(500);
+      hal_stat = WS2812_Running_Animation(300);
       break;
     default:
-      hal_stat = WS2812_Charging_Animation(400);
+      hal_stat = WS2812_Standby_Animation(400);
       break;
     }
     /* USER CODE END StartDefaultTask */
@@ -372,6 +372,7 @@ void StartCanSend(void *argument)
   UNUSED(argument);
   FDCAN_TxHeaderTypeDef localTxHeader;
   const uint8_t msg_delay = 10;
+  uint8_t fet_TxData[64] = {0};
 
   localTxHeader.IdType = FDCAN_STANDARD_ID;
   localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
@@ -383,6 +384,12 @@ void StartCanSend(void *argument)
   /* Infinite loop */
   for (;;)
   {
+    localTxHeader.Identifier = 0x11;
+    localTxHeader.DataLength = FDCAN_DLC_BYTES_64;
+    if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, fet_TxData) != HAL_OK)
+    {
+      Error_Handler();
+    }
     osDelay(msg_delay);
   }
   /* USER CODE END StartCanSend */

@@ -134,7 +134,7 @@ uint8_t next_brightness()
   return (increasing ? brightness++ : brightness--);
 }
 
-HAL_StatusTypeDef WS2812_Idle_Animation(const uint32_t delay)
+HAL_StatusTypeDef WS2812_Standby_Animation(const uint32_t delay)
 {
   static uint8_t animation_index = 0;
   const ws2812Colors_t led_colors[] = {LED_RED,
@@ -159,7 +159,7 @@ HAL_StatusTypeDef WS2812_Idle_Animation(const uint32_t delay)
   return hal_status;
 }
 
-HAL_StatusTypeDef WS2812_Driving_Animation(const uint32_t delay)
+HAL_StatusTypeDef WS2812_Running_Animation(const uint32_t delay)
 {
   static uint8_t animation_index = 0;
   const ws2812Colors_t led_colors[] = {LED_RED,
@@ -213,7 +213,7 @@ HAL_StatusTypeDef WS2812_Charging_Animation(const uint32_t delay)
 
   return hal_status;
 }
-HAL_StatusTypeDef WS2812_Stop_Animation(const uint32_t delay)
+HAL_StatusTypeDef WS2812_Startup_Animation(const uint32_t delay)
 {
   static uint8_t animation_index = 0;
   const ws2812Colors_t led_colors[] = {

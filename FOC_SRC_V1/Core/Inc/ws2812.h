@@ -46,9 +46,9 @@ void WS2812_SetColor(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
 void WS2812_SetColor_and_Brightness(uint8_t index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 void WS2812_Callback(void);
 // Animation
-HAL_StatusTypeDef WS2812_Idle_Animation(const uint32_t);
+HAL_StatusTypeDef WS2812_Standby_Animation(const uint32_t);
+HAL_StatusTypeDef WS2812_Startup_Animation(const uint32_t); // Not sure what last state was
 HAL_StatusTypeDef WS2812_Charging_Animation(const uint32_t);
-HAL_StatusTypeDef WS2812_Driving_Animation(const uint32_t);
-HAL_StatusTypeDef WS2812_Stop_Animation(const uint32_t); // Not sure what last state was
+HAL_StatusTypeDef WS2812_Running_Animation(const uint32_t);
 
 #endif /* WS2812_RGB_LED_H */
