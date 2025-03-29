@@ -14,7 +14,7 @@ uint8_t ws2812_dma_buffer[WS2812_DMA_BUFF_LEN];
 volatile uint8_t ws2812_dma_complete_flag;
 
 // Default Brightness for an LED, range 0 -255
-#define WS2812_BRIGHTNESS 10
+#define WS2812_BRIGHTNESS 4
 
 // Default Colors [g, r, b]
 
@@ -186,8 +186,12 @@ HAL_StatusTypeDef WS2812_Driving_Animation(const uint32_t delay)
 HAL_StatusTypeDef WS2812_Charging_Animation(const uint32_t delay)
 {
   static uint8_t animation_index = 0;
+  static uint8_t led_brightness = 1;
   const ws2812Colors_t led_color = LED_GREEN;
-  const uint8_t led_brightness = next_brightness();
+  if (animation_index % (WS2812_NUM_LEDS - 1) == 0)
+  {
+    led_brightness = next_brightness() + 1;
+  }
 
   // Clear LEDs
   for (uint8_t led_index = 0; led_index < WS2812_NUM_LEDS; ++led_index)
@@ -214,21 +218,15 @@ HAL_StatusTypeDef WS2812_Stop_Animation(const uint32_t delay)
   static uint8_t animation_index = 0;
   const ws2812Colors_t led_colors[] = {
       LED_GREEN,
-      LED_BLUE,
-      LED_PURPLE,
-      LED_RED,
       LED_YELLOW,
+      LED_RED,
   };
-  static ws2812Colors_t led_color = LED_GREEN;
-  const uint8_t led_brightness = next_brightness();
+  const ws2812Colors_t led_color = led_colors[animation_index % WS2812_NUM_LEDS];
 
-  if (led_brightness == 1)
-  {
-    led_color = led_colors[animation_index % WS2812_NUM_LEDS];
-  }
   for (uint8_t led_index = 0; led_index < WS2812_NUM_LEDS; ++led_index)
   {
-    WS2812_SetColor_and_Brightness(led_index, led_brightness, led_color.color.r, led_color.color.g, led_color.color.b);
+    // WS2812_SetColor_and_Brightness(led_index, 2, led_color.color.r, led_color.color.g, led_color.color.b);
+    WS2812_SetColor(led_index, led_color.color.r, led_color.color.g, led_color.color.b);
   }
 
   ++animation_index;

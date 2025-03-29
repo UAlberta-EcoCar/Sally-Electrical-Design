@@ -27,7 +27,8 @@
 FDCAN_HandleTypeDef hfdcan2;
 
 /* FDCAN2 init function */
-void MX_FDCAN2_Init(void) {
+void MX_FDCAN2_Init(void)
+{
 
   /* USER CODE BEGIN FDCAN2_Init 0 */
 
@@ -51,10 +52,11 @@ void MX_FDCAN2_Init(void) {
   hfdcan2.Init.DataSyncJumpWidth = 1;
   hfdcan2.Init.DataTimeSeg1 = 1;
   hfdcan2.Init.DataTimeSeg2 = 2;
-  hfdcan2.Init.StdFiltersNbr = 1;
+  hfdcan2.Init.StdFiltersNbr = 2; // number of filters applied
   hfdcan2.Init.ExtFiltersNbr = 0;
   hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
-  if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK) {
+  if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK)
+  {
     Error_Handler();
   }
   /* USER CODE BEGIN FDCAN2_Init 2 */
@@ -67,22 +69,24 @@ void MX_FDCAN2_Init(void) {
   sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
   sFilterConfig.FilterID1 = 0x000; // 0b00000000000
   sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
-  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK)
+  {
     /* Filter configuration Error */
     Error_Handler();
   }
 
-  //  // Accept messages from Fet Board
-  //  sFilterConfig.IdType = FDCAN_STANDARD_ID;
-  //  sFilterConfig.FilterIndex = 1;
-  //  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
-  //  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-  //  sFilterConfig.FilterID1 = 0x010; // 0b00000100000
-  //  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
-  //  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
-  //    /* Filter configuration Error */
-  //    Error_Handler();
-  //  }
+  //  // Accept messages from Relay Board
+  sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  sFilterConfig.FilterIndex = 1;
+  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  sFilterConfig.FilterID1 = 0x010; // 0b00000100000
+  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK)
+  {
+    /* Filter configuration Error */
+    Error_Handler();
+  }
   //
   //  // Accept messages from Fuel Cell Controller
   //  sFilterConfig.IdType = FDCAN_STANDARD_ID;
@@ -121,36 +125,43 @@ void MX_FDCAN2_Init(void) {
   //  }
 
   if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT,
-                                   FDCAN_REJECT, FDCAN_REJECT) != HAL_OK) {
+                                   FDCAN_REJECT, FDCAN_REJECT) != HAL_OK)
+  {
     Error_Handler();
   }
 
   if (HAL_FDCAN_ConfigTxDelayCompensation(
           &hfdcan2, hfdcan2.Init.DataTimeSeg1 * hfdcan2.Init.DataPrescaler,
-          0) != HAL_OK) {
+          0) != HAL_OK)
+  {
     Error_Handler();
   }
-  if (HAL_FDCAN_EnableTxDelayCompensation(&hfdcan2) != HAL_OK) {
+  if (HAL_FDCAN_EnableTxDelayCompensation(&hfdcan2) != HAL_OK)
+  {
     Error_Handler();
   }
 
   /* START FDCAN PERIPHERAL */
-  if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK) {
+  if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK)
+  {
     Error_Handler();
   }
 
   if (HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
-                                     0) != HAL_OK) {
+                                     0) != HAL_OK)
+  {
     Error_Handler();
   }
   /* USER CODE END FDCAN2_Init 2 */
 }
 
-void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef *fdcanHandle) {
+void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef *fdcanHandle)
+{
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
-  if (fdcanHandle->Instance == FDCAN2) {
+  if (fdcanHandle->Instance == FDCAN2)
+  {
     /* USER CODE BEGIN FDCAN2_MspInit 0 */
 
     /* USER CODE END FDCAN2_MspInit 0 */
@@ -159,7 +170,8 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef *fdcanHandle) {
      */
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_FDCAN;
     PeriphClkInit.FdcanClockSelection = RCC_FDCANCLKSOURCE_HSE;
-    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+    {
       Error_Handler();
     }
 
@@ -196,9 +208,11 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef *fdcanHandle) {
   }
 }
 
-void HAL_FDCAN_MspDeInit(FDCAN_HandleTypeDef *fdcanHandle) {
+void HAL_FDCAN_MspDeInit(FDCAN_HandleTypeDef *fdcanHandle)
+{
 
-  if (fdcanHandle->Instance == FDCAN2) {
+  if (fdcanHandle->Instance == FDCAN2)
+  {
     /* USER CODE BEGIN FDCAN2_MspDeInit 0 */
 
     /* USER CODE END FDCAN2_MspDeInit 0 */

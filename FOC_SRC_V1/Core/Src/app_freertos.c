@@ -62,7 +62,7 @@ FDCAN_BOOSTPack_t boost_data;
 uint8_t can_sync_led;
 
 rbState_t relay_state;
-FDCAN_RelPackFc_t relay_fc_pack;
+FDCAN_RelPackFc_t relay_fc_pack; // Fuel Cell Reading
 FDCAN_RelPackCap_t relay_cap_pack;
 FDCAN_RelPackMtr_t relay_motor_pack;
 /* USER CODE END Variables */
@@ -256,38 +256,33 @@ void StartDefaultTask(void *argument)
   HAL_StatusTypeDef hal_stat;
   for (;;)
   {
-    if (can_sync_led == 1)
+    switch (relay_state)
     {
-      switch (relay_state)
-      {
-      case RELAY_STBY:
-        hal_stat = WS2812_Idle_Animation(200);
-        break;
-      case RELAY_CHRGE:
-        hal_stat = WS2812_Charging_Animation(200);
-        break;
-      case RELAY_RUN:
-        hal_stat = WS2812_Driving_Animation(200);
-        break;
-      case RELAY_STRTP:
-        hal_stat = WS2812_Stop_Animation(200);
-        break;
-      }
-    }
-    else
-    {
-      // hal_stat = WS2812_Charging_Animation(300);
-      // hal_stat = WS2812_Driving_Animation(300);
+    case RELAY_STBY:
       hal_stat = WS2812_Idle_Animation(200);
-      // hal_stat = WS2812_Stop_Animation(200);
+      break;
+    case RELAY_CHRGE:
+      hal_stat = WS2812_Charging_Animation(400);
+      break;
+    case RELAY_RUN:
+      hal_stat = WS2812_Driving_Animation(300);
+      break;
+    case RELAY_STRTP:
+      hal_stat = WS2812_Stop_Animation(500);
+      break;
+    default:
+      // hal_stat = WS2812_Stop_Animation(500);
+      // hal_stat = WS2812_Idle_Animation(200);
+      hal_stat = WS2812_Charging_Animation(400);
+      break;
     }
+    /* USER CODE END StartDefaultTask */
   }
-  /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartCanReceive */
 /**
- * @brief Function implementing the canReceiveMsg thread.
+ * @brief Function implementing the canReceiveMsg thread.333
  * @param argument: Not used
  * @retval None
  */
@@ -345,7 +340,8 @@ void StartCanReceive(void *argument)
         memcpy(&boost_data, ret, mapDlcToBytes(localRxHeader.DataLength));
         break;
       case FDCAN_RELSTATE_ID:
-        memcpy(&relay_state, ret, mapDlcToBytes(localRxHeader.DataLength));
+        relay_state = ret[0];
+        // memcpy(&relay_state, ret, mapDlcToBytes(localRxHeader.DataLength));
         break;
       case FDCAN_RELPACKFC_ID:
         memcpy(&relay_fc_pack, ret, mapDlcToBytes(localRxHeader.DataLength));
