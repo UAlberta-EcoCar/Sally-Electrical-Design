@@ -271,8 +271,6 @@ void StartDefaultTask(void *argument)
       hal_stat = WS2812_Stop_Animation(500);
       break;
     default:
-      // hal_stat = WS2812_Stop_Animation(500);
-      // hal_stat = WS2812_Idle_Animation(200);
       hal_stat = WS2812_Charging_Animation(400);
       break;
     }
@@ -392,5 +390,15 @@ void StartCanSend(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  switch (GPIO_Pin)
+  {
+  case GPIO_PIN_3:
 
+    break;
+  default:
+    break;
+  }
+}
 /* USER CODE END Application */
