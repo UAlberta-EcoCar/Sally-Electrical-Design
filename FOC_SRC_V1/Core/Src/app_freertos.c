@@ -380,8 +380,8 @@ void StartCanSend(void *argument)
   localTxHeader.IdType = FDCAN_STANDARD_ID;
   localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
   localTxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-  localTxHeader.BitRateSwitch = FDCAN_BRS_ON;
-  localTxHeader.FDFormat = FDCAN_FD_CAN;
+  localTxHeader.BitRateSwitch = FDCAN_BRS_OFF;
+  localTxHeader.FDFormat = FDCAN_CLASSIC_CAN;
   localTxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
   localTxHeader.MessageMarker = 0;
   /* Infinite loop */
@@ -392,17 +392,17 @@ void StartCanSend(void *argument)
       switch (relay_state)
       {
       case RELAY_STBY:
-        localTxHeader.Identifier = 0x11;
-        localTxHeader.DataLength = FDCAN_DLC_BYTES_64;
-        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, fet_TxData) != HAL_OK)
+        localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
+        localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
+        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, &relay_state) != HAL_OK)
         {
           Error_Handler();
         }
         break;
       case RELAY_RUN:
-        localTxHeader.Identifier = 0x11;
-        localTxHeader.DataLength = FDCAN_DLC_BYTES_64;
-        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, fet_TxData) != HAL_OK)
+        localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
+        localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
+        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, &relay_state) != HAL_OK)
         {
           Error_Handler();
         }
@@ -426,6 +426,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   {
   case GPIO_PIN_3:
     btn1_pressed = true;
+
     break;
   default:
     break;
