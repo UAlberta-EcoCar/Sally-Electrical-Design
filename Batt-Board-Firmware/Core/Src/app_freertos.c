@@ -62,11 +62,12 @@ uint32_t adc1_results[5] = { 0 };
 uint32_t adc2_results[4] = { 0 };
 const float RESOLUTION = 4096.0;
 const float ref_voltage = 3.3;
+int h2_state = 0;
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-uint32_t defaultTaskBuffer[ 512 ];
+uint32_t defaultTaskBuffer[ 1024 ];
 osStaticThreadDef_t defaultTaskControlBlock;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
@@ -233,23 +234,38 @@ void StartDefaultTask(void *argument)
 
 	// Init the screen
 	ssd1306_Init();
+	//Temperature sensors data
+	struct TemperatureSensor {
+		float voltage;
+		float temperature;
+	};
+	//initialize each temperature sensors
+	struct TemperatureSensor Buc;
+	struct TemperatureSensor Op;
+	struct TemperatureSensor Cntrl;
+	float Battery_Input_Voltage;
+	float Battery_Input_Current;
+	float Volt_Output_12V;
+	float Curr_Output_12V;
+	float Volt_Output_7V;
+	float Curr_Output_7V;
+
 
 	for (;;) {
 
-		float Buc_temp_sense_Voltage = ((((adc1_results[0] * ref_voltage) / RESOLUTION)) - 0.193);  //buc voltage
-		float Op_temp_sense_Voltage = ((((adc1_results[1] * ref_voltage) / RESOLUTION)) - 0.13); //op voltage
-		float Cntrl_temp_sense_Voltage = ((((adc1_results[2] * ref_voltage) / RESOLUTION)) + 0.26); //cntrl voltage
-		float Battery_Input_Voltage = adc1_results[3] * ref_voltage / RESOLUTION / 0.0909 ; // VOltage divider: R2 = 4.7k R1 = 47K
-		float Battery_Input_Current = (adc2_results[3] * ref_voltage / RESOLUTION - 2.5) / 0.400;
-		float Volt_Output_12V = (adc2_results[2] * ref_voltage / RESOLUTION) / 0.2655; // Voltage Divider R2: 4.7k R1 = 13k
-		float Curr_Output_12V = (adc1_results[4] * ref_voltage / RESOLUTION - 2.5) / 0.400;
-		float Volt_Output_7V =  (adc2_results[1] * ref_voltage / RESOLUTION) / (4.7/17.7); // VOltage Divider R2:4.7k R1: 13k
-		float Curr_Output_7V =  (adc2_results[0] * ref_voltage / RESOLUTION - 2.5) / 0.400; // VOltage Divider R2:4.7k R1: 13k
+		 Buc.voltage = ((adc1_results[0] * ref_voltage) / RESOLUTION) +0.193;  //buc voltage
+		 Op.voltage  = ((adc1_results[1] * ref_voltage) /  RESOLUTION) +0.13; //op voltage
+		 Cntrl.voltage = (((adc1_results[2] * ref_voltage) / RESOLUTION)+0.23); //cntrl voltage
+		 Battery_Input_Voltage = adc1_results[3] * ref_voltage / RESOLUTION / 0.0909 ; // VOltage divider: R2 = 4.7k R1 = 47K
+		 Battery_Input_Current = (adc2_results[3] * ref_voltage / RESOLUTION - 2.5) / 0.400;
+		 Volt_Output_12V = (adc2_results[2] * ref_voltage / RESOLUTION) / 0.2655; // Voltage Divider R2: 4.7k R1 = 13k
+		 Curr_Output_12V = (adc1_results[4] * ref_voltage / RESOLUTION - 2.5) / 0.400;
+		 Volt_Output_7V =  (adc2_results[1] * ref_voltage / RESOLUTION) / (4.7/17.7); // VOltage Divider R2:4.7k R1: 13k
+		 Curr_Output_7V =  (adc2_results[0] * ref_voltage / RESOLUTION - 2.5) / 0.400; // VOltage Divider R2:4.7k R1: 13k
 
-
-		float Buc_temp = (Buc_temp_sense_Voltage - 0.5) / (0.01);  //buc temp
-		float Op_temp = (Op_temp_sense_Voltage - 0.5) / (0.01);  //op temp
-		float Cntrl_temp = (Cntrl_temp_sense_Voltage - 0.5) / (0.01); //cntrl temp
+		Buc.temperature = (Buc.voltage - 0.5) / 0.01;  //buc temp
+		Op.temperature =  (Op.voltage - 0.5) /  0.01;  //op temp
+		Cntrl.temperature = (Cntrl.voltage - 0.5) / 0.01; //cntrl temp
 		float Batt_Input = Battery_Input_Voltage ; // Batter Input Volt
 		float Batt_Current = Battery_Input_Current ; // Battery Input Current
 		float Output_12V = Volt_Output_12V ; // 12 Volt Output
@@ -267,21 +283,19 @@ void StartDefaultTask(void *argument)
 				 Output_7V_Curr
 
 	    );
+	    char common_buffer[64] = {0};
 
-
-
-
-		char buc_temp[100];
-		char op_temp[100];
-		char cntrl_temp[100];
-		char batt_volt[100];
-		char batt_current[100];
-		char output_12V [100];
-		char output_curr_12V [100];
-		char output_7V [100];
-		char output_curr_7V [100];
-
-		sprintf(buc_temp, "BUCK T:%.2f C", Buc_temp);
+		//char batt_volt[100];
+		//char batt_current[100];
+		//char output_12V [100];
+		//char output_curr_12V [100];
+		//char output_7V [100];
+		//char output_curr_7V [100];
+		//char buc_temp_V[100];
+		//char op_temp_V[100];
+		//char cntrl_temp_V[100];
+/*
+		sprintf(buc_temp, "BUCK T:%.2f C", Buc_temp); //
 		sprintf(op_temp, "OP T: %.2f C", Op_temp);
 		sprintf(cntrl_temp, "CNTRL T: %.2f C", Cntrl_temp);
 		sprintf(batt_volt, "Batt Volt: %.2f V", Batt_Input);
@@ -290,24 +304,41 @@ void StartDefaultTask(void *argument)
 		sprintf(output_curr_12V, "12V Out: %.2f A", Output_12V_Curr);
 		sprintf(output_7V, "7V Out: %.2f V", Output_7V);
 		sprintf(output_curr_7V, "7V Out: %.2f A", Output_7V_Curr);
+		sprintf(buc_temp_V, "BUCK V:%.2f V", Buc_temp_sense_Voltage);
+		sprintf(op_temp_V, "OP V: %.2f V", Op_temp_sense_Voltage);
+		sprintf(cntrl_temp_V, "CNTRL V: %.2f V", Cntrl_temp_sense_Voltage);
+*/
+		sprintf(common_buffer,"BUCK T:%.2f C", Buc.temperature ); //buck temp
+		ssd1306_SetCursor(2, 0);
+		ssd1306_WriteString(common_buffer, Font_6x8 , White);
+
+		ssd1306_SetCursor(2, 10);
+		sprintf(common_buffer,"OP T: %.2f C", Op.temperature);  //cntrl temp
+		ssd1306_WriteString(common_buffer, Font_6x8, White);
+
+		ssd1306_SetCursor(2, 20);
+		sprintf(common_buffer,"CNTRL T: %.2f C", Cntrl.temperature);  //cntrl temp
+		ssd1306_WriteString(common_buffer, Font_6x8, White);
+
+		ssd1306_SetCursor(2, 30);
+		sprintf(common_buffer,"Batt Volt: %.2f V", Batt_Input );
+		ssd1306_WriteString(common_buffer, Font_6x8, White);
+
+		ssd1306_SetCursor(2, 40);
+		sprintf(common_buffer, "Batt Curr: %.2f A", Batt_Current);
+		ssd1306_WriteString(common_buffer, Font_6x8, White);
 
 
-		ssd1306_SetCursor(0, 0);
-		ssd1306_WriteString(buc_temp, Font_7x10, White);
+		if (h2_state == 1) {
+			//ssd1306_Reset();
+		char h2_alarm_message[64] = {0};
+		sprintf(h2_alarm_message, "H2 TRIGGERED");
+		ssd1306_SetCursor(2, 20);
+		ssd1306_WriteString(h2_alarm_message, Font_16x15, 1);
+
+		}
+
 		ssd1306_UpdateScreen();
-
-		ssd1306_SetCursor(0, 15);
-		ssd1306_WriteString(op_temp, Font_7x10, White);
-		ssd1306_UpdateScreen();
-
-		ssd1306_SetCursor(0, 30);
-		ssd1306_WriteString(cntrl_temp, Font_7x10, White);
-		ssd1306_UpdateScreen();
-
-		ssd1306_SetCursor(0, 45);
-		ssd1306_WriteString(batt_current, Font_7x10, White);
-		ssd1306_UpdateScreen();
-
 		osDelay(1);
 	}
   /* USER CODE END StartDefaultTask */
@@ -325,6 +356,7 @@ void StartTaskReceive(void *argument)
   /* USER CODE BEGIN StartTaskReceive */
 	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
 	uint8_t ret[64] = { 0 };
+
 
 	for (;;) {
 		if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier,
@@ -348,6 +380,7 @@ void StartTaskReceive(void *argument)
 			case FDCAN_H2ALARM_ID:
 				// H2 ALARM
 				if (ret[0] == 1) {
+					h2_state = 1;
 					// Do something?
 				}
 				break;
@@ -416,6 +449,9 @@ void StartTaskSend(void *argument)
 //		} //else {
 //		  //log_warn("Tx Buffer Full");
 //		  //}
+
+
+
 		osDelay(1);
 	}
   /* USER CODE END StartTaskSend */
