@@ -17,6 +17,7 @@
 #define ALARM_SCREEN_FLASH_INTERVAL 200
 
 extern uint32_t clean_air_constant_mV;
+extern uint8_t sensor_heating;
 
 extern uint32_t dac1[2];
 extern uint32_t dac2[1];
@@ -56,42 +57,48 @@ void StartUpdateOLEDTask(void *argument) {
 		}
 
 		// Write all data to buffer;
-		sprintf(screen_text, "T: %d H: %d P: %d", sensor_data.temprature_C,
-				sensor_data.humidity_per, sensor_data.pressure_hPa);
 
-		ssd1306_SetCursor(0, 0);
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+		if (sensor_heating) {
+			sprintf(screen_text, "T: %d H: %d P: %d", sensor_data.temprature_C,
+					sensor_data.humidity_per, sensor_data.pressure_hPa);
 
-		sprintf(screen_text, "H1: %d", sensor_data.h2_sense1_mV);
+			ssd1306_SetCursor(0, 0);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
-		ssd1306_SetCursor(0, 10);
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+			sprintf(screen_text, "H1: %d", sensor_data.h2_sense1_mV);
 
-		sprintf(screen_text, "CAC: %d", clean_air_constant_mV);
+			ssd1306_SetCursor(0, 10);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
-		ssd1306_SetCursor(70, 10);
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+			sprintf(screen_text, "CAC: %d", clean_air_constant_mV);
 
-		sprintf(screen_text, "TH: %d", dac1[0] * 3.3 / 4096);
+			ssd1306_SetCursor(70, 10);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
-		ssd1306_SetCursor(70, 20);
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+			sprintf(screen_text, "TH: %d", dac1[0] * 3.3 / 4096);
 
-		sprintf(screen_text, "H2: %d", sensor_data.h2_sense2_mV);
+			ssd1306_SetCursor(70, 20);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
-		ssd1306_SetCursor(0, 20);
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+			sprintf(screen_text, "H2: %d", sensor_data.h2_sense2_mV);
 
-		sprintf(screen_text, "H3: %d", sensor_data.h2_sense3_mV);
+			ssd1306_SetCursor(0, 20);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
-		ssd1306_SetCursor(0, 30);
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+			sprintf(screen_text, "H3: %d", sensor_data.h2_sense3_mV);
 
-		sprintf(screen_text, "H4: %d", sensor_data.h2_sense4_mV);
+			ssd1306_SetCursor(0, 30);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
-		ssd1306_SetCursor(0, 40);
-		ssd1306_WriteString(screen_text, Font_6x8, current_color);
+			sprintf(screen_text, "H4: %d", sensor_data.h2_sense4_mV);
 
+			ssd1306_SetCursor(0, 40);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
+		} else {
+			sprintf(screen_text, "Sensor Heating 5s...");
+			ssd1306_SetCursor(0, 0);
+			ssd1306_WriteString(screen_text, Font_6x8, current_color);
+		}
 		ssd1306_SetCursor(0, 50);
 		switch (alarm_state) {
 		case H2_ALARM_ARMED:
@@ -107,9 +114,6 @@ void StartUpdateOLEDTask(void *argument) {
 			sprintf(screen_text, "ALARM TEST");
 			break;
 		}
-
-//		ssd1306_FillRectangle(0, 50, 70, 100, Black);
-//		ssd1306_UpdateScreen();
 
 		ssd1306_WriteString(screen_text, Font_7x10, current_color);
 

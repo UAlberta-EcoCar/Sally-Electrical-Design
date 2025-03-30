@@ -21,10 +21,10 @@
 #include "mq8calibration.h"
 #include "dac.h"
 
-#define H2_THRESH_1 1000 // mV of converted sensor read value
-#define H2_THRESH_2 1000
-#define H2_THRESH_3 1000
-#define H2_THRESH_4 1000
+#define H2_THRESH_1 2000 // mV of converted sensor read value
+#define H2_THRESH_2 2000
+#define H2_THRESH_3 2000
+#define H2_THRESH_4 2000
 
 #define RLOAD_MQ8 4700 // load on the sensor
 
@@ -39,6 +39,8 @@ H2_Alarm_State_t alarm_state = H2_ALARM_DISARMED;
 uint32_t dac1[2] = { 0 };
 uint32_t dac2[1] = { 0 };
 uint32_t dac4[1] = { 0 };
+
+uint8_t sensor_heating = 0;
 
 extern uint32_t clean_air_constant_mV;
 // DAC1.OUT1 -> COMP1.Reference
@@ -57,13 +59,7 @@ static void Tone(uint32_t Frequency, uint32_t Duration) {
 void StartLeakWatchdogTask(void *argument) {
 	/* USER CODE BEGIN StartLeakWatchdogTask */
 //	HAL_TIMEx_PWMN_Start(&htim5, TIM_CHANNEL_2);
-	HAL_COMP_Start(&hcomp1);
-	HAL_COMP_Start(&hcomp2);
-	HAL_COMP_Start(&hcomp6);
-	HAL_COMP_Start(&hcomp7);
-
 	// Use the DACs to set comparator voltage
-
 	dac1[0] = (clean_air_constant_mV + H2_THRESH_1) * 4096.0f / 3.3f; // + clean_air_constant_mV;
 	dac1[1] = (clean_air_constant_mV + H2_THRESH_2) * 4096.0f / 3.3f; // + clean_air_constant_mV;
 	dac2[0] = (clean_air_constant_mV + H2_THRESH_3) * 4096.0f / 3.3f; // + clean_air_constant_mV;
@@ -102,6 +98,15 @@ void StartLeakWatchdogTask(void *argument) {
 //	FDCAN_H2Pack2_t data2 = { 0 };
 
 	float h2_ppm[4] = { 0 };
+
+	osDelay(5000);
+
+	sensor_heating = 1;
+
+	HAL_COMP_Start(&hcomp1);
+	HAL_COMP_Start(&hcomp2);
+	HAL_COMP_Start(&hcomp6);
+	HAL_COMP_Start(&hcomp7);
 
 	/* Infinite loop */
 	for (;;) {
