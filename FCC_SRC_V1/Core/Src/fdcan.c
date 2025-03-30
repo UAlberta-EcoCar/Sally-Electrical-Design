@@ -52,7 +52,7 @@ void MX_FDCAN2_Init(void)
   hfdcan2.Init.DataSyncJumpWidth = 1;
   hfdcan2.Init.DataTimeSeg1 = 1;
   hfdcan2.Init.DataTimeSeg2 = 2;
-  hfdcan2.Init.StdFiltersNbr = 3;
+  hfdcan2.Init.StdFiltersNbr = 2;
   hfdcan2.Init.ExtFiltersNbr = 0;
   hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
   if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK)
@@ -74,7 +74,7 @@ void MX_FDCAN2_Init(void)
     Error_Handler();
   }
 
-  // Accept messages from Fet Board
+  // Accept messages from Relay Board
   sFilterConfig.IdType = FDCAN_STANDARD_ID;
   sFilterConfig.FilterIndex = 1;
   sFilterConfig.FilterType = FDCAN_FILTER_MASK;
@@ -86,7 +86,7 @@ void MX_FDCAN2_Init(void)
     Error_Handler();
   }
 
-  // Accept messages from Fet Board
+  // Accept messages from Boost Board
   sFilterConfig.IdType = FDCAN_STANDARD_ID;
   sFilterConfig.FilterIndex = 2;
   sFilterConfig.FilterType = FDCAN_FILTER_MASK;
@@ -124,6 +124,7 @@ void MX_FDCAN2_Init(void)
 	Error_Handler();
   }
   /* USER CODE END FDCAN2_Init 2 */
+
 }
 
 void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)

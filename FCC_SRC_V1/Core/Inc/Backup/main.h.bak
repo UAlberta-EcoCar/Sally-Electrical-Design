@@ -95,6 +95,8 @@ void Error_Handler(void);
 #define LED1_GPIO_Port GPIOB
 #define LED4_Pin GPIO_PIN_10
 #define LED4_GPIO_Port GPIOB
+#define CAN_STBY_Pin GPIO_PIN_11
+#define CAN_STBY_GPIO_Port GPIOB
 #define TACH4_Pin GPIO_PIN_12
 #define TACH4_GPIO_Port GPIOB
 #define TACH4_EXTI_IRQn EXTI15_10_IRQn

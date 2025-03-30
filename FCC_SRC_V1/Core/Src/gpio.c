@@ -99,11 +99,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(CAN_STBY_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : TACH4_Pin */
-  GPIO_InitStruct.Pin = TACH4_Pin;
+  /*Configure GPIO pins : TACH4_Pin PB8 */
+  GPIO_InitStruct.Pin = TACH4_Pin|GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(TACH4_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PA8 */
   GPIO_InitStruct.Pin = GPIO_PIN_8;

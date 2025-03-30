@@ -77,6 +77,7 @@ FDCAN_FccPack1_t fc_data1 = { 0 };
 FDCAN_FccPack2_t fc_data2 = { 0 };
 FDCAN_FccPack3_t fc_data3 = { 0 };
 FDCAN_FetPack_t fet_data = { 0 };
+FDCAN_RelPackNrg_t energy_data = { 0 };
 
 uint8_t button_flags = 0x00;
 
@@ -347,7 +348,7 @@ void PID_Init(pidParam_t *pid);
 float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp);
 void calcPidTimer(void *argument);
 void calcTachRpmTimer(void *argument);
-extern void StartUsb(void *argument);
+extern void StartUsbTask(void *argument);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -438,7 +439,7 @@ void MX_FREERTOS_Init(void) {
 
 	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	usbTaskHandle = osThreadNew(StartUsb, NULL, &usbTask_attributes);
+	usbTaskHandle = osThreadNew(StartUsbTask, NULL, &usbTask_attributes);
 	/* USER CODE END RTOS_THREADS */
 
 	/* USER CODE BEGIN RTOS_EVENTS */
@@ -459,7 +460,7 @@ void StartDefaultTask(void *argument) {
 	MX_USB_Device_Init();
 	/* USER CODE BEGIN StartDefaultTask */
 	// Let other tasks use i2c during startup
-	osDelay(5000);
+	osDelay(100);
 
 	// Init screen
 	osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
@@ -499,8 +500,13 @@ void StartDefaultTask(void *argument) {
 			ssd1306_Fill(Black);
 			//ssd1306_UpdateScreen();
 
-			sprintf(ScreenBuffer, "STATE: %s",
-					(relay_state == RELAY_STBY) ? "STBY" : "RUN");
+			if (READ_BIT(button_flags, 1 << 7) == 1 << 7) {
+				sprintf(ScreenBuffer, "STATE: %s", "ALARM");
+			} else {
+				sprintf(ScreenBuffer, "STATE: %s",
+						(relay_state == RELAY_STBY) ? "STBY" : "RUN");
+			}
+
 			ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 			sprintf(ScreenBuffer, "Delay: %.2f(s)",
 					(float) purgeDelay_ms / 1000);
@@ -602,6 +608,9 @@ void StartTaskReceive(void *argument) {
 				relay_state = ret[0];
 				printf("Updating FCC (0x%x) state\r\n", relay_state);
 				break;
+			case FDCAN_RELPACKENERGY_ID:
+				memcpy(energy_data.FDCAN_RawRelPackNrg, ret, mapDlcToBytes(localRxHeader.DataLength));
+				break;
 			default:
 				log_info("Received CANID 0x%x but did nothing with it!",
 						localRxHeader.Identifier);
@@ -683,8 +692,8 @@ void StartTaskSend(void *argument) {
 
 // If the appropriate button flag is raised and bit 8 is not raised (h2
 // alarm) try to send a new state to FET board
-		if (READ_BIT(button_flags, 0x01) == 1 &&
-		READ_BIT(button_flags, 0x80) == 0) {
+;		if (READ_BIT(button_flags, 0x01) == 1 &&
+		READ_BIT(button_flags, 1 << 7) == 0) {
 
 			localTxHeader.Identifier = FDCAN_RELSTATE_ID;
 			localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
@@ -721,51 +730,60 @@ void valveContrl(void *argument) {
 	uint8_t status = 0;
 	uint8_t startupPurge = 0;
 	for (;;) {
-// returns 1 or 0 depending on status
-		status = osTimerIsRunning(purgetimerHandle);
-
-// Switch through valid solenoid states
-		if (relay_state == RELAY_STBY) {
+		if (READ_BIT(button_flags, 1 << 7) == (1 << 7)) {
 			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
 					GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 					GPIO_PIN_RESET);
-
-			if (status == 1) {
-				osTimerStop(purgetimerHandle); // kill purge cycle
-			}
-
 			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-
-			startupPurge = 0;
-
 		} else {
-			// If either FET_CHRGE or FET_RUN this code is what we need
+// returns 1 or 0 depending on status
+			status = osTimerIsRunning(purgetimerHandle);
 
-			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
-					GPIO_PIN_SET);
-			if ((startupPurge == 0)) {
-				HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-						GPIO_PIN_SET);
-				osDelay(purgeTime_ms);
+// Switch through valid solenoid states
+			if (relay_state == RELAY_STBY) {
+				HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+						GPIO_PIN_RESET);
 				HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 						GPIO_PIN_RESET);
-				startupPurge = 1;
-				purge_timer_flag = 0;
-			}
 
-			if (purge_timer_flag == 1) {
-				osTimerStop(purgetimerHandle);
-				osTimerStart(purgetimerHandle, purgeDelay_ms);
-				purge_timer_flag = 0;
-			}
-			if (status == 0) {
-				osTimerStart(purgetimerHandle, purgeDelay_ms);
-			}
+				if (status == 1) {
+					osTimerStop(purgetimerHandle); // kill purge cycle
+				}
 
-			HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
+				startupPurge = 0;
+
+			} else {
+				// If either FET_CHRGE or FET_RUN this code is what we need
+
+				HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+						GPIO_PIN_SET);
+				if ((startupPurge == 0)) {
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+							GPIO_PIN_SET);
+					osDelay(purgeTime_ms);
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+							GPIO_PIN_RESET);
+					startupPurge = 1;
+					purge_timer_flag = 0;
+				}
+
+				if (purge_timer_flag == 1) {
+					osTimerStop(purgetimerHandle);
+					osTimerStart(purgetimerHandle, purgeDelay_ms);
+					purge_timer_flag = 0;
+				}
+				if (status == 0) {
+					osTimerStart(purgetimerHandle, purgeDelay_ms);
+				}
+
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+			}
 		}
 		osDelay(1);
 	}
