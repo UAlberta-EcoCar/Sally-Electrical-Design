@@ -63,6 +63,10 @@ FDCAN_BOOSTPack_t boost_data;
 uint8_t can_sync_led;
 
 bool btn1_pressed = false;
+uint32_t ticks, lastTicks = 0;
+
+bool btn2_pressed = false;
+uint32_t ticks2, lastTicks2 = 0;
 
 rbState_t relay_state;
 FDCAN_RelPackFc_t relay_fc_pack; // Fuel Cell Reading
@@ -262,7 +266,10 @@ void StartDefaultTask(void *argument)
     switch (relay_state)
     {
     case RELAY_STBY:
-      hal_stat = WS2812_Standby_Animation(200);
+      hal_stat = WS2812_Standby_Animation(500);
+      // hal_stat = WS2812_Startup_Animation(500);
+      // hal_stat = WS2812_Charging_Animation(500);
+      // hal_stat = WS2812_Running_Animation(100);
       break;
     case RELAY_STRTP:
       hal_stat = WS2812_Startup_Animation(500);
@@ -274,7 +281,7 @@ void StartDefaultTask(void *argument)
       hal_stat = WS2812_Running_Animation(300);
       break;
     default:
-      hal_stat = WS2812_Standby_Animation(400);
+      hal_stat = WS2812_Startup_Animation(400);
       break;
     }
     /* USER CODE END StartDefaultTask */
@@ -389,27 +396,12 @@ void StartCanSend(void *argument)
   {
     if (btn1_pressed)
     {
-      switch (relay_state)
+      localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
+      localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
+      const rbState_t next_state = (relay_state == RELAY_STBY) ? RELAY_STRTP : RELAY_STBY;
+      if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, &next_state) != HAL_OK)
       {
-      case RELAY_STBY:
-        localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
-        localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
-        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, &relay_state) != HAL_OK)
-        {
-          Error_Handler();
-        }
-        break;
-      case RELAY_RUN:
-        localTxHeader.Identifier = FDCAN_UPDATESTATE_ID;
-        localTxHeader.DataLength = FDCAN_DLC_BYTES_1;
-        if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader, &relay_state) != HAL_OK)
-        {
-          Error_Handler();
-        }
-        break;
-      default:
-        // do nothing
-        break;
+        Error_Handler();
       }
       btn1_pressed = false;
     }
@@ -424,11 +416,25 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   switch (GPIO_Pin)
   {
-  case GPIO_PIN_3:
-    btn1_pressed = true;
-
+  case BUTTON_1_Pin:
+    ticks = osKernelGetTickCount();
+    if (ticks - lastTicks >= 1000)
+    {
+      lastTicks = ticks;
+      // Trigger a FET state change
+      // SET_BIT(button_flags, 0x01);
+      btn1_pressed = true;
+    }
     break;
-  default:
+  case BUTTON_2_Pin:
+    ticks2 = osKernelGetTickCount();
+    if (ticks2 - lastTicks2 >= 1000)
+    {
+      lastTicks2 = ticks2;
+      // Trigger a FET state change
+      // SET_BIT(button_flags, 0x01);
+      btn2_pressed = true;
+    }
     break;
   }
 }
