@@ -240,9 +240,11 @@ void HAL_FDCAN_ErrorStatusCallback(FDCAN_HandleTypeDef *hfdcan,
 
 uint32_t ticks, lastTicks = 0;
 uint32_t ticks2, lastTicks2 = 0;
+uint32_t ticks_boot, lastTicks_boot = 0;
 int8_t oled_page = 0;
 uint8_t encode_state, encode_last_state = 0;
 uint32_t encode_ticks, encode_last_tick = 0;
+int purge_force_flag = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	/* Prevent unused argument(s) compilation warning */
 
@@ -279,7 +281,15 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 		//"confirms" the purge timers
 
 		break;
+	case FCPurge_Pin: // GPB
+		ticks_boot = osKernelGetTickCount();
+		if (ticks_boot - lastTicks_boot >= 1000) {
+			purge_force_flag = 1;
 
+		}
+		//"confirms" the purge timers
+
+		break;
 	case EncoderA_Pin:
 	case EncoderB_Pin:
 		encode_ticks = osKernelGetTickCount();
@@ -609,7 +619,8 @@ void StartTaskReceive(void *argument) {
 				printf("Updating FCC (0x%x) state\r\n", relay_state);
 				break;
 			case FDCAN_RELPACKENERGY_ID:
-				memcpy(energy_data.FDCAN_RawRelPackNrg, ret, mapDlcToBytes(localRxHeader.DataLength));
+				memcpy(energy_data.FDCAN_RawRelPackNrg, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
 				break;
 			default:
 				log_info("Received CANID 0x%x but did nothing with it!",
@@ -652,6 +663,8 @@ void StartTaskSend(void *argument) {
 	uint32_t sync_led_last = 0;
 	uint32_t sync_led_this;
 
+	HAL_GPIO_WritePin(CAN_STBY_GPIO_Port,CAN_STBY_Pin,GPIO_PIN_RESET);
+
 	for (;;) {
 
 		sync_led_this = osKernelGetTickCount();
@@ -692,7 +705,8 @@ void StartTaskSend(void *argument) {
 
 // If the appropriate button flag is raised and bit 8 is not raised (h2
 // alarm) try to send a new state to FET board
-;		if (READ_BIT(button_flags, 0x01) == 1 &&
+		;
+		if (READ_BIT(button_flags, 0x01) == 1 &&
 		READ_BIT(button_flags, 1 << 7) == 0) {
 
 			localTxHeader.Identifier = FDCAN_RELSTATE_ID;
@@ -770,6 +784,15 @@ void valveContrl(void *argument) {
 							GPIO_PIN_RESET);
 					startupPurge = 1;
 					purge_timer_flag = 0;
+				}
+
+				if (purge_force_flag == 1) {
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+							GPIO_PIN_SET);
+					osDelay(purgeTime_ms);
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+							GPIO_PIN_RESET);
+					purge_force_flag = 0;
 				}
 
 				if (purge_timer_flag == 1) {

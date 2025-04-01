@@ -256,6 +256,7 @@ void EXTI9_5_IRQHandler(void)
   HAL_GPIO_EXTI_IRQHandler(AccINT1_Pin);
   HAL_GPIO_EXTI_IRQHandler(AccINT2_Pin);
   HAL_GPIO_EXTI_IRQHandler(TACH1_Pin);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
   HAL_GPIO_EXTI_IRQHandler(TACH2_Pin);
   /* USER CODE BEGIN EXTI9_5_IRQn 1 */
 
