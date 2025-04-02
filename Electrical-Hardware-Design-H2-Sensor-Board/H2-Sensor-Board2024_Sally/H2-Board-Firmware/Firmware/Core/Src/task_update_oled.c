@@ -119,6 +119,8 @@ void StartUpdateOLEDTask(void *argument) {
 
 		ssd1306_UpdateScreen();
 
+		if (H2_ALARM_TRIGGERED == alarm_state)
+
 		osDelay(100);
 	}
 	/* USER CODE END StartUpdateOLEDTask */
