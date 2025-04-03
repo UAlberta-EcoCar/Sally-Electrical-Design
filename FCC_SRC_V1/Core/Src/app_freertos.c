@@ -916,11 +916,15 @@ void StartFuelCellData(void *argument) {
       273.15f
 #define VOLT_2_PRES(x) (x - 2.3555F) / 0.1038F
 
+#define VOLT_TO_RES(V) 100000.0f * V/(3.3f - V);
+#define RES_TO_TEMP(R) 14.98f * log(299.7f/(R - 22.32f))
+
 	const float VOLT_CONVERSION = 4.094F / 32768.0F;
 	const float TRANSFER_FUNC_P = 0.657F;
 
 	uint16_t step;
 	float step2, step3;
+  float thermTemp = 0, thermResist = 0;
 
 	uint32_t this_print, last_print = 0;
 
@@ -959,6 +963,9 @@ void StartFuelCellData(void *argument) {
 		step3 = VOLT_2_TEMP(step2);
 		fc_data1.fc_temp = (int32_t) (step3 * FDCAN_FOUR_FLT_PREC);
 
+    thermResist = VOLT_TO_RES(step2);
+    thermTemp = RES_TO_TEMP(thermResist);
+
 		configReg.channel = CHANNEL_AIN1_GND;
 		if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
 			ADS1115_updateConfig(pADS_1, configReg);
@@ -982,6 +989,7 @@ void StartFuelCellData(void *argument) {
 					(float) fc_data1.fc_temp / FDCAN_FOUR_FLT_PREC, myPid.y[0],
 					100 - htim2.Instance->CCR2, fc_data2.fan_rpm1,
 					fc_data2.fan_rpm2);
+      printf("Therm Resistance: %f\tTherm Temp: %f\r\n", thermResist, thermTemp);
 		}
 	}
 	/* USER CODE END StartFuelCellData */
