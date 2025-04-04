@@ -58,8 +58,8 @@ void MX_GPIO_Init(void)
                           |RST_24_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|RST_GNSS_Pin|RST_915_Pin|GPIO_PIN_8
-                          |GPIO_PIN_9, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, NSS_24_Pin|NRST_GNSS_Pin|GNSS_EXTINT_Pin|RST_915_Pin
+                          |GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : SPI2_NSS_Pin NSS_915_Pin NSS_868_Pin RST_868_Pin */
   GPIO_InitStruct.Pin = SPI2_NSS_Pin|NSS_915_Pin|NSS_868_Pin|RST_868_Pin;
@@ -71,7 +71,7 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin : SWT1_Pin */
   GPIO_InitStruct.Pin = SWT1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(SWT1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin LED4_Pin
@@ -86,13 +86,13 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin : SWT2_Pin */
   GPIO_InitStruct.Pin = SWT2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(SWT2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : NSS_24_Pin RST_GNSS_Pin RST_915_Pin PB8
-                           PB9 */
-  GPIO_InitStruct.Pin = NSS_24_Pin|RST_GNSS_Pin|RST_915_Pin|GPIO_PIN_8
-                          |GPIO_PIN_9;
+  /*Configure GPIO pins : NSS_24_Pin NRST_GNSS_Pin GNSS_EXTINT_Pin RST_915_Pin
+                           PB8 PB9 */
+  GPIO_InitStruct.Pin = NSS_24_Pin|NRST_GNSS_Pin|GNSS_EXTINT_Pin|RST_915_Pin
+                          |GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

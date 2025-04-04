@@ -6,31 +6,16 @@
 #include "ecocar_can.h"
 #include "exported_typedef.h"
 #include "debug-log.h"
+#include "task_telemetry_transmit.h"
 
 extern osMessageQueueId_t canQueRxHeaderHandle;
 extern osMessageQueueId_t canQueRxDataHandle;
 
-uint8_t gps_can[8] = {0};
-
-typedef struct {
-	//FDCAN_FetPack_t fet_data;
-	FDCAN_RelPackMtr_t mtr_data;
-	FDCAN_RelPackCap_t cap_data;
-	FDCAN_FccPack1_t fc_data1;
-	FDCAN_FccPack2_t fc_data2;
-
-} telemetry_data1_t;
-
-typedef struct {
-	FDCAN_FccPack3_t fc_data3;
-	//FDCAN_H2Pack_t h2_data;
-	FDCAN_BOOSTPack_t boost_data1;
-	FDCAN_BOOSTPack2_t boost_data2;
-	FDCAN_RelPackFc_t RelPackFc;
-} telemetry_data2_t;
+uint8_t nathan[8] = { 0 };
 
 telemetry_data1_t data1;
 telemetry_data2_t data2;
+telemetry_data3_t data3;
 //FDCAN_FccPack1_t fc_data1 = { 0 };
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
@@ -136,43 +121,45 @@ void StartCanReceive(void *argument) {
 					// Copy data fc pres and temp
 //				memcpy(fc_data1.FDCAN_RawFccPack, ret,
 //						mapDlcToBytes(localRxHeader.DataLength));
-					pointer_to_data_store = &data1.fc_data1.FDCAN_RawFccPack;
+					pointer_to_data_store = data1.fc_data1.FDCAN_RawFccPack;
 					break;
 				case FDCAN_RELPACKFC_ID:
 					// Copy data fc pres and temp
 //				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
 //						mapDlcToBytes(localRxHeader.DataLength));
-					pointer_to_data_store = &data2.RelPackFc.FDCAN_RawRelPackFc;
+					pointer_to_data_store = data2.RelPackFc.FDCAN_RawRelPackFc;
 					break;
 				case FDCAN_FETPACK_ID:
 //					pointer_to_data_store = &data2.;
 					break;
 				case FDCAN_RELPACKMTR_ID:
-					pointer_to_data_store = &data1.mtr_data.FDCAN_RawRelPackMtr;
+					pointer_to_data_store = data1.mtr_data.FDCAN_RawRelPackMtr;
 					break;
 				case FDCAN_RELPACKCAP_ID:
-					pointer_to_data_store = &data1.cap_data.FDCAN_RawRelPackCap;
+					pointer_to_data_store = data1.cap_data.FDCAN_RawRelPackCap;
 					break;
 				case FDCAN_RELSTATE_ID:
-//					pointer_to_data_store =;
+					pointer_to_data_store = &data3.rb_state;
 					break;
 				case FDCAN_FCCPACK2_ID:
-					pointer_to_data_store = &data1.fc_data2.FDCAN_RawFccPack;
+					pointer_to_data_store = data1.fc_data2.FDCAN_RawFccPack;
 					break;
 				case FDCAN_FCCPACK3_ID:
-					pointer_to_data_store = &data2.fc_data3.FDCAN_RawFccPack;
+					pointer_to_data_store = data2.fc_data3.FDCAN_RawFccPack;
 					break;
 //				case FDCAN_H2PACK_ID:
 //					pointer_to_data_store = &data1.fc_data1.FDCAN_RawFccPack;
 //					break;
 				case FDCAN_BOOSTPACK_ID:
-					pointer_to_data_store = &data2.boost_data1.FDCAN_RawBOOSTPack;
+					pointer_to_data_store =
+							data2.boost_data1.FDCAN_RawBOOSTPack;
 					break;
 				case FDCAN_BOOSTPACK2_ID:
-					pointer_to_data_store = &data2.boost_data2.FDCAN_RawBOOSTPack2;
+					pointer_to_data_store =
+							data2.boost_data2.FDCAN_RawBOOSTPack2;
 					break;
-				case 0x123:
-//					memcpy(gps_can, ret, 8);
+				case ECOCAN_H2_PACK1_ID:
+					pointer_to_data_store = data3.h2_data.ECOCAN_raw_pack;
 					break;
 				default:
 					log_err("CANID 0x%x not handled!",
@@ -183,7 +170,8 @@ void StartCanReceive(void *argument) {
 				memcpy(pointer_to_data_store, ret,
 						mapDlcToBytes(localRxHeader.DataLength));
 			} else {
-				log_err("Some Thing is sending remote frames. %x", localRxHeader.Identifier);
+				log_err("Some Thing is sending remote frames. %x",
+						localRxHeader.Identifier);
 			}
 		}
 //		osDelay(1);

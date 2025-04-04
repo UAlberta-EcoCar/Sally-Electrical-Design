@@ -76,8 +76,10 @@ void Error_Handler(void);
 #define NSS_868_GPIO_Port GPIOC
 #define NSS_24_Pin GPIO_PIN_0
 #define NSS_24_GPIO_Port GPIOB
-#define RST_GNSS_Pin GPIO_PIN_1
-#define RST_GNSS_GPIO_Port GPIOB
+#define NRST_GNSS_Pin GPIO_PIN_1
+#define NRST_GNSS_GPIO_Port GPIOB
+#define GNSS_EXTINT_Pin GPIO_PIN_2
+#define GNSS_EXTINT_GPIO_Port GPIOB
 #define RST_24_Pin GPIO_PIN_10
 #define RST_24_GPIO_Port GPIOA
 #define RST_868_Pin GPIO_PIN_10
@@ -87,6 +89,23 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 #define HARDFAULT_TIMER 500000
+
+//typedef struct {
+//	//FDCAN_FetPack_t fet_data;
+//	FDCAN_RelPackMtr_t mtr_data;
+//	FDCAN_RelPackCap_t cap_data;
+//	FDCAN_FccPack1_t fc_data1;
+//	FDCAN_FccPack2_t fc_data2;
+//} telemetry_data1_t;
+//
+//typedef struct {
+//	FDCAN_FccPack3_t fc_data3;
+//	//FDCAN_H2Pack_t h2_data;
+//	FDCAN_BOOSTPack_t boost_data1;
+//	FDCAN_BOOSTPack2_t boost_data2;
+//	FDCAN_RelPackFc_t RelPackFc;
+//} telemetry_data2_t;
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
