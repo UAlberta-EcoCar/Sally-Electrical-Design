@@ -64,12 +64,13 @@ typedef struct {
 #define ADS1115_ADR1 0x48
 #define TACH_TIMER_INTERVAL 1000
 #define PID_TIMER_INTERVAL 1 // in ms
+#define PURGE_TIMED 0X01
+#define PURGE_CHARGE 0X02
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 /* USER CODE END PM */
-
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 uint32_t TachTracker[4] = { 0 };
@@ -78,6 +79,11 @@ FDCAN_FccPack2_t fc_data2 = { 0 };
 FDCAN_FccPack3_t fc_data3 = { 0 };
 FDCAN_FetPack_t fet_data = { 0 };
 FDCAN_RelPackNrg_t energy_data = { 0 };
+ECOCAN_RelPackChrg_t charge_data = { 0 };
+
+uint8_t FC_substate = PURGE_TIMED;
+//uint32_t Last_charge;
+//uint32_t Current_charge;
 
 uint8_t button_flags = 0x00;
 
@@ -244,7 +250,10 @@ uint32_t ticks_boot, lastTicks_boot = 0;
 int8_t oled_page = 0;
 uint8_t encode_state, encode_last_state = 0;
 uint32_t encode_ticks, encode_last_tick = 0;
+uint32_t ticksDriver, ticksDriverLast = 0;
+
 int purge_force_flag = 0;
+//uint32_t btnB_doubleTime, btnB_doubleLast = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	/* Prevent unused argument(s) compilation warning */
 
@@ -261,7 +270,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	case TACH4_Pin:
 		TachTracker[3]++;
 		break;
+	case EXTstart_Pin:
+		ticksDriver = osKernelGetTickCount();
+		if (ticksDriver - ticksDriverLast >= 1000) {
+			ticksDriverLast = ticksDriver;
 
+			// Trigger a FET state change
+			SET_BIT(button_flags, 0x01);
+		}
 	case BTN1_Pin: // GPA
 		ticks = osKernelGetTickCount();
 		if (ticks - lastTicks >= 1000) {
@@ -274,11 +290,21 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	case BTN2_Pin: // GPB
 		ticks2 = osKernelGetTickCount();
 		if (ticks2 - lastTicks2 >= 1000) {
+			lastTicks2 = ticks2;
+			//btnB_doubleTime = HAL_GetTick();
+//			if (btnB_doubleTime - btnB_doubleLast <= 300) {
+//				if (relay_state == RELAY_STRTP || relay_state == RELAY_RUN
+//						|| relay_state == RELAY_CHRGE) {
+//				}
+//
+//			} else {
 			purgeDelay_ms = (uint32_t) pdelay_unconfirmed;
 			purgeTime_ms = (uint32_t) ptime_unconfirmed;
 			purge_timer_flag = 1;
-		}
-		//"confirms" the purge timers
+
+//			}
+
+		} //"confirms" the purge timers
 
 		break;
 	case FCPurge_Pin: // GPB
@@ -286,8 +312,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 		if (ticks_boot - lastTicks_boot >= 1000) {
 			purge_force_flag = 1;
 
-		}
-		//"confirms" the purge timers
+		} //Manual purge
 
 		break;
 	case EncoderA_Pin:
@@ -622,6 +647,11 @@ void StartTaskReceive(void *argument) {
 				memcpy(energy_data.FDCAN_RawRelPackNrg, ret,
 						mapDlcToBytes(localRxHeader.DataLength));
 				break;
+			case ECOCAN_RELPACKCHARGE_ID:
+				memcpy(charge_data.ECOCAN_RawRelPackChrg, ret,
+						mapDlcToBytes(localRxHeader.DataLength));
+				break;
+
 			default:
 				log_info("Received CANID 0x%x but did nothing with it!",
 						localRxHeader.Identifier);
@@ -663,7 +693,7 @@ void StartTaskSend(void *argument) {
 	uint32_t sync_led_last = 0;
 	uint32_t sync_led_this;
 
-	HAL_GPIO_WritePin(CAN_STBY_GPIO_Port,CAN_STBY_Pin,GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(CAN_STBY_GPIO_Port, CAN_STBY_Pin, GPIO_PIN_RESET);
 
 	for (;;) {
 
@@ -743,6 +773,8 @@ void valveContrl(void *argument) {
 	/* Infinite loop */
 	uint8_t status = 0;
 	uint8_t startupPurge = 0;
+	int32_t fc_charge_last = 0;
+	int32_t fc_charge = 0;
 	for (;;) {
 		if (READ_BIT(button_flags, 1 << 7) == (1 << 7)) {
 			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
@@ -771,19 +803,84 @@ void valveContrl(void *argument) {
 
 				startupPurge = 0;
 
-			} else {
-				// If either FET_CHRGE or FET_RUN this code is what we need
+			} else if (relay_state == RELAY_STRTP) {
+				if (startupPurge == 0) {
+					HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+											GPIO_PIN_SET);
+					HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 
-				HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
-						GPIO_PIN_SET);
-				if ((startupPurge == 0)) {
+					osDelay(100);
 					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 							GPIO_PIN_SET);
-					osDelay(purgeTime_ms);
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+					osDelay(500);
 					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 							GPIO_PIN_RESET);
+
+
 					startupPurge = 1;
-					purge_timer_flag = 0;
+				}
+
+			} else {
+				// If either FET_CHRGE or FET_RUN this code is what we need
+				if (FC_substate == PURGE_TIMED) {
+
+					HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
+							GPIO_PIN_SET);
+					HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
+					if (startupPurge == 0) {
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+								GPIO_PIN_SET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+						osDelay(purgeTime_ms);
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+								GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+						startupPurge = 1;
+						purge_timer_flag = 0;
+
+					}
+
+					if (purge_force_flag == 1) {
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+								GPIO_PIN_SET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+						osDelay(purgeTime_ms);
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+								GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+						purge_force_flag = 0;
+					}
+
+					if (purge_timer_flag == 1) {
+						osTimerStop(purgetimerHandle);
+						osTimerStart(purgetimerHandle, purgeDelay_ms);
+						purge_timer_flag = 0;
+					}
+					if (status == 0) {
+						osTimerStart(purgetimerHandle, purgeDelay_ms);
+					}
+
+					HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+
+				} else if (FC_substate == PURGE_CHARGE) {
+					if (status == 1) {
+						osTimerStop(purgetimerHandle); // kill purge timed cycle
+					}
+
+					fc_charge = charge_data.fc_coloumbs;
+
+					if (fc_charge - fc_charge_last >= 2300) {
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+								GPIO_PIN_SET);
+						osDelay(purgeTime_ms);
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+								GPIO_PIN_RESET);
+						fc_charge_last = fc_charge;
+					}
 				}
 
 				if (purge_force_flag == 1) {
@@ -794,18 +891,6 @@ void valveContrl(void *argument) {
 							GPIO_PIN_RESET);
 					purge_force_flag = 0;
 				}
-
-				if (purge_timer_flag == 1) {
-					osTimerStop(purgetimerHandle);
-					osTimerStart(purgetimerHandle, purgeDelay_ms);
-					purge_timer_flag = 0;
-				}
-				if (status == 0) {
-					osTimerStart(purgetimerHandle, purgeDelay_ms);
-				}
-
-				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 			}
 		}
 		osDelay(1);
@@ -822,7 +907,7 @@ void valveContrl(void *argument) {
 /* USER CODE END Header_StartFuelCellData */
 void StartFuelCellData(void *argument) {
 	/* USER CODE BEGIN StartFuelCellData */
-	// Following for
+// Following for
 #define DELAY_FOR_CHANNEL_SWITCH 20
 #define B 3950.0f
 #define VOLT_2_TEMP(x)                                                         \
@@ -842,9 +927,9 @@ void StartFuelCellData(void *argument) {
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
-	// Initialize the PID loop
-	// Refer to documentation on the parameters and
-	// transfer function used
+// Initialize the PID loop
+// Refer to documentation on the parameters and
+// transfer function used
 	PID_Init(&myPid);
 
 	if (osTimerStart(tachtimerHandle, TACH_TIMER_INTERVAL) != osOK
@@ -853,7 +938,7 @@ void StartFuelCellData(void *argument) {
 	}
 
 	osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
-	// TODO: Add lis3dh initialization code here
+// TODO: Add lis3dh initialization code here
 	osSemaphoreRelease(i2cSemaHandle);
 
 	/* Infinite loop */
@@ -906,20 +991,22 @@ void StartFuelCellData(void *argument) {
 void purgeValveTimer(void *argument) {
 	/* USER CODE BEGIN purgeValveTimer */
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 	osDelay(purgeTime_ms);
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 	/* USER CODE END purgeValveTimer */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 void calcTachRpmTimer(void *argument) {
-	// TACH_TIMER_INTERVAL is in ms and there are two pulses per period
+// TACH_TIMER_INTERVAL is in ms and there are two pulses per period
 	fc_data2.fan_rpm1 = (TachTracker[0] / (TACH_TIMER_INTERVAL / 1000 * 2));
 	fc_data2.fan_rpm2 = (TachTracker[1] / (TACH_TIMER_INTERVAL / 1000 * 2));
 	TachTracker[0] = TachTracker[1] = 0;
 
-	// Currently these are unused
+// Currently these are unused
 	TachTracker[2] = TachTracker[3] = 0;
 }
 
@@ -933,8 +1020,8 @@ void calcPidTimer(void *argument) {
 
 // Initialize PID controller
 void PID_Init(pidParam_t *pid) {
-	// Discrete transfer function coefficients (Tustin approximation)
-	// Retrieved from matlab script
+// Discrete transfer function coefficients (Tustin approximation)
+// Retrieved from matlab script
 	pid->num[0] = 5.0f;
 	pid->num[1] = -5.0f;
 	pid->num[2] = 0.0f;
@@ -943,7 +1030,7 @@ void PID_Init(pidParam_t *pid) {
 	pid->den[1] = -1.0f;
 	pid->den[2] = 0.0f;
 
-	// Initialize history buffers
+// Initialize history buffers
 	for (uint8_t i = 0; i < 3; i++) {
 		pid->u[i] = 0.0;
 		pid->y[i] = 0.0;
@@ -955,19 +1042,19 @@ float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
 	float error = measured_temp - setpoint;
 	float out;
 
-	// Shift previous values
+// Shift previous values
 	pid->u[2] = pid->u[1];
 	pid->u[1] = pid->u[0];
 	pid->u[0] = error;
 	pid->y[2] = pid->y[1];
 	pid->y[1] = pid->y[0];
 
-	// Compute output using transfer function
+// Compute output using transfer function
 	pid->y[0] = (pid->num[0] * pid->u[0] + pid->num[1] * pid->u[1]
 			+ pid->num[2] * pid->u[2])
 			- (pid->den[1] * pid->y[1] + pid->den[2] * pid->y[2]);
 
-	// Clamp output to valid duty cycle range (0-100%)
+// Clamp output to valid duty cycle range (0-100%)
 	out = pid->y[0];
 	if (out > 100.0)
 		out = 100.0;
