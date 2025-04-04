@@ -92,7 +92,8 @@ rbState_t relay_state = RELAY_STBY;
 uint32_t purge_dbuffer;
 uint32_t purge_tbuffer;
 pidParam_t myPid;
-float fcSetpointTemp = 20; // Celsius
+
+float fcSetpointTemp = 40; // Celsius
 // Default Purge values
 volatile uint32_t purgeDelay_ms = 60000; // time delay between purge is ms
 volatile uint32_t purgeTime_ms = 250;   // purge duration
@@ -773,8 +774,8 @@ void valveContrl(void *argument) {
 	/* Infinite loop */
 	uint8_t status = 0;
 	uint8_t startupPurge = 0;
-	int32_t fc_charge_last = 0;
-	int32_t fc_charge = 0;
+	float fc_charge_last = 0;
+	float fc_charge = 0;
 	for (;;) {
 		if (READ_BIT(button_flags, 1 << 7) == (1 << 7)) {
 			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
@@ -806,7 +807,7 @@ void valveContrl(void *argument) {
 			} else if (relay_state == RELAY_STRTP) {
 				if (startupPurge == 0) {
 					HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
-											GPIO_PIN_SET);
+							GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 
@@ -817,7 +818,6 @@ void valveContrl(void *argument) {
 					osDelay(500);
 					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 							GPIO_PIN_RESET);
-
 
 					startupPurge = 1;
 				}
@@ -834,11 +834,13 @@ void valveContrl(void *argument) {
 					if (startupPurge == 0) {
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 								GPIO_PIN_SET);
-						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+								GPIO_PIN_SET);
 						osDelay(purgeTime_ms);
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 								GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+								GPIO_PIN_RESET);
 						startupPurge = 1;
 						purge_timer_flag = 0;
 
@@ -847,11 +849,13 @@ void valveContrl(void *argument) {
 					if (purge_force_flag == 1) {
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 								GPIO_PIN_SET);
-						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+								GPIO_PIN_SET);
 						osDelay(purgeTime_ms);
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 								GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+								GPIO_PIN_RESET);
 						purge_force_flag = 0;
 					}
 
@@ -871,7 +875,7 @@ void valveContrl(void *argument) {
 						osTimerStop(purgetimerHandle); // kill purge timed cycle
 					}
 
-					fc_charge = charge_data.fc_coloumbs;
+					fc_charge = charge_data.fc_coloumbs / FDCAN_FOUR_FLT_PREC;
 
 					if (fc_charge - fc_charge_last >= 2300) {
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
@@ -880,17 +884,17 @@ void valveContrl(void *argument) {
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 								GPIO_PIN_RESET);
 						fc_charge_last = fc_charge;
+						if (purge_force_flag == 1) {
+							HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+									PURGEvlve_Pin, GPIO_PIN_SET);
+							osDelay(purgeTime_ms);
+							HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+									PURGEvlve_Pin, GPIO_PIN_RESET);
+							purge_force_flag = 0;
+						}
 					}
 				}
 
-				if (purge_force_flag == 1) {
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-							GPIO_PIN_SET);
-					osDelay(purgeTime_ms);
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-							GPIO_PIN_RESET);
-					purge_force_flag = 0;
-				}
 			}
 		}
 		osDelay(1);
@@ -924,7 +928,7 @@ void StartFuelCellData(void *argument) {
 
 	uint16_t step;
 	float step2, step3;
-  float thermTemp = 0, thermResist = 0;
+	float thermTemp = 0, thermResist = 0;
 
 	uint32_t this_print, last_print = 0;
 
@@ -963,8 +967,9 @@ void StartFuelCellData(void *argument) {
 		step3 = VOLT_2_TEMP(step2);
 		fc_data1.fc_temp = (int32_t) (step3 * FDCAN_FOUR_FLT_PREC);
 
-    thermResist = VOLT_TO_RES(step2);
-    thermTemp = RES_TO_TEMP(thermResist);
+		thermResist = VOLT_TO_RES(step2)
+		;
+		thermTemp = RES_TO_TEMP(thermResist);
 
 		configReg.channel = CHANNEL_AIN1_GND;
 		if (osSemaphoreAcquire(i2cSemaHandle, 1000) == osOK) {
@@ -989,7 +994,8 @@ void StartFuelCellData(void *argument) {
 					(float) fc_data1.fc_temp / FDCAN_FOUR_FLT_PREC, myPid.y[0],
 					100 - htim2.Instance->CCR2, fc_data2.fan_rpm1,
 					fc_data2.fan_rpm2);
-      printf("Therm Resistance: %f\tTherm Temp: %f\r\n", thermResist, thermTemp);
+			printf("Therm Resistance: %f\tTherm Temp: %f\r\n", thermResist,
+					thermTemp);
 		}
 	}
 	/* USER CODE END StartFuelCellData */
