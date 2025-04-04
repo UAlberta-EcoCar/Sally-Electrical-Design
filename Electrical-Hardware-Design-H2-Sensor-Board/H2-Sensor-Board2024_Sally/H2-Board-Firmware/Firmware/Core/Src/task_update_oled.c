@@ -119,7 +119,9 @@ void StartUpdateOLEDTask(void *argument) {
 
 		ssd1306_UpdateScreen();
 
-		if (H2_ALARM_TRIGGERED == alarm_state)
+//		if (H2_ALARM_TRIGGERED == alarm_state) {
+//			amogus();
+//		}
 
 		osDelay(100);
 	}

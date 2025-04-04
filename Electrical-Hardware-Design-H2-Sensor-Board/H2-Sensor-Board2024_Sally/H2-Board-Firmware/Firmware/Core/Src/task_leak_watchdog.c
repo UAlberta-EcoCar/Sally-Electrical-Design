@@ -21,10 +21,10 @@
 #include "mq8calibration.h"
 #include "dac.h"
 
-#define H2_THRESH_1 2000 // mV of converted sensor read value
-#define H2_THRESH_2 2000
-#define H2_THRESH_3 2000
-#define H2_THRESH_4 2000
+#define H2_THRESH_1 30000 // mV of converted sensor read value
+#define H2_THRESH_2 30000
+#define H2_THRESH_3 30000
+#define H2_THRESH_4 30000
 
 #define RLOAD_MQ8 4700 // load on the sensor
 
@@ -167,17 +167,18 @@ void StartLeakWatchdogTask(void *argument) {
  * @retval None
  */
 void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
-	if (COMP1 == hcomp->Instance) {
-		// Alarm
-		osSemaphoreRelease(H2AlarmSemHandle);
-	} else if (COMP2 == hcomp->Instance) {
-		osSemaphoreRelease(H2AlarmSemHandle);
-	} else if (COMP6 == hcomp->Instance) {
-		osSemaphoreRelease(H2AlarmSemHandle);
-	} else if (COMP7 == hcomp->Instance) {
-		osSemaphoreRelease(H2AlarmSemHandle);
+	if (H2_ALARM_ARMED == alarm_state) {
+		if (COMP1 == hcomp->Instance) {
+			// Alarm
+			osSemaphoreRelease(H2AlarmSemHandle);
+		} else if (COMP2 == hcomp->Instance) {
+			osSemaphoreRelease(H2AlarmSemHandle);
+		} else if (COMP6 == hcomp->Instance) {
+			osSemaphoreRelease(H2AlarmSemHandle);
+		} else if (COMP7 == hcomp->Instance) {
+			osSemaphoreRelease(H2AlarmSemHandle);
+		}
 	}
-
 //	if (osOK == osSemaphoreRelease(H2AlarmSemHandle)) {
 //		log_critical(
 //				"High H2 Concentration Detected. Triggering System Shutdown.");

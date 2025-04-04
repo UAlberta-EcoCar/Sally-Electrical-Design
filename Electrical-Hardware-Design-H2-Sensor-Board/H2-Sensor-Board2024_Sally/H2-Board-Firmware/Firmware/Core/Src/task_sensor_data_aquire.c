@@ -17,6 +17,7 @@
 #include "ecocar_can.h"
 #include "stm32g4xx_hal.h"
 #include "eeprom_emul.h"
+#include "dac.h"
 
 #define H2_CLEAN_AIR_CONSTANT_MV_INDEX 1
 
@@ -28,6 +29,8 @@ uint32_t VarValue = 0;
 EE_Status ee_status = EE_OK;
 
 Sensor_Data_t sensor_data;
+
+ECOCAN_H2Pack1_t h2_data_to_send = { 0 };
 
 uint32_t clean_air_constant_mV = 5000;
 uint32_t RS_air = 0;
@@ -47,6 +50,10 @@ uint32_t adc5_results[4] = { 0 }; // 0: h2sense4 1: cputemp 2: vbat 3: vrefint
 #define ADC_CONV_CONST 3.3f / 4096.0f
 
 extern osSemaphoreId_t H2tareCurrentEnviormentHandle;
+
+extern uint32_t dac1[2];
+extern uint32_t dac2[1];
+extern uint32_t dac4[1];
 
 int8_t user_i2c_write(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len);
 int8_t user_i2c_read(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len);
@@ -212,6 +219,11 @@ void StartSensorDataAquireTask(void *argument) {
 		sensor_data.vbat_mV = (uint32_t) (adc5_results[2] * ADC_CONV_CONST
 				* FDCAN_FOUR_FLT_PREC);
 
+		h2_data_to_send.h2_sense_1 = sensor_data.h2_sense1_mV;
+		h2_data_to_send.h2_sense_2 = sensor_data.h2_sense2_mV;
+		h2_data_to_send.h2_sense_3 = sensor_data.h2_sense3_mV;
+		h2_data_to_send.h2_sense_4 = sensor_data.h2_sense4_mV;
+
 		// temp equation
 		// [V_30 - V_Sense] / AVERAGE_SLOPE + 25
 
@@ -260,6 +272,10 @@ void StartSensorDataAquireTask(void *argument) {
 				Error_Handler();
 			}
 			HAL_FLASH_Lock();
+			HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac1[0]);
+			HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dac1[1]);
+			HAL_DAC_SetValue(&hdac2, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac2[0]);
+			HAL_DAC_SetValue(&hdac4, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac4[0]);
 		}
 		osDelay(50);
 		HAL_GPIO_WritePin(GPLED1_GPIO_Port, GPLED1_Pin, GPIO_PIN_RESET);

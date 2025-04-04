@@ -12,10 +12,15 @@
 #include <FreeRTOS.h>
 #include <task.h>
 #include "ecocar_can.h"
+#include "typedef/exported_typedef.h"
+
+rbState_t rbstate = RELAY_STBY;
 
 extern osMessageQueueId_t CANMessageRecieveQHandle;
 extern osSemaphoreId_t H2AlarmSemHandle;
 extern osMessageQueueId_t CANMessageTransmitQHandle;
+
+extern ECOCAN_H2Pack1_t h2_data_to_send;
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
 	FDCAN_RxHeaderTypeDef RxHeader;
@@ -31,6 +36,15 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		switch (RxHeader.Identifier) {
 		case FDCAN_SYNCLED_ID:
 			HAL_GPIO_WritePin(GPLED5_GPIO_Port, GPLED5_Pin, RxData[0]);
+			break;
+		case FDCAN_RELSTATE_ID:
+
+			memcpy(&rbstate, RxData, sizeof(rbState_t));
+
+			if (RELAY_STBY != rbstate) {
+				alarm_state = H2_ALARM_ARMED;
+			}
+
 			break;
 		default:
 			osMessageQueuePut(CANMessageRecieveQHandle, &RxHeader.Identifier, 0,
@@ -56,26 +70,43 @@ void StartCANTransmitTask(void *argument) {
 	/* USER CODE BEGIN StartCANTransmitTask */
 	HAL_GPIO_WritePin(CAN_STDBY_GPIO_Port, CAN_STDBY_Pin, GPIO_PIN_RESET);
 	uint8_t send_data[64];
+
 	FDCAN_TxHeaderTypeDef TxHeader = { 0 };
+
+	FDCAN_TxHeaderTypeDef h2_data;
+
+	h2_data.BitRateSwitch = FDCAN_BRS_OFF;
+	h2_data.DataLength = 1;
+	h2_data.ErrorStateIndicator = FDCAN_FLAG_ERROR_PASSIVE;
+	h2_data.FDFormat = FDCAN_FD_CAN;
+	h2_data.IdType = FDCAN_STANDARD_ID;
+	h2_data.Identifier = ECOCAN_H2_ARM_ALARM_ID;
+	h2_data.TxFrameType = FDCAN_CLASSIC_CAN;
+	h2_data.MessageMarker = 0xAA;
+	h2_data.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+
 	/* Infinite loop */
 	for (;;) {
-
-		if (0 != osMessageQueueGetCount(CANMessageTransmitQHandle)) {
-			if (osOK
-					== osMessageQueueGet(CANMessageTransmitQHandle,
-							&TxHeader.Identifier, 0, 0)) {
-				osMessageQueueGet(CANMessageTransmitQHandle,
-						&TxHeader.DataLength, 0, 0);
-				for (uint8_t i = 0; i < mapDlcToBytes(TxHeader.DataLength);
-						i++) {
-					osMessageQueueGet(CANMessageTransmitQHandle, &send_data[i],
-							0, 0);
-				}
-				// Handle Sending
-			} else {
-				log_err("CAN Transmit Message Queue Error.");
-			}
+		if (HAL_OK != HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &h2_data, &h2_data_to_send)) {
+			log_err("Error sending CAN");
 		}
+		osDelay(300);
+//		if (0 != osMessageQueueGetCount(CANMessageTransmitQHandle)) {
+//			if (osOK
+//					== osMessageQueueGet(CANMessageTransmitQHandle,
+//							&TxHeader.Identifier, 0, 0)) {
+//				osMessageQueueGet(CANMessageTransmitQHandle,
+//						&TxHeader.DataLength, 0, 0);
+//				for (uint8_t i = 0; i < mapDlcToBytes(TxHeader.DataLength);
+//						i++) {
+//					osMessageQueueGet(CANMessageTransmitQHandle, &send_data[i],
+//							0, 0);
+//				}
+//				// Handle Sending
+//			} else {
+//				log_err("CAN Transmit Message Queue Error.");
+//			}
+//		}
 
 		// Transmit the basic data
 
@@ -122,7 +153,6 @@ void StartCANTransmitTask(void *argument) {
 //			}
 //		}
 
-		osDelay(20);
 	}
 	/* USER CODE END StartCANTransmitTask */
 }
@@ -170,9 +200,18 @@ void StartCANRecieve(void *argument) {
 			switch (id) {
 			case ECOCAN_H2_ARM_ALARM_ID:
 //				HAL_GPIO_WritePin(GPLED4_GPIO_Port, GPLED4_Pin, RxD)
-				ECOCAN_H2_ARM_ALARM_t inc = {0};
+				ECOCAN_H2_ARM_ALARM_t inc = { 0 };
 				memcpy(inc.ECOCAN_raw_pack, incomming_data, FDCAN_BYTES_8);
 				alarm_state = inc.h2_alarm_armed;
+				break;
+			case FDCAN_RELSTATE_ID:
+
+				memcpy(&rbstate, incomming_data, sizeof(rbState_t));
+
+				if (RELAY_STBY != rbstate) {
+					alarm_state = H2_ALARM_ARMED;
+				}
+
 				break;
 			default:
 				break;
