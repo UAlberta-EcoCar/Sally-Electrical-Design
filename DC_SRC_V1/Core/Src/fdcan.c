@@ -39,7 +39,7 @@ void MX_FDCAN2_Init(void)
   /* USER CODE END FDCAN2_Init 1 */
   hfdcan2.Instance = FDCAN2;
   hfdcan2.Init.ClockDivider = FDCAN_CLOCK_DIV1;
-  hfdcan2.Init.FrameFormat = FDCAN_FRAME_FD_BRS;
+  hfdcan2.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
   hfdcan2.Init.Mode = FDCAN_MODE_NORMAL;
   hfdcan2.Init.AutoRetransmission = DISABLE;
   hfdcan2.Init.TransmitPause = DISABLE;
@@ -75,17 +75,17 @@ void MX_FDCAN2_Init(void)
     Error_Handler();
   }
 
-  // Accept DC BOOST messages
-  sFilterConfig.IdType = FDCAN_STANDARD_ID;
-  sFilterConfig.FilterIndex = 1;
-  sFilterConfig.FilterType = FDCAN_FILTER_MASK;
-  sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-  sFilterConfig.FilterID1 = 0x040; // 0b00000000000
-  sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
-  if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
-    /* Filter configuration Error */
-    Error_Handler();
-    }
+  // // Accept DC BOOST messages
+  // sFilterConfig.IdType = FDCAN_STANDARD_ID;
+  // sFilterConfig.FilterIndex = 1;
+  // sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+  // sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  // sFilterConfig.FilterID1 = 0x040; // 0b00000000000
+  // sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+  // if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+  //   /* Filter configuration Error */
+  //   Error_Handler();
+  //   }
 
 
   if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT,

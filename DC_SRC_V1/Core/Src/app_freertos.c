@@ -66,15 +66,12 @@ typedef struct {
 /* USER CODE BEGIN Variables */
 FDCAN_BOOSTPack_t boost_data = { 0 };
 FDCAN_BOOSTPack2_t boost_data2 = { 0 };
+FDCAN_BOOSTPack3_t boost_data3 = {0};
 
 static uint8_t voltage_reached = 0;  // Flag to track first detection
+
 bool lock_state = false;
-
-float SET_VOLT = 47;
-float actual_voltage = 48;
-float button_time = 0;
-
-float effiency;
+float SET_VOLT = 48;
 const float VOLT_MCU = 3.283;
 
 float en_pin = 0;
@@ -108,7 +105,7 @@ const osThreadAttr_t canSendMsg_attributes = {
   .stack_size = sizeof(canSendMsgBuffer),
   .cb_mem = &canSendMsgControlBlock,
   .cb_size = sizeof(canSendMsgControlBlock),
-  .priority = (osPriority_t) osPriorityNormal1,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for canRecieveMsg */
 osThreadId_t canRecieveMsgHandle;
@@ -120,7 +117,7 @@ const osThreadAttr_t canRecieveMsg_attributes = {
   .stack_size = sizeof(canRecieveMsgBuffer),
   .cb_mem = &canRecieveMsgControlBlock,
   .cb_size = sizeof(canRecieveMsgControlBlock),
-  .priority = (osPriority_t) osPriorityNormal2,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for adcConvTask */
 osThreadId_t adcConvTaskHandle;
@@ -132,7 +129,7 @@ const osThreadAttr_t adcConvTask_attributes = {
   .stack_size = sizeof(adcConvTaskBuffer),
   .cb_mem = &adcConvTaskControlBlock,
   .cb_size = sizeof(adcConvTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal3,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for ScreenPrintTask */
 osThreadId_t ScreenPrintTaskHandle;
@@ -144,7 +141,7 @@ const osThreadAttr_t ScreenPrintTask_attributes = {
   .stack_size = sizeof(ScreenPrintHandBuffer),
   .cb_mem = &ScreenPrintHandControlBlock,
   .cb_size = sizeof(ScreenPrintHandControlBlock),
-  .priority = (osPriority_t) osPriorityNormal4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for TRKPinTask */
 osThreadId_t TRKPinTaskHandle;
@@ -156,7 +153,7 @@ const osThreadAttr_t TRKPinTask_attributes = {
   .stack_size = sizeof(TRKPinTaskBuffer),
   .cb_mem = &TRKPinTaskControlBlock,
   .cb_size = sizeof(TRKPinTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal5,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for StatusLEDHandle */
 osThreadId_t StatusLEDHandleHandle;
@@ -168,7 +165,7 @@ const osThreadAttr_t StatusLEDHandle_attributes = {
   .stack_size = sizeof(StatusLEDHandleBuffer),
   .cb_mem = &StatusLEDHandleControlBlock,
   .cb_size = sizeof(StatusLEDHandleControlBlock),
-  .priority = (osPriority_t) osPriorityNormal6,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for canQueueRxHeader */
 osMessageQueueId_t canQueueRxHeaderHandle;
@@ -314,22 +311,19 @@ void StartDefaultTask(void *argument)
 	/* Infinite loop */
 	for (;;) {
 
-		// Incraese the set output voltage using the push button. Since it is connected to the BOOT0 Pin, will need to push this button with the NRST button each time when flashing 
+		// Increase the set output voltage using the push button. Since it is connected to the BOOT0 Pin, will need to push this button with the NRST button each time when flashing
 		if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET) { 
-			button_time = osKernelGetTickCount(); //could try osKernelGetTickCount() instead
-			SET_VOLT ++;
+		    SET_VOLT++;
 
+		    if (SET_VOLT > 55) {
+		        float input_voltage = (float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC;
 
-			if (SET_VOLT > 55 || SET_VOLT < 15) {
-				SET_VOLT = roundf(boost_data.in_volt / FDCAN_FOUR_FLT_PREC + 3); 
-				if (SET_VOLT < 15) {
-					SET_VOLT = 15;
-				}  
-			}
-		}
-
-		if (osKernelGetTickCount() - button_time >= 1500) {
-			actual_voltage = SET_VOLT;
+		        if (input_voltage < 15.0f) {
+		            SET_VOLT = 16;  // Ensure minimum voltage is 16V
+		        } else {
+		            SET_VOLT = input_voltage + 3.0f;  // Set 3V higher than input voltage
+		        }
+		    }
 		}
 
 
@@ -370,9 +364,9 @@ void StartCanSend(void *argument)
 	const uint8_t msg_delay = 100;
 
 	//LED SYNC
-//	uint8_t can_sync_led = 0;
-//	uint32_t sync_led_last = 0;
-//	uint32_t sync_led_this = osKernelGetSysTimerCount();
+	uint8_t can_sync_led = 0;
+	uint32_t sync_led_last = 0;
+	uint32_t sync_led_this = osKernelGetSysTimerCount();
 
 	localTxHeader.IdType = FDCAN_STANDARD_ID;
 	localTxHeader.TxFrameType = FDCAN_DATA_FRAME;
@@ -426,6 +420,15 @@ void StartCanSend(void *argument)
 		  //}
 
 		osDelay(msg_delay);
+
+		localTxHeader.Identifier = FDCAN_BOOSTPACK3_ID;
+		localTxHeader.DataLength = FDCAN_DLC_BYTES_8;
+		if (HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2) != 0) {
+			if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &localTxHeader,
+					(uint8_t*) &boost_data3.FDCAN_RawBOOSTPack3) != HAL_OK) {
+				Error_Handler();
+			}
+		}
 		}	
 
   /* USER CODE END StartCanSend */
@@ -477,21 +480,21 @@ void StartRecieveMsg(void *argument)
 			case FDCAN_SYNCLED_ID:
 				// CAN SYNC LED
 				if (ret[0] == 1) {
-					htim3.Instance->CCR3 = SET_BRIGHTNESS(80); // CAN LED
+					htim3.Instance->CCR3 = SET_BRIGHTNESS(20); // CAN LED
 				} else {
 					htim3.Instance->CCR3 = SET_BRIGHTNESS(0); // CAN LED
 				}
 				break;
-
-			case FDCAN_BOOSTPACK_ID:
-				memcpy(&boost_data.FDCAN_RawBOOSTPack, ret,
-					mapDlcToBytes(localRxHeader.DataLength));
-				break;
-
-			case FDCAN_BOOSTPACK2_ID:
-				memcpy(&boost_data2.FDCAN_RawBOOSTPack2, ret,
-					mapDlcToBytes(localRxHeader.DataLength));
-				break;
+//
+//			case FDCAN_BOOSTPACK_ID:
+//				memcpy(&boost_data.FDCAN_RawBOOSTPack, ret,
+//					mapDlcToBytes(localRxHeader.DataLength));
+//				break;
+//
+//			case FDCAN_BOOSTPACK2_ID:
+//				memcpy(&boost_data2.FDCAN_RawBOOSTPack2, ret,
+//					mapDlcToBytes(localRxHeader.DataLength));
+//				break;
 
 
 
@@ -528,8 +531,6 @@ void StartAdcConv(void *argument)
 	static float out_curr_buffer[ADC_BUFFER_SIZE] = {0};
 	static uint8_t out_curr_index = 0;
 
-
-
 	HAL_ADC_Start_DMA(&hadc1, ADC1_VALUE, 4);
 	HAL_ADC_Start_DMA(&hadc2, ADC2_VALUE, 2);
 
@@ -559,21 +560,24 @@ void StartAdcConv(void *argument)
 		boost_data.in_curr = sum_in_curr / ADC_BUFFER_SIZE;
 		boost_data2.out_curr = sum_out_curr / ADC_BUFFER_SIZE;
 
-		effiency = ((float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC * (float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) /
-				   ((float)boost_data.in_curr   / FDCAN_FOUR_FLT_PREC * (float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC) * 100;
+		boost_data3.efficiency = (uint32_t)(
+		    ((float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) *
+		    ((float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC) /
+		    ((float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC) /
+		    ((float)boost_data.in_curr / FDCAN_FOUR_FLT_PREC) *
+		    100 * FDCAN_FOUR_FLT_PREC);
 
 		printf(
-				"IN CURR: %.3f OUT CURR: %.3f IN VOLT: %.1f OUT VOLT: %.1f Efficiency: %.1f  SET VOLT: %.0f  ENABLE PIN: %0.f\r\n",
-				(float)boost_data.in_curr   / FDCAN_FOUR_FLT_PREC,
+				"IN CURR: %.3f OUT CURR: %.3f IN VOLT: %.1f OUT VOLT: %.1f SET VOLT: %.0f  ENABLE PIN: %0.f\r\n",
+				(float)boost_data.in_curr / FDCAN_FOUR_FLT_PREC,
 				(float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data.in_volt   / FDCAN_FOUR_FLT_PREC,
+				(float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC,
 				(float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC,
-				(float)effiency,
 				SET_VOLT,
 				en_pin
 				);
 
-		osDelay(50);
+		osDelay(10);
 	}
   /* USER CODE END StartAdcConv */
 }
@@ -590,44 +594,37 @@ void startScreenPrint(void *argument)
   /* USER CODE BEGIN startScreenPrint */
 	/* Infinite loop */
 	ssd1306_Init();
-	// Display the ecocar logo for 1.5 seconds
+	// Display the test bitmap for 2.5 seconds
 	ssd1306_TestDrawBitmap();
 	ssd1306_UpdateScreen();
-	osDelay(1000);
+	osDelay(2500); // Delay for 2.5 seconds
 	ssd1306_Fill(Black);
 	ssd1306_UpdateScreen();
 
-	ssd1306_TestDrawBitmap2(); // rocket ship
+	ssd1306_TestDrawBitmap2();
 	ssd1306_UpdateScreen();
 	ssd1306_Fill(Black);
 	ssd1306_UpdateScreen();
 	for (;;) {
 
-	// If this doesnt work, change change it back to a single ss3d1306_Fill(Black) line
-//	if (SET_VOLT != actual_voltage) {
-//		ssd1306_Fill(Black); // Clear the screen before updating
-//		ssd1306_UpdateScreen();
-//		osDelay(100);
-//	} else {
-//		ssd1306_Fill(Black); // Clear the screen before updating
-//	}
+	ssd1306_Fill(Black); // Clear the screen before updating
 
      if (lock_state) {
 
-		ssd1306_SetCursor(0, 20);
-		sprintf(ScreenBuffer, "  H2 ALARM");
-		ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
-		ssd1306_UpdateScreen(); 
-		
+//		ssd1306_SetCursor(0, 20);
+//		sprintf(ScreenBuffer, "  H2 ALARM");
+//		ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
+//		ssd1306_UpdateScreen(); // Refresh display
+//
+
+        amogus();
+
+
 	 } else { 
 		// Voltages
 		ssd1306_SetCursor(0, 5);
-		sprintf(ScreenBuffer, "Voltage(V)");
+		sprintf(ScreenBuffer, "Voltage(V) (%.1f)", SET_VOLT);
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
-
-		ssd1306_SetCursor(80, 5);
-		sprintf(ScreenBuffer, "(%.1f)", SET_VOLT);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, (SET_VOLT != actual_voltage) ? Black : White);
 
 		ssd1306_SetCursor(0, 20);
 		sprintf(ScreenBuffer, "IN:%.1f", (float) boost_data.in_volt / FDCAN_FOUR_FLT_PREC);
@@ -639,7 +636,11 @@ void startScreenPrint(void *argument)
 
 		// Currents
 		ssd1306_SetCursor(0, 38);
-		sprintf(ScreenBuffer, "Current(A) (n=%.0f%%)", effiency);
+		sprintf(ScreenBuffer, "Current(A)");
+		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+
+		ssd1306_SetCursor(72, 38);
+		sprintf(ScreenBuffer, "(n=%.0f%%", (float)boost_data3.efficiency / FDCAN_FOUR_FLT_PREC);
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 		ssd1306_SetCursor(0, 50);
@@ -654,7 +655,7 @@ void startScreenPrint(void *argument)
 
 		}
 
-		osDelay(200); // Slow down update rate
+		osDelay(100); // Slow down update rate
 	}
   /* USER CODE END startScreenPrint */
 }
@@ -675,7 +676,7 @@ void StartTRKPin(void *argument)
 	/* Infinite loop */
 	for (;;) {
 
-	float TRK_VOLT = actual_voltage / 60; // Desired voltage output  
+	float TRK_VOLT = SET_VOLT / 60; // Desired voltage output
 
 		// Convert to DAC value
 		DAC_VALUE = TRK_VOLT * 4096 / VOLT_MCU;
@@ -711,8 +712,8 @@ void StartStatusLED(void *argument)
 		}
 
 
-		htim1.Instance->CCR3 = SET_BRIGHTNESS(30); // LED4
-		htim3.Instance->CCR2 = SET_BRIGHTNESS(90); //LED5
+		htim1.Instance->CCR3 = SET_BRIGHTNESS(20); // LED4
+		htim3.Instance->CCR2 = SET_BRIGHTNESS(20); //LED5
 
 
 		// Reads the state of the enable pin and stores it in the en_pin variable. 0 is off, 1 is on
