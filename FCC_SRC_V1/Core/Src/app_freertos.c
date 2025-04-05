@@ -73,6 +73,7 @@ typedef struct {
 /* USER CODE END PM */
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+//CAN Data
 uint32_t TachTracker[4] = { 0 };
 FDCAN_FccPack1_t fc_data1 = { 0 };
 FDCAN_FccPack2_t fc_data2 = { 0 };
@@ -81,9 +82,8 @@ FDCAN_FetPack_t fet_data = { 0 };
 FDCAN_RelPackNrg_t energy_data = { 0 };
 ECOCAN_RelPackChrg_t charge_data = { 0 };
 
-uint8_t FC_substate = PURGE_TIMED;
-//uint32_t Last_charge;
-//uint32_t Current_charge;
+uint8_t FC_substate = PURGE_CHARGE;
+
 
 uint8_t button_flags = 0x00;
 
@@ -93,10 +93,14 @@ uint32_t purge_dbuffer;
 uint32_t purge_tbuffer;
 pidParam_t myPid;
 
-float fcSetpointTemp = 40; // Celsius
+uint32_t lastPurge_ms = 0;
+uint32_t currentTime_ms = 0;
+float fcSetpointTemp = 15; // Celsius
+float fc_charge_last = 0;
+float fc_charge = 0;
 // Default Purge values
 volatile uint32_t purgeDelay_ms = 60000; // time delay between purge is ms
-volatile uint32_t purgeTime_ms = 250;   // purge duration
+volatile uint32_t purgeTime_ms = 1250;   // purge duration // With small valve 2000 MS for 500 mL, 1.25 for larger
 volatile uint8_t purge_timer_flag = 0;
 
 float pdelay_unconfirmed = 0;
@@ -252,7 +256,7 @@ int8_t oled_page = 0;
 uint8_t encode_state, encode_last_state = 0;
 uint32_t encode_ticks, encode_last_tick = 0;
 uint32_t ticksDriver, ticksDriverLast = 0;
-
+uint8_t fan_toggle = 0;
 int purge_force_flag = 0;
 //uint32_t btnB_doubleTime, btnB_doubleLast = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
@@ -299,11 +303,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 //				}
 //
 //			} else {
-			purgeDelay_ms = (uint32_t) pdelay_unconfirmed;
-			purgeTime_ms = (uint32_t) ptime_unconfirmed;
-			purge_timer_flag = 1;
+//			purgeDelay_ms = (uint32_t) pdelay_unconfirmed;
+//			purgeTime_ms = (uint32_t) ptime_unconfirmed;
+//			purge_timer_flag = 1;
 
 //			}
+			fan_toggle ^= (0x01);
 
 		} //"confirms" the purge timers
 
@@ -528,7 +533,7 @@ void StartDefaultTask(void *argument) {
 
 		ptime_unconfirmed = (float) purge_tbuffer / 4096 * 900 + 100; // Max time of 1 second, min of 0.1 s
 		pdelay_unconfirmed = (float) purge_dbuffer / 4096 * 40000 + 25000; //max time 70 seconds, min time of 25 s
-
+		currentTime_ms = HAL_GetTick();
 		osSemaphoreAcquire(i2cSemaHandle, osWaitForever);
 
 		if ((oled_page == 0x0 || oled_page == 0x2)) {
@@ -542,16 +547,16 @@ void StartDefaultTask(void *argument) {
 				sprintf(ScreenBuffer, "STATE: %s",
 						(relay_state == RELAY_STBY) ? "STBY" : "RUN");
 			}
-
 			ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
-			sprintf(ScreenBuffer, "Delay: %.2f(s)",
-					(float) purgeDelay_ms / 1000);
-			ssd1306_SetCursor(0, 20);
 
+			sprintf(ScreenBuffer, "Last PRG: %3.0f(s)",
+					(float) (currentTime_ms - lastPurge_ms) / 1000);
+			ssd1306_SetCursor(0, 20);
 			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-			sprintf(ScreenBuffer, "Duration:%.2f(s)",
-					(float) purgeTime_ms / 1000);
+			sprintf(ScreenBuffer, "Charge:%4.0f(As)",
+					 (fc_charge - fc_charge_last));
+
 			ssd1306_SetCursor(0, 30);
 			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
@@ -774,8 +779,7 @@ void valveContrl(void *argument) {
 	/* Infinite loop */
 	uint8_t status = 0;
 	uint8_t startupPurge = 0;
-	float fc_charge_last = 0;
-	float fc_charge = 0;
+
 	for (;;) {
 		if (READ_BIT(button_flags, 1 << 7) == (1 << 7)) {
 			HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
@@ -794,7 +798,6 @@ void valveContrl(void *argument) {
 						GPIO_PIN_RESET);
 				HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 						GPIO_PIN_RESET);
-
 				if (status == 1) {
 					osTimerStop(purgetimerHandle); // kill purge cycle
 				}
@@ -815,10 +818,11 @@ void valveContrl(void *argument) {
 					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 							GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-					osDelay(500);
+					osDelay(purgeTime_ms);
 					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 							GPIO_PIN_RESET);
-
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+					lastPurge_ms = HAL_GetTick();
 					startupPurge = 1;
 				}
 
@@ -841,23 +845,24 @@ void valveContrl(void *argument) {
 								GPIO_PIN_RESET);
 						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
 								GPIO_PIN_RESET);
+						lastPurge_ms = HAL_GetTick();
 						startupPurge = 1;
 						purge_timer_flag = 0;
 
 					}
 
-					if (purge_force_flag == 1) {
-						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-								GPIO_PIN_SET);
-						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
-								GPIO_PIN_SET);
-						osDelay(purgeTime_ms);
-						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-								GPIO_PIN_RESET);
-						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
-								GPIO_PIN_RESET);
-						purge_force_flag = 0;
-					}
+//					if (purge_force_flag == 1) {
+//						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+//								GPIO_PIN_SET);
+//						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+//								GPIO_PIN_SET);
+//						osDelay(purgeTime_ms);
+//						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
+//								GPIO_PIN_RESET);
+//						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+//								GPIO_PIN_RESET);
+//						purge_force_flag = 0;
+//					}
 
 					if (purge_timer_flag == 1) {
 						osTimerStop(purgetimerHandle);
@@ -880,23 +885,38 @@ void valveContrl(void *argument) {
 					if (fc_charge - fc_charge_last >= 2300) {
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 								GPIO_PIN_SET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+								GPIO_PIN_SET);
 						osDelay(purgeTime_ms);
 						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
 								GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+								GPIO_PIN_RESET);
+						lastPurge_ms = HAL_GetTick();
 						fc_charge_last = fc_charge;
-						if (purge_force_flag == 1) {
-							HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
-									PURGEvlve_Pin, GPIO_PIN_SET);
-							osDelay(purgeTime_ms);
-							HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
-									PURGEvlve_Pin, GPIO_PIN_RESET);
-							purge_force_flag = 0;
-						}
+
 					}
+
 				}
 
 			}
 		}
+		if (purge_force_flag == 1) {
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+					PURGEvlve_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+							GPIO_PIN_SET);
+					osDelay(purgeTime_ms);
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+					PURGEvlve_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+							GPIO_PIN_RESET);
+					lastPurge_ms = HAL_GetTick();
+					purge_force_flag = 0;
+
+				}
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
 		osDelay(1);
 	}
 	/* USER CODE END valveContrl */
@@ -1025,11 +1045,17 @@ void calcTachRpmTimer(void *argument) {
 }
 
 void calcPidTimer(void *argument) {
-	float duty_cycle;
-	duty_cycle = PID_Compute(&myPid, fcSetpointTemp,
-			(float) fc_data1.fc_temp / FDCAN_FOUR_FLT_PREC);
-	htim2.Instance->CCR2 = 100 - (uint32_t) duty_cycle;
-	htim3.Instance->CCR1 = 100 - (uint32_t) duty_cycle;
+	if (fan_toggle == 0) {
+		float duty_cycle;
+		duty_cycle = PID_Compute(&myPid, fcSetpointTemp,
+				(float) fc_data1.fc_temp / FDCAN_FOUR_FLT_PREC);
+		htim2.Instance->CCR2 = 100 - (uint32_t) duty_cycle;
+		htim3.Instance->CCR1 = 100 - (uint32_t) duty_cycle;
+	} else if (fan_toggle == 1) {
+		htim2.Instance->CCR2 = 100;
+		htim3.Instance->CCR1 = 100;
+	}
+
 }
 
 // Initialize PID controller
@@ -1078,5 +1104,9 @@ float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
 
 	return out;
 }
+
+
+
+
 /* USER CODE END Application */
 
