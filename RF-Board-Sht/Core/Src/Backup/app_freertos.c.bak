@@ -75,7 +75,7 @@ const osThreadAttr_t telemetryTransm_attributes = {
 };
 /* Definitions for auxilary */
 osThreadId_t auxilaryHandle;
-uint32_t auxilaryBuffer[ 512 ];
+uint32_t auxilaryBuffer[ 1024 ];
 osStaticThreadDef_t auxilaryControlBlock;
 const osThreadAttr_t auxilary_attributes = {
   .name = "auxilary",

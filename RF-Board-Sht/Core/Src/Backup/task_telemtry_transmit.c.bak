@@ -106,8 +106,8 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_initialize_radio(&rfm95_868);
 	rf_initialize_radio(&rfm95_915);
 
-	rf_set_spread_factor(&rfm95_868, 7);
-	rf_set_spread_factor(&rfm95_915, 7);
+	rf_set_spread_factor(&rfm95_868, 10);
+	rf_set_spread_factor(&rfm95_915, 10);
 
 	rf_set_tx_power(&rfm95_868, 20);
 	rf_set_tx_power(&rfm95_915, 20);
@@ -118,8 +118,11 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_set_ocp(&rfm95_868, 240);
 	rf_set_ocp(&rfm95_915, 240);
 
-	rf_set_coding_rate(&rfm95_868, 4);
-	rf_set_coding_rate(&rfm95_915, 4);
+	rf_set_coding_rate(&rfm95_868, 8);
+	rf_set_coding_rate(&rfm95_915, 8);
+
+	rf_enable_crc(&rfm95_868);
+	rf_enable_crc(&rfm95_915);
 
 	telemetry_packet_t dat1 = { 0 };
 	telemetry_packet_t dat2 = { 0 };
@@ -153,13 +156,28 @@ void StartTelemetryTransmitTask(void *argument) {
 //			memcpy(nathan_data.packet_data, nathan, 8);
 
 			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-//			if (0
-//					!= rf_send(&rfm95_868, &nathan_data,
-//							1 + 8)) {
-//				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-//			}
+
 			if (0
 					!= rf_send(&rfm95_868, &dat1,
+							1 + sizeof(telemetry_data1_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			if (0
+					!= rf_send(&rfm95_868, &dat2,
+							1 + sizeof(telemetry_data2_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			if (0
+					!= rf_send(&rfm95_868, &dat3,
+							1 + sizeof(telemetry_data3_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+
+			if (0
+					!= rf_send(&rfm95_915, &dat1,
 							1 + sizeof(telemetry_data1_t))) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
@@ -171,11 +189,12 @@ void StartTelemetryTransmitTask(void *argument) {
 			}
 			osDelay(10);
 			if (0
-					!= rf_send(&rfm95_868, &dat3,
+					!= rf_send(&rfm95_915, &dat3,
 							1 + sizeof(telemetry_data3_t))) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
 			osDelay(10);
+
 		}
 
 		// reciever

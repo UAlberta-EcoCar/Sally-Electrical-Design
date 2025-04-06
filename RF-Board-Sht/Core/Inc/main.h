@@ -56,8 +56,11 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SPI2_NSS_Pin GPIO_PIN_2
-#define SPI2_NSS_GPIO_Port GPIOC
+#define GPBTN1_Pin GPIO_PIN_13
+#define GPBTN1_GPIO_Port GPIOC
+#define GPBTN1_EXTI_IRQn EXTI15_10_IRQn
+#define SD_CS_Pin GPIO_PIN_2
+#define SD_CS_GPIO_Port GPIOC
 #define SWT1_Pin GPIO_PIN_3
 #define SWT1_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_0
@@ -89,7 +92,9 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 #define HARDFAULT_TIMER 500000
-
+#define SD_SPI_HANDLE hspi2
+#define SPI2_CS_Pin SD_CS_Pin
+#define SPI3_CS_GPIO_Port SD_CS_GPIO_Port
 //typedef struct {
 //	//FDCAN_FetPack_t fet_data;
 //	FDCAN_RelPackMtr_t mtr_data;

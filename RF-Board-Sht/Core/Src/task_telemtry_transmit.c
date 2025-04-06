@@ -106,11 +106,11 @@ void StartTelemetryTransmitTask(void *argument) {
 	rf_initialize_radio(&rfm95_868);
 	rf_initialize_radio(&rfm95_915);
 
-	rf_set_spread_factor(&rfm95_868, 7);
-	rf_set_spread_factor(&rfm95_915, 7);
+	rf_set_spread_factor(&rfm95_868, 10);
+	rf_set_spread_factor(&rfm95_915, 10);
 
-	rf_set_tx_power(&rfm95_868, 5);
-	rf_set_tx_power(&rfm95_915, 5);
+	rf_set_tx_power(&rfm95_868, 20);
+	rf_set_tx_power(&rfm95_915, 20);
 
 	rf_set_bandwidth(&rfm95_868, RF_BW_500K);
 	rf_set_bandwidth(&rfm95_915, RF_BW_500K);
@@ -164,7 +164,7 @@ void StartTelemetryTransmitTask(void *argument) {
 			}
 			osDelay(10);
 			if (0
-					!= rf_send(&rfm95_915, &dat2,
+					!= rf_send(&rfm95_868, &dat2,
 							1 + sizeof(telemetry_data2_t))) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
@@ -175,6 +175,26 @@ void StartTelemetryTransmitTask(void *argument) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
 			osDelay(10);
+
+			if (0
+					!= rf_send(&rfm95_915, &dat1,
+							1 + sizeof(telemetry_data1_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			if (0
+					!= rf_send(&rfm95_915, &dat2,
+							1 + sizeof(telemetry_data2_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+			if (0
+					!= rf_send(&rfm95_915, &dat3,
+							1 + sizeof(telemetry_data3_t))) {
+				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+			}
+			osDelay(10);
+
 		}
 
 		// reciever
