@@ -21,10 +21,10 @@
 #include "mq8calibration.h"
 #include "dac.h"
 
-#define H2_THRESH_1 30000 // mV of converted sensor read value
-#define H2_THRESH_2 30000
-#define H2_THRESH_3 30000
-#define H2_THRESH_4 30000
+#define H2_THRESH_1 33000 // mV of converted sensor read value
+#define H2_THRESH_2 33000
+#define H2_THRESH_3 33000
+#define H2_THRESH_4 33000
 
 #define RLOAD_MQ8 4700 // load on the sensor
 
@@ -103,10 +103,10 @@ void StartLeakWatchdogTask(void *argument) {
 
 	sensor_heating = 1;
 
-	HAL_COMP_Start(&hcomp1);
-	HAL_COMP_Start(&hcomp2);
-	HAL_COMP_Start(&hcomp6);
-	HAL_COMP_Start(&hcomp7);
+//	HAL_COMP_Start(&hcomp1);
+//	HAL_COMP_Start(&hcomp2);
+//	HAL_COMP_Start(&hcomp6);
+//	HAL_COMP_Start(&hcomp7);
 
 	/* Infinite loop */
 	for (;;) {
