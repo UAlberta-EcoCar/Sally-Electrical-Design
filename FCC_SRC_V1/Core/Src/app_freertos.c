@@ -95,7 +95,7 @@ pidParam_t myPid;
 
 uint32_t lastPurge_ms = 0;
 uint32_t currentTime_ms = 0;
-float fcSetpointTemp = 15; // Celsius
+float fcSetpointTemp = 35; // Celsius
 float fc_charge_last = 0;
 float fc_charge = 0;
 // Default Purge values
@@ -1098,9 +1098,9 @@ float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
 	out = pid->y[0];
 	if (out > 100.0)
 		out = 100.0;
-	if (out < 20.0)
+	if (out < 40.0)
 // Minimum airflow
-		out = 20.0;
+		out = 40.0;
 
 	return out;
 }
