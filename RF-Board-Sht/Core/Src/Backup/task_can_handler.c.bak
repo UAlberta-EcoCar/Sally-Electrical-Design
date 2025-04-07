@@ -94,20 +94,20 @@ void StartCanReceive(void *argument) {
 	/* USER CODE BEGIN StartCanReceive */
 	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
 	uint8_t ret[64] = { 0 };
-	uint32_t *pointer_to_data_store = 0;
+	uint8_t pointer_to_data_store = 0;
 	/* Infinite loop */
 	for (;;) {
 		if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier,
 				0, osWaitForever) == osOK) {
 
 			if (osMessageQueueGet(canQueRxHeaderHandle,
-					&localRxHeader.DataLength, 0, osWaitForever) != osOK) {
+					&localRxHeader.DataLength, 0, 0) != osOK) {
 				Error_Handler();
 			}
 			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
 					i++) {
-				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0,
-				osWaitForever) != osOK) {
+				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0)
+						!= osOK) {
 					Error_Handler();
 				}
 			}
@@ -121,45 +121,55 @@ void StartCanReceive(void *argument) {
 					// Copy data fc pres and temp
 //				memcpy(fc_data1.FDCAN_RawFccPack, ret,
 //						mapDlcToBytes(localRxHeader.DataLength));
-					pointer_to_data_store = data1.fc_data1.FDCAN_RawFccPack;
+//					pointer_to_data_store = data1.fc_data1.FDCAN_RawFccPack;
+					memcpy(data1.fc_data1.FDCAN_RawFccPack, ret, 8);
 					break;
 				case FDCAN_RELPACKFC_ID:
 					// Copy data fc pres and temp
 //				memcpy(RelPackFc.FDCAN_RawRelPackFc, ret,
 //						mapDlcToBytes(localRxHeader.DataLength));
-					pointer_to_data_store = data2.RelPackFc.FDCAN_RawRelPackFc;
+					memcpy(data2.RelPackFc.FDCAN_RawRelPackFc, ret, 8);
+//					pointer_to_data_store = data2.RelPackFc.FDCAN_RawRelPackFc;
 					break;
 				case FDCAN_FETPACK_ID:
 //					pointer_to_data_store = &data2.;
 					break;
 				case FDCAN_RELPACKMTR_ID:
-					pointer_to_data_store = data1.mtr_data.FDCAN_RawRelPackMtr;
+//					pointer_to_data_store = data1.mtr_data.FDCAN_RawRelPackMtr;
+					memcpy(data1.mtr_data.FDCAN_RawRelPackMtr, ret, 8);
 					break;
 				case FDCAN_RELPACKCAP_ID:
-					pointer_to_data_store = data1.cap_data.FDCAN_RawRelPackCap;
+//					pointer_to_data_store = data1.cap_data.FDCAN_RawRelPackCap;
+					memcpy(data1.cap_data.FDCAN_RawRelPackCap, ret, 8);
 					break;
 				case FDCAN_RELSTATE_ID:
-					pointer_to_data_store = &data3.rb_state;
+					memcpy(&data3.rb_state, ret, 1);
+//					pointer_to_data_store = &data3.rb_state;
 					break;
 				case FDCAN_FCCPACK2_ID:
-					pointer_to_data_store = data1.fc_data2.FDCAN_RawFccPack;
+					memcpy(data1.fc_data2.FDCAN_RawFccPack, ret, 8);
+//					pointer_to_data_store = data1.fc_data2.FDCAN_RawFccPack;
 					break;
 				case FDCAN_FCCPACK3_ID:
-					pointer_to_data_store = data2.fc_data3.FDCAN_RawFccPack;
+					memcpy(data2.fc_data3.FDCAN_RawFccPack, ret, 8);
+//					pointer_to_data_store = data2.fc_data3.FDCAN_RawFccPack;
 					break;
 //				case FDCAN_H2PACK_ID:
 //					pointer_to_data_store = &data1.fc_data1.FDCAN_RawFccPack;
 //					break;
 				case FDCAN_BOOSTPACK_ID:
-					pointer_to_data_store =
-							data2.boost_data1.FDCAN_RawBOOSTPack;
+//					pointer_to_data_store =
+//							data2.boost_data1.FDCAN_RawBOOSTPack;
+					memcpy(data2.boost_data1.FDCAN_RawBOOSTPack, ret, 8);
 					break;
 				case FDCAN_BOOSTPACK2_ID:
-					pointer_to_data_store =
-							data2.boost_data2.FDCAN_RawBOOSTPack2;
+//					pointer_to_data_store =
+//							data2.boost_data2.FDCAN_RawBOOSTPack2;
+					memcpy(data2.boost_data2.FDCAN_RawBOOSTPack2, ret, 8);
 					break;
 				case ECOCAN_H2_PACK1_ID:
-					pointer_to_data_store = data3.h2_data.ECOCAN_raw_pack;
+//					pointer_to_data_store = data3.h2_data.ECOCAN_raw_pack;
+					memcpy(data3.h2_data.ECOCAN_raw_pack, ret, 8);
 					break;
 				default:
 					log_err("CANID 0x%x not handled!",

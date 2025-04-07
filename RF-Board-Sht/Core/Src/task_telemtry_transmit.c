@@ -162,38 +162,43 @@ void StartTelemetryTransmitTask(void *argument) {
 							1 + sizeof(telemetry_data1_t))) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
-			osDelay(10);
+			osDelay(5);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 			if (0
 					!= rf_send(&rfm95_868, &dat2,
 							1 + sizeof(telemetry_data2_t))) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
-			osDelay(10);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+			osDelay(5);
 			if (0
 					!= rf_send(&rfm95_868, &dat3,
 							1 + sizeof(telemetry_data3_t))) {
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
-			osDelay(10);
 
+			osDelay(5);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 			if (0
 					!= rf_send(&rfm95_915, &dat1,
 							1 + sizeof(telemetry_data1_t))) {
-				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
-			osDelay(10);
+			osDelay(5);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 			if (0
 					!= rf_send(&rfm95_915, &dat2,
 							1 + sizeof(telemetry_data2_t))) {
-				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
 			osDelay(10);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 			if (0
 					!= rf_send(&rfm95_915, &dat3,
 							1 + sizeof(telemetry_data3_t))) {
-				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
-			osDelay(10);
+			osDelay(5);
 
 		}
 
