@@ -477,14 +477,14 @@ void StartRecieveMsg(void *argument)
 				}
 				break;
 
-			case FDCAN_SYNCLED_ID:
+/*			case FDCAN_SYNCLED_ID:
 				// CAN SYNC LED
 				if (ret[0] == 1) {
 					htim3.Instance->CCR3 = SET_BRIGHTNESS(20); // CAN LED
 				} else {
 					htim3.Instance->CCR3 = SET_BRIGHTNESS(0); // CAN LED
 				}
-				break;
+				break;*/
 //
 //			case FDCAN_BOOSTPACK_ID:
 //				memcpy(&boost_data.FDCAN_RawBOOSTPack, ret,
@@ -518,64 +518,24 @@ void StartAdcConv(void *argument)
   /* USER CODE BEGIN StartAdcConv */
 	UNUSED(argument);
 
-	const float ADC_VOLT_REF = VOLT_MCU / 4096.0;
-	const float CURR_TRANSFER1 = 0.666667;     // ratio of voltage divider resistors for current sense: 200k/(100k + 200k)
-	const float CURR_TRANSFER2 = 0.666667;    // ratio of voltage divider resistors for current sense: 200k/(100k + 200k)
-	const float VOLT_TRANSFER_IN = 0.10;     // Res. Divider: R1 = 27k, R2 = 3k
-	const float VOLT_TRANSFER_OUT = 0.0503; // Res. Divider: R1 = 68k, R2 = 3.6k
-	const float VOLT_TO_CURR_UNI = 0.133;  //
+	const float = ;
 
-	static float in_curr_buffer[ADC_BUFFER_SIZE] = {0};
-	static uint8_t in_curr_index = 0;
 
-	static float out_curr_buffer[ADC_BUFFER_SIZE] = {0};
-	static uint8_t out_curr_index = 0;
+
 
 	HAL_ADC_Start_DMA(&hadc1, ADC1_VALUE, 4);
-	HAL_ADC_Start_DMA(&hadc2, ADC2_VALUE, 2);
 
 
 	/* Infinite loop */
 	for (;;) {
 
-		// Avaerages last 50 samples of the input current
-		float new_in_curr = ((ADC1_VALUE[0] + 69.5) * ADC_VOLT_REF / CURR_TRANSFER1 - 0.510) / VOLT_TO_CURR_UNI * FDCAN_FOUR_FLT_PREC;
-		in_curr_buffer[in_curr_index] = new_in_curr;
-		in_curr_index = (in_curr_index + 1) % ADC_BUFFER_SIZE;
-		float sum_in_curr = 0;
-		for (uint8_t i = 0; i < ADC_BUFFER_SIZE; i++) {
-			sum_in_curr += in_curr_buffer[i];
-		}
 
-		float new_out_curr = ((ADC1_VALUE[1] + 69.5) * ADC_VOLT_REF / CURR_TRANSFER2 - 0.510) / VOLT_TO_CURR_UNI * FDCAN_FOUR_FLT_PREC;
-		out_curr_buffer[out_curr_index] = new_out_curr;
-		out_curr_index = (out_curr_index + 1) % ADC_BUFFER_SIZE;
-		float sum_out_curr = 0;
-		for (uint8_t i = 0; i < ADC_BUFFER_SIZE; i++) {
-			sum_out_curr += out_curr_buffer[i];
-		}
+		boost_data2.out_volt = ;
+		boost_data.in_volt = ;
+		boost_data.in_curr = ;
+		boost_data2.out_curr = ;
 
-		boost_data2.out_volt = (ADC1_VALUE[3] * ADC_VOLT_REF / VOLT_TRANSFER_OUT + 0.6)* FDCAN_FOUR_FLT_PREC;
-		boost_data.in_volt = (ADC1_VALUE[2] * ADC_VOLT_REF / VOLT_TRANSFER_IN + 0.9)* FDCAN_FOUR_FLT_PREC;
-		boost_data.in_curr = sum_in_curr / ADC_BUFFER_SIZE;
-		boost_data2.out_curr = sum_out_curr / ADC_BUFFER_SIZE;
 
-		boost_data3.efficiency = (uint32_t)(
-		    ((float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) *
-		    ((float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC) /
-		    ((float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC) /
-		    ((float)boost_data.in_curr / FDCAN_FOUR_FLT_PREC) *
-		    100 * FDCAN_FOUR_FLT_PREC);
-
-		printf(
-				"IN CURR: %.3f OUT CURR: %.3f IN VOLT: %.1f OUT VOLT: %.1f SET VOLT: %.0f  ENABLE PIN: %0.f\r\n",
-				(float)boost_data.in_curr / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC,
-				(float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC,
-				SET_VOLT,
-				en_pin
-				);
 
 		osDelay(10);
 	}
@@ -609,51 +569,14 @@ void startScreenPrint(void *argument)
 
 	ssd1306_Fill(Black); // Clear the screen before updating
 
-     if (lock_state) {
-
-//		ssd1306_SetCursor(0, 20);
-//		sprintf(ScreenBuffer, "  H2 ALARM");
-//		ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
-//		ssd1306_UpdateScreen(); // Refresh display
-//
-
-        amogus();
-
-
-	 } else { 
 		// Voltages
 		ssd1306_SetCursor(0, 5);
 		sprintf(ScreenBuffer, "Voltage(V) (%.1f)", SET_VOLT);
 		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-		ssd1306_SetCursor(0, 20);
-		sprintf(ScreenBuffer, "IN:%.1f", (float) boost_data.in_volt / FDCAN_FOUR_FLT_PREC);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
-		ssd1306_SetCursor(64, 20);
-		sprintf(ScreenBuffer, "OUT:%.1f", (float)boost_data2.out_volt / FDCAN_FOUR_FLT_PREC);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
-
-		// Currents
-		ssd1306_SetCursor(0, 38);
-		sprintf(ScreenBuffer, "Current(A)");
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
-
-		ssd1306_SetCursor(72, 38);
-		sprintf(ScreenBuffer, "(n=%.0f%%", (float)boost_data3.efficiency / FDCAN_FOUR_FLT_PREC);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
-
-		ssd1306_SetCursor(0, 50);
-		sprintf(ScreenBuffer, "IN:%.2f", (float)boost_data.in_curr / FDCAN_FOUR_FLT_PREC);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
-
-		ssd1306_SetCursor(64, 50);
-		sprintf(ScreenBuffer, "OUT:%.2f", (float)boost_data2.out_curr / FDCAN_FOUR_FLT_PREC);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 		ssd1306_UpdateScreen(); // Refresh display
-
-		}
 
 		osDelay(100); // Slow down update rate
 	}
@@ -679,10 +602,8 @@ void StartTRKPin(void *argument)
 	float TRK_VOLT = SET_VOLT / 60; // Desired voltage output
 
 		// Convert to DAC value
-		DAC_VALUE = TRK_VOLT * 4096 / VOLT_MCU;
 
 		// Set DAC output
-		HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, DAC_VALUE);
 
 		osDelay(1);
 	}
@@ -702,31 +623,8 @@ void StartStatusLED(void *argument)
 	/* Infinite loop */
 	for (;;) {
 
-		// Voltage regulation LED. If the output voltage is within 1V of the set voltage, the LED is at 100% brightness
-		if ((boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) < (SET_VOLT - 1) || (boost_data2.out_volt / FDCAN_FOUR_FLT_PREC) > (SET_VOLT + 1)) {
-
-			htim8.Instance->CCR1 = SET_BRIGHTNESS(0); // change this to 0 when not regulated
-
-		} else {
-			htim8.Instance->CCR1 = SET_BRIGHTNESS(50); // change to 40 when regulated
-		}
 
 
-		htim1.Instance->CCR3 = SET_BRIGHTNESS(20); // LED4
-		htim3.Instance->CCR2 = SET_BRIGHTNESS(20); //LED5
-
-
-		// Reads the state of the enable pin and stores it in the en_pin variable. 0 is off, 1 is on
-		if (HAL_GPIO_ReadPin(GPIOF, ENABLE_Pin) == GPIO_PIN_RESET) { 
-			en_pin = 0;
-			htim3.Instance->CCR1 = SET_BRIGHTNESS(20); // LED1
-			htim2.Instance->CCR2 = SET_BRIGHTNESS(0);  // LED2
-
-		} else {
-			en_pin = 1;
-			htim3.Instance->CCR1 = SET_BRIGHTNESS(0);  // LED1
-			htim2.Instance->CCR2 = SET_BRIGHTNESS(30); // LED2
-		};
 
 		osDelay(1);	
 	}
