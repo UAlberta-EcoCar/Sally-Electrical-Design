@@ -16,7 +16,7 @@
  ******************************************************************************
  */
 /* USER CODE END Header */
-//this is a test for the programming template
+
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "task.h"
@@ -233,12 +233,12 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); // LED1
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2); // LED2
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1); // LED3
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // LED4
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2); // LED5
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3); // CAN LED
+//  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); // LED1
+//  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2); // LED2
+//  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1); // LED3
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // LED4
+//  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2); // LED5
+//  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3); // CAN LED
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -518,7 +518,7 @@ void StartAdcConv(void *argument)
   /* USER CODE BEGIN StartAdcConv */
 	UNUSED(argument);
 
-	const float = ;
+//	const float = ;
 
 
 
@@ -530,10 +530,10 @@ void StartAdcConv(void *argument)
 	for (;;) {
 
 
-		boost_data2.out_volt = ;
-		boost_data.in_volt = ;
-		boost_data.in_curr = ;
-		boost_data2.out_curr = ;
+//		boost_data2.out_volt = ;
+//		boost_data.in_volt = ;
+//		boost_data.in_curr = ;
+//		boost_data2.out_curr = ;
 
 
 
@@ -623,6 +623,8 @@ void StartStatusLED(void *argument)
 	/* Infinite loop */
 	for (;;) {
 
+
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, SET);
 
 
 
