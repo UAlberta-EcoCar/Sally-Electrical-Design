@@ -70,6 +70,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPBTN1_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : GPBTN2_RPM_Pin */
+  GPIO_InitStruct.Pin = GPBTN2_RPM_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPBTN2_RPM_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : SD_CS_Pin */
   GPIO_InitStruct.Pin = SD_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;

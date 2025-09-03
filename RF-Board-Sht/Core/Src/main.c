@@ -39,7 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define MAGNETS_ON_WHEEL 4
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,7 +50,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern wheel_rpm;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -59,7 +59,32 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
-	NVIC_SystemReset();
+	switch (GPIO_Pin) {
+	case GPBTN2_RPM_Pin:
+		static double uptime = 0, downtime = 0, frequency = 0, period = 0;
+		static double rise1 = 0, fall1 = 0;
+		if (GPIO_PIN_SET
+				== HAL_GPIO_ReadPin(GPBTN2_RPM_GPIO_Port, GPBTN2_RPM_Pin)) {
+			rise1 = HAL_GetTick();
+			downtime = fall1 - rise1;
+		} else {
+			fall1 = HAL_GetTick();
+			uptime = rise1 - fall1;
+		}
+
+		period = uptime + downtime;
+		frequency = 1 / period;
+
+		wheel_rpm = frequency / MAGNETS_ON_WHEEL * 60;
+
+		break;
+	case GPBTN1_Pin:
+		NVIC_SystemReset();
+		break;
+	default:
+		break;
+	}
+
 }
 /* USER CODE END PFP */
 

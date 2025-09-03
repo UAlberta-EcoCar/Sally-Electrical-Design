@@ -74,6 +74,8 @@ telemetry_data2_t data_recieved_3 = { 0 };
 
 telemetry_packet_t recieved_data;
 
+double wheel_rpm = 0.0f;
+
 extern uint8_t nathan[8];
 
 void StartTelemetryTransmitTask(void *argument) {
@@ -155,51 +157,58 @@ void StartTelemetryTransmitTask(void *argument) {
 
 //			memcpy(nathan_data.packet_data, nathan, 8);
 
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+//
+//			if (0
+//					!= rf_send(&rfm95_868, &dat1,
+//							1 + sizeof(telemetry_data1_t))) {
+//				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+//			}
+//			osDelay(5);
+//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+//			if (0
+//					!= rf_send(&rfm95_868, &dat2,
+//							1 + sizeof(telemetry_data2_t))) {
+//				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+//			}
+//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+//			osDelay(5);
+//			if (0
+//					!= rf_send(&rfm95_868, &dat3,
+//							1 + sizeof(telemetry_data3_t))) {
+//				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+//			}
+//
+//			osDelay(5);
+//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+//			if (0
+//					!= rf_send(&rfm95_915, &dat1,
+//							1 + sizeof(telemetry_data1_t))) {
+//				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+//			}
+//			osDelay(5);
+//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+//			if (0
+//					!= rf_send(&rfm95_915, &dat2,
+//							1 + sizeof(telemetry_data2_t))) {
+//				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+//			}
+//			osDelay(10);
+//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+//			if (0
+//					!= rf_send(&rfm95_915, &dat3,
+//							1 + sizeof(telemetry_data3_t))) {
+//				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+//			}
 
-			if (0
-					!= rf_send(&rfm95_868, &dat1,
-							1 + sizeof(telemetry_data1_t))) {
-				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-			}
-			osDelay(5);
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-			if (0
-					!= rf_send(&rfm95_868, &dat2,
-							1 + sizeof(telemetry_data2_t))) {
-				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-			}
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-			osDelay(5);
-			if (0
-					!= rf_send(&rfm95_868, &dat3,
-							1 + sizeof(telemetry_data3_t))) {
-				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-			}
-
-			osDelay(5);
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-			if (0
-					!= rf_send(&rfm95_915, &dat1,
-							1 + sizeof(telemetry_data1_t))) {
-				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-			}
-			osDelay(5);
-			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-			if (0
-					!= rf_send(&rfm95_915, &dat2,
-							1 + sizeof(telemetry_data2_t))) {
-				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-			}
 			osDelay(10);
 			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-			if (0
-					!= rf_send(&rfm95_915, &dat3,
-							1 + sizeof(telemetry_data3_t))) {
+			if (0 != rf_send(&rfm95_868, nathan, 8)) {
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 			}
-			osDelay(5);
 
+			osDelay(5);
+			printf("RPM: %d", wheel_rpm);
 		}
 
 		// reciever
@@ -208,33 +217,38 @@ void StartTelemetryTransmitTask(void *argument) {
 			rf_recieve_single(&rfm95_868, &rec_legth);
 			if (rec_legth != 0) {
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-				rf_read_packet(&rfm95_868, rec_legth, &recieved_data);
+//				rf_read_packet(&rfm95_868, rec_legth, &recieved_data);
+				rf_read_packet(&rfm95_868, rec_legth, nathan);
 				rf_packet_snr(&rfm95_868, &snr);
 				rf_packet_rssi(&rfm95_868, &rssi);
 
-				switch (recieved_data.packet_id) {
-
-				case BASIC_DATA_1_ID:
-
-					memcpy(&data_recieved_1, recieved_data.packet_data,
-							BASIC_DATA_1_SIZE);
-
-					break;
-				case BASIC_DATA_2_ID:
-
-					memcpy(&data_recieved_2, recieved_data.packet_data,
-							BASIC_DATA_2_SIZE);
-
-					break;
-				case BASIC_DATA_3_ID:
-
-					memcpy(&data_recieved_3, recieved_data.packet_data,
-							BASIC_DATA_3_SIZE);
-
-					break;
-				default:
-					break;
-				}
+//				switch (recieved_data.packet_id) {
+//
+//				case BASIC_DATA_1_ID:
+//
+//					memcpy(&data_recieved_1, recieved_data.packet_data,
+//							BASIC_DATA_1_SIZE);
+//
+//					break;
+//				case BASIC_DATA_2_ID:
+//
+//					memcpy(&data_recieved_2, recieved_data.packet_data,
+//							BASIC_DATA_2_SIZE);
+//
+//					break;
+//				case BASIC_DATA_3_ID:
+//
+//					memcpy(&data_recieved_3, recieved_data.packet_data,
+//							BASIC_DATA_3_SIZE);
+//
+//					break;
+//				default:
+//					break;
+//				}
+//				memcpy(nathan, recieved_data, 8);
+				printf("Recieved Value: %x %x %x %x  %x %x %x %x\r\n", nathan[0],
+						nathan[1], nathan[2], nathan[3], nathan[4], nathan[5],
+						nathan[6], nathan[7]);
 
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 //				rec_legth = 0;

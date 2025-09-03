@@ -59,6 +59,9 @@ void Error_Handler(void);
 #define GPBTN1_Pin GPIO_PIN_13
 #define GPBTN1_GPIO_Port GPIOC
 #define GPBTN1_EXTI_IRQn EXTI15_10_IRQn
+#define GPBTN2_RPM_Pin GPIO_PIN_14
+#define GPBTN2_RPM_GPIO_Port GPIOC
+#define GPBTN2_RPM_EXTI_IRQn EXTI15_10_IRQn
 #define SD_CS_Pin GPIO_PIN_2
 #define SD_CS_GPIO_Port GPIOC
 #define SWT1_Pin GPIO_PIN_3

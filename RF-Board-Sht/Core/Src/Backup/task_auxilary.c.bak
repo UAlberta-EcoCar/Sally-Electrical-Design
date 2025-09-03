@@ -48,7 +48,7 @@ void ublox_TestI2C(void) {
 	for (i = 0; i < 10; i++) {
 		uint16_t length = ublox_ReadLength();
 		printf("uBlox Length %5d %04X\n", length, length);
-		if (length) {
+		if (length) {  ,7
 			static uint8_t buffer[1000];
 			uint16_t len = (length < sizeof(buffer)) ? length : sizeof(buffer);
 			status = HAL_I2C_Mem_Read(&hi2c2, (0x42 << 1), 0xFF, 1, buffer, len,
@@ -120,59 +120,63 @@ void StartAuxilaryTask(void *argument) {
 	char filename[32];
 
 	if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
-//
-////		printf("beginning new log of run at:");
-//
-//		HAL_NVIC_SetPriority(FLASH_IRQn, 0, 0);
-//		HAL_NVIC_EnableIRQ(FLASH_IRQn);
-//
-//		/* Unlock the Flash Program Erase controller */
-//		HAL_FLASH_Unlock();
-//
-//		ee_status = EE_Init(EE_CONDITIONAL_ERASE);
-//		if (ee_status != EE_OK) {
+
+//		printf("beginning new log of run at:");
+
+		HAL_NVIC_SetPriority(FLASH_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(FLASH_IRQn);
+
+		/* Unlock the Flash Program Erase controller */
+		HAL_FLASH_Unlock();
+
+		ee_status = EE_Init(EE_CONDITIONAL_ERASE);
+		if (ee_status != EE_OK) {
+			Error_Handler();
+		}
+
+		while (ErasingOnGoing == 1) {
+			osDelay(1);
+		}
+
+//	ee_status = EE_WriteVariable32bits(Index, 123);
+//	ee_status |= EE_ReadVariable32bits(Index, &VarValue);
+//	if (Index * VarValue != a_VarDataTab[Index - 1]) {
+//		Error_Handler();
+//	}
+
+		/* Start cleanup IT mode, if cleanup is needed */
+		if ((ee_status & EE_STATUSMASK_CLEANUP ) == EE_STATUSMASK_CLEANUP) {
+			ErasingOnGoing = 1;
+			ee_status |= EE_CleanUp_IT();
+		}
+		if ((ee_status & EE_STATUSMASK_ERROR ) == EE_STATUSMASK_ERROR) {
+			Error_Handler();
+		}
+		VarValue = 0;
+		/* Read all the variables */
+		ee_status = EE_ReadVariable32bits(RUN_NUMBER_INDEX, &runNumber);
+
+		if (ee_status == EE_NO_DATA) {
 //			Error_Handler();
-//		}
-//
-//		while (ErasingOnGoing == 1) {
-//			osDelay(1);
-//		}
-//
-////	ee_status = EE_WriteVariable32bits(Index, 123);
-////	ee_status |= EE_ReadVariable32bits(Index, &VarValue);
-////	if (Index * VarValue != a_VarDataTab[Index - 1]) {
-////		Error_Handler();
-////	}
-//
-//		/* Start cleanup IT mode, if cleanup is needed */
-//		if ((ee_status & EE_STATUSMASK_CLEANUP ) == EE_STATUSMASK_CLEANUP) {
-//			ErasingOnGoing = 1;
-//			ee_status |= EE_CleanUp_IT();
-//		}
-//		if ((ee_status & EE_STATUSMASK_ERROR ) == EE_STATUSMASK_ERROR) {
-//			Error_Handler();
-//		}
-//		VarValue = 0;
-//		/* Read all the variables */
-//		ee_status = EE_ReadVariable32bits(RUN_NUMBER_INDEX, &runNumber);
-//
-//		if (ee_status != EE_OK) {
-////			Error_Handler();
-////			ee_status = EE_WriteVariable32bits(RUN_NUMBER_INDEX, 0);
-////			if (ee_status != EE_OK) {
-////				Error_Handler();
-////			}
-//		}
-//
-//		runNumber = runNumber + 1;
-//
-////		printf("%d\r\n", runNumber);
-//
-//		ee_status = EE_WriteVariable32bits(RUN_NUMBER_INDEX, runNumber);
-//
-//		/* Test is completed successfully */
-//		/* Lock the Flash Program Erase controller */
-//		HAL_FLASH_Lock();
+			ee_status = EE_WriteVariable32bits(RUN_NUMBER_INDEX, 0);
+			if (ee_status != EE_OK) {
+				Error_Handler();
+			}
+		}
+
+		if (ee_status != EE_OK) {
+			Error_Handler();
+		}
+
+		runNumber = runNumber + 1;
+
+//		printf("%d\r\n", runNumber);
+
+		ee_status = EE_WriteVariable32bits(RUN_NUMBER_INDEX, runNumber);
+
+		/* Test is completed successfully */
+		/* Lock the Flash Program Erase controller */
+		HAL_FLASH_Lock();
 
 		osDelay(1000);
 
@@ -200,25 +204,27 @@ void StartAuxilaryTask(void *argument) {
 		total_sectors = (getFreeFs->n_fatent - 2) * getFreeFs->csize;
 		free_sectors = free_clusters * getFreeFs->csize;
 
-		myprintf(
+		printf(
 				"SD card stats:\r\n%10lu KiB total drive space.\r\n%10lu KiB available.\r\n",
 				total_sectors / 2, free_sectors / 2);
 
 		BYTE readBuf[256];
 		runNumber = 69999;
-		//sprintf(filename, "log-%d.txt", runNumber);
+		sprintf(filename, "log-%d.txt", runNumber);
 
-		//Now let's try and write a file "write.txt"
-		fres = f_open(&fil, "log.txt",
-		FA_WRITE | FA_OPEN_ALWAYS | FA_CREATE_ALWAYS);
+		fres = f_open(&fil, filename,
+				FA_WRITE | FA_OPEN_ALWAYS | FA_CREATE_ALWAYS);
+
+//		fres = f_open(&fil, "log.txt",
+//		FA_WRITE | FA_OPEN_ALWAYS | FA_CREATE_ALWAYS);
 		if (fres == FR_OK) {
-			myprintf("I was able to open 'write.txt' for writing\r\n");
+			printf("I was able to open 'write.txt' for writing\r\n");
 		} else {
-			myprintf("f_open error (%i)\r\n", fres);
+			printf("f_open error (%i)\r\n", fres);
 		}
 
 		f_printf(&fil,
-				"StartNewRun;\r\nCC,CV,FCP,FCT, fcf1,fcf2,mc,mv,fcc,fcv,bci,bvi,bco,bvo,fcbmehum,fcbmetemp,h21,h22,h23,h24\r\n");
+				"StartNewRun;\r\nCC,CV,FCP,FCT,fcf1,fcf2,mc,mv,fcc,fcv,bci,bvi,bco,bvo,fcbmehum,fcbmetemp,h21,h22,h23,h24\r\n");
 
 		//Be a tidy kiwi - don't forget to close your file!
 		f_close(&fil);
@@ -231,40 +237,37 @@ void StartAuxilaryTask(void *argument) {
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
 //			if (data_recieved_1.fc_data1.fc_temp != 0) {
-			printf(">CC:%d\n\r>CV:%d\n\r", data_recieved_1.cap_data.cap_curr,
-					data_recieved_1.cap_data.cap_volt);
-			printf(">FCP:%d\n\r>FCT:%d\n\r", data_recieved_1.fc_data1.fc_press,
-					data_recieved_1.fc_data1.fc_temp);
-			printf(">FCF1:%d\n\r>FCF2:%d\n\r",
-					data_recieved_1.fc_data2.fan_rpm1,
-					data_recieved_1.fc_data2.fan_rpm2);
-			printf(">MC:%d\n\r>MV:%d\n\r", data_recieved_1.mtr_data.mtr_curr,
-					data_recieved_1.mtr_data.mtr_volt);
-			printf(">FCC:%d\n\r>FCV:%d\n\r", data_recieved_2.RelPackFc.fc_curr,
-					data_recieved_2.RelPackFc.fc_volt);
-			printf(">BCI:%d\n\r>BVI:%d\n\r",
-					data_recieved_2.boost_data1.in_curr,
-					data_recieved_2.boost_data1.in_volt);
-			printf(">BCO:%d\n\r>BVO:%d\n\r",
-					data_recieved_2.boost_data2.out_curr,
-					data_recieved_2.boost_data2.out_volt);
-			printf(">FCBMEHUM:%d\n\r>FCBMET:%d\n\r",
-					data_recieved_2.fc_data3.bme_humid,
-					data_recieved_2.fc_data3.bme_temp);
-			printf(">H2SNS1:%d\n\r", data_recieved_3.h2_data.h2_sense_1);
-			printf(">H2SNS2:%d\n\r", data_recieved_3.h2_data.h2_sense_2);
-			printf(">H2SNS3:%d\n\r", data_recieved_3.h2_data.h2_sense_3);
-			printf(">H2SNS4:%d\n\r", data_recieved_3.h2_data.h2_sense_4);
+//			printf(">CC:%d\n>CV:%d\n", data_recieved_1.cap_data.cap_curr,
+//					data_recieved_1.cap_data.cap_volt);
+//			printf(">FCP:%d\n>FCT:%d\n", data_recieved_1.fc_data1.fc_press,
+//					data_recieved_1.fc_data1.fc_temp);
+//			printf(">FCF1:%d\n>FCF2:%d\n", data_recieved_1.fc_data2.fan_rpm1,
+//					data_recieved_1.fc_data2.fan_rpm2);
+//			printf(">MC:%d\n>MV:%d\n", data_recieved_1.mtr_data.mtr_curr,
+//					data_recieved_1.mtr_data.mtr_volt);
+//			printf(">FCC:%d\n>FCV:%d\n", data_recieved_2.RelPackFc.fc_curr,
+//					data_recieved_2.RelPackFc.fc_volt);
+//			printf(">BCI:%d\n>BVI:%d\n", data_recieved_2.boost_data1.in_curr,
+//					data_recieved_2.boost_data1.in_volt);
+//			printf(">BCO:%d\n>BVO:%d\n", data_recieved_2.boost_data2.out_curr,
+//					data_recieved_2.boost_data2.out_volt);
+//			printf(">FCBMEHUM:%d\n>FCBMET:%d\n",
+//					data_recieved_2.fc_data3.bme_humid,
+//					data_recieved_2.fc_data3.bme_temp);
+//			printf(">H2SNS1:%d\n", data_recieved_3.h2_data.h2_sense_1);
+//			printf(">H2SNS2:%d\n", data_recieved_3.h2_data.h2_sense_2);
+//			printf(">H2SNS3:%d\n", data_recieved_3.h2_data.h2_sense_3);
+//			printf(">H2SNS4:%d\n", data_recieved_3.h2_data.h2_sense_4);
 //			}
 
 			osDelay(5);
 		}
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
 
-//			printf("Writing to file: %s", filename);
+			printf("Writing to file: %s", filename);
 
 //		else {
-			fres = f_open(&fil, "log.txt",
+			fres = f_open(&fil, filename,
 			FA_WRITE | FA_OPEN_APPEND
 //			| FA_CREATE_ALWAYS
 					);
@@ -323,12 +326,12 @@ void StartAuxilaryTask(void *argument) {
 			printf(">H2SNS2:%d\n\r", data_recieved_3.h2_data.h2_sense_2);
 			printf(">H2SNS3:%d\n\r", data_recieved_3.h2_data.h2_sense_3);
 			printf(">H2SNS4:%d\n\r", data_recieved_3.h2_data.h2_sense_4);
-
+			ublox_TestI2C();
 			osDelay(100);
 
 		}
 
-		ublox_TestI2C();
+//		ublox_TestI2C();
 
 	}
 	/* USER CODE END StartAuxilaryTask */

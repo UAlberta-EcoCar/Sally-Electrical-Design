@@ -171,6 +171,10 @@ void StartCanReceive(void *argument) {
 //					pointer_to_data_store = data3.h2_data.ECOCAN_raw_pack;
 					memcpy(data3.h2_data.ECOCAN_raw_pack, ret, 8);
 					break;
+
+				case 0x123:
+					memcpy(nathan, ret, 8);
+					break;
 				default:
 					log_err("CANID 0x%x not handled!",
 							localRxHeader.Identifier);

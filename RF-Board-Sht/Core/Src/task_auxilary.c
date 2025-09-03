@@ -237,27 +237,27 @@ void StartAuxilaryTask(void *argument) {
 
 		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
 //			if (data_recieved_1.fc_data1.fc_temp != 0) {
-			printf(">CC:%d\n>CV:%d\n", data_recieved_1.cap_data.cap_curr,
-					data_recieved_1.cap_data.cap_volt);
-			printf(">FCP:%d\n>FCT:%d\n", data_recieved_1.fc_data1.fc_press,
-					data_recieved_1.fc_data1.fc_temp);
-			printf(">FCF1:%d\n>FCF2:%d\n", data_recieved_1.fc_data2.fan_rpm1,
-					data_recieved_1.fc_data2.fan_rpm2);
-			printf(">MC:%d\n>MV:%d\n", data_recieved_1.mtr_data.mtr_curr,
-					data_recieved_1.mtr_data.mtr_volt);
-			printf(">FCC:%d\n>FCV:%d\n", data_recieved_2.RelPackFc.fc_curr,
-					data_recieved_2.RelPackFc.fc_volt);
-			printf(">BCI:%d\n>BVI:%d\n", data_recieved_2.boost_data1.in_curr,
-					data_recieved_2.boost_data1.in_volt);
-			printf(">BCO:%d\n>BVO:%d\n", data_recieved_2.boost_data2.out_curr,
-					data_recieved_2.boost_data2.out_volt);
-			printf(">FCBMEHUM:%d\n>FCBMET:%d\n",
-					data_recieved_2.fc_data3.bme_humid,
-					data_recieved_2.fc_data3.bme_temp);
-			printf(">H2SNS1:%d\n", data_recieved_3.h2_data.h2_sense_1);
-			printf(">H2SNS2:%d\n", data_recieved_3.h2_data.h2_sense_2);
-			printf(">H2SNS3:%d\n", data_recieved_3.h2_data.h2_sense_3);
-			printf(">H2SNS4:%d\n", data_recieved_3.h2_data.h2_sense_4);
+//			printf(">CC:%d\n>CV:%d\n", data_recieved_1.cap_data.cap_curr,
+//					data_recieved_1.cap_data.cap_volt);
+//			printf(">FCP:%d\n>FCT:%d\n", data_recieved_1.fc_data1.fc_press,
+//					data_recieved_1.fc_data1.fc_temp);
+//			printf(">FCF1:%d\n>FCF2:%d\n", data_recieved_1.fc_data2.fan_rpm1,
+//					data_recieved_1.fc_data2.fan_rpm2);
+//			printf(">MC:%d\n>MV:%d\n", data_recieved_1.mtr_data.mtr_curr,
+//					data_recieved_1.mtr_data.mtr_volt);
+//			printf(">FCC:%d\n>FCV:%d\n", data_recieved_2.RelPackFc.fc_curr,
+//					data_recieved_2.RelPackFc.fc_volt);
+//			printf(">BCI:%d\n>BVI:%d\n", data_recieved_2.boost_data1.in_curr,
+//					data_recieved_2.boost_data1.in_volt);
+//			printf(">BCO:%d\n>BVO:%d\n", data_recieved_2.boost_data2.out_curr,
+//					data_recieved_2.boost_data2.out_volt);
+//			printf(">FCBMEHUM:%d\n>FCBMET:%d\n",
+//					data_recieved_2.fc_data3.bme_humid,
+//					data_recieved_2.fc_data3.bme_temp);
+//			printf(">H2SNS1:%d\n", data_recieved_3.h2_data.h2_sense_1);
+//			printf(">H2SNS2:%d\n", data_recieved_3.h2_data.h2_sense_2);
+//			printf(">H2SNS3:%d\n", data_recieved_3.h2_data.h2_sense_3);
+//			printf(">H2SNS4:%d\n", data_recieved_3.h2_data.h2_sense_4);
 //			}
 
 			osDelay(5);
@@ -326,7 +326,7 @@ void StartAuxilaryTask(void *argument) {
 			printf(">H2SNS2:%d\n\r", data_recieved_3.h2_data.h2_sense_2);
 			printf(">H2SNS3:%d\n\r", data_recieved_3.h2_data.h2_sense_3);
 			printf(">H2SNS4:%d\n\r", data_recieved_3.h2_data.h2_sense_4);
-
+			ublox_TestI2C();
 			osDelay(100);
 
 		}

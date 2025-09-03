@@ -104,7 +104,7 @@ void StartCanReceive(void *argument) {
 					&localRxHeader.DataLength, 0, 0) != osOK) {
 				Error_Handler();
 			}
-			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
+\\			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
 					i++) {
 				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0)
 						!= osOK) {
@@ -170,6 +170,10 @@ void StartCanReceive(void *argument) {
 				case ECOCAN_H2_PACK1_ID:
 //					pointer_to_data_store = data3.h2_data.ECOCAN_raw_pack;
 					memcpy(data3.h2_data.ECOCAN_raw_pack, ret, 8);
+					break;
+
+				case 0x123:
+					memcpy(nathan, ret, 8);
 					break;
 				default:
 					log_err("CANID 0x%x not handled!",
