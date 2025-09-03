@@ -27,11 +27,12 @@ typedef struct {
 	FDCAN_RelPackFc_t RelPackFc;
 } telemetry_data2_t;
 
-
 typedef struct {
 	ECOCAN_H2Pack1_t h2_data;
 	rbState_t rb_state;
+	uint8_t speed; // if we go faster than 255 km/h i will be happy.
 } telemetry_data3_t;
+
 
 
 #endif /* INC_TASK_TELEMETRY_TRANSMIT_H_ */

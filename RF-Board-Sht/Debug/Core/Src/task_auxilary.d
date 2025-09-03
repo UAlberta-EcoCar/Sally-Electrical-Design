@@ -43,11 +43,11 @@ Core/Src/task_auxilary.o: ../Core/Src/task_auxilary.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
  ../Core/Inc/i2c.h ../Core/Inc/main.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h \
  ../Core/Inc/usart.h ../Core/Inc/task_telemetry_transmit.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h \
  ../FATFS/App/app_fatfs.h ../Middlewares/Third_Party/FatFs/src/ff.h \
  ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
@@ -57,10 +57,10 @@ Core/Src/task_auxilary.o: ../Core/Src/task_auxilary.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/user_diskio.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h \
  ../Core/Inc/eeprom_emul_conf.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crc.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_bus.h
 ../Core/Inc/main.h:
@@ -109,12 +109,12 @@ Core/Src/task_auxilary.o: ../Core/Src/task_auxilary.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/log/ansi-codes.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/task_telemetry_transmit.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/ecocan/ecocar_can.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/util/typedef/exported_typedef.h:
 ../FATFS/App/app_fatfs.h:
 ../Middlewares/Third_Party/FatFs/src/ff.h:
 ../Middlewares/Third_Party/FatFs/src/integer.h:
@@ -127,9 +127,9 @@ C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoL
 ../Middlewares/Third_Party/FatFs/src/diskio.h:
 ../Middlewares/Third_Party/FatFs/src/ff.h:
 ../FATFS/Target/user_diskio.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h:
 ../Core/Inc/eeprom_emul_conf.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crc.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_bus.h:

@@ -1,9 +1,9 @@
 EcoLib/drivers/EEPROM-Emulator/Src/flash_interface.o: \
  ../EcoLib/drivers/EEPROM-Emulator/Src/flash_interface.c \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h \
  ../Core/Inc/eeprom_emul_conf.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h \
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -42,11 +42,11 @@ EcoLib/drivers/EEPROM-Emulator/Src/flash_interface.o: \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crc.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_bus.h \
- C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h:
+ C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul.h:
 ../Core/Inc/eeprom_emul_conf.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/eeprom_emul_types.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h:
@@ -85,4 +85,4 @@ C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoL
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crc.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_bus.h:
-C:/Users/abina/Desktop/side/EcoCar/RF-Module-UltraCom-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h:
+C:/Users/abina/Desktop/EcoCar/RF-Board-UltraComm-Series-1/RF-Board-Sht/EcoLib/drivers/EEPROM-Emulator/Inc/flash_interface.h:

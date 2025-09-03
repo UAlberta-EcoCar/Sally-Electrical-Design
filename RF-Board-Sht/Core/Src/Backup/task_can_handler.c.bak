@@ -104,7 +104,7 @@ void StartCanReceive(void *argument) {
 					&localRxHeader.DataLength, 0, 0) != osOK) {
 				Error_Handler();
 			}
-\\			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
+			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength);
 					i++) {
 				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0)
 						!= osOK) {

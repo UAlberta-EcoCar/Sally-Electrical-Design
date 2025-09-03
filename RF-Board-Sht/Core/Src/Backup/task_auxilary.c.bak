@@ -48,7 +48,7 @@ void ublox_TestI2C(void) {
 	for (i = 0; i < 10; i++) {
 		uint16_t length = ublox_ReadLength();
 		printf("uBlox Length %5d %04X\n", length, length);
-		if (length) {  ,7
+		if (length) {
 			static uint8_t buffer[1000];
 			uint16_t len = (length < sizeof(buffer)) ? length : sizeof(buffer);
 			status = HAL_I2C_Mem_Read(&hi2c2, (0x42 << 1), 0xFF, 1, buffer, len,
