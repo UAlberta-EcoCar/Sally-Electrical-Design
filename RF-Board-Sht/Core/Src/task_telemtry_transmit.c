@@ -71,7 +71,7 @@ extern telemetry_data3_t data3;
 
 telemetry_data1_t data_recieved_1 = { 0 };
 telemetry_data2_t data_recieved_2 = { 0 };
-telemetry_data2_t data_recieved_3 = { 0 };
+telemetry_data3_t data_recieved_3 = { 0 };
 
 telemetry_packet_t recieved_data;
 
@@ -215,7 +215,7 @@ void StartTelemetryTransmitTask(void *argument) {
 			memset(dat3.packet_data, 0, sizeof(telemetry_data3_t));
 
 			osDelay(5);
-			printf("RPM: %d", wheel_rpm);
+			printf("RPM: %d\r\n", wheel_rpm);
 		}
 
 		// reciever
@@ -224,8 +224,8 @@ void StartTelemetryTransmitTask(void *argument) {
 			rf_recieve_single(&rfm95_868, &rec_legth);
 			if (rec_legth != 0) {
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-//				rf_read_packet(&rfm95_868, rec_legth, &recieved_data);
-				rf_read_packet(&rfm95_868, rec_legth, nathan);
+				rf_read_packet(&rfm95_868, rec_legth, &recieved_data);
+//				rf_read_packet(&rfm95_868, rec_legth, nathan);
 				rf_packet_snr(&rfm95_868, &snr);
 				rf_packet_rssi(&rfm95_868, &rssi);
 
@@ -257,6 +257,7 @@ void StartTelemetryTransmitTask(void *argument) {
 //						nathan[0], nathan[1], nathan[2], nathan[3], nathan[4],
 //						nathan[5], nathan[6], nathan[7]);
 
+				printf("[868] Recieved: %d ID: %d\r\n", rec_legth, recieved_data.packet_id);
 				HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 //				rec_legth = 0;
 			}
@@ -290,6 +291,7 @@ void StartTelemetryTransmitTask(void *argument) {
 				default:
 					break;
 				}
+				printf("[915] Recieved: %d ID: %d\r\n", rec_legth, recieved_data.packet_id);
 				HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 				rec_legth = 0;
 			}
