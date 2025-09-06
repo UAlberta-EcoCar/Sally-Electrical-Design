@@ -116,6 +116,9 @@ void Error_Handler(void);
 #define pwm2_GPIO_Port GPIOB
 #define LED2_Pin GPIO_PIN_6
 #define LED2_GPIO_Port GPIOB
+#define FCPurge_Pin GPIO_PIN_8
+#define FCPurge_GPIO_Port GPIOB
+#define FCPurge_EXTI_IRQn EXTI9_5_IRQn
 #define LED3_Pin GPIO_PIN_9
 #define LED3_GPIO_Port GPIOB
 
