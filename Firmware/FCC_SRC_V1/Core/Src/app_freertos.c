@@ -87,7 +87,6 @@ ECOCAN_RelPackChrg_t charge_data = { 0 };
 
 uint8_t FC_substate = PURGE_CHARGE;
 
-
 uint8_t button_flags = 0x00;
 
 fetState_t fet_state = FET_STBY;
@@ -103,7 +102,7 @@ float fc_charge_last = 0;
 float fc_charge = 0;
 // Default Purge values
 volatile uint32_t purgeDelay_ms = 60000; // time delay between purge is ms
-volatile uint32_t purgeTime_ms = 1250;   // purge duration // With small valve 2000 MS for 500 mL, 1.25 for larger
+volatile uint32_t purgeTime_ms = 1250; // purge duration // With small valve 2000 MS for 500 mL, 1.25 for larger
 volatile uint8_t purge_timer_flag = 0;
 
 float pdelay_unconfirmed = 0;
@@ -113,102 +112,74 @@ char ScreenBuffer[64];
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-uint32_t defaultTaskBuffer[ 512 ];
+uint32_t defaultTaskBuffer[512];
 osStaticThreadDef_t defaultTaskControlBlock;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_mem = &defaultTaskBuffer[0],
-  .stack_size = sizeof(defaultTaskBuffer),
-  .cb_mem = &defaultTaskControlBlock,
-  .cb_size = sizeof(defaultTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal,
-};
+const osThreadAttr_t defaultTask_attributes = { .name = "defaultTask",
+		.stack_mem = &defaultTaskBuffer[0], .stack_size =
+				sizeof(defaultTaskBuffer), .cb_mem = &defaultTaskControlBlock,
+		.cb_size = sizeof(defaultTaskControlBlock), .priority =
+				(osPriority_t) osPriorityNormal, };
 /* Definitions for canReceive */
 osThreadId_t canReceiveHandle;
-uint32_t canReceiveBuffer[ 512 ];
+uint32_t canReceiveBuffer[512];
 osStaticThreadDef_t canReceiveControlBlock;
-const osThreadAttr_t canReceive_attributes = {
-  .name = "canReceive",
-  .stack_mem = &canReceiveBuffer[0],
-  .stack_size = sizeof(canReceiveBuffer),
-  .cb_mem = &canReceiveControlBlock,
-  .cb_size = sizeof(canReceiveControlBlock),
-  .priority = (osPriority_t) osPriorityAboveNormal,
-};
+const osThreadAttr_t canReceive_attributes = { .name = "canReceive",
+		.stack_mem = &canReceiveBuffer[0], .stack_size =
+				sizeof(canReceiveBuffer), .cb_mem = &canReceiveControlBlock,
+		.cb_size = sizeof(canReceiveControlBlock), .priority =
+				(osPriority_t) osPriorityAboveNormal, };
 /* Definitions for canSend */
 osThreadId_t canSendHandle;
-uint32_t canSendBuffer[ 512 ];
+uint32_t canSendBuffer[512];
 osStaticThreadDef_t canSendControlBlock;
-const osThreadAttr_t canSend_attributes = {
-  .name = "canSend",
-  .stack_mem = &canSendBuffer[0],
-  .stack_size = sizeof(canSendBuffer),
-  .cb_mem = &canSendControlBlock,
-  .cb_size = sizeof(canSendControlBlock),
-  .priority = (osPriority_t) osPriorityNormal1,
-};
+const osThreadAttr_t canSend_attributes = { .name = "canSend", .stack_mem =
+		&canSendBuffer[0], .stack_size = sizeof(canSendBuffer), .cb_mem =
+		&canSendControlBlock, .cb_size = sizeof(canSendControlBlock),
+		.priority = (osPriority_t) osPriorityNormal1, };
 /* Definitions for valveControl */
 osThreadId_t valveControlHandle;
-uint32_t valveControlBuffer[ 512 ];
+uint32_t valveControlBuffer[512];
 osStaticThreadDef_t valveControlControlBlock;
-const osThreadAttr_t valveControl_attributes = {
-  .name = "valveControl",
-  .stack_mem = &valveControlBuffer[0],
-  .stack_size = sizeof(valveControlBuffer),
-  .cb_mem = &valveControlControlBlock,
-  .cb_size = sizeof(valveControlControlBlock),
-  .priority = (osPriority_t) osPriorityNormal2,
-};
+const osThreadAttr_t valveControl_attributes = { .name = "valveControl",
+		.stack_mem = &valveControlBuffer[0], .stack_size =
+				sizeof(valveControlBuffer), .cb_mem = &valveControlControlBlock,
+		.cb_size = sizeof(valveControlControlBlock), .priority =
+				(osPriority_t) osPriorityNormal2, };
 /* Definitions for fuelCellData */
 osThreadId_t fuelCellDataHandle;
-uint32_t fuelCellDataBuffer[ 512 ];
+uint32_t fuelCellDataBuffer[512];
 osStaticThreadDef_t fuelCellDataControlBlock;
-const osThreadAttr_t fuelCellData_attributes = {
-  .name = "fuelCellData",
-  .stack_mem = &fuelCellDataBuffer[0],
-  .stack_size = sizeof(fuelCellDataBuffer),
-  .cb_mem = &fuelCellDataControlBlock,
-  .cb_size = sizeof(fuelCellDataControlBlock),
-  .priority = (osPriority_t) osPriorityNormal3,
-};
+const osThreadAttr_t fuelCellData_attributes = { .name = "fuelCellData",
+		.stack_mem = &fuelCellDataBuffer[0], .stack_size =
+				sizeof(fuelCellDataBuffer), .cb_mem = &fuelCellDataControlBlock,
+		.cb_size = sizeof(fuelCellDataControlBlock), .priority =
+				(osPriority_t) osPriorityNormal3, };
 /* Definitions for canQueRxHeader */
 osMessageQueueId_t canQueRxHeaderHandle;
-uint8_t RxHeaderQueBuffer[ 512 * sizeof( uint32_t ) ];
+uint8_t RxHeaderQueBuffer[512 * sizeof(uint32_t)];
 osStaticMessageQDef_t RxHeaderQueControlBlock;
-const osMessageQueueAttr_t canQueRxHeader_attributes = {
-  .name = "canQueRxHeader",
-  .cb_mem = &RxHeaderQueControlBlock,
-  .cb_size = sizeof(RxHeaderQueControlBlock),
-  .mq_mem = &RxHeaderQueBuffer,
-  .mq_size = sizeof(RxHeaderQueBuffer)
-};
+const osMessageQueueAttr_t canQueRxHeader_attributes = { .name =
+		"canQueRxHeader", .cb_mem = &RxHeaderQueControlBlock, .cb_size =
+		sizeof(RxHeaderQueControlBlock), .mq_mem = &RxHeaderQueBuffer,
+		.mq_size = sizeof(RxHeaderQueBuffer) };
 /* Definitions for canQueRxData */
 osMessageQueueId_t canQueRxDataHandle;
-uint8_t RxDataQueBuffer[ 512 * sizeof( uint8_t ) ];
+uint8_t RxDataQueBuffer[512 * sizeof(uint8_t)];
 osStaticMessageQDef_t RxDataQueControlBlock;
-const osMessageQueueAttr_t canQueRxData_attributes = {
-  .name = "canQueRxData",
-  .cb_mem = &RxDataQueControlBlock,
-  .cb_size = sizeof(RxDataQueControlBlock),
-  .mq_mem = &RxDataQueBuffer,
-  .mq_size = sizeof(RxDataQueBuffer)
-};
+const osMessageQueueAttr_t canQueRxData_attributes = { .name = "canQueRxData",
+		.cb_mem = &RxDataQueControlBlock, .cb_size =
+				sizeof(RxDataQueControlBlock), .mq_mem = &RxDataQueBuffer,
+		.mq_size = sizeof(RxDataQueBuffer) };
 /* Definitions for purgetimer */
 osTimerId_t purgetimerHandle;
 osStaticTimerDef_t purgetimerControlBlock;
-const osTimerAttr_t purgetimer_attributes = {
-  .name = "purgetimer",
-  .cb_mem = &purgetimerControlBlock,
-  .cb_size = sizeof(purgetimerControlBlock),
-};
+const osTimerAttr_t purgetimer_attributes = { .name = "purgetimer", .cb_mem =
+		&purgetimerControlBlock, .cb_size = sizeof(purgetimerControlBlock), };
 /* Definitions for i2cSema */
 osSemaphoreId_t i2cSemaHandle;
 osStaticSemaphoreDef_t i2cSemaControlBlock;
-const osSemaphoreAttr_t i2cSema_attributes = {
-  .name = "i2cSema",
-  .cb_mem = &i2cSemaControlBlock,
-  .cb_size = sizeof(i2cSemaControlBlock),
-};
+const osSemaphoreAttr_t i2cSema_attributes = { .name = "i2cSema", .cb_mem =
+		&i2cSemaControlBlock, .cb_size = sizeof(i2cSemaControlBlock), };
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -433,47 +404,50 @@ void purgeValveTimer(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
-  * @brief  FreeRTOS initialization
-  * @param  None
-  * @retval None
-  */
+ * @brief  FreeRTOS initialization
+ * @param  None
+ * @retval None
+ */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
+	/* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+	/* USER CODE END Init */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
+	/* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+	/* USER CODE END RTOS_MUTEX */
 
-  /* Create the semaphores(s) */
-  /* creation of i2cSema */
-  i2cSemaHandle = osSemaphoreNew(1, 1, &i2cSema_attributes);
+	/* Create the semaphores(s) */
+	/* creation of i2cSema */
+	i2cSemaHandle = osSemaphoreNew(1, 1, &i2cSema_attributes);
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
+	/* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+	/* USER CODE END RTOS_SEMAPHORES */
 
-  /* Create the timer(s) */
-  /* creation of purgetimer */
-  purgetimerHandle = osTimerNew(purgeValveTimer, osTimerPeriodic, NULL, &purgetimer_attributes);
+	/* Create the timer(s) */
+	/* creation of purgetimer */
+	purgetimerHandle = osTimerNew(purgeValveTimer, osTimerPeriodic, NULL,
+			&purgetimer_attributes);
 
-  /* USER CODE BEGIN RTOS_TIMERS */
+	/* USER CODE BEGIN RTOS_TIMERS */
 	tachtimerHandle = osTimerNew(calcTachRpmTimer, osTimerPeriodic, NULL,
 			&tachtimer_attributes);
 	pidtimerHandle = osTimerNew(calcPidTimer, osTimerPeriodic, NULL,
 			&pidtimer_attributes);
 	/* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+	/* USER CODE END RTOS_TIMERS */
 
-  /* Create the queue(s) */
-  /* creation of canQueRxHeader */
-  canQueRxHeaderHandle = osMessageQueueNew (512, sizeof(uint32_t), &canQueRxHeader_attributes);
+	/* Create the queue(s) */
+	/* creation of canQueRxHeader */
+	canQueRxHeaderHandle = osMessageQueueNew(512, sizeof(uint32_t),
+			&canQueRxHeader_attributes);
 
-  /* creation of canQueRxData */
-  canQueRxDataHandle = osMessageQueueNew (512, sizeof(uint8_t), &canQueRxData_attributes);
+	/* creation of canQueRxData */
+	canQueRxDataHandle = osMessageQueueNew(512, sizeof(uint8_t),
+			&canQueRxData_attributes);
 
-  /* USER CODE BEGIN RTOS_QUEUES */
+	/* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
 
 	/* creation of usbQueReceive */
@@ -484,32 +458,36 @@ void MX_FREERTOS_Init(void) {
 	usbQueSendHandle = osMessageQueueNew(2048, sizeof(char),
 			&usbQueSend_attributes);
 
-  /* USER CODE END RTOS_QUEUES */
+	/* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+	/* Create the thread(s) */
+	/* creation of defaultTask */
+	defaultTaskHandle = osThreadNew(StartDefaultTask, NULL,
+			&defaultTask_attributes);
 
-  /* creation of canReceive */
-  canReceiveHandle = osThreadNew(StartTaskReceive, NULL, &canReceive_attributes);
+	/* creation of canReceive */
+	canReceiveHandle = osThreadNew(StartTaskReceive, NULL,
+			&canReceive_attributes);
 
-  /* creation of canSend */
-  canSendHandle = osThreadNew(StartTaskSend, NULL, &canSend_attributes);
+	/* creation of canSend */
+	canSendHandle = osThreadNew(StartTaskSend, NULL, &canSend_attributes);
 
-  /* creation of valveControl */
-  valveControlHandle = osThreadNew(valveContrl, NULL, &valveControl_attributes);
+	/* creation of valveControl */
+	valveControlHandle = osThreadNew(valveContrl, NULL,
+			&valveControl_attributes);
 
-  /* creation of fuelCellData */
-  fuelCellDataHandle = osThreadNew(StartFuelCellData, NULL, &fuelCellData_attributes);
+	/* creation of fuelCellData */
+	fuelCellDataHandle = osThreadNew(StartFuelCellData, NULL,
+			&fuelCellData_attributes);
 
-  /* USER CODE BEGIN RTOS_THREADS */
+	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
 	usbTaskHandle = osThreadNew(StartUsbTask, NULL, &usbTask_attributes);
-  /* USER CODE END RTOS_THREADS */
+	/* USER CODE END RTOS_THREADS */
 
-  /* USER CODE BEGIN RTOS_EVENTS */
+	/* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
-  /* USER CODE END RTOS_EVENTS */
+	/* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -520,11 +498,10 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
-{
-  /* init code for USB_Device */
-  MX_USB_Device_Init();
-  /* USER CODE BEGIN StartDefaultTask */
+void StartDefaultTask(void *argument) {
+	/* init code for USB_Device */
+	MX_USB_Device_Init();
+	/* USER CODE BEGIN StartDefaultTask */
 	// Let other tasks use i2c during startup
 	osDelay(100);
 
@@ -569,8 +546,27 @@ void StartDefaultTask(void *argument)
 			if (READ_BIT(button_flags, 1 << 7) == 1 << 7) {
 				sprintf(ScreenBuffer, "STATE: %s", "ALARM");
 			} else {
-				sprintf(ScreenBuffer, "STATE: %s",
-						(relay_state == RELAY_STBY) ? "STBY" : "RUN");
+
+				static char temp_string[32] = { 0 };
+				memset(temp_string, 0, 32 * sizeof(char));
+				switch (relay_state) {
+				case RELAY_STBY:
+					sprintf(temp_string, "%s", "STBY");
+					break;
+				case RELAY_STRTP:
+					sprintf(temp_string, "%s", "STRTP");
+					break;
+				case RELAY_CHRGE:
+					sprintf(temp_string, "%s", "CHRGE");
+					break;
+				case RELAY_RUN:
+					sprintf(temp_string, "%s", "RUN");
+					break;
+				default:
+					break;
+				}
+
+				sprintf(ScreenBuffer, "STATE: %s", temp_string);
 			}
 			ssd1306_WriteString(ScreenBuffer, Font_11x18, White);
 
@@ -580,7 +576,7 @@ void StartDefaultTask(void *argument)
 			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 			sprintf(ScreenBuffer, "Charge:%4.0f(As)",
-					 (fc_charge - fc_charge_last));
+					(fc_charge - fc_charge_last));
 
 			ssd1306_SetCursor(0, 30);
 			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
@@ -616,7 +612,7 @@ void StartDefaultTask(void *argument)
 
 		osDelay(100);
 	}
-  /* USER CODE END StartDefaultTask */
+	/* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartTaskReceive */
@@ -626,9 +622,8 @@ void StartDefaultTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartTaskReceive */
-void StartTaskReceive(void *argument)
-{
-  /* USER CODE BEGIN StartTaskReceive */
+void StartTaskReceive(void *argument) {
+	/* USER CODE BEGIN StartTaskReceive */
 	/* Infinite loop */
 	FDCAN_RxHeaderTypeDef localRxHeader = { 0 };
 	uint8_t ret[64] = { 0 };
@@ -694,7 +689,7 @@ void StartTaskReceive(void *argument)
 			log_err("Something strange is happening!");
 		}
 	}
-  /* USER CODE END StartTaskReceive */
+	/* USER CODE END StartTaskReceive */
 }
 
 /* USER CODE BEGIN Header_StartTaskSend */
@@ -704,9 +699,8 @@ void StartTaskReceive(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartTaskSend */
-void StartTaskSend(void *argument)
-{
-  /* USER CODE BEGIN StartTaskSend */
+void StartTaskSend(void *argument) {
+	/* USER CODE BEGIN StartTaskSend */
 	/* Infinite loop */
 	UNUSED(argument);
 
@@ -791,7 +785,7 @@ void StartTaskSend(void *argument)
 			}
 		}
 	}
-  /* USER CODE END StartTaskSend */
+	/* USER CODE END StartTaskSend */
 }
 
 /* USER CODE BEGIN Header_valveContrl */
@@ -801,9 +795,8 @@ void StartTaskSend(void *argument)
  * @retval None
  */
 /* USER CODE END Header_valveContrl */
-void valveContrl(void *argument)
-{
-  /* USER CODE BEGIN valveContrl */
+void valveContrl(void *argument) {
+	/* USER CODE BEGIN valveContrl */
 	/* Infinite loop */
 	uint8_t status = 0;
 	uint8_t startupPurge = 0;
@@ -837,18 +830,18 @@ void valveContrl(void *argument)
 
 			} else if (relay_state == RELAY_STRTP) {
 				if (startupPurge == 0) {
-					HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
-							GPIO_PIN_SET);
+					HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port,
+					SUPPLYvlve_Pin, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 
 					osDelay(100);
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-							GPIO_PIN_SET);
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+					PURGEvlve_Pin, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 					osDelay(purgeTime_ms);
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-							GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+					PURGEvlve_Pin, GPIO_PIN_RESET);
 					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 					lastPurge_ms = HAL_GetTick();
 					startupPurge = 1;
@@ -858,19 +851,19 @@ void valveContrl(void *argument)
 				// If either FET_CHRGE or FET_RUN this code is what we need
 				if (FC_substate == PURGE_TIMED) {
 
-					HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port, SUPPLYvlve_Pin,
-							GPIO_PIN_SET);
+					HAL_GPIO_WritePin(SUPPLYvlve_GPIO_Port,
+					SUPPLYvlve_Pin, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
 					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 
 					if (startupPurge == 0) {
-						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-								GPIO_PIN_SET);
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+						PURGEvlve_Pin, GPIO_PIN_SET);
 						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
 								GPIO_PIN_SET);
 						osDelay(purgeTime_ms);
-						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-								GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+						PURGEvlve_Pin, GPIO_PIN_RESET);
 						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
 								GPIO_PIN_RESET);
 						lastPurge_ms = HAL_GetTick();
@@ -911,13 +904,13 @@ void valveContrl(void *argument)
 					fc_charge = charge_data.fc_coloumbs / FDCAN_FOUR_FLT_PREC;
 
 					if (fc_charge - fc_charge_last >= 2300) {
-						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-								GPIO_PIN_SET);
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+						PURGEvlve_Pin, GPIO_PIN_SET);
 						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
 								GPIO_PIN_SET);
 						osDelay(purgeTime_ms);
-						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin,
-								GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+						PURGEvlve_Pin, GPIO_PIN_RESET);
 						HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
 								GPIO_PIN_RESET);
 						lastPurge_ms = HAL_GetTick();
@@ -930,24 +923,22 @@ void valveContrl(void *argument)
 			}
 		}
 		if (purge_force_flag == 1) {
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
-					PURGEvlve_Pin, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
-							GPIO_PIN_SET);
-					osDelay(purgeTime_ms);
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
-					PURGEvlve_Pin, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
-							GPIO_PIN_RESET);
-					lastPurge_ms = HAL_GetTick();
-					purge_force_flag = 0;
+			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+			PURGEvlve_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+			osDelay(purgeTime_ms);
+			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+			PURGEvlve_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+			lastPurge_ms = HAL_GetTick();
+			purge_force_flag = 0;
 
-				}
+		}
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 
 		osDelay(1);
 	}
-  /* USER CODE END valveContrl */
+	/* USER CODE END valveContrl */
 }
 
 /* USER CODE BEGIN Header_StartFuelCellData */
@@ -957,9 +948,8 @@ void valveContrl(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartFuelCellData */
-void StartFuelCellData(void *argument)
-{
-  /* USER CODE BEGIN StartFuelCellData */
+void StartFuelCellData(void *argument) {
+	/* USER CODE BEGIN StartFuelCellData */
 // Following for
 #define DELAY_FOR_CHANNEL_SWITCH 20
 #define B 3950.0f
@@ -1047,19 +1037,18 @@ void StartFuelCellData(void *argument)
 					thermTemp);
 		}
 	}
-  /* USER CODE END StartFuelCellData */
+	/* USER CODE END StartFuelCellData */
 }
 
 /* purgeValveTimer function */
-void purgeValveTimer(void *argument)
-{
-  /* USER CODE BEGIN purgeValveTimer */
+void purgeValveTimer(void *argument) {
+	/* USER CODE BEGIN purgeValveTimer */
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 	osDelay(purgeTime_ms);
 	HAL_GPIO_WritePin(PURGEvlve_GPIO_Port, PURGEvlve_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-  /* USER CODE END purgeValveTimer */
+	/* USER CODE END purgeValveTimer */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -1134,9 +1123,6 @@ float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
 
 	return out;
 }
-
-
-
 
 /* USER CODE END Application */
 

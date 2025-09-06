@@ -23,6 +23,8 @@
 #include "main.h"
 #include "cmsis_os.h"
 
+#include "usb_device.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ADS1115.h"
@@ -71,6 +73,7 @@ typedef struct {
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 /* USER CODE END PM */
+
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 //CAN Data
@@ -83,7 +86,6 @@ FDCAN_RelPackNrg_t energy_data = { 0 };
 ECOCAN_RelPackChrg_t charge_data = { 0 };
 
 uint8_t FC_substate = PURGE_CHARGE;
-
 
 uint8_t button_flags = 0x00;
 
@@ -100,7 +102,7 @@ float fc_charge_last = 0;
 float fc_charge = 0;
 // Default Purge values
 volatile uint32_t purgeDelay_ms = 60000; // time delay between purge is ms
-volatile uint32_t purgeTime_ms = 1250;   // purge duration // With small valve 2000 MS for 500 mL, 1.25 for larger
+volatile uint32_t purgeTime_ms = 1250; // purge duration // With small valve 2000 MS for 500 mL, 1.25 for larger
 volatile uint8_t purge_timer_flag = 0;
 
 float pdelay_unconfirmed = 0;
@@ -544,6 +546,17 @@ void StartDefaultTask(void *argument) {
 			if (READ_BIT(button_flags, 1 << 7) == 1 << 7) {
 				sprintf(ScreenBuffer, "STATE: %s", "ALARM");
 			} else {
+
+				static temp_string[32] = { 0 };
+
+				switch (relay_state) {
+					case RELAY:
+
+						break;
+					default:
+						break;
+				}
+
 				sprintf(ScreenBuffer, "STATE: %s",
 						(relay_state == RELAY_STBY) ? "STBY" : "RUN");
 			}
@@ -555,7 +568,7 @@ void StartDefaultTask(void *argument) {
 			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
 
 			sprintf(ScreenBuffer, "Charge:%4.0f(As)",
-					 (fc_charge - fc_charge_last));
+					(fc_charge - fc_charge_last));
 
 			ssd1306_SetCursor(0, 30);
 			ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
@@ -902,19 +915,17 @@ void valveContrl(void *argument) {
 			}
 		}
 		if (purge_force_flag == 1) {
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
-					PURGEvlve_Pin, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
-							GPIO_PIN_SET);
-					osDelay(purgeTime_ms);
-					HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
-					PURGEvlve_Pin, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
-							GPIO_PIN_RESET);
-					lastPurge_ms = HAL_GetTick();
-					purge_force_flag = 0;
+			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+			PURGEvlve_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+			osDelay(purgeTime_ms);
+			HAL_GPIO_WritePin(PURGEvlve_GPIO_Port,
+			PURGEvlve_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+			lastPurge_ms = HAL_GetTick();
+			purge_force_flag = 0;
 
-				}
+		}
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 
 		osDelay(1);
@@ -1104,9 +1115,6 @@ float PID_Compute(pidParam_t *pid, float setpoint, float measured_temp) {
 
 	return out;
 }
-
-
-
 
 /* USER CODE END Application */
 

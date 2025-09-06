@@ -46,19 +46,19 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../Core/Inc/ADS1115.h \
- C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/debug-log.h \
- C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/ansi-codes.h \
- C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h \
+ ../USB_Device/App/usb_device.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ ../USB_Device/Target/usbd_conf.h ../Core/Inc/ADS1115.h \
+ C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/util/log/debug-log.h \
+ C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/util/log/ansi-codes.h \
+ C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
+ C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h \
  ../Core/Inc/fdcan.h ../Core/Inc/main.h \
  ../EcoLib/drivers/lis3dh/inc/lis3dh.h ../Core/Inc/ssd1306.h \
  ../Core/Inc/ssd1306_conf.h ../Core/Inc/ssd1306_fonts.h \
  ../Core/Inc/ssd1306.h ../Core/Inc/ssd1306_tests.h ../Core/Inc/tim.h \
- ../USB_Device/App/usb_device.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../USB_Device/Target/usbd_conf.h ../USB_Device/App/usbd_cdc_if.h \
+ ../USB_Device/App/usbd_cdc_if.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
@@ -114,12 +114,15 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+../USB_Device/App/usb_device.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+../USB_Device/Target/usbd_conf.h:
 ../Core/Inc/ADS1115.h:
-C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/debug-log.h:
-C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/log/ansi-codes.h:
-C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h:
+C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/util/log/debug-log.h:
+C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/util/log/ansi-codes.h:
+C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/ecocan/ecocar_can.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
+C:/Users/abina/Desktop/side/EcoCar/FuelCellController-Sally/Firmware/FCC_SRC_V1/EcoLib/util/typedef/exported_typedef.h:
 ../Core/Inc/fdcan.h:
 ../Core/Inc/main.h:
 ../EcoLib/drivers/lis3dh/inc/lis3dh.h:
@@ -129,9 +132,6 @@ C:/Users/cloud/git/Fuel-Cell-Controller/Sally-Electrical-Design/FCC_SRC_V1/EcoLi
 ../Core/Inc/ssd1306.h:
 ../Core/Inc/ssd1306_tests.h:
 ../Core/Inc/tim.h:
-../USB_Device/App/usb_device.h:
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
-../USB_Device/Target/usbd_conf.h:
 ../USB_Device/App/usbd_cdc_if.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
