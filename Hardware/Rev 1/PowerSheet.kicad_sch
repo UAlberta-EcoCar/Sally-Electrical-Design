@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "abd3f4de-d58c-4266-87e2-ec11813de4ec")
 	(paper "A4")
 	(lib_symbols
@@ -86,18 +86,6 @@
 			(symbol "AZ1117CD-3.3TRG1_0_1"
 				(polyline
 					(pts
-						(xy -33.02 -10.16) (xy -7.62 -10.16)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy -33.02 5.08) (xy -33.02 -10.16)
 					)
 					(stroke
@@ -110,7 +98,7 @@
 				)
 				(polyline
 					(pts
-						(xy -7.62 -10.16) (xy -7.62 5.08)
+						(xy -33.02 -10.16) (xy -7.62 -10.16)
 					)
 					(stroke
 						(width 0.127)
@@ -132,17 +120,29 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
-					(at 0 -5.08 180)
+				(polyline
+					(pts
+						(xy -7.62 -10.16) (xy -7.62 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at 0 0 180)
 					(length 7.62)
-					(name "ADJ/GND"
+					(name "INPUT"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "1"
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -168,10 +168,100 @@
 						)
 					)
 				)
-				(pin input line
-					(at 0 0 180)
+				(pin unspecified line
+					(at 0 -5.08 180)
 					(length 7.62)
-					(name "INPUT"
+					(name "ADJ/GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "BattPart:AP62250"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "AP62250_0_1"
+				(rectangle
+					(start -6.35 5.08)
+					(end 6.35 -5.08)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "AP62250_1_1"
+				(pin input line
+					(at -8.89 2.54 0)
+					(length 2.54)
+					(name "VIN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -186,10 +276,103 @@
 						)
 					)
 				)
+				(pin input line
+					(at -8.89 -2.54 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 8.89 2.54 180)
+					(length 2.54)
+					(name "SW"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 8.89 0 180)
+					(length 2.54)
+					(name "BST"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 8.89 -2.54 180)
+					(length 2.54)
+					(name "FB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -262,7 +445,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -274,7 +457,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -323,11 +506,339 @@
 					)
 				)
 			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:C_Polarized"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.635 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C_Polarized"
+				(at 0.635 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0.9652 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Polarized capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "CP_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_Polarized_0_1"
+				(rectangle
+					(start -2.286 0.508)
+					(end 2.286 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 2.286) (xy -0.762 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.794) (xy -1.27 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 2.286 -0.508)
+					(end -2.286 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+			)
+			(symbol "C_Polarized_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:L"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "L"
+				(at -1.27 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "L"
+				(at 1.905 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Inductor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "inductor choke coil reactor magnetic"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "L_0_1"
+				(arc
+					(start 0 2.54)
+					(mid 0.6323 1.905)
+					(end 0 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 1.27)
+					(mid 0.6323 0.635)
+					(end 0 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0)
+					(mid 0.6323 -0.635)
+					(end 0 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -1.27)
+					(mid 0.6323 -1.905)
+					(end 0 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "L_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:LED"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -395,10 +906,22 @@
 			(symbol "LED_0_1"
 				(polyline
 					(pts
-						(xy -1.27 -1.27) (xy -1.27 1.27)
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
 					)
 					(stroke
-						(width 0.254)
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -419,7 +942,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+						(xy -1.27 -1.27) (xy -1.27 1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -431,22 +954,10 @@
 				)
 				(polyline
 					(pts
-						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
 					)
 					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
-					)
-					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -492,9 +1003,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -613,12 +1127,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+3.3V"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -690,7 +1209,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -702,7 +1221,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -733,12 +1252,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -829,12 +1353,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:VBUS"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -906,7 +1435,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -918,7 +1447,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -949,280 +1478,2534 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
-	(junction
-		(at 143.51 107.95)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "040c91f0-30bf-43ea-944d-8f8415e585df")
-	)
-	(junction
-		(at 167.64 119.38)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3d49a1aa-f769-4251-9a2b-036a56e8916b")
-	)
-	(junction
-		(at 153.67 96.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "89df46ad-201f-48d3-9bca-4523f7b05347")
-	)
-	(junction
-		(at 143.51 105.41)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9075669e-b12d-41b5-9afe-e95bd5039411")
-	)
-	(junction
-		(at 167.64 91.44)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c0c2cc89-6e71-440c-bb71-f30edc6cb6b4")
-	)
-	(wire
-		(pts
-			(xy 153.67 95.25) (xy 153.67 96.52)
-		)
+	(rectangle
+		(start 16.51 13.97)
+		(end 127 196.85)
 		(stroke
-			(width 0)
-			(type default)
+			(width 0.5)
+			(type dash)
 		)
-		(uuid "09db1799-84ad-4e98-b5f4-7b510760896a")
+		(fill
+			(type none)
+		)
+		(uuid 7fc9ed0c-887f-4cee-ab20-aa058dd6b8df)
 	)
-	(wire
-		(pts
-			(xy 128.27 115.57) (xy 153.67 115.57)
-		)
+	(rectangle
+		(start 179.07 15.24)
+		(end 276.86 80.01)
 		(stroke
-			(width 0)
-			(type default)
+			(width 0.5)
+			(type dash)
 		)
-		(uuid "0fab1a45-84c6-45b9-ad8f-a9b34bb0084c")
+		(fill
+			(type none)
+		)
+		(uuid bfe55478-25e3-4084-ab09-e572626f4a08)
 	)
-	(wire
-		(pts
-			(xy 143.51 107.95) (xy 143.51 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "19999ce9-c67b-448f-9409-4b0114d74e86")
-	)
-	(wire
-		(pts
-			(xy 143.51 91.44) (xy 143.51 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1a2f2baa-7af9-4705-8425-fe6adca6709c")
-	)
-	(wire
-		(pts
-			(xy 143.51 96.52) (xy 153.67 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "20e843be-ff81-4184-8a9e-a76db9bda928")
-	)
-	(wire
-		(pts
-			(xy 167.64 87.63) (xy 167.64 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3ff7e698-4767-4fe0-adfc-27eeee7d797a")
-	)
-	(wire
-		(pts
-			(xy 143.51 99.06) (xy 143.51 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "46dfdf19-114e-405d-aea6-5f984785aa01")
-	)
-	(wire
-		(pts
-			(xy 182.88 91.44) (xy 167.64 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5c262065-e164-4fff-9dce-304ddc8fdeed")
-	)
-	(wire
-		(pts
-			(xy 153.67 96.52) (xy 153.67 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f2a4d39-258e-4d39-8e2d-b62941fa5de3")
-	)
-	(wire
-		(pts
-			(xy 114.3 119.38) (xy 167.64 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "83e2fdad-f062-4945-9e10-789b66ca3188")
-	)
-	(wire
-		(pts
-			(xy 114.3 115.57) (xy 114.3 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "89af1a22-83c2-42b0-b1b0-91b2bbcad145")
-	)
-	(wire
-		(pts
-			(xy 143.51 105.41) (xy 143.51 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e73dfcc-4952-4b49-9539-349366195f60")
-	)
-	(wire
-		(pts
-			(xy 167.64 119.38) (xy 190.5 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aa46dcd2-80d4-4656-97f6-db8f74bc8c78")
-	)
-	(wire
-		(pts
-			(xy 190.5 110.49) (xy 190.5 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b3751449-bf02-4450-9b8e-96e102fc6b4d")
-	)
-	(wire
-		(pts
-			(xy 167.64 91.44) (xy 167.64 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b6f76498-8973-4d28-bb80-8f5ef79c0b5b")
-	)
-	(wire
-		(pts
-			(xy 114.3 107.95) (xy 114.3 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b8d87ce8-a4d5-4460-a2b4-00110d7e21a7")
-	)
-	(wire
-		(pts
-			(xy 128.27 107.95) (xy 143.51 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bc1259d3-906d-4297-80b5-9b2f7c7ea400")
-	)
-	(wire
-		(pts
-			(xy 167.64 120.65) (xy 167.64 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be757cae-1cc4-404a-8565-bd4957f85990")
-	)
-	(wire
-		(pts
-			(xy 190.5 91.44) (xy 190.5 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d704be86-912a-4348-813a-b92d834bcf97")
-	)
-	(wire
-		(pts
-			(xy 114.3 105.41) (xy 143.51 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "df7f18e8-060e-41c6-9b02-549d3c460d51")
-	)
-	(wire
-		(pts
-			(xy 143.51 91.44) (xy 167.64 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e2f3b6c0-a2e0-4fc6-b41d-0df5e1895519")
-	)
-	(text "VBUS from USB Connector (7V)"
+	(text "Copied directly from the data sheet to get 5V 2.5A output per buck circuit.\n\n\n"
 		(exclude_from_sim no)
-		(at 129.032 123.952 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "dd7f3441-c587-4f73-b6f0-6f33b3716434")
-	)
-	(label "PWR_LED_K"
-		(at 190.5 93.98 0)
+		(at 18.034 199.644 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "4d96524e-d205-4b14-8004-a474a023b9e4")
+		(uuid "136af2e9-3042-4ed2-a49f-97522557e4a8")
+	)
+	(text "Voltage Regulator 7V to 3V3 @ 500mA Max"
+		(exclude_from_sim no)
+		(at 180.34 20.32 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.3)
+				(bold yes)
+				(italic yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "21214d97-824d-4478-8395-d92a892256de")
+	)
+	(text "To do:\n1. Add outputs on a different sheet\n2. Need current and voltage sensing?\n3. Protection circuit(s)?"
+		(exclude_from_sim no)
+		(at 214.376 154.178 0)
+		(effects
+			(font
+				(size 2.27 2.27)
+			)
+			(justify left)
+		)
+		(uuid "28eb73f1-1766-416f-8be9-e6db8dde88db")
+	)
+	(text "Why 2 caps here?"
+		(exclude_from_sim no)
+		(at 32.258 51.562 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 34 23 1)
+			)
+		)
+		(uuid "2ea04304-f7b5-4dd2-ac7b-7d0c21fd6d37")
+	)
+	(text "AP62250WU-7 Buck DC-DC Converter 12V to 5V @ 2.5A\n"
+		(exclude_from_sim no)
+		(at 21.59 20.32 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.3)
+				(bold yes)
+				(italic yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "3f695321-5d9c-4c2d-be0d-beaaf3b8bb43")
+	)
+	(text "VBUS from bat board ? (12V) or both USB and bat board ?"
+		(exclude_from_sim no)
+		(at 210.312 71.882 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 50 50 1)
+			)
+		)
+		(uuid "5f9a3edc-312f-4bda-9bc2-a3762149108a")
+	)
+	(text "What's the difference\nbetween this cap\nand others?"
+		(exclude_from_sim no)
+		(at 98.806 51.816 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 50 19 1)
+			)
+		)
+		(uuid "6b0ab5c3-fd2c-4fd1-b85e-e70e349c7ac0")
+	)
+	(text "VBUS from USB Connector (7V)"
+		(exclude_from_sim no)
+		(at 207.772 68.072 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "8f557f82-350b-4b09-80d0-fdee69ea6fb3")
+	)
+	(text "Power regulation with Linear Voltage Regulator and Buck Converters"
+		(exclude_from_sim no)
+		(at 219.71 189.738 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "9aaeb1a7-a636-4843-b783-28099867f687")
+	)
+	(text "AZ1117CD-3.3TRG1"
+		(exclude_from_sim no)
+		(at 180.34 24.13 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.3)
+				(bold yes)
+				(italic yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "e5e113ca-5de9-424f-a3b5-354d71a355b0")
+	)
+	(text "and here?"
+		(exclude_from_sim no)
+		(at 87.63 26.162 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 42 9 1)
+			)
+		)
+		(uuid "f14ecc19-b0b5-4f9d-ae08-652c1f99c17a")
+	)
+	(junction
+		(at 93.98 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "03f5b5f8-34d6-4571-ac38-5c9206e01877")
+	)
+	(junction
+		(at 104.14 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "056a8455-d67b-4cb8-bf84-e7e18270b003")
+	)
+	(junction
+		(at 111.76 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0b74f83f-220f-4978-b21c-54c6901e2856")
+	)
+	(junction
+		(at 242.57 62.23)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0d69526c-3493-42e2-a38b-26d9d70b4e18")
+	)
+	(junction
+		(at 82.55 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "14f0ba03-7f89-41c1-bfee-3e613a5db5f6")
+	)
+	(junction
+		(at 24.13 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "17daf991-cf2f-4493-a46e-18e219b77dba")
+	)
+	(junction
+		(at 64.77 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "184c11ce-c531-4b74-9990-d6adbf2415da")
+	)
+	(junction
+		(at 76.2 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "19430a86-05c7-4429-8cb1-8c079677cdb5")
+	)
+	(junction
+		(at 30.48 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1a32912a-71a1-4759-b0e3-8183fd2ebfac")
+	)
+	(junction
+		(at 24.13 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1fdc1625-3380-49e7-a04b-c276d7b714c5")
+	)
+	(junction
+		(at 30.48 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "23485fbc-0340-48f2-8140-13c317ac2dc2")
+	)
+	(junction
+		(at 64.77 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "27008230-f920-41ad-bd89-c44adfb38a5f")
+	)
+	(junction
+		(at 22.86 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "29f98a91-0bd8-46b5-ba3d-3ee74f41add7")
+	)
+	(junction
+		(at 102.87 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "379d962c-efa2-4faa-b975-921b79ba042c")
+	)
+	(junction
+		(at 77.47 177.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "37f4d4ea-549e-4fde-aa84-ade687202d19")
+	)
+	(junction
+		(at 77.47 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3a65ddac-315e-4acf-8874-3a7cd66002b5")
+	)
+	(junction
+		(at 77.47 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "41fe6bda-5c1b-4c4f-8257-62eea5eb73b5")
+	)
+	(junction
+		(at 24.13 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "45920f01-126e-4b61-9759-76ee7d11c7a6")
+	)
+	(junction
+		(at 93.98 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4c79bfa0-6686-422d-9c1f-ca86d22f3896")
+	)
+	(junction
+		(at 64.77 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "520db07f-c11f-4891-9b24-a500ba4e1144")
+	)
+	(junction
+		(at 113.03 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "54530464-5abd-41d9-a879-26abb7096dbd")
+	)
+	(junction
+		(at 77.47 92.71)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5fc815ef-5dbb-4153-8087-63eb5dcc1654")
+	)
+	(junction
+		(at 77.47 137.16)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "65eae805-98bd-4221-9284-fff043710b5d")
+	)
+	(junction
+		(at 88.9 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6e3e8e37-9d5c-451b-be61-0cfab424ca3e")
+	)
+	(junction
+		(at 19.05 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "743b1c65-45cb-4e04-834b-c262d7841223")
+	)
+	(junction
+		(at 30.48 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "79095450-51b5-45f3-aafe-5e0ae0ff9e94")
+	)
+	(junction
+		(at 76.2 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7fe18995-d396-4aa0-950e-9f9e6c9600a3")
+	)
+	(junction
+		(at 222.25 49.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "835d4dcb-b1d1-4a33-b63d-e1d07b9909fc")
+	)
+	(junction
+		(at 232.41 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8d9495a6-b24d-42be-bae6-53f8068e410a")
+	)
+	(junction
+		(at 63.5 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8df3cbcc-fe56-4df2-bf56-354b0e0c110f")
+	)
+	(junction
+		(at 83.82 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "905690d3-fe55-4819-b9b2-24dc8d89d15a")
+	)
+	(junction
+		(at 24.13 139.7)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9f5385ce-87b3-4363-a560-942dd1306368")
+	)
+	(junction
+		(at 88.9 130.81)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a15aeb0d-e162-4d4c-8f34-bd362839c375")
+	)
+	(junction
+		(at 83.82 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a6664c65-fa9c-4948-a6af-fdcfdf2a7072")
+	)
+	(junction
+		(at 24.13 92.71)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "aaa69845-f115-46b8-b47e-f03906ed98f9")
+	)
+	(junction
+		(at 104.14 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ae4d3cd4-da3d-4a29-91e8-7244fefeac99")
+	)
+	(junction
+		(at 242.57 33.02)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b31ad0b7-dce4-4fc8-b157-9077804bd7de")
+	)
+	(junction
+		(at 76.2 57.15)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b6b349fe-d551-4bd0-a18b-e859e65dbe29")
+	)
+	(junction
+		(at 222.25 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c14fb6a0-b608-4237-827b-d35e36ffc8b4")
+	)
+	(junction
+		(at 77.47 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ce35bdb7-6412-4bb0-a1dc-1264fe4c3486")
+	)
+	(junction
+		(at 19.05 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cf57de1c-4149-4326-adb6-ffb0a6808179")
+	)
+	(junction
+		(at 88.9 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cfaa99b9-b8ef-4455-8bc8-7b9c309dcd8e")
+	)
+	(junction
+		(at 104.14 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d3941f3d-9f24-4033-a05c-32b26ea3f806")
+	)
+	(junction
+		(at 27.94 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d6461913-5745-48ad-b0b6-fb8ce505591d")
+	)
+	(junction
+		(at 87.63 41.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dbfa866b-9164-4e5d-9278-83be4870c90f")
+	)
+	(junction
+		(at 92.71 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dfa3f0c9-4389-41a0-acd3-5c337196fec3")
+	)
+	(junction
+		(at 83.82 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e9d9e99f-92bf-487e-94f8-70673c744505")
+	)
+	(junction
+		(at 22.86 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "efa875f3-7b78-4589-860f-6bc0f6ed4894")
+	)
+	(junction
+		(at 24.13 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f5daa080-43b5-41c0-b167-e24a3ab71174")
+	)
+	(junction
+		(at 113.03 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f6e493ba-0c24-4cfc-aa02-8c5a975e1456")
+	)
+	(junction
+		(at 19.05 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f8d2bc3d-685d-4cc3-bc33-d5dd4eebad1e")
+	)
+	(junction
+		(at 93.98 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f9470834-0686-43e5-a7d1-3da529398d41")
+	)
+	(junction
+		(at 113.03 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "feca0316-df86-4707-b5e5-65fef6e4b073")
+	)
+	(no_connect
+		(at 33.02 34.29)
+		(uuid "03e33475-b505-46a5-b494-ed2e74ea7880")
+	)
+	(no_connect
+		(at 34.29 78.74)
+		(uuid "24ce7463-3e32-47d0-840a-153e73d04547")
+	)
+	(no_connect
+		(at 34.29 163.83)
+		(uuid "d2bf83d4-7c23-45f7-b80d-e119b48b1ba5")
+	)
+	(no_connect
+		(at 34.29 123.19)
+		(uuid "ec1533b8-8da5-444c-a020-a6928d73b758")
+	)
+	(wire
+		(pts
+			(xy 256.54 33.02) (xy 256.54 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "009c2a7e-fdc0-4790-8f2b-31e73540ccdc")
+	)
+	(wire
+		(pts
+			(xy 24.13 73.66) (xy 30.48 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0233a149-b302-449b-b57e-77370d5d4d23")
+	)
+	(wire
+		(pts
+			(xy 19.05 29.21) (xy 19.05 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02ff3de5-ed3b-4c92-91e1-37acf61c031d")
+	)
+	(wire
+		(pts
+			(xy 113.03 99.06) (xy 113.03 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03def1ff-19ef-4605-9a36-d6e9bbf2eb2d")
+	)
+	(wire
+		(pts
+			(xy 102.87 29.21) (xy 102.87 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "049d6bc7-f9ac-4f8f-a342-172e9298a9c0")
+	)
+	(wire
+		(pts
+			(xy 256.54 52.07) (xy 256.54 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "070776f5-2108-44a9-b746-f3e9c2dd8b89")
+	)
+	(wire
+		(pts
+			(xy 53.34 92.71) (xy 77.47 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07705c79-52e7-4f58-8a7f-75493de97c0a")
+	)
+	(wire
+		(pts
+			(xy 104.14 87.63) (xy 104.14 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07c0ecc3-635b-43f2-8bf1-51cd3c007814")
+	)
+	(wire
+		(pts
+			(xy 222.25 43.18) (xy 222.25 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "08257e22-382a-4c37-a2ac-49c9b09d853e")
+	)
+	(wire
+		(pts
+			(xy 19.05 118.11) (xy 24.13 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0bae1c73-419b-41e2-bde8-f8954cf72978")
+	)
+	(wire
+		(pts
+			(xy 93.98 73.66) (xy 104.14 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d7aadbf-cfc8-4576-b371-b185af84c3e4")
+	)
+	(wire
+		(pts
+			(xy 22.86 29.21) (xy 27.94 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0da828b8-2015-41f7-b966-21b54731456e")
+	)
+	(wire
+		(pts
+			(xy 113.03 118.11) (xy 118.11 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e349c53-9af2-4643-9392-6fcff5facc52")
+	)
+	(wire
+		(pts
+			(xy 53.34 137.16) (xy 77.47 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1132426d-b1f7-4ee0-9281-f19a771ec067")
+	)
+	(wire
+		(pts
+			(xy 60.96 87.63) (xy 60.96 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "12add3f9-a8a1-48d8-a13c-e78289eb2697")
+	)
+	(wire
+		(pts
+			(xy 93.98 118.11) (xy 104.14 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1310377e-2426-4a57-9525-0303f2c8a955")
+	)
+	(wire
+		(pts
+			(xy 82.55 40.64) (xy 82.55 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "13d17937-92a7-48fd-bf52-0be34f0eae29")
+	)
+	(wire
+		(pts
+			(xy 88.9 130.81) (xy 88.9 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "15742018-e93e-438e-8fe1-392dcdd43721")
+	)
+	(wire
+		(pts
+			(xy 93.98 158.75) (xy 93.98 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "158d706a-8d75-42a0-9505-595f15e428ce")
+	)
+	(wire
+		(pts
+			(xy 27.94 29.21) (xy 27.94 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16247f6a-ceb1-40f1-b30c-ef3712673ba9")
+	)
+	(wire
+		(pts
+			(xy 93.98 129.54) (xy 93.98 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17b0eb2e-e65f-4132-8c2c-486ab278af38")
+	)
+	(wire
+		(pts
+			(xy 22.86 48.26) (xy 22.86 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "185ea154-e156-49fe-a168-c7407f76d50f")
+	)
+	(wire
+		(pts
+			(xy 93.98 171.45) (xy 88.9 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1921168f-0619-4fd2-ba26-44bac7ab764a")
+	)
+	(wire
+		(pts
+			(xy 59.69 43.18) (xy 63.5 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19a0eeff-3fdc-448e-96c0-642b74b2d9cd")
+	)
+	(wire
+		(pts
+			(xy 118.11 116.84) (xy 118.11 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1be321e0-1e64-48f3-941a-d4c2eecaa18f")
+	)
+	(wire
+		(pts
+			(xy 83.82 158.75) (xy 83.82 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "214cf351-7bd5-41d3-bcec-d492a73769c8")
+	)
+	(wire
+		(pts
+			(xy 22.86 48.26) (xy 27.94 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "219b45c3-38a6-44e7-9acc-e18243b9b274")
+	)
+	(wire
+		(pts
+			(xy 77.47 83.82) (xy 77.47 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21c930f5-680d-4436-869f-f63880b25144")
+	)
+	(wire
+		(pts
+			(xy 77.47 73.66) (xy 83.82 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "225d2801-dc13-4c16-8024-866d5331aff8")
+	)
+	(wire
+		(pts
+			(xy 113.03 134.62) (xy 113.03 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "226f7244-2b8a-4de7-bccd-240f85681ded")
+	)
+	(wire
+		(pts
+			(xy 193.04 62.23) (xy 242.57 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "231d1c91-7c64-43ea-9141-da1d35a98017")
+	)
+	(wire
+		(pts
+			(xy 24.13 92.71) (xy 24.13 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23fdf23b-c53c-4fc9-b8ed-107f3c9c33b0")
+	)
+	(wire
+		(pts
+			(xy 77.47 176.53) (xy 77.47 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "243e1692-6ba4-4ead-910c-8bbeff0a778a")
+	)
+	(wire
+		(pts
+			(xy 111.76 29.21) (xy 111.76 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "256aa53e-9642-427f-88e9-f68e17f7c7fd")
+	)
+	(wire
+		(pts
+			(xy 102.87 43.18) (xy 102.87 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2701500f-c639-4a00-a263-2d1ac609dd8e")
+	)
+	(wire
+		(pts
+			(xy 53.34 163.83) (xy 53.34 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27b8c7a6-bfba-4197-a2fa-c6b085e962ce")
+	)
+	(wire
+		(pts
+			(xy 93.98 170.18) (xy 93.98 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27ba449a-793f-4906-a508-a7ab7c587013")
+	)
+	(wire
+		(pts
+			(xy 76.2 55.88) (xy 76.2 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "28567d4a-7a39-404a-9db9-458387b9c645")
+	)
+	(wire
+		(pts
+			(xy 52.07 78.74) (xy 53.34 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "288c6b1a-14bf-4f41-9269-c53225231449")
+	)
+	(wire
+		(pts
+			(xy 74.93 118.11) (xy 77.47 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a467e77-96d1-4d4c-9993-e0f98559fa1b")
+	)
+	(wire
+		(pts
+			(xy 64.77 158.75) (xy 64.77 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b8c5789-f6fe-488b-96d8-8f92681410f5")
+	)
+	(wire
+		(pts
+			(xy 88.9 171.45) (xy 88.9 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e43d151-f34d-43a4-9654-2b18fdc16aa6")
+	)
+	(wire
+		(pts
+			(xy 193.04 52.07) (xy 193.04 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fa707f0-876b-42b1-99b8-8f7ea2913203")
+	)
+	(wire
+		(pts
+			(xy 104.14 118.11) (xy 113.03 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "302dff30-8789-49c8-a46b-abfdc729fb3b")
+	)
+	(wire
+		(pts
+			(xy 52.07 158.75) (xy 64.77 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30c55a77-c4e1-41b4-81dc-199f6b4ed461")
+	)
+	(wire
+		(pts
+			(xy 53.34 177.8) (xy 77.47 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "325d056d-cadb-4129-9e49-18f1cb8b53da")
+	)
+	(wire
+		(pts
+			(xy 30.48 73.66) (xy 34.29 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "32ff117a-ae03-430d-aec7-5a2c76c211c0")
+	)
+	(wire
+		(pts
+			(xy 77.47 91.44) (xy 77.47 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "34376582-0ff6-4961-8e78-c8f8e5b7dc92")
+	)
+	(wire
+		(pts
+			(xy 102.87 29.21) (xy 111.76 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "34e5ea2d-f099-4ead-9b72-9b2871bf80a2")
+	)
+	(wire
+		(pts
+			(xy 76.2 39.37) (xy 76.2 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "366842d6-f0af-4270-8149-c6e33bbd6b36")
+	)
+	(wire
+		(pts
+			(xy 52.07 73.66) (xy 64.77 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36ae0c5b-721c-4d00-8631-99422bd80e56")
+	)
+	(wire
+		(pts
+			(xy 111.76 29.21) (xy 118.11 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3919d84f-4e3c-4074-bb9b-b9494e0d337c")
+	)
+	(wire
+		(pts
+			(xy 232.41 39.37) (xy 232.41 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3930c1b7-2a56-4a35-96b5-636f93436bcc")
+	)
+	(wire
+		(pts
+			(xy 74.93 158.75) (xy 77.47 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b88e0f3-4707-4b15-81cf-ae41c8e34576")
+	)
+	(wire
+		(pts
+			(xy 19.05 73.66) (xy 19.05 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3cf26242-ef9f-412f-8f33-5f87a4905e05")
+	)
+	(wire
+		(pts
+			(xy 246.38 33.02) (xy 242.57 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d94b462-6306-401c-bf56-fab0a2611cd3")
+	)
+	(wire
+		(pts
+			(xy 104.14 158.75) (xy 113.03 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e5c0c02-41f6-4678-8dce-70595e9065df")
+	)
+	(wire
+		(pts
+			(xy 43.18 128.27) (xy 43.18 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f35fee5-1b8b-4686-aedc-7749fc8cdf3e")
+	)
+	(wire
+		(pts
+			(xy 77.47 147.32) (xy 77.47 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "400278ca-b0d6-49c2-a3e2-eb99adcbb3b2")
+	)
+	(wire
+		(pts
+			(xy 24.13 118.11) (xy 24.13 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "40ea03bf-764a-4fe5-82ae-4630e9d7b73d")
+	)
+	(wire
+		(pts
+			(xy 30.48 137.16) (xy 30.48 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41002e8e-8da6-44e0-9bbc-3c94d1fc10ea")
+	)
+	(wire
+		(pts
+			(xy 77.47 102.87) (xy 77.47 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "424e8477-b25f-479e-be7a-6bd604c01cbc")
+	)
+	(wire
+		(pts
+			(xy 59.69 43.18) (xy 59.69 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43f2a383-ec5f-4341-b671-4b3dab0513b5")
+	)
+	(wire
+		(pts
+			(xy 82.55 41.91) (xy 87.63 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4436d3c1-5d79-4581-8e7f-cb112b8e8b8a")
+	)
+	(wire
+		(pts
+			(xy 113.03 175.26) (xy 113.03 176.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47721cd2-ae2e-4393-a624-34d058a5bcf6")
+	)
+	(wire
+		(pts
+			(xy 83.82 85.09) (xy 83.82 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "487890ff-63ca-43cc-b656-31728369b698")
+	)
+	(wire
+		(pts
+			(xy 64.77 158.75) (xy 67.31 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b180246-c449-4f96-b573-ae3cbe9e012c")
+	)
+	(wire
+		(pts
+			(xy 207.01 52.07) (xy 222.25 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ce627a1-7475-4f63-891e-c6281248a464")
+	)
+	(wire
+		(pts
+			(xy 77.47 179.07) (xy 77.47 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d5bea81-b28c-434b-8e4a-665823119ba6")
+	)
+	(wire
+		(pts
+			(xy 92.71 29.21) (xy 102.87 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4da526c4-c840-4943-8de4-eda3d341faef")
+	)
+	(wire
+		(pts
+			(xy 93.98 85.09) (xy 93.98 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e0bbfb6-1ffd-4226-8bc7-18e06275466f")
+	)
+	(wire
+		(pts
+			(xy 64.77 118.11) (xy 64.77 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ffd95b1-17b4-4c00-b035-7f15b202caf6")
+	)
+	(wire
+		(pts
+			(xy 232.41 40.64) (xy 232.41 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50c69414-e9d5-4333-8ad6-4a82836b73af")
+	)
+	(wire
+		(pts
+			(xy 64.77 172.72) (xy 64.77 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51159853-669b-4668-8443-44cfa3012795")
+	)
+	(wire
+		(pts
+			(xy 43.18 168.91) (xy 43.18 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5141c208-08e2-4ca7-97c5-77d876cebcb2")
+	)
+	(wire
+		(pts
+			(xy 83.82 73.66) (xy 83.82 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5218bc6e-82b4-40b2-8abc-a60a92ecb0ab")
+	)
+	(wire
+		(pts
+			(xy 41.91 39.37) (xy 41.91 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53969422-ab2d-4a4b-956e-28ece32f6894")
+	)
+	(wire
+		(pts
+			(xy 52.07 118.11) (xy 64.77 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5525d57a-2f1e-4032-ae82-7ce5b9251d8b")
+	)
+	(wire
+		(pts
+			(xy 118.11 71.12) (xy 118.11 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "55ab4c2c-1be8-499a-9735-b794ac5f9ca0")
+	)
+	(wire
+		(pts
+			(xy 93.98 118.11) (xy 93.98 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5697d48f-b3ec-43e0-bd1c-b35cdbec8159")
+	)
+	(wire
+		(pts
+			(xy 24.13 158.75) (xy 24.13 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56f1a8a0-cd80-4b35-82d7-c36d3381ced5")
+	)
+	(wire
+		(pts
+			(xy 43.18 83.82) (xy 43.18 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58742930-ce73-4a8a-9d0f-26bddcf9b63e")
+	)
+	(wire
+		(pts
+			(xy 222.25 33.02) (xy 222.25 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58b0c834-b33a-416e-a739-72c26f55e8aa")
+	)
+	(wire
+		(pts
+			(xy 19.05 158.75) (xy 24.13 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5bff515a-e7db-4fda-bd9b-b7097477a26e")
+	)
+	(wire
+		(pts
+			(xy 93.98 73.66) (xy 93.98 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ce232f7-96d6-450d-b762-bccf929d0727")
+	)
+	(wire
+		(pts
+			(xy 193.04 49.53) (xy 222.25 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d4c8e41-50f9-4f91-ba1e-1f95f1a62436")
+	)
+	(wire
+		(pts
+			(xy 53.34 123.19) (xy 53.34 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e344083-2877-4ab1-a514-d46f42617be1")
+	)
+	(wire
+		(pts
+			(xy 73.66 29.21) (xy 76.2 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "610ac7d5-d604-4b77-ad3f-fafebeaeb911")
+	)
+	(wire
+		(pts
+			(xy 113.03 73.66) (xy 113.03 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6270c99c-299d-41a4-8470-a85d3c6f817b")
+	)
+	(wire
+		(pts
+			(xy 113.03 158.75) (xy 118.11 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "644d03c7-8f0e-452b-9eb0-16adf3e42f2f")
+	)
+	(wire
+		(pts
+			(xy 30.48 180.34) (xy 24.13 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64b30fdf-07a6-4f0c-8c6b-f9e92a06687f")
+	)
+	(wire
+		(pts
+			(xy 52.07 161.29) (xy 60.96 161.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "69177faf-5451-4d25-aaf3-73dce8ac5b5c")
+	)
+	(wire
+		(pts
+			(xy 60.96 132.08) (xy 64.77 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "694a3664-a0cf-4711-9c02-7ba21f15dde0")
+	)
+	(wire
+		(pts
+			(xy 242.57 62.23) (xy 256.54 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a193e47-9908-4965-9534-6c627d878381")
+	)
+	(wire
+		(pts
+			(xy 77.47 128.27) (xy 77.47 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d1a2d1c-93c1-4385-a93f-5e7e09c2600a")
+	)
+	(wire
+		(pts
+			(xy 207.01 59.69) (xy 232.41 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ea7c973-14d8-4853-b22f-06890ddfd5c2")
+	)
+	(wire
+		(pts
+			(xy 30.48 129.54) (xy 30.48 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ed0564c-f7dc-484c-9eb8-99fe60b89cba")
+	)
+	(wire
+		(pts
+			(xy 113.03 158.75) (xy 113.03 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f3791bc-8b17-4cf5-a7df-0ad60565e0cf")
+	)
+	(wire
+		(pts
+			(xy 83.82 158.75) (xy 93.98 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fb8dd8f-35cf-4d50-a30b-dfa9b65cc2e3")
+	)
+	(wire
+		(pts
+			(xy 77.47 135.89) (xy 77.47 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fe3e933-ea40-4b31-b242-5c90196896f7")
+	)
+	(wire
+		(pts
+			(xy 53.34 48.26) (xy 76.2 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "741b1a1f-b3c3-42b4-b158-63005dae4d6e")
+	)
+	(wire
+		(pts
+			(xy 52.07 163.83) (xy 53.34 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7613363a-bd4b-4231-a2ac-493606579591")
+	)
+	(wire
+		(pts
+			(xy 24.13 139.7) (xy 24.13 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "76150266-ccad-4aa1-9adb-4c08c6e0402f")
+	)
+	(wire
+		(pts
+			(xy 104.14 118.11) (xy 104.14 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "77b340e7-9910-4eaf-bc97-08b4ab10cbc3")
+	)
+	(wire
+		(pts
+			(xy 87.63 41.91) (xy 87.63 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "78b4cd22-7cac-44a3-a109-6c89c6d7886c")
+	)
+	(wire
+		(pts
+			(xy 254 33.02) (xy 256.54 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7960601d-71f8-44ab-b991-514d37c2d4a2")
+	)
+	(wire
+		(pts
+			(xy 104.14 158.75) (xy 104.14 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "79938699-0f28-4513-8ca1-b51e1e8906f6")
+	)
+	(wire
+		(pts
+			(xy 24.13 180.34) (xy 24.13 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7a29da1d-4fd9-49b5-8bdc-91ee4cad09aa")
+	)
+	(wire
+		(pts
+			(xy 64.77 118.11) (xy 67.31 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7cead573-0f19-4d6d-a61e-bac9bb4eae84")
+	)
+	(wire
+		(pts
+			(xy 64.77 73.66) (xy 64.77 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d1db0b4-5736-4794-90a9-d340df0ee2b9")
+	)
+	(wire
+		(pts
+			(xy 76.2 58.42) (xy 76.2 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d5af9ac-29c6-4108-b25b-3e02a76919c8")
+	)
+	(wire
+		(pts
+			(xy 52.07 76.2) (xy 60.96 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7fc80a7a-eece-46ca-95f6-15c8476aa368")
+	)
+	(wire
+		(pts
+			(xy 222.25 33.02) (xy 242.57 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ff1d71f-8ab4-4f26-8448-caf365ab3e9b")
+	)
+	(wire
+		(pts
+			(xy 118.11 26.67) (xy 118.11 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83441acc-e1b5-4c73-ac95-1be0bcf1d562")
+	)
+	(wire
+		(pts
+			(xy 77.47 158.75) (xy 83.82 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84d0138f-fe54-4a24-bcfe-778813166ee1")
+	)
+	(wire
+		(pts
+			(xy 76.2 29.21) (xy 82.55 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "85a29e4e-e260-47c7-8b63-9f6febef67b7")
+	)
+	(wire
+		(pts
+			(xy 222.25 40.64) (xy 232.41 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "882b0c3f-abf5-4b38-9a5d-024d37a6de4b")
+	)
+	(wire
+		(pts
+			(xy 93.98 86.36) (xy 88.9 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8d6863f4-dd2b-41af-839e-072e8d4220ab")
+	)
+	(wire
+		(pts
+			(xy 77.47 93.98) (xy 77.47 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8d930f85-2133-4d7b-8c77-3e63670f8b34")
+	)
+	(wire
+		(pts
+			(xy 113.03 143.51) (xy 113.03 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8db8ed42-9c34-432f-8eab-966c1a501952")
+	)
+	(wire
+		(pts
+			(xy 83.82 118.11) (xy 93.98 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9085233e-8ac8-4adf-a083-a05a53b046aa")
+	)
+	(wire
+		(pts
+			(xy 53.34 78.74) (xy 53.34 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "94f43d46-9e3f-4325-8a85-57e883d3527f")
+	)
+	(wire
+		(pts
+			(xy 64.77 73.66) (xy 67.31 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "983420b5-30d1-4b74-9c46-c377a5ec8432")
+	)
+	(wire
+		(pts
+			(xy 113.03 184.15) (xy 113.03 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99534abe-c71f-44e5-8239-da81afd94038")
+	)
+	(wire
+		(pts
+			(xy 24.13 129.54) (xy 24.13 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a770434-3850-457c-b9d7-69a3f32606fa")
+	)
+	(wire
+		(pts
+			(xy 76.2 46.99) (xy 76.2 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9af9abd6-f30a-40a9-bfdd-8d2eac06a484")
+	)
+	(wire
+		(pts
+			(xy 24.13 85.09) (xy 24.13 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9e4d8c21-dd6e-4161-93ae-12cdafbecd97")
+	)
+	(wire
+		(pts
+			(xy 92.71 41.91) (xy 87.63 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f4be148-83e3-4a40-b817-25719576e902")
+	)
+	(wire
+		(pts
+			(xy 83.82 73.66) (xy 93.98 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fec90a5-0ab3-44f6-b83c-fcc0098e374a")
+	)
+	(wire
+		(pts
+			(xy 104.14 172.72) (xy 104.14 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a2086338-e141-44cb-846c-d47187bf9ac7")
+	)
+	(wire
+		(pts
+			(xy 30.48 118.11) (xy 34.29 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a38e3bff-23fe-4d00-bdfc-4f0ab0462b17")
+	)
+	(wire
+		(pts
+			(xy 50.8 29.21) (xy 63.5 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a570f026-14f2-4a52-ac8e-0a269e1e6836")
+	)
+	(wire
+		(pts
+			(xy 77.47 168.91) (xy 77.47 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5cd2891-9642-4f7e-8c6a-8697a4edf76a")
+	)
+	(wire
+		(pts
+			(xy 63.5 29.21) (xy 66.04 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5dce84c-115c-4d68-849c-59c97d4f17ae")
+	)
+	(wire
+		(pts
+			(xy 30.48 158.75) (xy 34.29 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a62387a4-31a8-49fe-a110-4e8f6723730e")
+	)
+	(wire
+		(pts
+			(xy 222.25 49.53) (xy 222.25 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6425f51-018c-479f-a3cd-a8ea3034b9e0")
+	)
+	(wire
+		(pts
+			(xy 111.76 45.72) (xy 111.76 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a85a98eb-8148-49e7-815d-8c6d799b8b22")
+	)
+	(wire
+		(pts
+			(xy 104.14 73.66) (xy 113.03 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8b85ada-5a75-453d-81ac-01b701ae241d")
+	)
+	(wire
+		(pts
+			(xy 93.98 130.81) (xy 88.9 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9de25c5-408f-47ec-b97b-1512c2ff85ae")
+	)
+	(wire
+		(pts
+			(xy 83.82 130.81) (xy 88.9 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa8dd57b-e836-4349-a273-2e2c611aa46d")
+	)
+	(wire
+		(pts
+			(xy 104.14 73.66) (xy 104.14 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1715256-ad6d-42fd-86be-a8a16e59907f")
+	)
+	(wire
+		(pts
+			(xy 83.82 129.54) (xy 83.82 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b391ea8e-bf04-4324-96c9-211066ecfbd1")
+	)
+	(wire
+		(pts
+			(xy 193.04 59.69) (xy 193.04 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b3d2aea4-1cdc-4f24-8980-fda30f3c8511")
+	)
+	(wire
+		(pts
+			(xy 83.82 86.36) (xy 88.9 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4bc7013-1df9-446d-bd7d-0b2b1e1b555f")
+	)
+	(wire
+		(pts
+			(xy 24.13 92.71) (xy 30.48 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5e6411b-575a-49a1-8e1d-60b474221751")
+	)
+	(wire
+		(pts
+			(xy 19.05 25.4) (xy 19.05 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b73abe61-a2b9-4354-8937-a4ba2ae59447")
+	)
+	(wire
+		(pts
+			(xy 92.71 29.21) (xy 92.71 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7677f80-3eb7-4ec3-8a32-4a097af0dd55")
+	)
+	(wire
+		(pts
+			(xy 242.57 29.21) (xy 242.57 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b80af7ad-6a90-48a0-8741-eb595213f4ee")
+	)
+	(wire
+		(pts
+			(xy 64.77 87.63) (xy 64.77 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b98c5fa7-0f91-481b-ab53-09e971dfe9c3")
+	)
+	(wire
+		(pts
+			(xy 52.07 123.19) (xy 53.34 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9c19a6a-a4be-4eb6-8839-00f7284c7c56")
+	)
+	(wire
+		(pts
+			(xy 83.82 171.45) (xy 88.9 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bbe2f81d-58ff-40d0-9248-b88e2a83f349")
+	)
+	(wire
+		(pts
+			(xy 83.82 170.18) (xy 83.82 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc006009-4394-466f-ae24-005999dc1a84")
+	)
+	(wire
+		(pts
+			(xy 118.11 157.48) (xy 118.11 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bcb6b0bb-a260-4019-8b40-5377617d81e7")
+	)
+	(wire
+		(pts
+			(xy 50.8 31.75) (xy 59.69 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd3db67f-bf9b-4cbe-82a7-0b3d9cb78290")
+	)
+	(wire
+		(pts
+			(xy 24.13 118.11) (xy 30.48 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd50df8e-0e5a-4829-b0e3-2c3e98f7fea2")
+	)
+	(wire
+		(pts
+			(xy 82.55 29.21) (xy 92.71 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfb5f99d-6db5-4842-890c-276a7c5cc412")
+	)
+	(wire
+		(pts
+			(xy 60.96 172.72) (xy 60.96 161.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c11aff4f-77d7-4d40-92ff-c5aa9e527277")
+	)
+	(wire
+		(pts
+			(xy 113.03 90.17) (xy 113.03 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c38567dc-0807-48e8-b6f5-e9d8867a1a9d")
+	)
+	(wire
+		(pts
+			(xy 77.47 187.96) (xy 77.47 186.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c39a78f7-a555-42fc-9d00-50722a22fa4d")
+	)
+	(wire
+		(pts
+			(xy 22.86 40.64) (xy 22.86 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c3b566e7-b7d8-4e50-9a5c-8bef590c9733")
+	)
+	(wire
+		(pts
+			(xy 76.2 49.53) (xy 76.2 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c3fbb353-788b-43ea-b5a8-c2f06d6263d2")
+	)
+	(wire
+		(pts
+			(xy 30.48 177.8) (xy 30.48 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c44d72ea-7e21-4301-a77b-788a7d4a36be")
+	)
+	(wire
+		(pts
+			(xy 88.9 86.36) (xy 88.9 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7682aca-8741-4d0e-991c-6f5e605a11e5")
+	)
+	(wire
+		(pts
+			(xy 52.07 120.65) (xy 60.96 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8da4ec9-6845-405c-a456-eaebe09aa7a0")
+	)
+	(wire
+		(pts
+			(xy 77.47 118.11) (xy 83.82 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9ab114c-d1c2-463a-9254-ff53644ce40b")
+	)
+	(wire
+		(pts
+			(xy 30.48 139.7) (xy 24.13 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca8ceebf-0b1a-4e65-bb29-edcf4a65f439")
+	)
+	(wire
+		(pts
+			(xy 60.96 132.08) (xy 60.96 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cabb14de-0832-4712-9a30-de4b5e038d78")
+	)
+	(wire
+		(pts
+			(xy 242.57 33.02) (xy 242.57 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc828bba-1339-4a66-a442-f9ace3dae591")
+	)
+	(wire
+		(pts
+			(xy 93.98 158.75) (xy 104.14 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cce30283-2a8f-43d6-b8ba-6b6ec09ca510")
+	)
+	(wire
+		(pts
+			(xy 222.25 52.07) (xy 222.25 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdfc86fb-6c9a-4e46-a8c1-ffd4dcc7e7f4")
+	)
+	(wire
+		(pts
+			(xy 24.13 158.75) (xy 30.48 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce48458f-3835-46c9-b38a-ab348ff7a716")
+	)
+	(wire
+		(pts
+			(xy 64.77 132.08) (xy 64.77 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1beea0b-d342-4eb3-89a4-a0535223ad6e")
+	)
+	(wire
+		(pts
+			(xy 27.94 29.21) (xy 33.02 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6178b43-3cc1-4685-bcb6-c79706384f84")
+	)
+	(wire
+		(pts
+			(xy 77.47 138.43) (xy 77.47 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d63818f7-f818-41ba-8dab-2745eb49cd6a")
+	)
+	(wire
+		(pts
+			(xy 113.03 73.66) (xy 118.11 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dac9c262-8579-42fa-a27f-1094162871b4")
+	)
+	(wire
+		(pts
+			(xy 63.5 29.21) (xy 63.5 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd0bd24f-5f07-4678-a2d5-72fa2bee962f")
+	)
+	(wire
+		(pts
+			(xy 83.82 118.11) (xy 83.82 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df83087e-d00e-4b8e-b7b0-1047b2cb9c21")
+	)
+	(wire
+		(pts
+			(xy 30.48 85.09) (xy 30.48 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dfbb7525-059a-4ae2-a132-03624e6ef37c")
+	)
+	(wire
+		(pts
+			(xy 113.03 118.11) (xy 113.03 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e21b67e1-0020-403b-86c0-2492ce84ce2e")
+	)
+	(wire
+		(pts
+			(xy 82.55 29.21) (xy 82.55 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e27b77cc-846f-4456-9db7-2b318ab19a7a")
+	)
+	(wire
+		(pts
+			(xy 19.05 118.11) (xy 19.05 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e43eb573-9fbc-40a5-8686-87b874ef4df8")
+	)
+	(wire
+		(pts
+			(xy 53.34 34.29) (xy 53.34 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5135bd3-2642-47a5-8d93-86ad268b6ff2")
+	)
+	(wire
+		(pts
+			(xy 60.96 87.63) (xy 64.77 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5460281-552e-407a-86f9-f532d2a4dc39")
+	)
+	(wire
+		(pts
+			(xy 74.93 73.66) (xy 77.47 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e55eb737-0047-49e7-b69e-db67e47fc659")
+	)
+	(wire
+		(pts
+			(xy 19.05 73.66) (xy 24.13 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e59b4de7-7660-4479-97c8-1544350cbb2a")
+	)
+	(wire
+		(pts
+			(xy 92.71 40.64) (xy 92.71 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e66868e7-3d84-4780-b4ad-f7ed57688d8e")
+	)
+	(wire
+		(pts
+			(xy 30.48 170.18) (xy 30.48 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e9491189-4d8d-48eb-894d-0181d1b69bb9")
+	)
+	(wire
+		(pts
+			(xy 104.14 132.08) (xy 104.14 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e97bf0c1-9f16-40a7-82b1-5e480c78ff5e")
+	)
+	(wire
+		(pts
+			(xy 22.86 29.21) (xy 22.86 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ecd80dca-dff9-43db-b7fd-5baf078e9e6c")
+	)
+	(wire
+		(pts
+			(xy 24.13 170.18) (xy 24.13 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ecf5a8bd-b694-4d9e-8815-65fe419dddb3")
+	)
+	(wire
+		(pts
+			(xy 111.76 54.61) (xy 111.76 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0340070-2386-4d24-8340-877a967a98fb")
+	)
+	(wire
+		(pts
+			(xy 24.13 73.66) (xy 24.13 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1960561-49c2-4e9c-bea6-7243185dabed")
+	)
+	(wire
+		(pts
+			(xy 60.96 172.72) (xy 64.77 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f37369ab-4d3b-4317-bdad-590b892546e3")
+	)
+	(wire
+		(pts
+			(xy 63.5 43.18) (xy 63.5 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8e8ddb7-87d3-4320-965a-dc9434cf764d")
+	)
+	(wire
+		(pts
+			(xy 19.05 29.21) (xy 22.86 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa3a546e-feea-4aa0-9592-9bd87102fb54")
+	)
+	(wire
+		(pts
+			(xy 50.8 34.29) (xy 53.34 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd889801-df29-46d8-b8dd-ae9bede685c3")
+	)
+	(label "5V_4"
+		(at 118.11 157.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "773236ca-9f7d-43c3-a8d4-76b6ac908445")
+	)
+	(label "5V_2"
+		(at 118.11 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8762f693-ae8c-48d1-827c-05c1d8ba576b")
+	)
+	(label "5V_1"
+		(at 118.11 26.67 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8931e064-f133-47a5-a8d1-a721cd69f583")
+	)
+	(label "12V_Buck"
+		(at 19.05 25.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a32f09a7-7c0a-43fd-916c-b8f7c54e87da")
+	)
+	(label "5V_3"
+		(at 118.11 116.84 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f7962ac0-c538-442b-9576-32a5c377d7b0")
 	)
 	(symbol
-		(lib_id "power:VBUS")
-		(at 167.64 87.63 0)
+		(lib_id "Device:C_Polarized")
+		(at 102.87 39.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "263b40df-65b1-46d7-8ea2-d29401507371")
-		(property "Reference" "#PWR025"
-			(at 167.64 91.44 0)
+		(uuid "02855fc4-35ef-4c88-b88b-2272a8132b65")
+		(property "Reference" "C?"
+			(at 95.885 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100u"
+			(at 95.885 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
+			(at 103.8352 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1230,16 +4013,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VBUS"
-			(at 167.64 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 167.64 87.63 0)
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2452/ECA-xxM%20Series,TypeA.pdf"
+			(at 102.87 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1247,8 +4022,16 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 167.64 87.63 0)
+		(property "Description" ""
+			(at 102.87 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "P10387TB-ND"
+			(at 102.87 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1256,8 +4039,17 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"VBUS\""
-			(at 167.64 87.63 0)
+		(property "JLCPCB Part#(Optional)" "NA"
+			(at 102.87 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 102.87 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1266,12 +4058,21 @@
 			)
 		)
 		(pin "1"
-			(uuid "9d3c0fa2-a659-4d37-80bd-f99338b8f2b1")
+			(uuid "cf29177c-13e8-4c91-a2f3-416fa421e845")
+		)
+		(pin "2"
+			(uuid "d2d15c47-1db5-48b6-9d4b-ae842b41141c")
 		)
 		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "#PWR025")
+					(reference "C37")
 					(unit 1)
 				)
 			)
@@ -1279,16 +4080,15 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 114.3 111.76 0)
+		(at 63.5 36.83 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "491f1c04-5604-48d4-8434-a8725422c2b3")
-		(property "Reference" "C10"
-			(at 118.11 110.4899 0)
+		(uuid "02a60531-f64d-44ac-ace7-2da237587ce0")
+		(property "Reference" "C?"
+			(at 67.31 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1296,8 +4096,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1kF"
-			(at 118.11 113.0299 0)
+		(property "Value" "100n"
+			(at 67.31 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1306,7 +4106,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 115.2652 115.57 0)
+			(at 64.4652 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1315,7 +4115,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 114.3 111.76 0)
+			(at 63.5 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1323,8 +4123,16 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 114.3 111.76 0)
+		(property "Description" ""
+			(at 63.5 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 63.5 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1332,86 +4140,40 @@
 				(hide yes)
 			)
 		)
-		(pin "2"
-			(uuid "30f5f839-7a85-4aa5-ae2f-fc45e54d96ea")
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 63.5 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 63.5 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "1"
-			(uuid "b62e40b1-e3bf-4d1f-b60e-b284160277d4")
+			(uuid "f7821661-d24f-47e3-94b9-3dd9db65d927")
+		)
+		(pin "2"
+			(uuid "c574bc30-3131-488f-88b4-62973590f7c3")
 		)
 		(instances
-			(project "ECO Car Brakes"
-				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "C10")
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
 					(unit 1)
 				)
 			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 128.27 111.76 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8a3411e8-f5c9-47cb-bca8-09e5e2d8f1f8")
-		(property "Reference" "C11"
-			(at 132.08 110.4899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22uF"
-			(at 132.08 113.0299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 129.2352 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 128.27 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 128.27 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c2913eea-9dcc-45c3-a4bf-a324620d71da")
-		)
-		(pin "2"
-			(uuid "231bb975-c944-41af-8ae2-afac33a6571d")
-		)
-		(instances
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "C11")
+					(reference "C28")
 					(unit 1)
 				)
 			)
@@ -1419,16 +4181,16 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 143.51 109.22 0)
+		(at 22.86 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "95d9d784-e75b-4b89-99fc-2cf66985bb1b")
-		(property "Reference" "#PWR023"
-			(at 143.51 115.57 0)
+		(uuid "040cb22b-a8cf-485c-bdcd-4d81e6c35368")
+		(property "Reference" "#PWR?"
+			(at 22.86 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1437,15 +4199,16 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 143.51 114.3 0)
+			(at 22.86 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" ""
-			(at 143.51 109.22 0)
+			(at 22.86 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1454,7 +4217,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 143.51 109.22 0)
+			(at 22.86 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1462,8 +4225,95 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 143.51 109.22 0)
+		(property "Description" ""
+			(at 22.86 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9d443c91-3978-4528-8988-706f3a6e8bde")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR052")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:L")
+		(at 71.12 158.75 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "04afc502-279a-48a3-b8de-549225fc5149")
+		(property "Reference" "L?"
+			(at 71.12 153.67 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2.2u"
+			(at 71.12 156.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "BP_FTP:L_7.3x7.3_H3.5"
+			(at 71.12 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/744777002.pdf"
+			(at 71.12 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 71.12 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "732-13496-1-ND"
+			(at 71.12 158.75 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 71.12 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1472,12 +4322,931 @@
 			)
 		)
 		(pin "1"
-			(uuid "f7e43a27-ca44-439d-a0d8-0c57a83a53d2")
+			(uuid "88770416-3134-4454-9352-74d5160873a6")
+		)
+		(pin "2"
+			(uuid "0e914eab-24ca-4c50-8514-413bfb5d09ec")
 		)
 		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "L?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 43.18 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "06ce1efd-ff5f-455e-9042-3d5213f1718e")
+		(property "Reference" "#PWR05"
+			(at 43.18 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 43.18 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 43.18 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.18 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.18 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8d176365-ddbc-4c5d-a343-a2d96e6f1ff8")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 83.82 125.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0bc01a29-d3a0-4d42-b160-18d2d296a739")
+		(property "Reference" "C?"
+			(at 86.36 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 86.36 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 84.7852 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 83.82 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 83.82 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 83.82 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d5daa3b7-e67a-4b0e-affd-654f673d1518")
+		)
+		(pin "2"
+			(uuid "2876390b-f2d0-4ed0-9953-d30fa8e8fd42")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "#PWR023")
+					(reference "C33")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VBUS")
+		(at 242.57 29.21 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0eea365d-0536-4f87-9745-da882c7bac79")
+		(property "Reference" "#PWR03"
+			(at 242.57 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 242.57 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 242.57 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 242.57 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
+			(at 242.57 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d3f1fe71-29f8-4fb6-a25c-c06c39fdcd98")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.47 142.24 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0f99a260-67ce-41e1-ae36-9b8b13a6537d")
+		(property "Reference" "R?"
+			(at 81.28 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 81.28 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 79.248 142.24 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.47 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C25804"
+			(at 77.47 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT10K0CT-ND"
+			(at 77.47 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 77.47 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6de75e7e-8200-431c-a93c-9cb2ca701148")
+		)
+		(pin "2"
+			(uuid "021f9aa4-4d64-4c2a-9666-ed9e0abe07d6")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 76.2 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "12a43bc7-641f-43eb-ab67-cf381d1ca168")
+		(property "Reference" "R?"
+			(at 68.58 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "52.3k"
+			(at 68.58 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 74.422 43.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 76.2 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 76.2 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT52K3CT-ND"
+			(at 76.2 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a0436dd3-9aaa-469c-a0a2-42cc83a2d81b")
+		)
+		(pin "2"
+			(uuid "b2948028-81cf-44e2-855b-f3628af50d7d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 41.91 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "152fcc4b-7a7e-45eb-b098-c1c506108c11")
+		(property "Reference" "#PWR?"
+			(at 41.91 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 41.91 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 41.91 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 41.91 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 41.91 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8ebabe73-1e1a-4536-b7cb-db057b75778d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR055")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 93.98 125.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "209c1104-33d0-4e16-8b20-9cb7d89e188d")
+		(property "Reference" "C?"
+			(at 96.52 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 96.52 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 94.9452 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 93.98 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 93.98 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 93.98 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d6af8534-3b00-4f1a-9c1c-6be3e641ec7f")
+		)
+		(pin "2"
+			(uuid "9510a8df-eb2e-4609-8ceb-a393e2248922")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:L")
+		(at 69.85 29.21 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "20aa6be4-84b1-45c0-8456-34cb10760184")
+		(property "Reference" "L?"
+			(at 69.85 24.13 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2.2u"
+			(at 69.85 26.67 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "BP_FTP:L_7.3x7.3_H3.5"
+			(at 69.85 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/744777002.pdf"
+			(at 69.85 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 69.85 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "732-13496-1-ND"
+			(at 69.85 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 69.85 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8ee372ca-fa25-462a-858e-e607077ebe2d")
+		)
+		(pin "2"
+			(uuid "90cd74f6-9a43-47ac-99e4-2186c01550c8")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "L?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "L1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:L")
+		(at 71.12 73.66 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "23639c8e-8380-4de5-a1af-afcdb934af57")
+		(property "Reference" "L?"
+			(at 71.12 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2.2u"
+			(at 71.12 71.12 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "BP_FTP:L_7.3x7.3_H3.5"
+			(at 71.12 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/744777002.pdf"
+			(at 71.12 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 71.12 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "732-13496-1-ND"
+			(at 71.12 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 71.12 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0799804d-9b46-42d3-b5f8-5a851a35ce4d")
+		)
+		(pin "2"
+			(uuid "526c3224-0785-4a08-a748-06ee4733dacf")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "L?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "L2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 24.13 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2aefe82d-b40e-4887-aebb-14b1c8667dc0")
+		(property "Reference" "#PWR?"
+			(at 24.13 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 24.13 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 24.13 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 24.13 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 24.13 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a02b34d1-5d26-4810-9a6f-448d9a67f56e")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR054")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 64.77 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2c892dbd-56fc-468b-8bd7-3149f68d2b06")
+		(property "Reference" "C?"
+			(at 68.58 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 68.58 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 65.7352 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 64.77 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 64.77 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 64.77 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 64.77 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "85c72e76-ebb0-43fa-9b6d-9c01c3943741")
+		)
+		(pin "2"
+			(uuid "5cb332c0-3b88-42fc-ac41-812ccb158bad")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C29")
 					(unit 1)
 				)
 			)
@@ -1485,16 +5254,16 @@
 	)
 	(symbol
 		(lib_id "AZIII7CD-3.3V:AZ1117CD-3.3TRG1")
-		(at 143.51 93.98 0)
+		(at 222.25 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "b259bba3-3a31-4872-8365-1a03c1cbed38")
-		(property "Reference" "U3"
-			(at 123.19 83.82 0)
+		(uuid "2ececaa4-897e-40f8-a2d8-1b0a8c0d606e")
+		(property "Reference" "U1"
+			(at 201.93 27.94 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -1502,7 +5271,7 @@
 			)
 		)
 		(property "Value" "AZ1117CD-3.3TRG1"
-			(at 123.19 86.36 0)
+			(at 201.93 30.48 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -1510,7 +5279,7 @@
 			)
 		)
 		(property "Footprint" "AZIII7CD-3.3V:TO252-2-3.3V_DIO"
-			(at 143.51 93.98 0)
+			(at 222.25 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1520,7 +5289,7 @@
 			)
 		)
 		(property "Datasheet" "AZ1117CD-3.3TRG1"
-			(at 143.51 93.98 0)
+			(at 222.25 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1530,7 +5299,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 143.51 93.98 0)
+			(at 222.25 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1539,35 +5308,34 @@
 			)
 		)
 		(pin "1"
-			(uuid "103e0632-14b3-4ede-98dc-fe7d77a675d3")
+			(uuid "5c2c4770-31e9-4d49-b5d8-c491df78d28b")
 		)
 		(pin "2"
-			(uuid "5f5d4180-22bd-4f7f-b8c3-32a396df17e1")
+			(uuid "a4bed374-2bd0-4f03-82c4-84a484708fce")
 		)
 		(pin "3"
-			(uuid "f9729506-fa66-4bb6-8edf-4551ecfde4a6")
+			(uuid "6099b838-bd83-40e3-ab22-133482c725fd")
 		)
 		(instances
-			(project "ECO Car Brakes"
-				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "U3")
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "U1")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Device:LED")
-		(at 190.5 106.68 270)
+		(lib_id "Device:C")
+		(at 24.13 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "be130305-52dd-4a45-bf07-587d70954048")
-		(property "Reference" "D2"
-			(at 193.04 103.8224 90)
+		(uuid "2f9ba884-4199-4381-8c5f-b9ec9666d27f")
+		(property "Reference" "C?"
+			(at 27.94 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1575,8 +5343,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
-			(at 193.04 106.3624 90)
+		(property "Value" "10u"
+			(at 26.67 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1584,8 +5352,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 190.5 106.68 0)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 25.0952 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1594,7 +5362,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 190.5 106.68 0)
+			(at 24.13 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1602,8 +5370,16 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Light emitting diode"
-			(at 190.5 106.68 0)
+		(property "Description" ""
+			(at 24.13 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 24.13 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1612,31 +5388,38 @@
 			)
 		)
 		(pin "1"
-			(uuid "62f72f76-35c5-4429-83b2-39ee39d29f58")
+			(uuid "c038079f-0df1-4213-b038-0b896c17b78b")
 		)
 		(pin "2"
-			(uuid "f7d4bf27-cea7-48a4-8e21-fac80ac8e1c1")
+			(uuid "9f43cd6e-ee96-4875-8faf-191f29b6149d")
 		)
 		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "D2")
+					(reference "C26")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:+3.3V")
-		(at 153.67 95.25 0)
+		(lib_id "power:GND")
+		(at 111.76 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e0e0be5a-6f13-49eb-aa8f-992cfa4c1ab1")
-		(property "Reference" "#PWR024"
-			(at 153.67 99.06 0)
+		(fields_autoplaced yes)
+		(uuid "2fef6e32-ab21-465b-bfc3-45e43e250718")
+		(property "Reference" "#PWR?"
+			(at 111.76 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1644,8 +5427,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3.3V"
-			(at 156.718 95.25 0)
+		(property "Value" "GND"
+			(at 111.76 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1653,7 +5436,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 153.67 95.25 0)
+			(at 111.76 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1662,7 +5445,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 153.67 95.25 0)
+			(at 111.76 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1670,54 +5453,134 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 153.67 95.25 0)
+		(property "Description" ""
+			(at 111.76 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "90505683-3f8b-4a9b-834d-3a4c1a5615f0")
+			(uuid "5abac1eb-b528-4bd3-b31f-cdefaeee588f")
 		)
 		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "#PWR024")
+					(reference "#PWR067")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 186.69 91.44 90)
+		(lib_id "power:GND")
+		(at 88.9 147.32 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e1d53c09-653b-4183-af3a-daef11fedf81")
-		(property "Reference" "R6"
-			(at 186.69 85.09 90)
+		(fields_autoplaced yes)
+		(uuid "30d8f04d-0a83-4d91-967f-67647301e1e6")
+		(property "Reference" "#PWR?"
+			(at 88.9 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 88.9 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 88.9 147.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1k5"
-			(at 186.69 87.63 90)
+		(pin "1"
+			(uuid "e5de4a92-99f5-45ab-84a9-63c6f0ab9ac1")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR063")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 113.03 180.34 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "31abc3c0-b889-4070-85a6-acdfdc17f4b6")
+		(property "Reference" "D?"
+			(at 120.142 179.324 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 186.69 93.218 90)
+		(property "Value" "BLUE"
+			(at 120.142 181.864 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 113.03 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1726,7 +5589,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 186.69 91.44 0)
+			(at 113.03 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1734,8 +5597,34 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
-			(at 186.69 91.44 0)
+		(property "Description" ""
+			(at 113.03 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "160-1647-1-ND"
+			(at 113.03 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C72041"
+			(at 113.03 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 113.03 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1744,18 +5633,5001 @@
 			)
 		)
 		(pin "1"
-			(uuid "489965a1-a312-4c1d-a9ef-e9d5fd065727")
+			(uuid "552cb5d3-6249-464b-854a-8a1ab8689716")
 		)
 		(pin "2"
-			(uuid "7fbe91cd-7cb6-4f37-a593-2d9026e3a86a")
+			(uuid "ff206df4-ba15-43e8-9c42-eb98646ff18c")
 		)
 		(instances
-			(project "ECO Car Brakes"
-				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "R6")
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "D?")
 					(unit 1)
 				)
 			)
 		)
 	)
+	(symbol
+		(lib_id "Device:C")
+		(at 24.13 125.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3c0bbb2d-85ca-4f13-9f88-a286b1eae32f")
+		(property "Reference" "C?"
+			(at 27.94 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10u"
+			(at 26.67 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 25.0952 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 24.13 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 24.13 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 24.13 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "818dd28f-1925-4efb-ad24-682891f19ab5")
+		)
+		(pin "2"
+			(uuid "9b409c79-0e81-443a-a3c7-941858dfbe9c")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 88.9 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3e5cc972-9bce-4365-aa18-3f4e9ce61942")
+		(property "Reference" "#PWR?"
+			(at 88.9 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 88.9 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 88.9 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "79859645-87b2-4d5f-9bab-cdb09c165cfe")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR062")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "BattPart:AP62250")
+		(at 41.91 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "40ca04f0-e0ee-48ca-98c8-8c6607de8449")
+		(property "Reference" "U?"
+			(at 41.91 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AP62250WU-7"
+			(at 41.91 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
+			(at 41.91 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 41.91 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 41.91 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f0b940ff-e427-45b1-bba8-a41e01cc38d8")
+		)
+		(pin "2"
+			(uuid "6774f970-163e-4a4d-9e90-2b649401cfce")
+		)
+		(pin "3"
+			(uuid "b7bd0f67-4a22-4bad-bf7b-6cda8321b0bb")
+		)
+		(pin "4"
+			(uuid "addd838a-7604-4fad-9a19-8724cc01949e")
+		)
+		(pin "5"
+			(uuid "ffddd635-f1fa-4949-a311-363cffa39222")
+		)
+		(pin "6"
+			(uuid "c377ab42-1291-4780-a192-ee7bccf6bdae")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "U8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 83.82 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "449fe12f-3771-44cf-9c1a-59814632e0fd")
+		(property "Reference" "C?"
+			(at 86.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 86.36 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 84.7852 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 83.82 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 83.82 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 83.82 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0105f898-95da-44e1-85c6-ccc7fa453b8d")
+		)
+		(pin "2"
+			(uuid "b27c97e7-3249-4f24-b014-441d8865f027")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C32")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 256.54 48.26 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4a8e021f-9d7d-4a5c-8afc-cb1f3f25494c")
+		(property "Reference" "D1"
+			(at 259.08 45.4024 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PWR_LED_K"
+			(at 259.08 47.9424 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 256.54 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 256.54 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 256.54 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7ed4815c-608a-432a-90a1-188b6a76f0d7")
+		)
+		(pin "2"
+			(uuid "35a527a4-ad71-4020-9770-a32ecde38ed1")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 88.9 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4aea0d35-5b61-4520-9800-2a7485ee5599")
+		(property "Reference" "#PWR07"
+			(at 88.9 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 88.9 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 88.9 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3d9d1a0c-2f30-4686-8be3-e44d6b1a84ce")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 102.87 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "562466da-afd2-4825-854d-d985ac4fdda9")
+		(property "Reference" "#PWR?"
+			(at 102.87 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 102.87 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 102.87 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 102.87 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3f6dce80-55bc-45bb-b912-c3ad37900303")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR064")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 43.18 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5676479c-3d68-45c3-a465-942e31ebe402")
+		(property "Reference" "#PWR?"
+			(at 43.18 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 43.18 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 43.18 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.18 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.18 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "874d24e8-0a60-40e6-840f-604289bf18a0")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR056")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 111.76 50.8 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5bb55d68-8370-4724-9d39-2ba67e13eced")
+		(property "Reference" "D?"
+			(at 119.38 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BLUE"
+			(at 119.38 54.61 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 111.76 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.76 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "160-1647-1-ND"
+			(at 111.76 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C72041"
+			(at 111.76 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 111.76 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "db9bfde3-2e1e-478f-b5b2-b370da85c2d2")
+		)
+		(pin "2"
+			(uuid "20853ef9-0c3b-4c9c-8c72-cc29311e2e68")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "D?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "D13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 77.47 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "650630b1-ec6a-4c4c-b4a2-28fa1ae54a5d")
+		(property "Reference" "#PWR?"
+			(at 77.47 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 77.47 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 77.47 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "98400e84-e35a-415c-b42a-576ac0a28598")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR059")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 43.18 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "69264676-5650-4e40-b057-8fdf64fc20c8")
+		(property "Reference" "#PWR?"
+			(at 43.18 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 43.18 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 43.18 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.18 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.18 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f201e8cb-5052-418b-a65c-3864ad825df6")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR057")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 113.03 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6aaff3ae-51c8-4563-a97a-8b4b58e4b10d")
+		(property "Reference" "#PWR09"
+			(at 113.03 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 113.03 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 113.03 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 113.03 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1a32caa4-f3eb-45a9-be13-ba451eeb131a")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 93.98 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6d0080b3-27b3-4729-b5d3-0b965dfa4d5b")
+		(property "Reference" "C?"
+			(at 96.52 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 96.52 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 94.9452 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 93.98 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 93.98 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 93.98 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f17e454c-6ca3-452d-89b0-6c202d78e611")
+		)
+		(pin "2"
+			(uuid "cd98b755-1ebf-43ec-8733-22799a6befa3")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 22.86 36.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6eb0e6c9-dda0-4b80-9ee3-870a8ba4cd48")
+		(property "Reference" "C?"
+			(at 26.67 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10u"
+			(at 25.4 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 23.8252 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 22.86 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 22.86 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 22.86 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d9a484a-908e-4adf-bac6-cf59e715488d")
+		)
+		(pin "2"
+			(uuid "2f1857ba-0eea-44fd-b1ed-4a4c10432585")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 104.14 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6f70b2cc-659c-4790-b74e-340a87e74e92")
+		(property "Reference" "#PWR?"
+			(at 104.14 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 104.14 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ecef54b5-59d5-4b07-a131-432b2992cc38")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR065")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 64.77 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "71774ecb-efe0-4e05-bb12-73ad7a68d961")
+		(property "Reference" "C?"
+			(at 68.58 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 68.58 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 65.7352 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 64.77 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 64.77 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 64.77 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 64.77 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "28c4cb00-cc6b-4e45-bb4b-6e1c6376d9f4")
+		)
+		(pin "2"
+			(uuid "80317cd0-d792-4a12-be6c-af7aabf85b5d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:L")
+		(at 71.12 118.11 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "79082e27-72c7-442b-8301-ac690a05344b")
+		(property "Reference" "L?"
+			(at 71.12 113.03 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2.2u"
+			(at 71.12 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "BP_FTP:L_7.3x7.3_H3.5"
+			(at 71.12 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/744777002.pdf"
+			(at 71.12 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 71.12 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "732-13496-1-ND"
+			(at 71.12 118.11 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 71.12 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7582d640-c847-4c92-ae1a-faadeb0e9528")
+		)
+		(pin "2"
+			(uuid "241516d4-34ed-4a8e-a85c-bfdff3d7352d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "L?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "L3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 111.76 41.91 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7a4862db-9e3c-4f9a-bd53-cf20b305c0dd")
+		(property "Reference" "R?"
+			(at 119.38 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 119.38 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 113.538 41.91 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.76 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C28636"
+			(at 111.76 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 111.76 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "311-1.00KCRCT-ND"
+			(at 111.76 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "da8136a5-4be3-44e9-8790-018318d306c3")
+		)
+		(pin "2"
+			(uuid "8a537d9d-4752-47be-a6dd-6b37439d9895")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 113.03 171.45 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7b127623-257d-44f7-bd30-bbb8dc2a6dd7")
+		(property "Reference" "R?"
+			(at 118.618 169.926 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 118.618 172.466 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 114.808 171.45 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C28636"
+			(at 113.03 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 113.03 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "311-1.00KCRCT-ND"
+			(at 113.03 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6fb2e594-f2b8-4cb3-b360-0da3208cbf1b")
+		)
+		(pin "2"
+			(uuid "03766e66-f511-4824-a2c2-d62d6611bb48")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 77.47 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7e0f3479-3748-4535-a61d-90d62c09cda7")
+		(property "Reference" "#PWR06"
+			(at 77.47 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 77.47 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 77.47 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d7b0e5f1-a22f-4ef2-9a75-7140399da52d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "BattPart:AP62250")
+		(at 43.18 161.29 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7e74f36c-4160-4b26-b931-6dc5b72c6d7e")
+		(property "Reference" "U?"
+			(at 43.18 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AP62250WU-7"
+			(at 43.18 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
+			(at 43.18 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.18 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.18 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "caf8bf38-7086-4822-9ced-552bf90f57b7")
+		)
+		(pin "2"
+			(uuid "32786307-b2b8-4631-96f5-f3c27d6cfa17")
+		)
+		(pin "3"
+			(uuid "008561af-22c3-4132-8444-981e3b12e360")
+		)
+		(pin "4"
+			(uuid "50644344-dd8c-46f3-b59d-31ee75219800")
+		)
+		(pin "5"
+			(uuid "0fb5bd40-ed22-42cd-bd5d-049e54275dd2")
+		)
+		(pin "6"
+			(uuid "968b6ade-b777-4523-ac76-8ff4679bffdd")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.47 132.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "80479abb-7212-444e-8ffa-7db9873273c9")
+		(property "Reference" "R?"
+			(at 69.85 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "52.3k"
+			(at 69.85 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 75.692 132.08 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.47 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT52K3CT-ND"
+			(at 77.47 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 77.47 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "74aa1274-f93c-4ed0-884c-2c3969d699fa")
+		)
+		(pin "2"
+			(uuid "670b9ad5-93b8-425c-a23d-901621df892b")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 92.71 36.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8855e2d6-49fa-4d00-9279-1fe2042168c3")
+		(property "Reference" "C?"
+			(at 93.98 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 93.98 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 93.6752 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 92.71 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 92.71 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 92.71 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b7655c78-fdfa-44ab-8294-d3de19c7c0dd")
+		)
+		(pin "2"
+			(uuid "45317a33-427f-4863-bc7f-06831f0083f4")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C34")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "BattPart:AP62250")
+		(at 43.18 120.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "89f141ae-443c-45fa-9af4-6091d5f7454e")
+		(property "Reference" "U?"
+			(at 43.18 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AP62250WU-7"
+			(at 43.18 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
+			(at 43.18 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.18 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.18 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5404eb7b-182e-4332-b317-879089431f4a")
+		)
+		(pin "2"
+			(uuid "283e91ef-1b6b-4844-9046-cf3c13354a54")
+		)
+		(pin "3"
+			(uuid "274c3509-4ba2-4270-830b-8475b73605cd")
+		)
+		(pin "4"
+			(uuid "a4d8ac57-3dd8-45b2-8646-25e47fd47fcd")
+		)
+		(pin "5"
+			(uuid "c9c9caa0-365c-4d41-9d32-b8d717233bfb")
+		)
+		(pin "6"
+			(uuid "e5c14ec5-cc24-4010-b140-eb063c562bc4")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "U10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 104.14 83.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9337ab9d-2800-4b90-a027-fac31f342c9b")
+		(property "Reference" "C?"
+			(at 97.155 88.265 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100u"
+			(at 97.155 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
+			(at 105.1052 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2452/ECA-xxM%20Series,TypeA.pdf"
+			(at 104.14 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "P10387TB-ND"
+			(at 104.14 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "NA"
+			(at 104.14 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 104.14 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bb40e4b3-82bf-44ec-843d-3dc55433ad75")
+		)
+		(pin "2"
+			(uuid "1e51dcb6-068e-44ac-9627-b1e69abb7722")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C38")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.47 97.79 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "951dce55-26aa-4906-877d-7e6412178184")
+		(property "Reference" "R?"
+			(at 81.28 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 81.28 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 79.248 97.79 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.47 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C25804"
+			(at 77.47 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT10K0CT-ND"
+			(at 77.47 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 77.47 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6aee36f0-942c-49e6-839d-3a62c8dc01e2")
+		)
+		(pin "2"
+			(uuid "417e848c-8b5a-461c-84ad-bc505bf68b05")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 76.2 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "98cef7a1-4556-4a1c-9855-8030cb35a961")
+		(property "Reference" "#PWR?"
+			(at 76.2 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 76.2 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 76.2 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 76.2 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 76.2 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "24d19a3f-ebb3-44c4-9c48-37b39ebfb198")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR058")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 193.04 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a5786d24-afa4-4e2f-8e91-d3f2d6292e3e")
+		(property "Reference" "C1"
+			(at 196.85 54.6099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1kF"
+			(at 196.85 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 194.0052 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.04 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 193.04 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "55788243-0a15-47e1-8f66-b81f14362b7b")
+		)
+		(pin "1"
+			(uuid "bddf2142-76eb-4cd9-9f8d-0accff32f61c")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 232.41 39.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a60df8c1-253a-47c9-bb79-9e62c833c685")
+		(property "Reference" "#PWR02"
+			(at 232.41 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 235.458 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 232.41 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 232.41 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 232.41 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f351b51b-c0f5-463c-be05-dcb065b83924")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.47 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "aa510a2e-75af-4282-ada6-9acdf8ff48ba")
+		(property "Reference" "R?"
+			(at 69.85 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "52.3k"
+			(at 69.85 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 75.692 87.63 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.47 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT52K3CT-ND"
+			(at 77.47 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 77.47 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "896c378e-ea37-48c3-8075-ec506441b545")
+		)
+		(pin "2"
+			(uuid "ce0d1574-3abe-42c0-9a61-6b9530085183")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 113.03 130.81 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "aa94a1b1-7caa-4822-a0cd-7c0ee90ec5bf")
+		(property "Reference" "R?"
+			(at 118.11 129.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 118.11 131.826 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 114.808 130.81 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C28636"
+			(at 113.03 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 113.03 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "311-1.00KCRCT-ND"
+			(at 113.03 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "16905761-2d14-49f8-9af9-f8316deba776")
+		)
+		(pin "2"
+			(uuid "22bd699f-4b77-4cf4-85bb-51445676cf9b")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 77.47 147.32 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "acf1f33a-7b60-4b26-9f59-c796a58219fc")
+		(property "Reference" "#PWR?"
+			(at 77.47 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 77.47 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 77.47 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "afe89c0f-0c8d-4924-9649-c03ac1cbb93c")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR060")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 30.48 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b19b7877-6a7d-4922-966b-8d98b2eb9f45")
+		(property "Reference" "C?"
+			(at 34.29 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 34.29 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 31.4452 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 30.48 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 30.48 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 30.48 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 30.48 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7999ac87-1056-4edf-9d20-5aef83dd668b")
+		)
+		(pin "2"
+			(uuid "c05b766c-fc4b-4d38-ba99-cdd7c0e30171")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 30.48 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b1da3440-8f41-4109-a41d-4db6be5a4d65")
+		(property "Reference" "C?"
+			(at 34.29 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 34.29 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 31.4452 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 30.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 30.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 30.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 30.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a83a3e83-448d-40f7-af08-2f764609ddc0")
+		)
+		(pin "2"
+			(uuid "ff6c02e8-1fb5-4e6c-a36e-d2cdcb0a60fe")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C52")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 113.03 139.7 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b1e16782-dc50-4984-96e1-fcdc35a4af70")
+		(property "Reference" "D?"
+			(at 119.888 138.938 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BLUE"
+			(at 119.888 141.478 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 113.03 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "160-1647-1-ND"
+			(at 113.03 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C72041"
+			(at 113.03 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 113.03 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d8041a38-9bc2-4587-8c9e-d4e296ec9db4")
+		)
+		(pin "2"
+			(uuid "c7dd7041-2da6-426c-9506-26f3dfe42868")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "D?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "D15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 64.77 125.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b357776d-51f7-40f5-9689-ab2e2e8a6750")
+		(property "Reference" "C?"
+			(at 68.58 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 68.58 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 65.7352 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 64.77 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 64.77 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 64.77 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 64.77 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "25b580ca-dd5e-4887-be23-f66b6c305033")
+		)
+		(pin "2"
+			(uuid "a5c2c61f-e612-4143-9b32-90f375ec7b6d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C30")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 82.55 36.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b3739c20-a6f7-4170-9e5b-900da8bcd535")
+		(property "Reference" "C?"
+			(at 83.82 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 83.82 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 83.5152 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 82.55 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 82.55 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 82.55 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a5d0349a-5387-441c-b0c4-1c89752f99ff")
+		)
+		(pin "2"
+			(uuid "cc6067b3-e181-4a7e-a07e-9243f70d4282")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 113.03 95.25 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b3beab19-3903-4b67-b080-3b0ce53b9bf3")
+		(property "Reference" "D?"
+			(at 120.65 96.52 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BLUE"
+			(at 120.65 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 113.03 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "160-1647-1-ND"
+			(at 113.03 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C72041"
+			(at 113.03 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 113.03 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1a074db2-5eff-43ee-be1b-7a99df471d67")
+		)
+		(pin "2"
+			(uuid "87d5e028-4420-4d8b-8e95-16ae2d9c05be")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "D?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "D14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 104.14 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b596c91f-9508-4b30-86a7-c8553a300241")
+		(property "Reference" "C?"
+			(at 96.52 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100u"
+			(at 96.52 135.255 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
+			(at 105.1052 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2452/ECA-xxM%20Series,TypeA.pdf"
+			(at 104.14 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "P10387TB-ND"
+			(at 104.14 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "NA"
+			(at 104.14 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 104.14 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6379d5eb-f11c-47c6-9b46-c2a583ea0e5d")
+		)
+		(pin "2"
+			(uuid "1656db91-aa3c-4f1d-864d-13442e0cf5ba")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 104.14 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b6b0d084-14ca-4875-9912-646891e130f7")
+		(property "Reference" "#PWR?"
+			(at 104.14 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 104.14 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9877fd89-b866-40ad-90a3-066616326de3")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR066")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 24.13 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b8d657f1-1304-4cfd-ad77-aa3b0b3195c6")
+		(property "Reference" "#PWR04"
+			(at 24.13 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 24.13 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 24.13 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 24.13 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 24.13 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cb255039-11fb-4f82-bcec-0262d6394148")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 76.2 53.34 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c15a0f65-9edc-40a3-b34c-d8f8ddf81305")
+		(property "Reference" "R?"
+			(at 80.01 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 80.01 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 77.978 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 76.2 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C25804"
+			(at 76.2 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT10K0CT-ND"
+			(at 76.2 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 76.2 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ac0e634c-4363-4911-abd7-0c0e74faacda")
+		)
+		(pin "2"
+			(uuid "c5c543dc-dcd1-42c3-ad4b-c5628f7c07ba")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 222.25 53.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c29ca00a-8c1c-4e25-b285-eb019a98832a")
+		(property "Reference" "#PWR01"
+			(at 222.25 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 222.25 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 222.25 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 222.25 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 222.25 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1a8caa73-0bd6-445d-bb7f-1550bddd4d1d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 87.63 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c3fa9f72-e5b7-4e81-8580-1ea5023e47c3")
+		(property "Reference" "#PWR?"
+			(at 87.63 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 87.63 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 87.63 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 87.63 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 87.63 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ddcab0e5-6fee-4247-a2d9-56a2ce3f924e")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR061")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 27.94 44.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c80d3e17-9a01-403a-b324-eb10f4bbe01f")
+		(property "Reference" "C?"
+			(at 31.75 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 31.75 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 28.9052 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 27.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 27.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 27.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 27.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 27.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a781cb53-7e47-4241-a3c9-68cc6355464d")
+		)
+		(pin "2"
+			(uuid "8432867b-0496-4d02-b1fb-9d1a4ad681f3")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C51")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 30.48 133.35 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c861c30e-1f64-48f3-9241-8ec58bb0d64e")
+		(property "Reference" "C?"
+			(at 34.29 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 34.29 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 31.4452 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 30.48 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" ""
+			(at 30.48 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "CC0603KRX7R7BB104"
+			(at 30.48 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 30.48 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "19c4ed71-a541-4ebe-ba39-5c027b46c1b5")
+		)
+		(pin "2"
+			(uuid "5801abba-d026-489c-b69b-59e18904a6f7")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C53")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 113.03 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cdb7a27d-281e-4372-95e5-9bbf298d0783")
+		(property "Reference" "#PWR?"
+			(at 113.03 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 113.03 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 113.03 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 113.03 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "14dc5e26-9930-4f2e-a369-c3edb37a1ee7")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR068")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 113.03 86.36 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d3409496-f13d-4eb2-be25-c6487cdda58e")
+		(property "Reference" "R?"
+			(at 120.65 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 120.65 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 114.808 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C28636"
+			(at 113.03 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 113.03 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "311-1.00KCRCT-ND"
+			(at 113.03 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a1daddc3-b125-4495-9fe9-c19dd8420dca")
+		)
+		(pin "2"
+			(uuid "c3b14926-6f70-457d-b945-9d3dd740b1d5")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "R23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 207.01 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d370a5cd-bb01-4a44-998e-0339045aa9b9")
+		(property "Reference" "C2"
+			(at 210.82 54.6099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uF"
+			(at 210.82 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 207.9752 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 207.01 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 207.01 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ab4383a4-7ce6-4a37-8c9e-83d196c3afce")
+		)
+		(pin "2"
+			(uuid "c8fcbdcd-0e88-4f12-a7a8-4b46a61de2e8")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 104.14 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d3d98ea3-6409-4057-a3d5-44fe5ddf01d1")
+		(property "Reference" "#PWR08"
+			(at 104.14 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 104.14 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f85a2175-8563-47b6-841b-f9e7e421c18f")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.47 172.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d4825094-f9e2-4d9e-a1f6-b96668158f44")
+		(property "Reference" "R?"
+			(at 69.85 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "52.3k"
+			(at 69.85 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 75.692 172.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.47 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT52K3CT-ND"
+			(at 77.47 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 77.47 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b88acee2-bfaa-4698-8d59-4989915e93fc")
+		)
+		(pin "2"
+			(uuid "1feaa29d-3ddf-4fa5-a6fa-6d0bf513c377")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 104.14 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d94b8e7e-e117-4d3b-af0c-0cb63cb9deee")
+		(property "Reference" "C?"
+			(at 96.52 173.355 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100u"
+			(at 96.52 175.895 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
+			(at 105.1052 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2452/ECA-xxM%20Series,TypeA.pdf"
+			(at 104.14 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey #" "P10387TB-ND"
+			(at 104.14 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "NA"
+			(at 104.14 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 104.14 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8e902d7d-1ca9-4d06-8e31-a6979ecb3908")
+		)
+		(pin "2"
+			(uuid "f57a7aa8-af17-456b-8384-310b9287feaf")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 24.13 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dab4d070-b187-4a84-8c97-0b4803620d90")
+		(property "Reference" "#PWR?"
+			(at 24.13 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 24.13 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 24.13 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 24.13 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 24.13 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "85e2fdf4-d524-4ccb-89b1-fb133678646d")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR053")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "BattPart:AP62250")
+		(at 43.18 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e7148745-8c57-4e94-a62e-63f0b0dab8b9")
+		(property "Reference" "U?"
+			(at 43.18 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AP62250WU-7"
+			(at 43.18 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
+			(at 43.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b2139765-fbec-42da-814b-587857ebeb44")
+		)
+		(pin "2"
+			(uuid "53ffa9de-d0bd-4f38-851f-0c9f27c5666f")
+		)
+		(pin "3"
+			(uuid "1774fd3b-ad13-4307-b442-8141af069622")
+		)
+		(pin "4"
+			(uuid "2db32b8d-7aab-4d7b-9c68-2c14fee0632a")
+		)
+		(pin "5"
+			(uuid "4db57c41-7820-4afa-a7ee-621f00887e8a")
+		)
+		(pin "6"
+			(uuid "52bcf68f-e948-49c4-83b4-267ce1d301e6")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "U9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 93.98 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ecf8a513-1c7d-4e0c-9a8a-9a66eda65574")
+		(property "Reference" "C?"
+			(at 96.52 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 96.52 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 94.9452 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 93.98 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 93.98 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 93.98 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f35470d7-d77a-4a91-8f26-c7258421f833")
+		)
+		(pin "2"
+			(uuid "c6e92e69-853b-48f7-b9df-d3961f76681f")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "C35")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.47 182.88 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee400ddb-928e-42f5-8fda-dd10be965661")
+		(property "Reference" "R?"
+			(at 81.28 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 81.28 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 79.248 182.88 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.47 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Part#(Optional)" "C25804"
+			(at 77.47 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey #" "RMCF0603FT10K0CT-ND"
+			(at 77.47 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Ordered" "y"
+			(at 77.47 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "495de5c9-7b81-47a1-9924-f0af9c628b01")
+		)
+		(pin "2"
+			(uuid "d274930f-9763-4f11-a77a-a816b0780464")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 83.82 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eed47adf-f77c-41d8-bf3c-5eb833e8ce75")
+		(property "Reference" "C?"
+			(at 86.36 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22u"
+			(at 86.36 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 84.7852 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 83.82 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 83.82 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 83.82 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c0b594ea-42ae-4c88-9f9e-71fe1bd1fbb3")
+		)
+		(pin "2"
+			(uuid "9b7abb10-55be-4db1-b8bf-87a5cc197854")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 250.19 33.02 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f5f84fc9-12a5-477c-b5d9-6e627bca34c4")
+		(property "Reference" "R1"
+			(at 250.19 26.67 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k5"
+			(at 250.19 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 250.19 34.798 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 250.19 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 250.19 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cc74e91a-1f37-46a8-9124-925c3e82cd2b")
+		)
+		(pin "2"
+			(uuid "7983138c-bad6-4c78-b618-2e79af5fd3a1")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 113.03 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fdc96795-fe74-4eb9-bcbf-98da38fa0c38")
+		(property "Reference" "#PWR?"
+			(at 113.03 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 113.03 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 113.03 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 113.03 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22892aed-5392-47aa-890f-d32b0249bc34")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(reference "#PWR069")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 24.13 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fddb956f-0e9b-428f-a287-93255b4c9630")
+		(property "Reference" "C?"
+			(at 27.94 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10u"
+			(at 26.67 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 25.0952 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 24.13 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 24.13 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Ordered" "y"
+			(at 24.13 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "81c50317-f1d3-4e33-89bf-ca5572a263fc")
+		)
+		(pin "2"
+			(uuid "65ee6dd7-01cb-4eb9-aaa3-2b9f6ab2b859")
+		)
+		(instances
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
 )
