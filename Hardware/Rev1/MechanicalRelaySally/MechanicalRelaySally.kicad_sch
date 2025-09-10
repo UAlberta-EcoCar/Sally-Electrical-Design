@@ -5,8 +5,18 @@
 	(uuid "fc3bfb83-1db4-4bd1-b480-85f699496fec")
 	(paper "A4")
 	(lib_symbols)
+	(bus
+		(pts
+			(xy 81.28 53.34) (xy 101.6 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "139ed2a1-2fb9-4779-beb3-3d0c569c00d4")
+	)
 	(sheet
-		(at 132.08 25.4)
+		(at 53.34 50.8)
 		(size 27.94 22.86)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -22,7 +32,7 @@
 		)
 		(uuid "82deb2ae-220f-4425-88c6-a1e80ead50b8")
 		(property "Sheetname" "Power Routing"
-			(at 132.08 24.6884 0)
+			(at 53.34 50.0884 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31,7 +41,7 @@
 			)
 		)
 		(property "Sheetfile" "power_routing.kicad_sch"
-			(at 132.08 48.8446 0)
+			(at 53.34 74.2446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -39,10 +49,72 @@
 				(justify left top)
 			)
 		)
+		(pin "CONTROL_BUS" input
+			(at 81.28 53.34 0)
+			(uuid "b323e3ab-d7a8-4c62-9e67-5555f9db858a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
 		(instances
 			(project "MechanicalRelaySally"
 				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec"
 					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 101.6 50.8)
+		(size 27.94 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 255 194 1.0000)
+		)
+		(uuid "edeec64f-5d20-4d69-9836-5e3d9dfbcd5d")
+		(property "Sheetname" "Microcontroller"
+			(at 101.6 50.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "microcontroller.kicad_sch"
+			(at 101.6 74.2446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "CONTROL_BUS" input
+			(at 101.6 53.34 180)
+			(uuid "f58ec3b2-f971-4a42-81c1-12e387fb30e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "MechanicalRelaySally"
+				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec"
+					(page "8")
 				)
 			)
 		)
