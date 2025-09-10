@@ -90,6 +90,18 @@
 		)
 	)
 	(rectangle
+		(start 87.63 19.05)
+		(end 139.7 80.01)
+		(stroke
+			(width 0)
+			(type dot)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 69efee76-173a-49dd-a3d8-dd54e51aa755)
+	)
+	(rectangle
 		(start 15.24 15.24)
 		(end 39.37 49.53)
 		(stroke
@@ -101,6 +113,30 @@
 		)
 		(uuid c5919ae7-b52c-40a0-af37-1b3c2dec021a)
 	)
+	(rectangle
+		(start 149.86 19.05)
+		(end 274.32 139.7)
+		(stroke
+			(width 0)
+			(type dot)
+		)
+		(fill
+			(type none)
+		)
+		(uuid e9a395b5-9331-418f-a742-05916b21fc4a)
+	)
+	(text "Control Board"
+		(exclude_from_sim no)
+		(at 97.79 16.51 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+				(thickness 0.3556)
+				(bold yes)
+			)
+		)
+		(uuid "1fa6ce6a-c99f-45d6-b263-90b162adb9aa")
+	)
 	(text "Mounting Holes"
 		(exclude_from_sim no)
 		(at 23.368 17.018 0)
@@ -110,6 +146,18 @@
 			)
 		)
 		(uuid "9476a3f7-666e-4a15-9253-084cf089d39a")
+	)
+	(text "Main PCB Board"
+		(exclude_from_sim no)
+		(at 160.782 16.51 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+				(thickness 0.3556)
+				(bold yes)
+			)
+		)
+		(uuid "d982a299-a848-440e-aa39-b4dac27d63b3")
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
@@ -368,7 +416,49 @@
 		)
 	)
 	(sheet
-		(at 170.18 38.1)
+		(at 93.98 26.67)
+		(size 38.1 46.99)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "098917f9-994d-45ba-beb3-3a9b578fdb8f")
+		(property "Sheetname" "Control PCB"
+			(at 93.98 25.9584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Control PCB.kicad_sch"
+			(at 93.98 74.2446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 214.63 24.13)
 		(size 54.61 110.49)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -384,7 +474,7 @@
 		)
 		(uuid "a4307ae8-dc68-4212-b4d2-d8b3b6e70043")
 		(property "Sheetname" "MCU_USB"
-			(at 170.18 37.3884 0)
+			(at 214.63 23.4184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -393,7 +483,7 @@
 			)
 		)
 		(property "Sheetfile" "MCU_USB.kicad_sch"
-			(at 170.18 149.1746 0)
+			(at 214.63 135.2046 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -402,7 +492,7 @@
 			)
 		)
 		(pin "TIM8_CH1" input
-			(at 224.79 45.72 0)
+			(at 269.24 31.75 0)
 			(uuid "3f801119-1173-486b-89be-434bac419026")
 			(effects
 				(font
@@ -412,7 +502,7 @@
 			)
 		)
 		(pin "TIM4_CH2" input
-			(at 224.79 57.15 0)
+			(at 269.24 43.18 0)
 			(uuid "d7e6649d-7141-40c4-9b23-582a8fcd1708")
 			(effects
 				(font
@@ -422,7 +512,7 @@
 			)
 		)
 		(pin "TIM2_CH3" input
-			(at 224.79 68.58 0)
+			(at 269.24 54.61 0)
 			(uuid "8cbc4eff-9800-4a6b-9ca5-ccbb0d1bbde4")
 			(effects
 				(font
@@ -432,7 +522,7 @@
 			)
 		)
 		(pin "TIM2_CH2" input
-			(at 224.79 80.01 0)
+			(at 269.24 66.04 0)
 			(uuid "21654e8a-aaa0-47b3-b281-88cb8caf6374")
 			(effects
 				(font
@@ -442,7 +532,7 @@
 			)
 		)
 		(pin "TIM1_CH1" input
-			(at 224.79 91.44 0)
+			(at 269.24 77.47 0)
 			(uuid "79801bb5-176c-45f1-842f-9790ba634f2b")
 			(effects
 				(font
@@ -452,7 +542,7 @@
 			)
 		)
 		(pin "TIM2_CH4" input
-			(at 224.79 102.87 0)
+			(at 269.24 88.9 0)
 			(uuid "3d3e4b28-6d1a-41ba-98c4-f5c0f10c441c")
 			(effects
 				(font
@@ -462,7 +552,7 @@
 			)
 		)
 		(pin "TIM4_CH1" input
-			(at 224.79 114.3 0)
+			(at 269.24 100.33 0)
 			(uuid "b7885280-8a9e-4d15-a411-dde49738143f")
 			(effects
 				(font
@@ -472,7 +562,7 @@
 			)
 		)
 		(pin "TIM3_CH1" input
-			(at 224.79 125.73 0)
+			(at 269.24 111.76 0)
 			(uuid "2d47ba51-eb48-4473-b616-1e2bf9a8347e")
 			(effects
 				(font
@@ -482,7 +572,7 @@
 			)
 		)
 		(pin "TIM3_CH2" input
-			(at 224.79 137.16 0)
+			(at 269.24 123.19 0)
 			(uuid "652bd716-1a43-462d-b864-dd80778662d0")
 			(effects
 				(font
@@ -492,7 +582,7 @@
 			)
 		)
 		(pin "TIM4_CH4" input
-			(at 224.79 147.32 0)
+			(at 269.24 133.35 0)
 			(uuid "b97826d1-768c-44ee-a950-ebbf6fc4e45f")
 			(effects
 				(font
@@ -510,7 +600,7 @@
 		)
 	)
 	(sheet
-		(at 109.22 38.1)
+		(at 153.67 24.13)
 		(size 50.8 59.69)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -526,7 +616,7 @@
 		)
 		(uuid "eb9b9647-818b-4f6a-aec9-7481a1a3b43c")
 		(property "Sheetname" "Main_Power"
-			(at 109.22 37.3884 0)
+			(at 153.67 23.4184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -535,7 +625,7 @@
 			)
 		)
 		(property "Sheetfile" "Main_Power.kicad_sch"
-			(at 109.22 98.3746 0)
+			(at 153.67 84.4046 0)
 			(effects
 				(font
 					(size 1.27 1.27)
