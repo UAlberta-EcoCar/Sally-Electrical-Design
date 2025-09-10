@@ -2116,6 +2116,131 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:+12V"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+12V"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+12V\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+12V_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+12V_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:+5V"
 			(power)
 			(pin_numbers
@@ -2594,6 +2719,12 @@
 		(uuid "da205171-b71a-435b-988a-18794c2d87be")
 	)
 	(junction
+		(at 129.54 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0992d636-36ca-4274-8e1e-122681a62562")
+	)
+	(junction
 		(at 35.56 33.02)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2922,6 +3053,16 @@
 			(type default)
 		)
 		(uuid "7d96ccfa-f4a1-4c73-b7f5-43735aa470ae")
+	)
+	(wire
+		(pts
+			(xy 129.54 48.26) (xy 129.54 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83d3e470-3959-4a3c-8bc8-6f75b817d589")
 	)
 	(wire
 		(pts
@@ -12129,7 +12270,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "77b99bbf-fa9c-4a4c-8a0f-034d202443b0")
+			(uuid "bb1ce792-c664-4fff-ab90-21c70ba880e1")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -12196,18 +12337,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "b92de4d2-d993-4725-97e4-6785560ed024")
+			(uuid "896808f9-af7f-4bde-a063-f564e78d6b1a")
 		)
 		(pin "2"
-			(uuid "34ac429c-ce1b-439c-835a-6fb0ae02d383")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "R1")
-					(unit 1)
-				)
-			)
+			(uuid "315ef72f-f1c4-4cd6-b0b1-63b62e58bfe8")
 		)
 	)
 	(symbol
@@ -12265,7 +12398,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "cac994f0-fd26-472e-b4d7-6cc0c6c067b3")
+			(uuid "4a587e40-0ae8-4f63-8b00-060e9dca191a")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -12332,10 +12465,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e0e8a48d-69f9-47bd-9bf4-16d54f5d7916")
+			(uuid "2918065c-e623-4d2f-93eb-9c69cfbfc7e8")
 		)
 		(pin "2"
-			(uuid "c1ef116a-483a-48be-9a13-79079a0e449b")
+			(uuid "d7f98071-65fd-4ab3-8f35-e2fbb7dbc304")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -12410,25 +12543,25 @@
 			)
 		)
 		(pin "4"
-			(uuid "1e093014-261c-48bc-9a4a-674a3bd482fd")
+			(uuid "84f809cd-3c70-4b30-8d31-92b28a08c413")
 		)
 		(pin "2"
-			(uuid "6036b2fc-1439-4fba-87ef-382243f440c5")
+			(uuid "b36ff3c2-76b6-40b4-bb26-108b43f21754")
 		)
 		(pin "1"
-			(uuid "2c34e189-1514-4c85-adcc-6369da0eb14b")
+			(uuid "fb560163-a18a-4a87-ad60-57a31e598353")
 		)
 		(pin "6"
-			(uuid "2bd52137-fea9-4e6c-85a6-31e03a8837ec")
+			(uuid "ba84d032-4d78-4c27-b9a4-320dcf28dccf")
 		)
 		(pin "3"
-			(uuid "8b47aacd-4f5d-41a0-af7c-79153ac89efc")
+			(uuid "fc2b9b11-094a-47f6-b704-8e9b463d7d50")
 		)
 		(pin "5"
-			(uuid "c8472f4b-cf0b-45e8-a4e9-0d0bf37c5947")
+			(uuid "143cd4f4-2447-4513-8a55-aa6647f5d5ee")
 		)
 		(pin "7"
-			(uuid "b5924952-9165-43be-9ae0-ca995f1e1647")
+			(uuid "d4358df9-1a2d-4af0-9e0b-3f65f96bda43")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -12503,10 +12636,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e5b4e568-f867-4ae9-82ab-853a53f53efc")
+			(uuid "f2b493a3-6958-4c06-a268-033180ef1bc6")
 		)
 		(pin "2"
-			(uuid "3561d5c7-1f6b-4785-a6f7-888e44f32c84")
+			(uuid "1bc68b1d-4a9c-400f-bd04-da326dc64da6")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -12572,15 +12705,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "d8f6af64-f4f9-4835-a0f2-36b4d6b36cfe")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "#PWR014")
-					(unit 1)
-				)
-			)
+			(uuid "5efa8446-a3a1-4008-97e0-817ddd690ceb")
 		)
 	)
 	(symbol
@@ -12638,15 +12763,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "34a6ced1-95a3-4da1-85f7-bd1f19bbcb0e")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "#PWR09")
-					(unit 1)
-				)
-			)
+			(uuid "84a04a4d-e7b8-4cd9-a663-f4bcc793bb26")
 		)
 	)
 	(symbol
@@ -12704,7 +12821,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "06908fad-2cca-46db-aae5-d60dcf7777f9")
+			(uuid "2f570c83-5acd-4734-8e3d-f961c1571ef4")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -12771,18 +12888,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "edc5b8f2-5e6b-454d-8a7a-564a0e4ad02c")
+			(uuid "deea774a-9d6a-4b78-83c5-d6205d608633")
 		)
 		(pin "1"
-			(uuid "fbd7889c-2dbf-4a98-83ec-e687863bcae0")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "C1")
-					(unit 1)
-				)
-			)
+			(uuid "b4a6317f-fc98-41bd-96d9-035db2f4f048")
 		)
 	)
 	(symbol
@@ -12850,16 +12959,16 @@
 			)
 		)
 		(pin "1"
-			(uuid "524dc04f-1cf1-4280-9693-4c65aba40c18")
+			(uuid "9ee18b52-435a-438d-a462-447210c33a9d")
 		)
 		(pin "2"
-			(uuid "380c8ef7-8cd4-448c-9625-6beb4aead8cd")
+			(uuid "7808941e-567a-4674-90ce-6db075f358d5")
 		)
 		(pin "3"
-			(uuid "ea6626f8-3669-4e47-b4f6-6c2219294d86")
+			(uuid "c5dbea6f-c668-477e-b11f-10424fcdc42d")
 		)
 		(pin "4"
-			(uuid "488409b2-a562-4b49-90ff-59961ea93dd8")
+			(uuid "365a384f-12e3-459a-bf24-0098183a54b6")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -12924,27 +13033,19 @@
 			)
 		)
 		(pin "3"
-			(uuid "a23b6539-9f2a-4ac2-a4bc-eef287733b31")
+			(uuid "03ac0626-87d6-48ea-b053-dccb2a878220")
 		)
 		(pin "2"
-			(uuid "021a4dcf-8b3f-40e4-bb1f-498977ccc15a")
+			(uuid "f1aa68bb-4e8f-42c6-bcdc-938b4c69309d")
 		)
 		(pin "1"
-			(uuid "723bc5f8-ce62-46d1-9cf6-645b9ff5094e")
+			(uuid "70933b75-a3b5-419c-ace0-f2b0bcd52923")
 		)
 		(pin "5"
-			(uuid "d9af7505-1cb8-4a03-90df-67859ee208c1")
+			(uuid "9bc25ef8-ee27-4896-b7f7-ea2b082ef818")
 		)
 		(pin "4"
-			(uuid "c7e77acd-3628-4d7f-9afe-58c2c7bc3bf3")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "U5")
-					(unit 1)
-				)
-			)
+			(uuid "783358e6-510b-4c75-91ff-aa4a80ff2e75")
 		)
 	)
 	(symbol
@@ -13002,15 +13103,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "974d37fc-db46-418f-8f0d-6c5b9828fad5")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "#PWR013")
-					(unit 1)
-				)
-			)
+			(uuid "face6797-097f-4e72-ac0b-a0df2951c7f4")
 		)
 	)
 	(symbol
@@ -13069,10 +13162,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "ad0077b5-9f9e-485b-8354-93a6da819a01")
+			(uuid "72fb0dbb-cd6c-4ac4-8b41-159778bf57e2")
 		)
 		(pin "2"
-			(uuid "a7cffbc5-1ffd-4f63-b7b7-4c42706a5ffb")
+			(uuid "080ee766-2912-49d8-bd63-956c349673b0")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -13138,7 +13231,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "5bf4a748-10d6-432d-883a-2217c252c2be")
+			(uuid "d25f9668-4b9c-4e98-a461-dd7a1419349f")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -13205,51 +13298,109 @@
 			)
 		)
 		(pin "5"
-			(uuid "0aaebdba-b003-4cba-8079-dbb586ae0f71")
+			(uuid "0406ed4f-6bb5-4ec6-8a68-7fa1178d0ec5")
 		)
 		(pin "11"
-			(uuid "273ff775-ccf7-47ef-845f-5878d5e9a69b")
+			(uuid "f6aa0e87-6d8b-47af-975f-2cb9e00b2c9f")
 		)
 		(pin "14"
-			(uuid "4dcd12fa-7141-4ed1-8ca4-9da7909fc715")
+			(uuid "1e65f4cb-c3aa-484d-94a1-501f1c448db7")
 		)
 		(pin "3"
-			(uuid "3ee38a1b-1fe3-4779-a1be-d43d9dfb2c3f")
+			(uuid "39fd3fdf-f61b-4f62-af63-db1de7989619")
 		)
 		(pin "10"
-			(uuid "07344698-a352-4909-8d55-519f6d91ddcd")
+			(uuid "3d214ae4-1371-4e71-84cf-c6b8280be6df")
 		)
 		(pin "1"
-			(uuid "f7d778f5-c54c-451f-aedb-ff20cf677f23")
+			(uuid "f3e68c26-0641-4261-8a53-c8ddf208b31f")
 		)
 		(pin "4"
-			(uuid "1b6b8ed4-0577-4960-b4d1-faea0808fe3b")
+			(uuid "0cd334f1-7f5e-43d1-a433-729fa000c6d4")
 		)
 		(pin "7"
-			(uuid "9d82e283-e3a7-4995-b016-7c9e8777060f")
+			(uuid "f8875351-f6a9-4f38-8a35-f821e177a32f")
 		)
 		(pin "9"
-			(uuid "ad8f0405-b0a3-4866-9bc8-f7929b5edd72")
+			(uuid "2f2ce079-8b1b-4099-8cbb-5005cb8847af")
 		)
 		(pin "2"
-			(uuid "3597e6fc-ac6e-46e7-8358-56e0d3332fc9")
+			(uuid "ea9c4829-5952-4ebf-a28a-bc2ed43061b1")
 		)
 		(pin "8"
-			(uuid "1e50a137-ee64-42f5-9a02-1feae6c7f149")
+			(uuid "23fcf00b-db60-48ff-b44a-afab867dc4f3")
 		)
 		(pin "6"
-			(uuid "b82684f3-0fd5-4696-af8e-1f6dc72f3f81")
+			(uuid "6b419a36-519b-47a7-aa98-468a4371ceee")
 		)
 		(pin "13"
-			(uuid "1a686973-79d4-4725-abc5-f7aa08170a6f")
+			(uuid "5a74487b-297a-458f-9579-92df7d2af956")
 		)
 		(pin "12"
-			(uuid "cb5f2808-ca1a-4163-bf42-20dc39402dea")
+			(uuid "3969044e-78fa-4c2a-80d0-6ecbf61c7cb1")
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 129.54 48.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ae11a73e-f87f-492f-9e90-428c8a100cc8")
+		(property "Reference" "#PWR022"
+			(at 129.54 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 129.54 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 129.54 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 129.54 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
+			(at 129.54 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "be34508f-4dec-4d84-b881-67c46a14dd2b")
 		)
 		(instances
 			(project ""
 				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "U4")
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -13310,15 +13461,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "29e9a3e5-601b-423a-98f8-432b56eb452f")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "#PWR04")
-					(unit 1)
-				)
-			)
+			(uuid "5c4c1c47-a52b-4253-a1cd-f2524da9e38c")
 		)
 	)
 	(symbol
@@ -13376,7 +13519,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ecbae2d7-14a0-4920-a0c0-f4c073952f3c")
+			(uuid "28b543b7-c89c-45d8-ae0e-fd78fbdaa5fd")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -13442,7 +13585,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "b3a89059-43dd-4e2e-ba0e-991b54238826")
+			(uuid "63a6e327-684f-4857-a5b9-0e303e5e0cd3")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -13515,16 +13658,16 @@
 			)
 		)
 		(pin "1"
-			(uuid "9d5838de-ce62-4060-9144-d209eb54ec3a")
+			(uuid "deb9eca1-d74e-4a5d-aa73-02b3681c9e45")
 		)
 		(pin "4"
-			(uuid "7fc92159-7cdf-444a-a89a-43b4accde113")
+			(uuid "88cf7b4c-dfbe-4e52-b26e-465cac211d99")
 		)
 		(pin "5"
-			(uuid "81bdf122-ba15-47dc-b92d-86019b27895c")
+			(uuid "a1dc35c4-ba0b-478b-8273-15c76d38befc")
 		)
 		(pin "6"
-			(uuid "ec8b6766-d726-478d-bbf5-827212a24030")
+			(uuid "70d222ec-d518-46d2-80c9-78b7962fb9af")
 		)
 		(instances
 			(project "MechanicalRelaySally"
@@ -13591,18 +13734,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "b2272e58-5fdf-4919-846f-d4c4514e77ae")
+			(uuid "0b129582-cb8f-4cff-81b0-3874f71d2286")
 		)
 		(pin "2"
-			(uuid "e6cfa556-6b6a-4ed8-96a2-7b2a760ad495")
-		)
-		(instances
-			(project ""
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d088bd5-bfd8-4878-8cdc-acb42df5ad31"
-					(reference "R2")
-					(unit 1)
-				)
-			)
+			(uuid "ab96c47f-5a9d-4365-9f7f-5d8549239975")
 		)
 	)
 )
