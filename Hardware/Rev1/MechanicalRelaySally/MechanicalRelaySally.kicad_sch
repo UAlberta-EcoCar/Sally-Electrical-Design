@@ -5,6 +5,46 @@
 	(uuid "fc3bfb83-1db4-4bd1-b480-85f699496fec")
 	(paper "A4")
 	(lib_symbols)
+	(bus
+		(pts
+			(xy 81.28 58.42) (xy 101.6 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2baf0355-942f-47e1-8169-4cb1cb4023b2")
+	)
+	(bus
+		(pts
+			(xy 81.28 60.96) (xy 101.6 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83cf0e03-7db9-4dd2-b504-01a1c5c66396")
+	)
+	(bus
+		(pts
+			(xy 81.28 53.34) (xy 101.6 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af47c2e4-f571-49ff-87fe-0056b1d0ad4a")
+	)
+	(bus
+		(pts
+			(xy 81.28 55.88) (xy 101.6 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d19a89be-b57a-40a0-b222-e285eb2ab2d9")
+	)
 	(sheet
 		(at 17.78 50.8)
 		(size 63.5 22.86)
@@ -49,29 +89,29 @@
 				(justify right)
 			)
 		)
-		(pin "DSCH_RES_HIGH_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" output
-			(at 81.28 55.88 0)
-			(uuid "72edd2fd-7521-4060-9605-e13058cb1877")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "DSCH_RES_LOW_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" output
-			(at 81.28 58.42 0)
-			(uuid "aca70219-f17a-464b-b88f-5483ce2a3123")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "CAP_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" output
 			(at 81.28 60.96 0)
 			(uuid "6c4527c6-c4dc-47ba-bc29-ae380a9c78b4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "RES_LOW_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" output
+			(at 81.28 58.42 0)
+			(uuid "afffe041-ccb5-4ddd-897b-2a5d287befd1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "RES_HIGH_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" output
+			(at 81.28 55.88 0)
+			(uuid "6a88d714-6351-4483-8afa-03579a44dbb7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -89,7 +129,7 @@
 	)
 	(sheet
 		(at 101.6 50.8)
-		(size 27.94 22.86)
+		(size 63.5 22.86)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -131,29 +171,29 @@
 				(justify left)
 			)
 		)
-		(pin "DSCH_RES_HIGH_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" input
-			(at 101.6 55.88 180)
-			(uuid "69f0328f-d872-43ac-b4f6-191fe8b85f42")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "DSCH_RES_LOW_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" input
-			(at 101.6 58.42 180)
-			(uuid "60ed0b0e-78aa-4c1a-bd04-b29e21639bd4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "MTR_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" input
 			(at 101.6 53.34 180)
 			(uuid "b89b2ace-5344-4e32-8da2-e14bbed13d3b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "RES_HIGH_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" input
+			(at 101.6 55.88 180)
+			(uuid "9121541e-e6ca-47d1-a2b1-9e09f0d17a95")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "RES_LOW_RLY{RELAY_EN COIL_CUR STATUS CUR_SENSE}" input
+			(at 101.6 58.42 180)
+			(uuid "c430e37a-868a-4337-9917-c7c763c7b072")
 			(effects
 				(font
 					(size 1.27 1.27)
