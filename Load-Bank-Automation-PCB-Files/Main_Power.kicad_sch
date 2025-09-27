@@ -3033,6 +3033,16 @@
 		)
 		(uuid "518e1962-3ce4-44fe-9b9a-9cce1290d717")
 	)
+	(text "Configure LEDs For Debugging\n"
+		(exclude_from_sim no)
+		(at 160.782 161.798 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6af5523b-e284-4b0b-85ee-2dda1cba52b6")
+	)
 	(text "- Double check LED Resistor Values"
 		(exclude_from_sim no)
 		(at 158.75 96.774 0)
@@ -3122,12 +3132,6 @@
 		(uuid "87bd53dc-6392-4e44-aa98-23a3d40b50f3")
 	)
 	(junction
-		(at 207.01 147.32)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c06e601c-6ee9-475a-ab79-5136d82b79ee")
-	)
-	(junction
 		(at 35.56 39.37)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3150,6 +3154,10 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "dc23c6cc-9c8b-4ba4-afe4-b9bed70c3510")
+	)
+	(no_connect
+		(at 207.01 144.78)
+		(uuid "1df5b1e0-874c-4372-b800-5aeb279bcdd4")
 	)
 	(wire
 		(pts
@@ -3543,16 +3551,6 @@
 	)
 	(wire
 		(pts
-			(xy 214.63 147.32) (xy 207.01 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8314f0e7-7093-4095-98f7-903f1d16d2e0")
-	)
-	(wire
-		(pts
 			(xy 229.87 119.38) (xy 232.41 119.38)
 		)
 		(stroke
@@ -3693,16 +3691,6 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 144.78) (xy 207.01 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a51e8d2f-0b92-4d87-b126-e33a29b718ac")
-	)
-	(wire
-		(pts
 			(xy 252.73 124.46) (xy 252.73 121.92)
 		)
 		(stroke
@@ -3813,16 +3801,6 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 147.32) (xy 207.01 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8096aaf-0d24-4bb8-9dc5-632d46d559a4")
-	)
-	(wire
-		(pts
 			(xy 63.5 39.37) (xy 59.69 39.37)
 		)
 		(stroke
@@ -3853,7 +3831,7 @@
 	)
 	(wire
 		(pts
-			(xy 214.63 144.78) (xy 214.63 147.32)
+			(xy 214.63 144.78) (xy 214.63 149.86)
 		)
 		(stroke
 			(width 0)
@@ -3951,9 +3929,8 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "02678444-b9a6-42ee-bcf3-262ecc57a0da")
-		(property "Reference" "R10"
+		(property "Reference" "R22"
 			(at 166.37 120.6499 0)
 			(effects
 				(font
@@ -4016,7 +3993,7 @@
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c"
-					(reference "R10")
+					(reference "R22")
 					(unit 1)
 				)
 			)
@@ -4347,7 +4324,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDREF")
-		(at 207.01 149.86 0)
+		(at 214.63 149.86 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4356,7 +4333,7 @@
 		(fields_autoplaced yes)
 		(uuid "0eee07ac-da19-4be4-aaaa-35e9eaa1c50a")
 		(property "Reference" "#PWR029"
-			(at 207.01 156.21 0)
+			(at 214.63 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4365,7 +4342,7 @@
 			)
 		)
 		(property "Value" "GNDREF"
-			(at 207.01 154.94 0)
+			(at 214.63 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4373,7 +4350,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 207.01 149.86 0)
+			(at 214.63 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4382,7 +4359,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 207.01 149.86 0)
+			(at 214.63 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4391,7 +4368,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDREF\" , reference supply ground"
-			(at 207.01 149.86 0)
+			(at 214.63 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4439,7 +4416,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 265.43 106.68 0)
 			(effects
 				(font
@@ -4690,7 +4667,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2fe92a9d-43a1-460d-94d0-b591ed0350ab")
-		(property "Reference" "R10"
+		(property "Reference" "R20"
 			(at 154.94 120.6499 0)
 			(effects
 				(font
@@ -4753,7 +4730,7 @@
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c"
-					(reference "R10")
+					(reference "R20")
 					(unit 1)
 				)
 			)
@@ -4932,7 +4909,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 115.8748 49.53 0)
 			(effects
 				(font
@@ -5567,7 +5544,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 36.5252 49.53 0)
 			(effects
 				(font
@@ -6004,7 +5981,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 93.6752 49.53 0)
 			(effects
 				(font
@@ -6334,7 +6311,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 242.57 108.712 90)
 			(effects
 				(font
@@ -6674,7 +6651,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 58.7248 49.53 0)
 			(effects
 				(font
@@ -6873,7 +6850,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 242.57 112.522 90)
 			(effects
 				(font
@@ -7067,7 +7044,7 @@
 				(justify left top)
 			)
 		)
-		(pin "V+_{in}" input
+		(pin "V_{IN}" input
 			(at 233.68 35.56 0)
 			(uuid "ab6cb60c-995f-498a-9c39-f300b45da274")
 			(effects
@@ -7077,7 +7054,7 @@
 				(justify right)
 			)
 		)
-		(pin "V+_{out}" output
+		(pin "V_{OUT}" output
 			(at 189.23 35.56 180)
 			(uuid "846c1bcd-712e-45e7-9e43-9b06590ebc9d")
 			(effects
