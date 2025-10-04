@@ -2103,6 +2103,17 @@
 		)
 		(uuid "0604a2ab-94d1-469a-8911-d9734c9e18ed")
 	)
+	(text "R_{SENSE,MAX} < PD_{MAX} / I_{MAX}^2 = 1 W / 1A ^2 = 1 Ohm\nR_{SENSE} = 2.5V (V_{OUT}) / 1 A (I_{OUT}) / 20 V/V (GAIN)\nR_{SENSE} = 0.125 Ohms"
+		(exclude_from_sim no)
+		(at 96.774 102.87 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1dd02249-abbb-4f6a-85c2-92126e3e37a3")
+	)
 	(text "Max power 1.8W, therfore\npeak = 7.8 V / 80 Ohms = 97.5 mA (Absolute Min needed to activate) \n+= 20mA (Adjust based on IRL performace)\n\nhold = 1.2 V / 80 Ohms = 15 mA (Absolute Min needed to hold) \n+= 20mA (Adjust with IRL tests)\n"
 		(exclude_from_sim no)
 		(at 180.086 55.88 0)
@@ -2135,17 +2146,6 @@
 			(justify left)
 		)
 		(uuid "7344343e-9db4-4fca-a499-f0eb31d24ae5")
-	)
-	(text "R_{SENSE} < PD_{MAX} / I_{MAX}^2 = 1 W / 500 mA ^2 = 4 Ohms\n\nR_{SENSE} Chosen = 0.04 Gain = 20V/V"
-		(exclude_from_sim no)
-		(at 96.774 102.87 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c18ebf95-1808-47b8-8f1d-3d187c09f194")
 	)
 	(text "t_{KEEP} = 0.5 (Can be changed later)\nC_{KEEP} = 6.66.. uF ~= 6.7uF"
 		(exclude_from_sim no)
@@ -10993,6 +10993,89 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 157.48 101.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "32296a9c-d3af-4bbc-9366-3006fc61ef08")
+		(property "Reference" "R12"
+			(at 160.02 100.3299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "R140"
+			(at 160.02 102.8699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 155.702 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.digikey.ca/en/products/detail/te-connectivity-passive-product/RLC73PW2BR14FTD/19237383"
+			(at 157.48 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 157.48 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DK#" "1712-RLC73PW2BR14FTDCT-ND"
+			(at 157.48 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d40fb967-470f-48bb-8a96-0464160d97dd")
+		)
+		(pin "2"
+			(uuid "b5aba266-b99e-4fbd-a129-ec9aeb7718c0")
+		)
+		(instances
+			(project "MechanicalRelaySally"
+				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/287bcc34-1755-4ec1-bf79-f8c819b2e90a"
+					(reference "R12")
+					(unit 1)
+				)
+				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d09a84a-1d35-45b4-97d6-142a6e75cf7b"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 175.26 111.76 0)
 		(unit 1)
@@ -12377,80 +12460,6 @@
 				)
 				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d09a84a-1d35-45b4-97d6-142a6e75cf7b"
 					(reference "#PWR054")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 157.48 101.6 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f076bb7c-12ea-40eb-9fc6-d9790e173caf")
-		(property "Reference" "R12"
-			(at 160.02 100.3299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "R04"
-			(at 160.02 102.8699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 155.702 101.6 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 157.48 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 157.48 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ffac1c87-8637-4fff-86ce-f69da667a319")
-		)
-		(pin "2"
-			(uuid "9c6b2177-415d-48f4-bdbc-de745f932e2f")
-		)
-		(instances
-			(project "MechanicalRelaySally"
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/287bcc34-1755-4ec1-bf79-f8c819b2e90a"
-					(reference "R12")
-					(unit 1)
-				)
-				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/2d09a84a-1d35-45b4-97d6-142a6e75cf7b"
-					(reference "R16")
 					(unit 1)
 				)
 			)
