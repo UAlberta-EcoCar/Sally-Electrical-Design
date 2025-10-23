@@ -232,6 +232,7 @@
       "mfg": "",
       "mpn": ""
     },
+    "layer_pairs": [],
     "layer_presets": [],
     "viewports": []
   },
@@ -426,10 +427,15 @@
       "duplicate_sheet_names": "error",
       "endpoint_off_grid": "warning",
       "extra_units": "error",
+      "footprint_filter": "ignore",
+      "footprint_link_issues": "warning",
+      "four_way_junction": "ignore",
       "global_label_dangling": "warning",
       "hier_label_mismatch": "error",
       "label_dangling": "error",
+      "label_multiple_wires": "warning",
       "lib_symbol_issues": "warning",
+      "lib_symbol_mismatch": "warning",
       "missing_bidi_pin": "warning",
       "missing_input_pin": "warning",
       "missing_power_pin": "error",
@@ -442,9 +448,15 @@
       "pin_not_driven": "error",
       "pin_to_pin": "warning",
       "power_pin_not_driven": "error",
+      "same_local_global_label": "warning",
+      "similar_label_and_power": "warning",
       "similar_labels": "warning",
+      "similar_power": "warning",
       "simulation_model_issue": "ignore",
+      "single_global_label": "ignore",
       "unannotated": "error",
+      "unconnected_wire_endpoint": "warning",
+      "undefined_netclass": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
       "wire_dangling": "error"
@@ -452,11 +464,13 @@
   },
   "libraries": {
     "pinned_footprint_libs": [],
-    "pinned_symbol_libs": []
+    "pinned_symbol_libs": [
+      "ecocad_lib_symbols"
+    ]
   },
   "meta": {
     "filename": "ECO Car Brakes.kicad_pro",
-    "version": 1
+    "version": 3
   },
   "net_settings": {
     "classes": [
@@ -471,6 +485,7 @@
         "microvia_drill": 0.1,
         "name": "Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.2,
         "via_diameter": 0.6,
@@ -479,7 +494,7 @@
       }
     ],
     "meta": {
-      "version": 3
+      "version": 4
     },
     "net_colors": null,
     "netclass_assignments": null,
@@ -555,6 +570,7 @@
       ],
       "filter_string": "",
       "group_symbols": true,
+      "include_excluded_from_bom": false,
       "name": "Grouped By Value",
       "sort_asc": true,
       "sort_field": "Reference"
@@ -589,6 +605,7 @@
     "net_format_name": "",
     "page_layout_descr_file": "",
     "plot_directory": "",
+    "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
@@ -610,6 +627,30 @@
     [
       "ef8958cb-561e-4db1-9443-e1a0609d23f1",
       "Microcontroller (and USB)"
+    ],
+    [
+      "6b331dff-2911-4922-ae36-083c28b2b352",
+      "MCU"
+    ],
+    [
+      "5591d58b-aa37-4dc8-ac56-9a63452c45b8",
+      "CAN Bus"
+    ],
+    [
+      "20650f78-9624-4a5a-8831-b174f9feb7c8",
+      "VBUS"
+    ],
+    [
+      "1bb5a01e-8ed5-4083-9d38-1ce5a8280557",
+      "Buck Converters"
+    ],
+    [
+      "ad3663bd-6238-4649-9c29-24b738fb0112",
+      "Protection Circuitry"
+    ],
+    [
+      "2ea09fe0-cc7b-482e-b07c-138390b94e62",
+      "Current Sensing"
     ]
   ],
   "text_variables": {}
