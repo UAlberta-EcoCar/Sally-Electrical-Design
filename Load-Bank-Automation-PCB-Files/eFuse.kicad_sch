@@ -408,7 +408,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Power_Protection:TPS259474LRPWR"
+		(symbol "TPS259474LRPWR_1"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -455,7 +455,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "TPS259474LRPWR_1_1"
+			(symbol "TPS259474LRPWR_1_1_1"
 				(rectangle
 					(start -19.05 15.24)
 					(end 19.05 -15.24)
@@ -477,7 +477,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -495,7 +495,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -513,7 +513,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -531,7 +531,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "10"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -549,7 +549,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -567,7 +567,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -585,7 +585,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -603,7 +603,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -621,7 +621,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -639,7 +639,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1061,6 +1061,12 @@
 		(uuid "97abac05-fc42-4e31-a843-1c692f0a9ad8")
 	)
 	(junction
+		(at 185.42 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ba1f26ad-e688-4072-b8f2-c9b2fc3950db")
+	)
+	(junction
 		(at 119.38 74.93)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1326,6 +1332,16 @@
 	)
 	(wire
 		(pts
+			(xy 175.26 71.12) (xy 175.26 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fc94467-9ab3-4ab4-b7c1-3d8ad63393ab")
+	)
+	(wire
+		(pts
 			(xy 182.88 76.2) (xy 182.88 73.66)
 		)
 		(stroke
@@ -1336,6 +1352,16 @@
 	)
 	(wire
 		(pts
+			(xy 185.42 72.39) (xy 185.42 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a54d7005-bfda-46e1-8c92-a5e6fcd02c11")
+	)
+	(wire
+		(pts
 			(xy 199.39 63.5) (xy 199.39 66.04)
 		)
 		(stroke
@@ -1343,6 +1369,16 @@
 			(type default)
 		)
 		(uuid "b097de16-e6ca-4a78-9c1c-8fd74d7b6504")
+	)
+	(wire
+		(pts
+			(xy 175.26 72.39) (xy 185.42 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b19af905-d6a0-4b1c-9e10-c64f160c833d")
 	)
 	(wire
 		(pts
@@ -1456,7 +1492,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 73.66) (xy 185.42 71.12)
+			(xy 185.42 73.66) (xy 185.42 72.39)
 		)
 		(stroke
 			(width 0)
@@ -2115,98 +2151,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Power_Protection:TPS259474LRPWR")
-		(at 149.86 74.93 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3cc448a7-f82a-41b6-a9f9-58cba4b1d024")
-		(property "Reference" "U7"
-			(at 149.86 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TPS259474LRPWR"
-			(at 149.86 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "eFuse_TPS259474LRPWR:RPW0010A-MFG"
-			(at 149.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps25947.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1758509314473"
-			(at 149.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 149.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin ""
-			(uuid "58997d3e-a68e-4a40-8cd4-8e6f8a744142")
-		)
-		(pin ""
-			(uuid "20547946-2bc8-44ad-897e-2f668ddccb18")
-		)
-		(pin ""
-			(uuid "93fbd3f1-ed0b-4457-9fd6-42db11c17163")
-		)
-		(pin ""
-			(uuid "3aff1815-8e54-4d9e-b0ac-ab944b985711")
-		)
-		(pin ""
-			(uuid "10634be0-fcd2-4ec4-af16-1e1f077fda64")
-		)
-		(pin ""
-			(uuid "44a0ca79-3c2d-4f0e-b7fd-f7cc4806cd1e")
-		)
-		(pin ""
-			(uuid "f1122dd9-3bd4-4f8a-b5e1-18b24e1341ea")
-		)
-		(pin ""
-			(uuid "fc2b31d8-570b-4c85-82dc-d00f84806fac")
-		)
-		(pin ""
-			(uuid "d21c149d-6ae6-4e13-8b63-ec739bdaf307")
-		)
-		(pin ""
-			(uuid "dac06f22-90f0-45db-ab4a-7147e89be2ef")
-		)
-		(instances
-			(project ""
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
-					(reference "U7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 199.39 81.28 0)
 		(unit 1)
@@ -2622,6 +2566,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 175.26 71.12 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9278394d-2cdf-4441-9aee-6b150a0d6116")
+		(property "Reference" "#FLG05"
+			(at 175.26 69.215 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 175.26 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 175.26 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 175.26 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 175.26 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "08c65489-110e-4aca-94f4-cc24a2f205ef")
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
+					(reference "#FLG05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 199.39 86.36 0)
 		(unit 1)
@@ -2818,6 +2828,99 @@
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
 					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "TPS259474LRPWR_1")
+		(lib_id "Power_Protection:TPS259474LRPWR")
+		(at 149.86 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bbd6e38b-c5af-4f92-a93f-0a686ad6e3b4")
+		(property "Reference" "U7"
+			(at 149.86 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TPS259474LRPWR"
+			(at 149.86 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "eFuse_TPS259474LRPWR:RPW0010A-MFG"
+			(at 149.86 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps25947.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1758509314473"
+			(at 149.86 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 149.86 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "bcc97204-e313-418b-b8ca-b72faed64dbb")
+		)
+		(pin "2"
+			(uuid "7e362bc8-d006-4b70-9ad3-a4d69211ab15")
+		)
+		(pin "7"
+			(uuid "232832e9-ba90-4fc9-a59b-b18833890a98")
+		)
+		(pin "9"
+			(uuid "e47a0c63-343e-41ca-b2f8-a52cc8d6d39e")
+		)
+		(pin "4"
+			(uuid "cbd3f00f-6aa7-4ef5-aadc-f6c4b0db184e")
+		)
+		(pin "8"
+			(uuid "be5c04f8-a5df-4126-af85-2ae429e4bf86")
+		)
+		(pin "6"
+			(uuid "a63ae8e9-1fa8-44cf-a19b-12aa4be763c3")
+		)
+		(pin "1"
+			(uuid "cb363d85-6298-47c5-a756-831289f32342")
+		)
+		(pin "3"
+			(uuid "17049516-efa6-40ac-977d-1c4040cf7dd2")
+		)
+		(pin "10"
+			(uuid "8aee2df5-9bfa-4bd9-80ce-81267ca41b2f")
+		)
+		(instances
+			(project ""
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
+					(reference "U7")
 					(unit 1)
 				)
 			)

@@ -5,6 +5,185 @@
 	(uuid "ce9ddf9a-61cc-43b0-b27b-116a0cc30561")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Amplifier_Operational:MCP6001-OT"
+			(pin_names
+				(offset 0.127)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -1.27 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "MCP6001-OT"
+				(at -1.27 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+				(at -2.54 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "1MHz, Low-Power Op Amp, SOT-23-5"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "single opamp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MCP6001-OT_0_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin power_in line
+					(at -2.54 7.62 270)
+					(length 3.81)
+					(name "V+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -2.54 -7.62 90)
+					(length 3.81)
+					(name "V-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "MCP6001-OT_1_1"
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector_Generic:Conn_02x03_Counter_Clockwise"
 			(pin_names
 				(offset 1.016)
@@ -1357,260 +1536,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "EcoCar_Library:MCP6007"
-			(pin_names
-				(offset 0.127)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "MCP6007"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP6006-6R-6U-7-9-Data-Sheet-20006411B.pdf"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Dual Operational Amplifiers, DIP-8/SOIC-8/TSSOP-8/VSSOP-8"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "dual opamp"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "SOIC*3.9x4.9mm*P1.27mm* DIP*W7.62mm* TO*99* OnSemi*Micro8* TSSOP*3x3mm*P0.65mm* TSSOP*4.4x3mm*P0.65mm* MSOP*3x3mm*P0.65mm* SSOP*3.9x4.9mm*P0.635mm* LFCSP*2x2mm*P0.5mm* *SIP* SOIC*5.3x6.2mm*P1.27mm*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "MCP6007_1_1"
-				(polyline
-					(pts
-						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin input line
-					(at -7.62 2.54 0)
-					(length 2.54)
-					(name "+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "MCP6007_2_1"
-				(polyline
-					(pts
-						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin input line
-					(at -7.62 2.54 0)
-					(length 2.54)
-					(name "+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "MCP6007_3_1"
-				(pin power_in line
-					(at -2.54 7.62 270)
-					(length 3.81)
-					(name "V+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -2.54 -7.62 90)
-					(length 3.81)
-					(name "V-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "EcoCar_Library:PHNX_CONN_1017521"
 			(pin_names
 				(offset 1.016)
@@ -1779,7 +1704,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Sensor_Current:ACS711xLCTR-12AB"
+		(symbol "Sensor_Current:ACS711xLCTR-25AB"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1792,7 +1717,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "ACS711xLCTR-12AB"
+			(property "Value" "ACS711xLCTR-25AB"
 				(at 8.89 3.81 0)
 				(effects
 					(font
@@ -1821,7 +1746,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "±12.5A Bidirectional Hall-Effect Current Sensor, +3.3V supply, 110mV/A, SOIC-8"
+			(property "Description" "±25A, Bidirectional, Hall-Effect Current Sensor, +3.3V supply, 55mV/A, SOIC-8"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1848,7 +1773,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "ACS711xLCTR-12AB_0_1"
+			(symbol "ACS711xLCTR-25AB_0_1"
 				(rectangle
 					(start -7.62 7.62)
 					(end 7.62 -7.62)
@@ -1861,7 +1786,7 @@
 					)
 				)
 			)
-			(symbol "ACS711xLCTR-12AB_1_1"
+			(symbol "ACS711xLCTR-25AB_1_1"
 				(pin passive line
 					(at -10.16 5.08 0)
 					(length 2.54)
@@ -2261,6 +2186,131 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:+3V3"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+3V3"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+3V3\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+3V3_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V3_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:GND"
 			(power)
 			(pin_numbers
@@ -2362,6 +2412,107 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:PWR_FLAG"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(rectangle
 		(start 228.6 39.37)
@@ -2457,7 +2608,7 @@
 	)
 	(text "Snubber Network"
 		(exclude_from_sim no)
-		(at 120.65 67.818 0)
+		(at 119.888 75.946 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2481,7 +2632,7 @@
 	)
 	(text "Hall Efect Sensor\n"
 		(exclude_from_sim no)
-		(at 139.192 54.864 0)
+		(at 138.43 54.356 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2528,7 +2679,7 @@
 	)
 	(text "Voltage Opamp"
 		(exclude_from_sim no)
-		(at 159.766 155.702 0)
+		(at 137.922 135.382 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2537,6 +2688,16 @@
 			)
 		)
 		(uuid "bf3e8fae-62da-41e0-ba66-bbc2d86e9166")
+	)
+	(text "Find common resistor values later\n"
+		(exclude_from_sim no)
+		(at 192.532 132.334 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "d63510ab-b65b-4d71-821d-c4bce07429bb")
 	)
 	(text "Creat a snubber circuit for Transient responses"
 		(exclude_from_sim no)
@@ -2556,22 +2717,16 @@
 		(uuid "01faec86-3711-430f-bef7-10e7043c651b")
 	)
 	(junction
-		(at 110.49 85.09)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0bbff95c-5b5e-4345-a54e-f4fca02ead8f")
-	)
-	(junction
-		(at 120.65 85.09)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0e2d8aff-8ffa-4119-9f85-f10941ca6412")
-	)
-	(junction
 		(at 105.41 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0e9fcefb-fc87-401f-a258-83efeed72231")
+	)
+	(junction
+		(at 44.45 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "136eb3f9-1ef8-4032-915f-7028108cd830")
 	)
 	(junction
 		(at 66.04 125.73)
@@ -2781,7 +2936,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 146.05) (xy 171.45 151.13)
+			(xy 171.45 146.05) (xy 171.45 158.75)
 		)
 		(stroke
 			(width 0)
@@ -2951,6 +3106,16 @@
 	)
 	(wire
 		(pts
+			(xy 161.29 133.35) (xy 161.29 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "49e62436-5d9a-4372-8e39-ab9ec8a5572b")
+	)
+	(wire
+		(pts
 			(xy 151.13 82.55) (xy 151.13 95.25)
 		)
 		(stroke
@@ -2971,7 +3136,17 @@
 	)
 	(wire
 		(pts
-			(xy 110.49 85.09) (xy 111.76 85.09)
+			(xy 147.32 158.75) (xy 171.45 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d92ef2a-a7fe-4c1d-884d-9178ad171706")
+	)
+	(wire
+		(pts
+			(xy 106.68 85.09) (xy 111.76 85.09)
 		)
 		(stroke
 			(width 0)
@@ -3031,16 +3206,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 85.09) (xy 110.49 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6a85a6ac-5062-462b-adb1-936899395005")
-	)
-	(wire
-		(pts
 			(xy 120.65 119.38) (xy 120.65 116.84)
 		)
 		(stroke
@@ -3071,16 +3236,6 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 151.13) (xy 147.32 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "82529c00-579b-469e-975e-05b1e4c7a4ce")
-	)
-	(wire
-		(pts
 			(xy 191.77 62.23) (xy 191.77 63.5)
 		)
 		(stroke
@@ -3088,6 +3243,16 @@
 			(type default)
 		)
 		(uuid "84b9d0bd-0239-4512-bcda-7893eb77c7ad")
+	)
+	(wire
+		(pts
+			(xy 44.45 125.73) (xy 44.45 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8cf8e3c2-070a-46b8-a600-2e07cee20dd6")
 	)
 	(wire
 		(pts
@@ -3141,16 +3306,6 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 85.09) (xy 120.65 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9c069363-9a5c-4833-a564-8e79bfc712e4")
-	)
-	(wire
-		(pts
 			(xy 66.04 125.73) (xy 66.04 134.62)
 		)
 		(stroke
@@ -3161,33 +3316,13 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 77.47) (xy 119.38 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e548e54-26de-4185-8f88-b4a693e5fcff")
-	)
-	(wire
-		(pts
-			(xy 120.65 85.09) (xy 119.38 85.09)
+			(xy 119.38 85.09) (xy 121.92 85.09)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "a0c57341-1d00-4f3a-a420-a39bd289c321")
-	)
-	(wire
-		(pts
-			(xy 111.76 77.47) (xy 110.49 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a4cea85d-77c0-4858-8130-5f93febe2dbc")
 	)
 	(wire
 		(pts
@@ -3311,6 +3446,16 @@
 	)
 	(wire
 		(pts
+			(xy 161.29 151.13) (xy 161.29 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca0a231e-1973-45f6-8130-89d1b9804863")
+	)
+	(wire
+		(pts
 			(xy 105.41 95.25) (xy 105.41 96.52)
 		)
 		(stroke
@@ -3391,23 +3536,13 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 151.13) (xy 147.32 143.51)
+			(xy 147.32 158.75) (xy 147.32 143.51)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "d1b2c9ae-d857-48fa-a07d-d5b04ff9c46b")
-	)
-	(wire
-		(pts
-			(xy 110.49 77.47) (xy 110.49 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d356c0a7-370f-490b-8be8-4023dec22d28")
 	)
 	(wire
 		(pts
@@ -3538,16 +3673,6 @@
 			(type default)
 		)
 		(uuid "f8b79c29-37ff-41f8-86d5-6ca0a805e961")
-	)
-	(wire
-		(pts
-			(xy 121.92 85.09) (xy 120.65 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f8d35f02-7ec6-4b54-91a5-03a2fcd556f4")
 	)
 	(wire
 		(pts
@@ -3783,7 +3908,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 121.92 84.1248 0)
 			(effects
 				(font
@@ -3893,35 +4018,17 @@
 		)
 	)
 	(symbol
-		(lib_id "EcoCar_Library:MCP6007")
-		(at 158.75 143.51 0)
-		(mirror y)
+		(lib_id "power:PWR_FLAG")
+		(at 44.45 132.08 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "29be6bad-0499-4aa4-88a7-22ad2627b872")
-		(property "Reference" "U10"
-			(at 155.194 133.096 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "MCP6007"
-			(at 155.194 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-			(at 158.75 143.51 0)
+		(fields_autoplaced yes)
+		(uuid "305df37e-18f6-41c8-be59-fcb78cfcb7f5")
+		(property "Reference" "#FLG01"
+			(at 44.45 133.985 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3929,8 +4036,16 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP6006-6R-6U-7-9-Data-Sheet-20006411B.pdf"
-			(at 158.75 143.51 0)
+		(property "Value" "PWR_FLAG"
+			(at 44.45 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 44.45 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3938,8 +4053,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Dual Operational Amplifiers, DIP-8/SOIC-8/TSSOP-8/VSSOP-8"
-			(at 158.75 143.51 0)
+		(property "Datasheet" "~"
+			(at 44.45 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3947,34 +4062,22 @@
 				(hide yes)
 			)
 		)
-		(pin "4"
-			(uuid "4ca1560a-7ffc-46c3-98c4-053cb375d5ff")
-		)
-		(pin "8"
-			(uuid "0b3641da-4087-47d3-ad29-15fb789f0b53")
-		)
-		(pin "7"
-			(uuid "45c42c7f-4646-41e9-a64f-34593bd78ccf")
-		)
-		(pin "6"
-			(uuid "a71d1bc5-1619-443d-8f98-80b01fb960b7")
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 44.45 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "1"
-			(uuid "cd403ecd-babf-4609-85ce-1267d107616e")
-		)
-		(pin "2"
-			(uuid "899706ae-65a9-45cb-91b4-254a83205bca")
-		)
-		(pin "3"
-			(uuid "6005e27a-0b86-40eb-a2bd-c32ac22465a7")
-		)
-		(pin "5"
-			(uuid "ad42e462-802d-4b05-a812-e39b261b02ec")
+			(uuid "2f785ad6-d110-4a32-88cf-d7f22bb76c22")
 		)
 		(instances
-			(project "Main Board"
+			(project ""
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
-					(reference "U10")
+					(reference "#FLG01")
 					(unit 1)
 				)
 			)
@@ -4007,7 +4110,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 91.1352 129.54 0)
 			(effects
 				(font
@@ -4044,6 +4147,94 @@
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
 					(reference "C39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Sensor_Current:ACS711xLCTR-25AB")
+		(at 156.21 72.39 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4646322d-626d-4214-9f3e-559de47e8334")
+		(property "Reference" "U48"
+			(at 138.684 56.896 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ACS711xLCTR-25AB"
+			(at 138.684 59.436 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+			(at 154.94 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.allegromicro.com/~/Media/Files/Datasheets/ACS711-Datasheet.ashx"
+			(at 156.21 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "±25A, Bidirectional, Hall-Effect Current Sensor, +3.3V supply, 55mV/A, SOIC-8"
+			(at 156.21 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "25547c22-5cff-4393-befa-256b436ea789")
+		)
+		(pin "8"
+			(uuid "a7f10827-438a-4de9-96a6-cb238aed9392")
+		)
+		(pin "5"
+			(uuid "bf3d44c7-8ad1-43f0-a49d-52300e170d3b")
+		)
+		(pin "7"
+			(uuid "b983c6e0-54c1-4139-a467-c2f8fed74db1")
+		)
+		(pin "6"
+			(uuid "97cc321d-5431-4aab-8c6b-eaed78ef7527")
+		)
+		(pin "2"
+			(uuid "168508ef-a059-409d-9ae4-4804b80892b5")
+		)
+		(pin "3"
+			(uuid "9bc1c252-a9d9-4ad6-88e5-2b4f1f20b290")
+		)
+		(pin "4"
+			(uuid "fbfc2282-2ce8-4e83-83c9-68106c4925c8")
+		)
+		(instances
+			(project ""
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
+					(reference "U48")
 					(unit 1)
 				)
 			)
@@ -4142,7 +4333,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
 			(at 105.41 106.68 0)
 			(effects
 				(font
@@ -4218,7 +4409,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 157.48 50.4952 0)
 			(effects
 				(font
@@ -4261,6 +4452,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 161.29 133.35 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d33d2c3-1aa7-42c3-ab42-7d734dfc124b")
+		(property "Reference" "#PWR0278"
+			(at 161.29 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 161.29 129.032 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 161.29 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 161.29 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 161.29 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "124c5545-2f4c-405f-aa36-bba6c12af7b8")
+		)
+		(instances
+			(project ""
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
+					(reference "#PWR0278")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 186.69 62.23 270)
 		(unit 1)
@@ -4285,7 +4541,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 182.88 63.1952 0)
 			(effects
 				(font
@@ -4328,6 +4584,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 161.29 153.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "56a8fadc-9e8a-4add-ba97-1e3beca9355e")
+		(property "Reference" "#PWR0277"
+			(at 161.29 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 164.846 155.448 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 161.29 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 161.29 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 161.29 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "31041d15-2ed8-4caa-b738-5d37d578c92e")
+		)
+		(instances
+			(project ""
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
+					(reference "#PWR0277")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 64.77 120.65 0)
 		(mirror y)
@@ -4355,7 +4676,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 63.8048 124.46 0)
 			(effects
 				(font
@@ -4661,7 +4982,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 41.91 118.1099 0)
+			(at 46.482 114.554 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5258,92 +5579,6 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 115.57 77.47 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b75f1cf5-3b71-448d-ac69-c9dd6da354b6")
-		(property "Reference" "D8"
-			(at 115.57 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "D"
-			(at 115.57 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 115.57 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 115.57 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode"
-			(at 115.57 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 115.57 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 115.57 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "12383ef4-3db7-4be9-9158-91c0072620cc")
-		)
-		(pin "2"
-			(uuid "f1b796ad-f100-46a8-b7cb-e69a37278416")
-		)
-		(instances
-			(project "Main Board"
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
-					(reference "D8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D")
 		(at 77.47 134.62 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5359,7 +5594,7 @@
 				)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "STPS5H100SFY"
 			(at 77.47 138.43 0)
 			(effects
 				(font
@@ -5367,7 +5602,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_SMD:TO-277A"
 			(at 77.47 134.62 0)
 			(effects
 				(font
@@ -5505,6 +5740,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Amplifier_Operational:MCP6001-OT")
+		(at 158.75 143.51 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c6619906-e207-4046-86df-266c5370cbd4")
+		(property "Reference" "U10"
+			(at 174.498 145.034 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "MCP6006-OTVAO"
+			(at 174.498 142.494 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 161.29 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf"
+			(at 158.75 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "1MHz, Low-Power Op Amp, SOT-23-5"
+			(at 158.75 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "8f7fa3df-9e12-4d82-b88a-c2b1568a8a78")
+		)
+		(pin "2"
+			(uuid "16eb1280-1797-4b1d-ac9b-e1fce50925a0")
+		)
+		(pin "3"
+			(uuid "daef50b8-9042-415d-a55b-6d703c2a1058")
+		)
+		(pin "4"
+			(uuid "43844d4f-cabb-4e26-b619-37b0542dad11")
+		)
+		(pin "1"
+			(uuid "b68c1651-5d62-4e37-b8c0-e4a1716a8e97")
+		)
+		(instances
+			(project ""
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
+					(reference "U10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 120.65 113.03 0)
 		(unit 1)
@@ -5569,94 +5884,6 @@
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
 					(reference "R30")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Sensor_Current:ACS711xLCTR-12AB")
-		(at 156.21 72.39 270)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d0cb2e6a-a991-44d6-a797-f9bc20ee3fa9")
-		(property "Reference" "U9"
-			(at 139.446 58.42 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "ACS711xLCTR-12AB"
-			(at 139.446 60.96 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-			(at 154.94 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.allegromicro.com/~/Media/Files/Datasheets/ACS711-Datasheet.ashx"
-			(at 156.21 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "±12.5A Bidirectional Hall-Effect Current Sensor, +3.3V supply, 110mV/A, SOIC-8"
-			(at 156.21 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "e4a17b86-7fd9-4fcc-9fad-c5e6c44685e6")
-		)
-		(pin "1"
-			(uuid "a157a049-d90f-4cfd-98e5-5b23d24e0643")
-		)
-		(pin "7"
-			(uuid "2972ef8a-4269-4fba-b570-6ff4d937c41e")
-		)
-		(pin "8"
-			(uuid "5b9070a1-1069-4e14-85dd-2658c3d69dbf")
-		)
-		(pin "3"
-			(uuid "77fc1ca4-cbc5-4232-bd0a-046abd0c00ef")
-		)
-		(pin "6"
-			(uuid "f5416b80-907b-4873-8526-246f8d50aa9f")
-		)
-		(pin "4"
-			(uuid "ae44f3b7-3347-43b3-805f-28722dcb7f12")
-		)
-		(pin "5"
-			(uuid "0c17ae61-1f0c-465d-84aa-2ff0f9d568f7")
-		)
-		(instances
-			(project "Main Board"
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/705e8481-c510-4db4-b00b-95a36c7dbdfb/b7cd44f2-7092-426e-aff5-4573d7ba842f"
-					(reference "U9")
 					(unit 1)
 				)
 			)
