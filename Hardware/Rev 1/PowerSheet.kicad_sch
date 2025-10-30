@@ -852,135 +852,10 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:VBUS"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "VBUS"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"VBUS\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "VBUS_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "VBUS_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 	)
 	(rectangle
-		(start 21.59 113.03)
-		(end 119.38 163.83)
+		(start 53.34 93.98)
+		(end 138.43 146.05)
 		(stroke
 			(width 0.5)
 			(type dash)
@@ -990,9 +865,9 @@
 		)
 		(uuid bfe55478-25e3-4084-ab09-e572626f4a08)
 	)
-	(text "Voltage Regulator 7V to 3V3 @ 500mA Max"
+	(text "Voltage Regulator 7V to 3V3 (VBUS)"
 		(exclude_from_sim no)
-		(at 22.86 118.11 0)
+		(at 54.61 99.06 0)
 		(effects
 			(font
 				(size 2 2)
@@ -1004,15 +879,16 @@
 		)
 		(uuid "21214d97-824d-4478-8395-d92a892256de")
 	)
-	(text "VBUS from external line (7V)"
+	(text "By Emily Chong"
 		(exclude_from_sim no)
-		(at 102.362 121.158 0)
+		(at 276.098 186.182 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 132 132 1)
 			)
 		)
-		(uuid "8f557f82-350b-4b09-80d0-fdee69ea6fb3")
+		(uuid "6329e070-1bd5-44f8-b38d-913758f3ae09")
 	)
 	(text "Power regulation with Linear Voltage Regulator and Buck Converters"
 		(exclude_from_sim no)
@@ -1024,53 +900,57 @@
 		)
 		(uuid "9aaeb1a7-a636-4843-b783-28099867f687")
 	)
-	(text "AZ1117CD-3.3TRG1"
-		(exclude_from_sim no)
-		(at 22.86 121.92 0)
-		(effects
-			(font
-				(size 2 2)
-				(thickness 0.3)
-				(bold yes)
-				(italic yes)
-			)
-			(justify left bottom)
-		)
-		(uuid "e5e113ca-5de9-424f-a3b5-354d71a355b0")
-	)
 	(junction
-		(at 76.2 161.29)
+		(at 107.95 134.62)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "0d69526c-3493-42e2-a38b-26d9d70b4e18")
+		(uuid "354e335e-a8f7-4b75-a744-9507d752acb7")
 	)
 	(junction
-		(at 55.88 148.59)
+		(at 176.53 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "835d4dcb-b1d1-4a33-b63d-e1d07b9909fc")
+		(uuid "657aa83e-5b26-470d-bfb3-9e981632e3ab")
 	)
 	(junction
-		(at 66.04 139.7)
+		(at 176.53 59.69)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6df13a30-b2a8-46f7-8364-fd812a626d3f")
+	)
+	(junction
+		(at 97.79 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "89fbe34a-ee78-48f9-954e-501aabcb104f")
+	)
+	(junction
+		(at 97.79 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8d9495a6-b24d-42be-bae6-53f8068e410a")
 	)
 	(junction
-		(at 76.2 132.08)
+		(at 87.63 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "964a94c8-7a34-4a7f-9c74-5c7a9194196b")
+	)
+	(junction
+		(at 107.95 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b31ad0b7-dce4-4fc8-b157-9077804bd7de")
 	)
 	(junction
-		(at 55.88 151.13)
+		(at 176.53 74.93)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "c14fb6a0-b608-4237-827b-d35e36ffc8b4")
+		(uuid "c808d9b3-ff38-44f9-b838-d44d258894ab")
 	)
 	(wire
 		(pts
-			(xy 90.17 132.08) (xy 90.17 143.51)
+			(xy 121.92 113.03) (xy 121.92 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1080,7 +960,7 @@
 	)
 	(wire
 		(pts
-			(xy 90.17 151.13) (xy 90.17 161.29)
+			(xy 121.92 128.27) (xy 121.92 134.62)
 		)
 		(stroke
 			(width 0)
@@ -1090,7 +970,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 142.24) (xy 55.88 148.59)
+			(xy 87.63 123.19) (xy 87.63 134.62)
 		)
 		(stroke
 			(width 0)
@@ -1100,27 +980,57 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 161.29) (xy 76.2 161.29)
+			(xy 176.53 106.68) (xy 176.53 138.43)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "231d1c91-7c64-43ea-9141-da1d35a98017")
+		(uuid "17bf997a-ebac-483b-ae4c-b3dbec346928")
 	)
 	(wire
 		(pts
-			(xy 26.67 151.13) (xy 26.67 148.59)
+			(xy 234.95 111.76) (xy 243.84 111.76)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2fa707f0-876b-42b1-99b8-8f7ea2913203")
+		(uuid "246c295d-a4de-439b-9ac2-fc3b7d1a6e2b")
 	)
 	(wire
 		(pts
-			(xy 66.04 138.43) (xy 66.04 139.7)
+			(xy 87.63 134.62) (xy 97.79 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29a5ec04-128c-4a6a-b9f3-70012a86494f")
+	)
+	(wire
+		(pts
+			(xy 176.53 44.45) (xy 207.01 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "345e6f3d-ef97-4cbc-973e-8bfdcf8bdb66")
+	)
+	(wire
+		(pts
+			(xy 176.53 44.45) (xy 176.53 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "374b7169-362a-40ce-93e4-2ae34e577e9f")
+	)
+	(wire
+		(pts
+			(xy 97.79 119.38) (xy 97.79 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1130,7 +1040,17 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 132.08) (xy 76.2 132.08)
+			(xy 58.42 59.69) (xy 60.96 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3acb37de-915a-46dc-8e7a-873dc27f85c2")
+	)
+	(wire
+		(pts
+			(xy 111.76 113.03) (xy 107.95 113.03)
 		)
 		(stroke
 			(width 0)
@@ -1140,17 +1060,17 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 151.13) (xy 55.88 151.13)
+			(xy 58.42 45.72) (xy 60.96 45.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4ce627a1-7475-4f63-891e-c6281248a464")
+		(uuid "40e21c1d-4582-4dfa-86a5-13b51357944d")
 	)
 	(wire
 		(pts
-			(xy 66.04 139.7) (xy 66.04 158.75)
+			(xy 97.79 120.65) (xy 97.79 124.46)
 		)
 		(stroke
 			(width 0)
@@ -1160,7 +1080,17 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 132.08) (xy 55.88 137.16)
+			(xy 176.53 59.69) (xy 176.53 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54419cbb-ac26-4e8f-91a3-c6524d2a0104")
+	)
+	(wire
+		(pts
+			(xy 87.63 113.03) (xy 87.63 118.11)
 		)
 		(stroke
 			(width 0)
@@ -1170,17 +1100,17 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 148.59) (xy 55.88 148.59)
+			(xy 107.95 132.08) (xy 107.95 134.62)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5d4c8e41-50f9-4f91-ba1e-1f95f1a62436")
+		(uuid "5ed49031-70c3-47d5-9df3-6110b3dedf86")
 	)
 	(wire
 		(pts
-			(xy 76.2 161.29) (xy 90.17 161.29)
+			(xy 107.95 134.62) (xy 121.92 134.62)
 		)
 		(stroke
 			(width 0)
@@ -1190,17 +1120,17 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 158.75) (xy 66.04 158.75)
+			(xy 130.81 59.69) (xy 176.53 59.69)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "6ea7c973-14d8-4853-b22f-06890ddfd5c2")
+		(uuid "6e7f2b85-f6e0-42fd-b36b-f7a091f0b981")
 	)
 	(wire
 		(pts
-			(xy 87.63 132.08) (xy 90.17 132.08)
+			(xy 119.38 113.03) (xy 121.92 113.03)
 		)
 		(stroke
 			(width 0)
@@ -1210,7 +1140,17 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 132.08) (xy 76.2 132.08)
+			(xy 234.95 121.92) (xy 243.84 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ef06f11-cfeb-49b5-8811-a2efcb9b07e1")
+	)
+	(wire
+		(pts
+			(xy 87.63 113.03) (xy 107.95 113.03)
 		)
 		(stroke
 			(width 0)
@@ -1220,7 +1160,37 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 139.7) (xy 66.04 139.7)
+			(xy 195.58 118.11) (xy 207.01 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "804f90d7-1469-40d0-b4eb-b3bb5bbed3e5")
+	)
+	(wire
+		(pts
+			(xy 234.95 153.67) (xy 243.84 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "839c9f5c-adc2-42ce-9c48-c2ecd2e6284d")
+	)
+	(wire
+		(pts
+			(xy 97.79 132.08) (xy 97.79 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87df5f4e-a64a-475a-b291-be85dcb1af2b")
+	)
+	(wire
+		(pts
+			(xy 87.63 120.65) (xy 97.79 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1230,27 +1200,67 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 148.59) (xy 55.88 151.13)
+			(xy 195.58 149.86) (xy 207.01 149.86)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a6425f51-018c-479f-a3cd-a8ea3034b9e0")
+		(uuid "9e5f1eb9-73b8-4f8d-971b-ba0c881b3ee7")
 	)
 	(wire
 		(pts
-			(xy 26.67 158.75) (xy 26.67 161.29)
+			(xy 176.53 74.93) (xy 207.01 74.93)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b3d2aea4-1cdc-4f24-8980-fda30f3c8511")
+		(uuid "a315d49d-13ee-4776-898c-c59f48e0162c")
 	)
 	(wire
 		(pts
-			(xy 76.2 128.27) (xy 76.2 132.08)
+			(xy 130.81 45.72) (xy 134.62 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a371ad0e-04e7-401a-8378-18cef107fb6b")
+	)
+	(wire
+		(pts
+			(xy 234.95 90.17) (xy 243.84 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "adb641f1-c009-4e02-a9a6-58d63e863c09")
+	)
+	(wire
+		(pts
+			(xy 195.58 55.88) (xy 207.01 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b49b4d03-d926-4d4b-a779-eec194c4c780")
+	)
+	(wire
+		(pts
+			(xy 234.95 80.01) (xy 243.84 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5762b00-6169-4d66-a072-97491cf2f4c4")
+	)
+	(wire
+		(pts
+			(xy 107.95 102.87) (xy 107.95 113.03)
 		)
 		(stroke
 			(width 0)
@@ -1260,99 +1270,323 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 132.08) (xy 76.2 161.29)
+			(xy 234.95 59.69) (xy 243.84 59.69)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "cc828bba-1339-4a66-a442-f9ace3dae591")
+		(uuid "b9192a90-349f-4023-8fb9-3e9363d53bd8")
 	)
 	(wire
 		(pts
-			(xy 55.88 151.13) (xy 55.88 152.4)
+			(xy 234.95 49.53) (xy 243.84 49.53)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "cdfc86fb-6c9a-4e46-a8c1-ffd4dcc7e7f4")
+		(uuid "bae4c336-b54e-4d59-bb98-b84eb985363e")
 	)
-	(symbol
-		(lib_id "power:VBUS")
-		(at 76.2 128.27 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(wire
+		(pts
+			(xy 195.58 86.36) (xy 207.01 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bb908f34-d905-49f1-ac84-54a67d3d69d0")
+	)
+	(wire
+		(pts
+			(xy 87.63 134.62) (xy 87.63 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd82cbbb-0494-4069-a32a-6f3b077e67f3")
+	)
+	(wire
+		(pts
+			(xy 234.95 143.51) (xy 243.84 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c03b8db3-39ee-42c6-8a3b-7a7f4d19994b")
+	)
+	(wire
+		(pts
+			(xy 176.53 74.93) (xy 176.53 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3151d91-e8e2-4da3-9044-43ee7ffb2883")
+	)
+	(wire
+		(pts
+			(xy 107.95 134.62) (xy 97.79 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e04fc9b3-abb4-4224-8000-4c8ba21742da")
+	)
+	(wire
+		(pts
+			(xy 176.53 138.43) (xy 207.01 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5f59c3d-bfea-4e72-bce6-124683dab4fb")
+	)
+	(wire
+		(pts
+			(xy 107.95 113.03) (xy 107.95 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e93a4525-b4ae-4e96-823e-9b058d931012")
+	)
+	(wire
+		(pts
+			(xy 176.53 106.68) (xy 207.01 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f91df0d7-c447-45aa-aced-c3bc627d3156")
+	)
+	(global_label "UNPROTECTED_12V"
+		(shape input)
+		(at 58.42 59.69 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "07176619-2bb0-4392-a024-50a7c0dff7da")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 58.42 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "UNPROTECTED_7V"
+		(shape input)
+		(at 58.42 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4bd54fdc-5d1b-43a6-a43b-bd88fabed00a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 58.42 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "PROTECTED_7V"
+		(shape input)
+		(at 107.95 102.87 0)
 		(fields_autoplaced yes)
-		(uuid "0eea365d-0536-4f87-9745-da882c7bac79")
-		(property "Reference" "#PWR0101"
-			(at 76.2 132.08 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "aec5516b-d5e5-4479-8cca-ff89538e250b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 124.8446 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				(hide yes)
 			)
 		)
-		(property "Value" "VBUS"
-			(at 76.2 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	)
+	(global_label "PROTECTED_7V"
+		(shape output)
+		(at 134.62 45.72 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-		(property "Footprint" ""
-			(at 76.2 128.27 0)
+		(uuid "f4005713-759e-4787-bbf2-15c60d3d3656")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 151.5146 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 76.2 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
+	)
+	(hierarchical_label "TEMP_SENS_DATA_2"
+		(shape output)
+		(at 243.84 80.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-		(property "Description" "Power symbol creates a global label with name \"VBUS\""
-			(at 76.2 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
+		(uuid "01b9c88c-573a-48a2-a4c8-77c5095cbb43")
+	)
+	(hierarchical_label "LED_DATA_4"
+		(shape input)
+		(at 195.58 149.86 180)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right)
 		)
-		(pin "1"
-			(uuid "d3f1fe71-29f8-4fb6-a25c-c06c39fdcd98")
-		)
-		(instances
-			(project "PowerSheet"
-				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "#PWR03")
-					(unit 1)
-				)
+		(uuid "26a954a1-128f-4633-809f-5c63dd3d865a")
+	)
+	(hierarchical_label "V_ILM_2"
+		(shape output)
+		(at 243.84 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
-			(project "ECO Car Brakes"
-				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "#PWR0101")
-					(unit 1)
-				)
-			)
+			(justify left)
 		)
+		(uuid "2ee58acd-7755-46ed-ae67-073f4e25fd49")
+	)
+	(hierarchical_label "TEMP_SENS_DATA_3"
+		(shape output)
+		(at 243.84 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "460f3dd2-c505-4138-b0ec-31e7e16509db")
+	)
+	(hierarchical_label "V_ILM_1"
+		(shape output)
+		(at 243.84 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5260f3bb-01df-4e16-a892-b7b189e2be26")
+	)
+	(hierarchical_label "LED_DATA_3"
+		(shape input)
+		(at 195.58 118.11 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5e89143e-5edb-42dc-9cb6-e1e1d0e828a9")
+	)
+	(hierarchical_label "V_ILM_3"
+		(shape output)
+		(at 243.84 121.92 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7ceae0ea-d671-427b-977e-20f930b7186f")
+	)
+	(hierarchical_label "LED_DATA_1"
+		(shape input)
+		(at 195.58 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "829711ec-6ad5-46f9-8cd5-8b6f3eec117c")
+	)
+	(hierarchical_label "TEMP_SENS_DATA_1"
+		(shape output)
+		(at 243.84 49.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a7fc42d2-6042-4662-b1c6-170ae92bfda6")
+	)
+	(hierarchical_label "TEMP_SENS_DATA_4"
+		(shape output)
+		(at 243.84 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bb599d89-c3bf-417d-913f-7005bd43eea2")
+	)
+	(hierarchical_label "V_ILM_4"
+		(shape output)
+		(at 243.84 153.67 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bd483f1a-ced1-418a-af5d-f1ae86efcec5")
+	)
+	(hierarchical_label "LED_DATA_2"
+		(shape input)
+		(at 195.58 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d594191a-b87a-45e8-a4ff-8267eed6b2c0")
 	)
 	(symbol
 		(lib_id "AZIII7CD-3.3V:AZ1117CD-3.3TRG1")
-		(at 55.88 137.16 0)
+		(at 87.63 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1360,8 +1594,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2ececaa4-897e-40f8-a2d8-1b0a8c0d606e")
-		(property "Reference" "U9"
-			(at 35.56 127 0)
+		(property "Reference" "U?"
+			(at 67.31 107.95 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -1369,7 +1603,7 @@
 			)
 		)
 		(property "Value" "AZ1117CD-3.3TRG1"
-			(at 35.56 129.54 0)
+			(at 67.31 110.49 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -1377,7 +1611,7 @@
 			)
 		)
 		(property "Footprint" "AZIII7CD-3.3V:TO252-2-3.3V_DIO"
-			(at 55.88 137.16 0)
+			(at 87.63 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1387,7 +1621,7 @@
 			)
 		)
 		(property "Datasheet" "AZ1117CD-3.3TRG1"
-			(at 55.88 137.16 0)
+			(at 87.63 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1397,7 +1631,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 55.88 137.16 0)
+			(at 87.63 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1417,13 +1651,13 @@
 		(instances
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "U1")
+					(reference "U?")
 					(unit 1)
 				)
 			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "U9")
+					(reference "U1")
 					(unit 1)
 				)
 			)
@@ -1431,7 +1665,7 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 90.17 147.32 270)
+		(at 121.92 124.46 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1439,26 +1673,26 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4a8e021f-9d7d-4a5c-8afc-cb1f3f25494c")
-		(property "Reference" "D7"
-			(at 92.71 144.4624 90)
+		(property "Reference" "D?"
+			(at 125.73 124.7774 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "PWR_LED_K"
-			(at 92.71 147.0024 90)
+			(at 125.73 127.3174 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 90.17 147.32 0)
+			(at 121.92 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1467,7 +1701,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 90.17 147.32 0)
+			(at 121.92 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1476,7 +1710,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 90.17 147.32 0)
+			(at 121.92 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1493,13 +1727,13 @@
 		(instances
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "D1")
+					(reference "D?")
 					(unit 1)
 				)
 			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "D7")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -1507,7 +1741,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 26.67 154.94 0)
+		(at 97.79 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1515,8 +1749,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a5786d24-afa4-4e2f-8e91-d3f2d6292e3e")
-		(property "Reference" "C27"
-			(at 30.48 153.6699 0)
+		(property "Reference" "C?"
+			(at 101.6 126.9999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1524,8 +1758,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1kF"
-			(at 30.48 156.2099 0)
+		(property "Value" "22u"
+			(at 101.6 129.5399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1534,7 +1768,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 27.6352 158.75 0)
+			(at 98.7552 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1543,7 +1777,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 26.67 154.94 0)
+			(at 97.79 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1552,7 +1786,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 26.67 154.94 0)
+			(at 97.79 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1569,13 +1803,13 @@
 		(instances
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "C1")
+					(reference "C?")
 					(unit 1)
 				)
 			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "C27")
+					(reference "C1")
 					(unit 1)
 				)
 			)
@@ -1583,15 +1817,15 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 66.04 138.43 0)
+		(at 97.79 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "a60df8c1-253a-47c9-bb79-9e62c833c685")
-		(property "Reference" "#PWR0102"
-			(at 66.04 142.24 0)
+		(property "Reference" "#PWR?"
+			(at 97.79 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1599,8 +1833,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3.3V"
-			(at 69.088 138.43 0)
+		(property "Value" "VBUS"
+			(at 100.838 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1608,7 +1842,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 66.04 138.43 0)
+			(at 97.79 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1617,7 +1851,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 66.04 138.43 0)
+			(at 97.79 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1626,7 +1860,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 66.04 138.43 0)
+			(at 97.79 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1640,13 +1874,13 @@
 		(instances
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "#PWR02")
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "#PWR0102")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -1654,7 +1888,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 55.88 152.4 0)
+		(at 87.63 138.43 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1662,8 +1896,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c29ca00a-8c1c-4e25-b285-eb019a98832a")
-		(property "Reference" "#PWR0103"
-			(at 55.88 158.75 0)
+		(property "Reference" "#PWR?"
+			(at 87.63 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1672,7 +1906,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 55.88 157.48 0)
+			(at 87.63 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1680,7 +1914,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 55.88 152.4 0)
+			(at 87.63 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1689,7 +1923,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 152.4 0)
+			(at 87.63 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1698,7 +1932,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 55.88 152.4 0)
+			(at 87.63 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1712,13 +1946,13 @@
 		(instances
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "#PWR01")
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "#PWR0103")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -1726,7 +1960,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 40.64 154.94 0)
+		(at 107.95 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1734,8 +1968,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d370a5cd-bb01-4a44-998e-0339045aa9b9")
-		(property "Reference" "C28"
-			(at 44.45 153.6699 0)
+		(property "Reference" "C?"
+			(at 111.76 126.9999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1743,8 +1977,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22uF"
-			(at 44.45 156.2099 0)
+		(property "Value" "1u"
+			(at 111.76 129.5399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1753,7 +1987,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 41.6052 158.75 0)
+			(at 108.9152 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1762,7 +1996,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 40.64 154.94 0)
+			(at 107.95 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1771,7 +2005,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 40.64 154.94 0)
+			(at 107.95 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1788,13 +2022,13 @@
 		(instances
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "C2")
+					(reference "C?")
 					(unit 1)
 				)
 			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "C28")
+					(reference "C2")
 					(unit 1)
 				)
 			)
@@ -1802,23 +2036,23 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 83.82 132.08 90)
+		(at 115.57 113.03 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "f5f84fc9-12a5-477c-b5d9-6e627bca34c4")
-		(property "Reference" "R19"
-			(at 83.82 125.73 90)
+		(property "Reference" "R?"
+			(at 115.57 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1k5"
-			(at 83.82 128.27 90)
+		(property "Value" "10k"
+			(at 115.57 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1826,7 +2060,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 83.82 133.858 90)
+			(at 115.57 114.808 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1835,7 +2069,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 83.82 132.08 0)
+			(at 115.57 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1844,7 +2078,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 83.82 132.08 0)
+			(at 115.57 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1861,108 +2095,20 @@
 		(instances
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(reference "R1")
+					(reference "R?")
 					(unit 1)
 				)
 			)
 			(project "ECO Car Brakes"
 				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
-					(reference "R19")
+					(reference "R1")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(sheet
-		(at 21.59 20.32)
-		(size 68.58 35.56)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "1bb5a01e-8ed5-4083-9d38-1ce5a8280557")
-		(property "Sheetname" "Buck Converters"
-			(at 21.59 19.2434 0)
-			(effects
-				(font
-					(size 2 2)
-					(thickness 0.4)
-					(bold yes)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "buck_converters.kicad_sch"
-			(at 21.59 56.5566 0)
-			(effects
-				(font
-					(size 1.5 1.5)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "PowerSheet"
-				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(page "2")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 106.68 20.32)
-		(size 62.23 35.56)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "2ea09fe0-cc7b-482e-b07c-138390b94e62")
-		(property "Sheetname" "Current Sensing"
-			(at 106.68 19.2434 0)
-			(effects
-				(font
-					(size 2 2)
-					(thickness 0.4)
-					(bold yes)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "current_sensing.kicad_sch"
-			(at 106.68 56.5566 0)
-			(effects
-				(font
-					(size 1.5 1.5)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "PowerSheet"
-				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
-					(page "4")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 21.59 69.85)
+		(at 60.96 36.83)
 		(size 69.85 34.29)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1974,11 +2120,11 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 229 191 1.0000)
 		)
-		(uuid "ad3663bd-6238-4649-9c29-24b738fb0112")
+		(uuid "3cca58fc-e3cf-4d1f-aa22-b4f1bf063e1e")
 		(property "Sheetname" "Protection Circuitry"
-			(at 21.59 68.7734 0)
+			(at 60.96 35.7534 0)
 			(effects
 				(font
 					(size 2 2)
@@ -1989,7 +2135,7 @@
 			)
 		)
 		(property "Sheetfile" "protection_circuitry.kicad_sch"
-			(at 21.59 104.8166 0)
+			(at 60.96 71.7966 0)
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -1997,10 +2143,403 @@
 				(justify left top)
 			)
 		)
+		(pin "PROTECTED_7V" output
+			(at 130.81 45.72 0)
+			(uuid "41d5ec82-c9a0-4e5f-baf7-099f2acc0e88")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PROTECTED_12V" output
+			(at 130.81 59.69 0)
+			(uuid "c4fde6f7-8a38-44d9-9df6-980ed00e2575")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "UNPROTECTED_7V" input
+			(at 60.96 45.72 180)
+			(uuid "eace093d-0130-4771-8b66-b17617565ae1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "UNPROTECTED_12V" input
+			(at 60.96 59.69 180)
+			(uuid "ba2810b2-5977-4b84-b670-9bd9a53eab16")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(page "4")
+				)
+			)
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 207.01 132.08)
+		(size 27.94 24.13)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 229 191 1.0000)
+		)
+		(uuid "4eb0852a-74f9-490a-8ea0-7e93a8f9f811")
+		(property "Sheetname" "PanelPower4"
+			(at 207.01 131.3684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "panel_power.kicad_sch"
+			(at 207.01 156.7946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "IN" input
+			(at 207.01 138.43 180)
+			(uuid "6510385d-1e2c-40d3-882d-1301af3f51cb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LED_DATA" input
+			(at 207.01 149.86 180)
+			(uuid "28540038-5e48-4569-939f-05686337ee4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TEMP_SENS_DATA" output
+			(at 234.95 143.51 0)
+			(uuid "ebc97e72-b4c0-4cff-9b2b-d8271b07e314")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "V_ILM" output
+			(at 234.95 153.67 0)
+			(uuid "b729fa19-61f2-47fd-82d8-b8c9a68c96fb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(page "12")
+				)
+			)
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 207.01 38.1)
+		(size 27.94 24.13)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 229 191 1.0000)
+		)
+		(uuid "7e2c18b8-c504-4691-8afb-e4f812981610")
+		(property "Sheetname" "PanelPower1"
+			(at 207.01 37.3884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "panel_power.kicad_sch"
+			(at 207.01 62.8146 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "IN" input
+			(at 207.01 44.45 180)
+			(uuid "a2dfdf33-32de-494e-ab70-7dfbcbeaf7fe")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LED_DATA" input
+			(at 207.01 55.88 180)
+			(uuid "c7bb3332-7567-4e06-b0ac-585e08f0966a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TEMP_SENS_DATA" output
+			(at 234.95 49.53 0)
+			(uuid "757b96f7-8042-43dc-935a-21fbd6631499")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "V_ILM" output
+			(at 234.95 59.69 0)
+			(uuid "ffa22f65-daf8-4b10-832a-719e422d69bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(page "9")
+				)
+			)
 			(project "PowerSheet"
 				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
 					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 207.01 68.58)
+		(size 27.94 24.13)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 229 191 1.0000)
+		)
+		(uuid "a6a17eae-9668-4d35-a2b5-82e065fd5a21")
+		(property "Sheetname" "PanelPower2"
+			(at 207.01 67.8684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "panel_power.kicad_sch"
+			(at 207.01 93.2946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "IN" input
+			(at 207.01 74.93 180)
+			(uuid "73442e7e-93ce-4de4-b30c-a61866c524d3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LED_DATA" input
+			(at 207.01 86.36 180)
+			(uuid "ead45138-52d7-4004-934a-b4cf96ca4a07")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TEMP_SENS_DATA" output
+			(at 234.95 80.01 0)
+			(uuid "39e86c0d-d96f-4158-bfd0-8fbc60bc1c4a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "V_ILM" output
+			(at 234.95 90.17 0)
+			(uuid "bb07aa7f-69a5-4d66-b8a0-891ad6911a6b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(page "10")
+				)
+			)
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 207.01 100.33)
+		(size 27.94 24.13)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 229 191 1.0000)
+		)
+		(uuid "e9980b52-85c0-49b0-9624-84e828b5d48e")
+		(property "Sheetname" "PanelPower3"
+			(at 207.01 99.6184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "panel_power.kicad_sch"
+			(at 207.01 125.0446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "IN" input
+			(at 207.01 106.68 180)
+			(uuid "6934fb9e-95bb-4799-8245-636c2fc224ad")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LED_DATA" input
+			(at 207.01 118.11 180)
+			(uuid "ad757ed4-eaf9-4a83-a8cd-67c0176c0d49")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TEMP_SENS_DATA" output
+			(at 234.95 111.76 0)
+			(uuid "cb23f5bf-a9df-4a1a-b75d-76314d635f01")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "V_ILM" output
+			(at 234.95 121.92 0)
+			(uuid "f894dd85-2250-4ae1-beb2-2eee08fdacdc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "ECO Car Brakes"
+				(path "/d9fbd862-66a5-4e43-a246-f73155fa8252/7ae4fa1e-52f5-45b4-8e67-80fad007f565"
+					(page "11")
+				)
+			)
+			(project "PowerSheet"
+				(path "/abd3f4de-d58c-4266-87e2-ec11813de4ec"
+					(page "5")
 				)
 			)
 		)
@@ -2011,121 +2550,4 @@
 		)
 	)
 	(embedded_fonts no)
-	(embedded_files
-		(file
-			(name "EcoCad Drawing sheet.kicad_wks")
-			(type worksheet)
-			(data |KLUv/WDpCc0UAHadXSEAtxsWHGS5ac4JWlhdTS3ZQeABkGbFFme+cSP//z/UEwFTAEwAWAD4H38k
-				/o/H5kn7Wk/2Rs53XDRg1Jr9+dCS/FrRgFm0/WTLL/kXAICAgBS9l9PKKk5lQ+eIZNUZv5f9useQ
-				UUqvOmtfbMvsowIgIChDJE7ogTZUCH9xhzZWu8RkRav+kv/32Lyw2hMzlTJ47XtOes5+MwZf7Nmz
-				CoFY/NrFt9/++Q6vCGevq/7r44jB2rXD64irJ6X92fuyqtpH7z7oeQyXzaJZ/GQxoYi/RlROs11G
-				fsmyqiPUQvRiUkqFw1w2DcehNbgIioBZWE9KF1aiFVlq6zQHZ8tgMByK0Ax/z5FzNmX/62CbOvZL
-				EQirTTVTxXp+3zfpVQAEAYGhJiq2uOqFqIuLJuq8aEfZJqbrkSNuzLqhaJZJpaGAdJql2zYIJssu
-				CzHRKJuEe9gHaEXvbSusSTdJx3Xi267SSkPb7/7BDA6pQchV/d6Ycaezk54lgICg8USGGJoSKUiS
-				FDqARKTmqBvcLGt61Ov0GmN9RMp16OPryEhYdd4Zdt3vqhHCMTDPdX5jgtwaJiv8cnNZZHcy5Nsk
-				GXCbxZPwCdfFZSBOK8Ac05OTpyY7mxeSk+5jmuPyTxPzqQzuKUShJrG0XRjic3B4c1xZEh9gXxl+
-				1ABDm5/y2QTBJIwrCDDB8jQaql1KNUyWjVMH8QX9TybGpIUcNMOn7IkaBjTk9I++smxucthTblHX
-				XHppqw0FQrpz2hMFCt44iw9+c8x7tBWws7glWu74914ZttTgplcQCFL15JSApiaPMAYI8qdD+pQM
-				L3vRw+TVwOGgw6weLXO25ElCy3KytiHETfyGvUuvJjVN08b6bywPUXeZ60M6BqsK|
-			)
-			(checksum "4F2E25F9EBE60D26D286A8C3B76AFF47")
-		)
-		(file
-			(name "ecocad_drawing_sheet.kicad_wks")
-			(type worksheet)
-			(data |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|
-			)
-			(checksum "1F38234A7EAEF230512B25B87EF8938B")
-		)
-	)
 )
