@@ -49,8 +49,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/dac.h ../Core/Inc/dma.h \
- ../Core/Inc/fdcan.h ../Core/Inc/i2c.h ../Core/Inc/tim.h \
- ../USB_Device/App/usb_device.h \
+ ../Core/Inc/fdcan.h ../Core/Inc/i2c.h ../USB_Device/App/usb_device.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
  ../USB_Device/Target/usbd_conf.h ../Core/Inc/gpio.h
 ../Core/Inc/main.h:
@@ -109,7 +108,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/dma.h:
 ../Core/Inc/fdcan.h:
 ../Core/Inc/i2c.h:
-../Core/Inc/tim.h:
 ../USB_Device/App/usb_device.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
 ../USB_Device/Target/usbd_conf.h:

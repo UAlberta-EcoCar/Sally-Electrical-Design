@@ -37,7 +37,7 @@
 #include "usbd_cdc_if.h" // Add this line to include the USB device header
 #include "ecocar_can.h"
 #include "fdcan.h"
-#include "tim.h"
+//#include "tim.h"
 
 /* USER CODE END Includes */
 
@@ -312,34 +312,6 @@ void StartDefaultTask(void *argument)
 	for (;;) {
 
 		// Increase the set output voltage using the push button. Since it is connected to the BOOT0 Pin, will need to push this button with the NRST button each time when flashing
-		if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET) { 
-		    SET_VOLT++;
-
-		    if (SET_VOLT > 55) {
-		        float input_voltage = (float)boost_data.in_volt / FDCAN_FOUR_FLT_PREC;
-
-		        if (input_voltage < 15.0f) {
-		            SET_VOLT = 16;  // Ensure minimum voltage is 16V
-		        } else {
-		            SET_VOLT = input_voltage + 3.0f;  // Set 3V higher than input voltage
-		        }
-		    }
-		}
-
-
-		if ((float) boost_data.in_volt / FDCAN_FOUR_FLT_PREC > 1.5) {
-			if (voltage_reached == 0) { 
-				HAL_GPIO_WritePin(GPIOF, ENABLE_Pin, GPIO_PIN_RESET); // Ensure it's OFF before delay
-				HAL_Delay(2000);  
-				HAL_GPIO_WritePin(GPIOF, ENABLE_Pin, GPIO_PIN_SET); // Turn ON after delay
-				voltage_reached = 1;  // Set flag to avoid repeated delays
-			} else {
-				HAL_GPIO_WritePin(GPIOF, ENABLE_Pin, GPIO_PIN_SET); // Keep it ON
-			}
-		} else { 
-			HAL_GPIO_WritePin(GPIOF, ENABLE_Pin, GPIO_PIN_RESET); // Turn OFF
-			voltage_reached = 0;  
-		}
 
 
 
@@ -477,26 +449,6 @@ void StartRecieveMsg(void *argument)
 				}
 				break;
 
-/*			case FDCAN_SYNCLED_ID:
-				// CAN SYNC LED
-				if (ret[0] == 1) {
-					htim3.Instance->CCR3 = SET_BRIGHTNESS(20); // CAN LED
-				} else {
-					htim3.Instance->CCR3 = SET_BRIGHTNESS(0); // CAN LED
-				}
-				break;*/
-//
-//			case FDCAN_BOOSTPACK_ID:
-//				memcpy(&boost_data.FDCAN_RawBOOSTPack, ret,
-//					mapDlcToBytes(localRxHeader.DataLength));
-//				break;
-//
-//			case FDCAN_BOOSTPACK2_ID:
-//				memcpy(&boost_data2.FDCAN_RawBOOSTPack2, ret,
-//					mapDlcToBytes(localRxHeader.DataLength));
-//				break;
-
-
 
 			default:
 				break;
@@ -557,28 +509,41 @@ void startScreenPrint(void *argument)
 	// Display the test bitmap for 2.5 seconds
 	ssd1306_TestDrawBitmap();
 	ssd1306_UpdateScreen();
-	osDelay(2500); // Delay for 2.5 seconds
-	ssd1306_Fill(Black);
-	ssd1306_UpdateScreen();
+//	osDelay(2500); // Delay for 2.5 seconds
+//	ssd1306_Fill(Black);
+//	ssd1306_UpdateScreen();
 
-	ssd1306_TestDrawBitmap2();
-	ssd1306_UpdateScreen();
-	ssd1306_Fill(Black);
-	ssd1306_UpdateScreen();
+//	ssd1306_TestDrawBitmap2();
+//	ssd1306_UpdateScreen();
+//	ssd1306_Fill(Black);
+//	ssd1306_UpdateScreen();
 	for (;;) {
 
-	ssd1306_Fill(Black); // Clear the screen before updating
+//	ssd1306_Fill(Black); // Clear the screen before updating
+//
+//		// Voltages
+//		ssd1306_SetCursor(0, 5);
+//		sprintf(ScreenBuffer, "     Welcome ");
+//		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+//
+//		ssd1306_SetCursor(0, 30);
+//		sprintf(ScreenBuffer, "  Use Screen to ");
+//		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+//
+//		ssd1306_SetCursor(0, 42);
+//		sprintf(ScreenBuffer, "      Debug");
+//		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+//
+//
+////		ssd1306_SetCursor(0, 20);
+////		sprintf(ScreenBuffer, "IN:%.2f", (float) boost_data.in_volt);
+////		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
+//
+//
+//
+//		ssd1306_UpdateScreen(); // Refresh display
 
-		// Voltages
-		ssd1306_SetCursor(0, 5);
-		sprintf(ScreenBuffer, "Voltage(V) (%.1f)", SET_VOLT);
-		ssd1306_WriteString(ScreenBuffer, Font_7x10, White);
-
-
-
-		ssd1306_UpdateScreen(); // Refresh display
-
-		osDelay(100); // Slow down update rate
+		osDelay(300); // Slow down update rate
 	}
   /* USER CODE END startScreenPrint */
 }
@@ -599,7 +564,7 @@ void StartTRKPin(void *argument)
 	/* Infinite loop */
 	for (;;) {
 
-	float TRK_VOLT = SET_VOLT / 60; // Desired voltage output
+	//float TRK_VOLT = SET_VOLT / ; // Desired voltage output
 
 		// Convert to DAC value
 
@@ -622,13 +587,36 @@ void StartStatusLED(void *argument)
   /* USER CODE BEGIN StartStatusLED */
 	/* Infinite loop */
 	for (;;) {
+	    // turn all LEDs off first
+	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
 
+	    // static variables so they keep value across loop iterations
+	    static int pos = 0;
+	    static int dir = 1; // 1 = forward, -1 = backward
 
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, SET);
+	    // pick which LED to light
+	    switch (pos) {
+	        case 0: HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET); break;
+	        case 1: HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET); break;
+	        case 2: HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET); break;
+	        case 3: HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET); break;
+	        case 4: HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET); break;
+	        case 5: HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET); break;
+	    }
 
+	    // move to next position
+	    pos += dir;
 
+	    // reverse direction at ends
+	    if (pos >= 5) dir = -1;
+	    else if (pos <= 0) dir = 1;
 
-		osDelay(1);	
+	    osDelay(50); // adjust speed of chasing effect
 	}
   /* USER CODE END StartStatusLED */
 }

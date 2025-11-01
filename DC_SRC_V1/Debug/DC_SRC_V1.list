@@ -3630,194 +3630,193 @@ void MX_FDCAN2_Init(void)
  8001fa8:	4b46      	ldr	r3, [pc, #280]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
  8001faa:	2200      	movs	r2, #0
  8001fac:	605a      	str	r2, [r3, #4]
-  hfdcan2.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+  hfdcan2.Init.FrameFormat = FDCAN_FRAME_FD_BRS;
  8001fae:	4b45      	ldr	r3, [pc, #276]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fb0:	2200      	movs	r2, #0
- 8001fb2:	609a      	str	r2, [r3, #8]
-  hfdcan2.Init.Mode = FDCAN_MODE_NORMAL;
- 8001fb4:	4b43      	ldr	r3, [pc, #268]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fb6:	2200      	movs	r2, #0
- 8001fb8:	60da      	str	r2, [r3, #12]
-  hfdcan2.Init.AutoRetransmission = DISABLE;
- 8001fba:	4b42      	ldr	r3, [pc, #264]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fbc:	2200      	movs	r2, #0
- 8001fbe:	741a      	strb	r2, [r3, #16]
+ 8001fb0:	f44f 7240 	mov.w	r2, #768	@ 0x300
+ 8001fb4:	609a      	str	r2, [r3, #8]
+  hfdcan2.Init.Mode = FDCAN_MODE_EXTERNAL_LOOPBACK;
+ 8001fb6:	4b43      	ldr	r3, [pc, #268]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fb8:	2204      	movs	r2, #4
+ 8001fba:	60da      	str	r2, [r3, #12]
+  hfdcan2.Init.AutoRetransmission = ENABLE;
+ 8001fbc:	4b41      	ldr	r3, [pc, #260]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fbe:	2201      	movs	r2, #1
+ 8001fc0:	741a      	strb	r2, [r3, #16]
   hfdcan2.Init.TransmitPause = DISABLE;
- 8001fc0:	4b40      	ldr	r3, [pc, #256]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fc2:	2200      	movs	r2, #0
- 8001fc4:	745a      	strb	r2, [r3, #17]
+ 8001fc2:	4b40      	ldr	r3, [pc, #256]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fc4:	2200      	movs	r2, #0
+ 8001fc6:	745a      	strb	r2, [r3, #17]
   hfdcan2.Init.ProtocolException = DISABLE;
- 8001fc6:	4b3f      	ldr	r3, [pc, #252]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fc8:	2200      	movs	r2, #0
- 8001fca:	749a      	strb	r2, [r3, #18]
+ 8001fc8:	4b3e      	ldr	r3, [pc, #248]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fca:	2200      	movs	r2, #0
+ 8001fcc:	749a      	strb	r2, [r3, #18]
   hfdcan2.Init.NominalPrescaler = 1;
- 8001fcc:	4b3d      	ldr	r3, [pc, #244]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fce:	2201      	movs	r2, #1
- 8001fd0:	615a      	str	r2, [r3, #20]
+ 8001fce:	4b3d      	ldr	r3, [pc, #244]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fd0:	2201      	movs	r2, #1
+ 8001fd2:	615a      	str	r2, [r3, #20]
   hfdcan2.Init.NominalSyncJumpWidth = 2;
- 8001fd2:	4b3c      	ldr	r3, [pc, #240]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fd4:	2202      	movs	r2, #2
- 8001fd6:	619a      	str	r2, [r3, #24]
+ 8001fd4:	4b3b      	ldr	r3, [pc, #236]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fd6:	2202      	movs	r2, #2
+ 8001fd8:	619a      	str	r2, [r3, #24]
   hfdcan2.Init.NominalTimeSeg1 = 5;
- 8001fd8:	4b3a      	ldr	r3, [pc, #232]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fda:	2205      	movs	r2, #5
- 8001fdc:	61da      	str	r2, [r3, #28]
+ 8001fda:	4b3a      	ldr	r3, [pc, #232]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fdc:	2205      	movs	r2, #5
+ 8001fde:	61da      	str	r2, [r3, #28]
   hfdcan2.Init.NominalTimeSeg2 = 2;
- 8001fde:	4b39      	ldr	r3, [pc, #228]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fe0:	2202      	movs	r2, #2
- 8001fe2:	621a      	str	r2, [r3, #32]
+ 8001fe0:	4b38      	ldr	r3, [pc, #224]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fe2:	2202      	movs	r2, #2
+ 8001fe4:	621a      	str	r2, [r3, #32]
   hfdcan2.Init.DataPrescaler = 1;
- 8001fe4:	4b37      	ldr	r3, [pc, #220]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fe6:	2201      	movs	r2, #1
- 8001fe8:	625a      	str	r2, [r3, #36]	@ 0x24
+ 8001fe6:	4b37      	ldr	r3, [pc, #220]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fe8:	2201      	movs	r2, #1
+ 8001fea:	625a      	str	r2, [r3, #36]	@ 0x24
   hfdcan2.Init.DataSyncJumpWidth = 1;
- 8001fea:	4b36      	ldr	r3, [pc, #216]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001fec:	2201      	movs	r2, #1
- 8001fee:	629a      	str	r2, [r3, #40]	@ 0x28
+ 8001fec:	4b35      	ldr	r3, [pc, #212]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001fee:	2201      	movs	r2, #1
+ 8001ff0:	629a      	str	r2, [r3, #40]	@ 0x28
   hfdcan2.Init.DataTimeSeg1 = 1;
- 8001ff0:	4b34      	ldr	r3, [pc, #208]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001ff2:	2201      	movs	r2, #1
- 8001ff4:	62da      	str	r2, [r3, #44]	@ 0x2c
+ 8001ff2:	4b34      	ldr	r3, [pc, #208]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001ff4:	2201      	movs	r2, #1
+ 8001ff6:	62da      	str	r2, [r3, #44]	@ 0x2c
   hfdcan2.Init.DataTimeSeg2 = 2;
- 8001ff6:	4b33      	ldr	r3, [pc, #204]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001ff8:	2202      	movs	r2, #2
- 8001ffa:	631a      	str	r2, [r3, #48]	@ 0x30
+ 8001ff8:	4b32      	ldr	r3, [pc, #200]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8001ffa:	2202      	movs	r2, #2
+ 8001ffc:	631a      	str	r2, [r3, #48]	@ 0x30
   hfdcan2.Init.StdFiltersNbr = 1;
- 8001ffc:	4b31      	ldr	r3, [pc, #196]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8001ffe:	2201      	movs	r2, #1
- 8002000:	635a      	str	r2, [r3, #52]	@ 0x34
+ 8001ffe:	4b31      	ldr	r3, [pc, #196]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8002000:	2201      	movs	r2, #1
+ 8002002:	635a      	str	r2, [r3, #52]	@ 0x34
   hfdcan2.Init.ExtFiltersNbr = 0;
- 8002002:	4b30      	ldr	r3, [pc, #192]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8002004:	2200      	movs	r2, #0
- 8002006:	639a      	str	r2, [r3, #56]	@ 0x38
+ 8002004:	4b2f      	ldr	r3, [pc, #188]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8002006:	2200      	movs	r2, #0
+ 8002008:	639a      	str	r2, [r3, #56]	@ 0x38
   hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
- 8002008:	4b2e      	ldr	r3, [pc, #184]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 800200a:	2200      	movs	r2, #0
- 800200c:	63da      	str	r2, [r3, #60]	@ 0x3c
+ 800200a:	4b2e      	ldr	r3, [pc, #184]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 800200c:	2200      	movs	r2, #0
+ 800200e:	63da      	str	r2, [r3, #60]	@ 0x3c
   if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK)
- 800200e:	482d      	ldr	r0, [pc, #180]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8002010:	f003 ff02 	bl	8005e18 <HAL_FDCAN_Init>
- 8002014:	4603      	mov	r3, r0
- 8002016:	2b00      	cmp	r3, #0
- 8002018:	d001      	beq.n	800201e <MX_FDCAN2_Init+0x82>
+ 8002010:	482c      	ldr	r0, [pc, #176]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8002012:	f003 ff01 	bl	8005e18 <HAL_FDCAN_Init>
+ 8002016:	4603      	mov	r3, r0
+ 8002018:	2b00      	cmp	r3, #0
+ 800201a:	d001      	beq.n	8002020 <MX_FDCAN2_Init+0x84>
   {
     Error_Handler();
- 800201a:	f000 fa85 	bl	8002528 <Error_Handler>
+ 800201c:	f000 fa84 	bl	8002528 <Error_Handler>
   /* USER CODE BEGIN FDCAN2_Init 2 */
   // Setup filters
   FDCAN_FilterTypeDef sFilterConfig;
 
   // Accept high priority messages
   sFilterConfig.IdType = FDCAN_STANDARD_ID;
- 800201e:	2300      	movs	r3, #0
- 8002020:	603b      	str	r3, [r7, #0]
+ 8002020:	2300      	movs	r3, #0
+ 8002022:	603b      	str	r3, [r7, #0]
   sFilterConfig.FilterIndex = 0;
- 8002022:	2300      	movs	r3, #0
- 8002024:	607b      	str	r3, [r7, #4]
+ 8002024:	2300      	movs	r3, #0
+ 8002026:	607b      	str	r3, [r7, #4]
   sFilterConfig.FilterType = FDCAN_FILTER_MASK;
- 8002026:	2302      	movs	r3, #2
- 8002028:	60bb      	str	r3, [r7, #8]
+ 8002028:	2302      	movs	r3, #2
+ 800202a:	60bb      	str	r3, [r7, #8]
   sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
- 800202a:	2301      	movs	r3, #1
- 800202c:	60fb      	str	r3, [r7, #12]
+ 800202c:	2301      	movs	r3, #1
+ 800202e:	60fb      	str	r3, [r7, #12]
   sFilterConfig.FilterID1 = 0x000; // 0b00000000000
- 800202e:	2300      	movs	r3, #0
- 8002030:	613b      	str	r3, [r7, #16]
+ 8002030:	2300      	movs	r3, #0
+ 8002032:	613b      	str	r3, [r7, #16]
   sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
- 8002032:	f44f 63fe 	mov.w	r3, #2032	@ 0x7f0
- 8002036:	617b      	str	r3, [r7, #20]
+ 8002034:	f44f 63fe 	mov.w	r3, #2032	@ 0x7f0
+ 8002038:	617b      	str	r3, [r7, #20]
   if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
- 8002038:	463b      	mov	r3, r7
- 800203a:	4619      	mov	r1, r3
- 800203c:	4821      	ldr	r0, [pc, #132]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 800203e:	f004 f845 	bl	80060cc <HAL_FDCAN_ConfigFilter>
- 8002042:	4603      	mov	r3, r0
- 8002044:	2b00      	cmp	r3, #0
- 8002046:	d001      	beq.n	800204c <MX_FDCAN2_Init+0xb0>
+ 800203a:	463b      	mov	r3, r7
+ 800203c:	4619      	mov	r1, r3
+ 800203e:	4821      	ldr	r0, [pc, #132]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 8002040:	f004 f844 	bl	80060cc <HAL_FDCAN_ConfigFilter>
+ 8002044:	4603      	mov	r3, r0
+ 8002046:	2b00      	cmp	r3, #0
+ 8002048:	d001      	beq.n	800204e <MX_FDCAN2_Init+0xb2>
     /* Filter configuration Error */
     Error_Handler();
- 8002048:	f000 fa6e 	bl	8002528 <Error_Handler>
+ 800204a:	f000 fa6d 	bl	8002528 <Error_Handler>
   //   /* Filter configuration Error */
   //   Error_Handler();
   //   }
 
 
   if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT,
- 800204c:	2302      	movs	r3, #2
- 800204e:	9300      	str	r3, [sp, #0]
- 8002050:	2302      	movs	r3, #2
- 8002052:	2202      	movs	r2, #2
- 8002054:	2102      	movs	r1, #2
- 8002056:	481b      	ldr	r0, [pc, #108]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8002058:	f004 f892 	bl	8006180 <HAL_FDCAN_ConfigGlobalFilter>
- 800205c:	4603      	mov	r3, r0
- 800205e:	2b00      	cmp	r3, #0
- 8002060:	d001      	beq.n	8002066 <MX_FDCAN2_Init+0xca>
+ 800204e:	2302      	movs	r3, #2
+ 8002050:	9300      	str	r3, [sp, #0]
+ 8002052:	2302      	movs	r3, #2
+ 8002054:	2202      	movs	r2, #2
+ 8002056:	2102      	movs	r1, #2
+ 8002058:	481a      	ldr	r0, [pc, #104]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 800205a:	f004 f891 	bl	8006180 <HAL_FDCAN_ConfigGlobalFilter>
+ 800205e:	4603      	mov	r3, r0
+ 8002060:	2b00      	cmp	r3, #0
+ 8002062:	d001      	beq.n	8002068 <MX_FDCAN2_Init+0xcc>
                                    FDCAN_REJECT, FDCAN_REJECT) != HAL_OK) {
     Error_Handler();
- 8002062:	f000 fa61 	bl	8002528 <Error_Handler>
+ 8002064:	f000 fa60 	bl	8002528 <Error_Handler>
   }
 
   if (HAL_FDCAN_ConfigTxDelayCompensation(
           &hfdcan2, hfdcan2.Init.DataTimeSeg1 * hfdcan2.Init.DataPrescaler,
- 8002066:	4b17      	ldr	r3, [pc, #92]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8002068:	6adb      	ldr	r3, [r3, #44]	@ 0x2c
- 800206a:	4a16      	ldr	r2, [pc, #88]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 800206c:	6a52      	ldr	r2, [r2, #36]	@ 0x24
+ 8002068:	4b16      	ldr	r3, [pc, #88]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 800206a:	6adb      	ldr	r3, [r3, #44]	@ 0x2c
+ 800206c:	4a15      	ldr	r2, [pc, #84]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 800206e:	6a52      	ldr	r2, [r2, #36]	@ 0x24
   if (HAL_FDCAN_ConfigTxDelayCompensation(
- 800206e:	fb02 f303 	mul.w	r3, r2, r3
- 8002072:	2200      	movs	r2, #0
- 8002074:	4619      	mov	r1, r3
- 8002076:	4813      	ldr	r0, [pc, #76]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8002078:	f004 f8b3 	bl	80061e2 <HAL_FDCAN_ConfigTxDelayCompensation>
- 800207c:	4603      	mov	r3, r0
- 800207e:	2b00      	cmp	r3, #0
- 8002080:	d001      	beq.n	8002086 <MX_FDCAN2_Init+0xea>
+ 8002070:	fb02 f303 	mul.w	r3, r2, r3
+ 8002074:	2200      	movs	r2, #0
+ 8002076:	4619      	mov	r1, r3
+ 8002078:	4812      	ldr	r0, [pc, #72]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 800207a:	f004 f8b2 	bl	80061e2 <HAL_FDCAN_ConfigTxDelayCompensation>
+ 800207e:	4603      	mov	r3, r0
+ 8002080:	2b00      	cmp	r3, #0
+ 8002082:	d001      	beq.n	8002088 <MX_FDCAN2_Init+0xec>
           0) != HAL_OK) {
     Error_Handler();
- 8002082:	f000 fa51 	bl	8002528 <Error_Handler>
+ 8002084:	f000 fa50 	bl	8002528 <Error_Handler>
   }
   if (HAL_FDCAN_EnableTxDelayCompensation(&hfdcan2) != HAL_OK) {
- 8002086:	480f      	ldr	r0, [pc, #60]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8002088:	f004 f8cd 	bl	8006226 <HAL_FDCAN_EnableTxDelayCompensation>
- 800208c:	4603      	mov	r3, r0
- 800208e:	2b00      	cmp	r3, #0
- 8002090:	d001      	beq.n	8002096 <MX_FDCAN2_Init+0xfa>
+ 8002088:	480e      	ldr	r0, [pc, #56]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 800208a:	f004 f8cc 	bl	8006226 <HAL_FDCAN_EnableTxDelayCompensation>
+ 800208e:	4603      	mov	r3, r0
+ 8002090:	2b00      	cmp	r3, #0
+ 8002092:	d001      	beq.n	8002098 <MX_FDCAN2_Init+0xfc>
     Error_Handler();
- 8002092:	f000 fa49 	bl	8002528 <Error_Handler>
+ 8002094:	f000 fa48 	bl	8002528 <Error_Handler>
   }
 
   /* START FDCAN PERIPHERAL */
   if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK) {
- 8002096:	480b      	ldr	r0, [pc, #44]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 8002098:	f004 f8e6 	bl	8006268 <HAL_FDCAN_Start>
- 800209c:	4603      	mov	r3, r0
- 800209e:	2b00      	cmp	r3, #0
- 80020a0:	d001      	beq.n	80020a6 <MX_FDCAN2_Init+0x10a>
+ 8002098:	480a      	ldr	r0, [pc, #40]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 800209a:	f004 f8e5 	bl	8006268 <HAL_FDCAN_Start>
+ 800209e:	4603      	mov	r3, r0
+ 80020a0:	2b00      	cmp	r3, #0
+ 80020a2:	d001      	beq.n	80020a8 <MX_FDCAN2_Init+0x10c>
     Error_Handler();
- 80020a2:	f000 fa41 	bl	8002528 <Error_Handler>
+ 80020a4:	f000 fa40 	bl	8002528 <Error_Handler>
   }
 
   if (HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
- 80020a6:	2200      	movs	r2, #0
- 80020a8:	2101      	movs	r1, #1
- 80020aa:	4806      	ldr	r0, [pc, #24]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
- 80020ac:	f004 fa62 	bl	8006574 <HAL_FDCAN_ActivateNotification>
- 80020b0:	4603      	mov	r3, r0
- 80020b2:	2b00      	cmp	r3, #0
- 80020b4:	d001      	beq.n	80020ba <MX_FDCAN2_Init+0x11e>
+ 80020a8:	2200      	movs	r2, #0
+ 80020aa:	2101      	movs	r1, #1
+ 80020ac:	4805      	ldr	r0, [pc, #20]	@ (80020c4 <MX_FDCAN2_Init+0x128>)
+ 80020ae:	f004 fa61 	bl	8006574 <HAL_FDCAN_ActivateNotification>
+ 80020b2:	4603      	mov	r3, r0
+ 80020b4:	2b00      	cmp	r3, #0
+ 80020b6:	d001      	beq.n	80020bc <MX_FDCAN2_Init+0x120>
                                      0) != HAL_OK) {
     Error_Handler();
- 80020b6:	f000 fa37 	bl	8002528 <Error_Handler>
+ 80020b8:	f000 fa36 	bl	8002528 <Error_Handler>
   }
   /* USER CODE END FDCAN2_Init 2 */
 
 }
- 80020ba:	bf00      	nop
- 80020bc:	3718      	adds	r7, #24
- 80020be:	46bd      	mov	sp, r7
- 80020c0:	bd80      	pop	{r7, pc}
- 80020c2:	bf00      	nop
+ 80020bc:	bf00      	nop
+ 80020be:	3718      	adds	r7, #24
+ 80020c0:	46bd      	mov	sp, r7
+ 80020c2:	bd80      	pop	{r7, pc}
  80020c4:	2000564c 	.word	0x2000564c
  80020c8:	40006800 	.word	0x40006800
 

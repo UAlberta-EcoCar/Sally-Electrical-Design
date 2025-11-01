@@ -71,10 +71,6 @@ void Error_Handler(void);
 #define ADC_12V_ILM_GPIO_Port GPIOA
 #define ADC_7V_ILM_Pin GPIO_PIN_6
 #define ADC_7V_ILM_GPIO_Port GPIOA
-#define LED5_Pin GPIO_PIN_7
-#define LED5_GPIO_Port GPIOA
-#define CAN_LED_Pin GPIO_PIN_0
-#define CAN_LED_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_8
 #define OLED_SDA_GPIO_Port GPIOA
 #define OLED_SCL_Pin GPIO_PIN_9
