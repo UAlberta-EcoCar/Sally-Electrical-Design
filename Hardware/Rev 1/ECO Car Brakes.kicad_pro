@@ -74,16 +74,19 @@
         "copper_edge_clearance": "error",
         "copper_sliver": "warning",
         "courtyards_overlap": "error",
+        "creepage": "error",
         "diff_pair_gap_out_of_range": "error",
         "diff_pair_uncoupled_length_too_long": "error",
         "drill_out_of_range": "error",
         "duplicate_footprints": "warning",
         "extra_footprint": "warning",
         "footprint": "error",
+        "footprint_filters_mismatch": "ignore",
         "footprint_symbol_mismatch": "warning",
         "footprint_type_mismatch": "ignore",
         "hole_clearance": "error",
         "hole_near_hole": "error",
+        "hole_to_hole": "error",
         "holes_co_located": "warning",
         "invalid_outline": "error",
         "isolated_copper": "warning",
@@ -94,9 +97,11 @@
         "lib_footprint_mismatch": "warning",
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
+        "mirrored_text_on_front_layer": "warning",
         "missing_courtyard": "ignore",
         "missing_footprint": "warning",
         "net_conflict": "warning",
+        "nonmirrored_text_on_back_layer": "warning",
         "npth_inside_courtyard": "ignore",
         "padstack": "warning",
         "pth_inside_courtyard": "ignore",
@@ -108,10 +113,13 @@
         "solder_mask_bridge": "error",
         "starved_thermal": "error",
         "text_height": "warning",
+        "text_on_edge_cuts": "error",
         "text_thickness": "warning",
         "through_hole_pad_without_hole": "error",
         "too_many_vias": "error",
+        "track_angle": "error",
         "track_dangling": "warning",
+        "track_segment_length": "error",
         "track_width": "error",
         "tracks_crossing": "error",
         "unconnected_items": "error",
@@ -124,6 +132,7 @@
         "min_clearance": 0.2,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.5,
+        "min_groove_width": 0.0,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.2,
@@ -141,10 +150,11 @@
       },
       "teardrop_options": [
         {
-          "td_onpadsmd": true,
+          "td_onpthpad": true,
           "td_onroundshapesonly": false,
+          "td_onsmdpad": true,
           "td_ontrackend": false,
-          "td_onviapad": true
+          "td_onvia": true
         }
       ],
       "teardrop_parameters": [
@@ -603,7 +613,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "",
+    "page_layout_descr_file": "kicad-embed://ecocad_drawing_sheet.kicad_wks",
     "plot_directory": "",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
@@ -629,6 +639,10 @@
       "Microcontroller (and USB)"
     ],
     [
+      "3cca58fc-e3cf-4d1f-aa22-b4f1bf063e1e",
+      "Protection Circuitry"
+    ],
+    [
       "6b331dff-2911-4922-ae36-083c28b2b352",
       "MCU"
     ],
@@ -637,20 +651,24 @@
       "CAN Bus"
     ],
     [
+      "7e2c18b8-c504-4691-8afb-e4f812981610",
+      "PanelPower1"
+    ],
+    [
       "20650f78-9624-4a5a-8831-b174f9feb7c8",
       "VBUS"
     ],
     [
-      "1bb5a01e-8ed5-4083-9d38-1ce5a8280557",
-      "Buck Converters"
+      "a6a17eae-9668-4d35-a2b5-82e065fd5a21",
+      "PanelPower2"
     ],
     [
-      "ad3663bd-6238-4649-9c29-24b738fb0112",
-      "Protection Circuitry"
+      "e9980b52-85c0-49b0-9624-84e828b5d48e",
+      "PanelPower3"
     ],
     [
-      "2ea09fe0-cc7b-482e-b07c-138390b94e62",
-      "Current Sensing"
+      "4eb0852a-74f9-490a-8ea0-7e93a8f9f811",
+      "PanelPower4"
     ]
   ],
   "text_variables": {}

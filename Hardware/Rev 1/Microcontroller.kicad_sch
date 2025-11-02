@@ -4,10 +4,16 @@
 	(generator_version "9.0")
 	(uuid "d39d6042-cafb-4a8d-90da-fd59f820e064")
 	(paper "A4")
+	(title_block
+		(title "Microcontroller Sheet")
+		(date "2025-11-01")
+		(rev "1.1")
+		(company "by Ekjot B.")
+	)
 	(lib_symbols)
 	(sheet
-		(at 99.06 59.69)
-		(size 33.02 15.24)
+		(at 71.12 148.59)
+		(size 54.61 22.86)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -18,11 +24,11 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 229 191 1.0000)
 		)
 		(uuid "20650f78-9624-4a5a-8831-b174f9feb7c8")
 		(property "Sheetname" "VBUS"
-			(at 99.06 58.9784 0)
+			(at 71.12 147.8784 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31,7 +37,7 @@
 			)
 		)
 		(property "Sheetfile" "VBUS.kicad_sch"
-			(at 99.06 75.5146 0)
+			(at 71.12 172.0346 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -48,8 +54,8 @@
 		)
 	)
 	(sheet
-		(at 25.4 62.23)
-		(size 35.56 12.7)
+		(at 71.12 97.79)
+		(size 55.88 35.56)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -60,11 +66,11 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 229 191 1.0000)
 		)
 		(uuid "5591d58b-aa37-4dc8-ac56-9a63452c45b8")
 		(property "Sheetname" "CAN Bus"
-			(at 25.4 61.5184 0)
+			(at 71.12 97.0784 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -73,7 +79,7 @@
 			)
 		)
 		(property "Sheetfile" "CAN Bus.kicad_sch"
-			(at 25.4 75.5146 0)
+			(at 71.12 133.9346 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -90,8 +96,8 @@
 		)
 	)
 	(sheet
-		(at 27.94 31.75)
-		(size 33.02 17.78)
+		(at 71.12 33.02)
+		(size 55.88 45.72)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -102,11 +108,11 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 229 191 1.0000)
 		)
 		(uuid "6b331dff-2911-4922-ae36-083c28b2b352")
 		(property "Sheetname" "MCU"
-			(at 27.94 31.0384 0)
+			(at 71.12 32.3084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -115,12 +121,132 @@
 			)
 		)
 		(property "Sheetfile" "MCU.kicad_sch"
-			(at 27.94 50.1146 0)
+			(at 71.12 79.3246 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "LED_DATA_1" input
+			(at 127 38.1 0)
+			(uuid "c8809532-3ba2-46be-a124-7f4c5cef5524")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LED_DATA_2" input
+			(at 127 43.18 0)
+			(uuid "6eb7195c-5fd5-4f8a-b951-ca976017f630")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LED_DATA_3" input
+			(at 127 48.26 0)
+			(uuid "1646c7bb-3ea7-479a-a4d8-24a5ce47a17a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LED_DATA_4" input
+			(at 127 53.34 0)
+			(uuid "e559d98e-b750-4747-b78f-78150c8de5ab")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TEMP_SENS_DATA_1" input
+			(at 71.12 38.1 180)
+			(uuid "b721c150-17df-4add-b248-22cdc474ef65")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TEMP_SENS_DATA_2" input
+			(at 71.12 41.91 180)
+			(uuid "910aa891-ff9c-4e3f-8fec-ba0dd73abc85")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TEMP_SENS_DATA_3" input
+			(at 71.12 45.72 180)
+			(uuid "e25298ea-bc79-4030-ad74-0fba51afbe3d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TEMP_SENS_DATA_4" input
+			(at 71.12 49.53 180)
+			(uuid "2c1a4af9-410a-4ebf-848a-eeae1385ab40")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "V_ILM_1" input
+			(at 71.12 62.23 180)
+			(uuid "8e1a629c-36e2-4dd2-a338-fd4ad06a8ade")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "V_ILM_2" input
+			(at 71.12 66.04 180)
+			(uuid "33b4cfec-8828-41d4-8527-a632b2432306")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "V_ILM_3" input
+			(at 71.12 69.85 180)
+			(uuid "d90cd5dc-dafe-42fb-b0f1-8d5829428c53")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "V_ILM_4" input
+			(at 71.12 73.66 180)
+			(uuid "5f2e764c-7161-4f68-94bf-df20a6d2e23c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
