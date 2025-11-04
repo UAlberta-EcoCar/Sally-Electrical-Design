@@ -3254,6 +3254,16 @@
 	)
 	(wire
 		(pts
+			(xy 185.42 30.48) (xy 187.96 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a492cc4-c592-48f5-aba8-9e2776314e3a")
+	)
+	(wire
+		(pts
 			(xy 208.28 30.48) (xy 198.12 30.48)
 		)
 		(stroke
@@ -3471,16 +3481,6 @@
 			(type default)
 		)
 		(uuid "d29781c9-1ab9-4ac2-a9a8-cab34ebaf3f4")
-	)
-	(wire
-		(pts
-			(xy 132.08 30.48) (xy 187.96 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d8c9a97d-4341-4497-a147-446c6ebc458b")
 	)
 	(wire
 		(pts
@@ -11089,6 +11089,17 @@
 		)
 		(uuid "c46bf716-9e7a-498f-9b68-00300e93db3a")
 	)
+	(hierarchical_label "OUT"
+		(shape input)
+		(at 256.54 33.02 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "cc01e9d9-c104-488b-ab5f-e5ea2ac5c4fa")
+	)
 	(hierarchical_label "RELAY_EN"
 		(shape input)
 		(at 99.06 86.36 180)
@@ -11113,7 +11124,7 @@
 	)
 	(hierarchical_label "CUR_SENSE"
 		(shape input)
-		(at 256.54 33.02 0)
+		(at 260.35 67.31 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11122,51 +11133,16 @@
 		)
 		(uuid "d5bb61cd-6e4a-4eb1-9505-7b8ea0df8d42")
 	)
-	(rule_area
-		(polyline
-			(pts
-				(xy 187.96 22.86) (xy 215.9 22.86) (xy 215.9 15.24) (xy 248.92 15.24) (xy 255.27 21.59) (xy 255.27 52.07)
-				(xy 195.58 52.07) (xy 187.96 52.07)
-			)
-			(stroke
-				(width 0)
-				(type dash)
-			)
-			(fill
-				(type none)
-			)
-			(uuid f66f247c-f8bb-47aa-8839-df9ace3a9ac2)
-		)
-	)
-	(netclass_flag ""
-		(length 2.54)
-		(shape round)
-		(at 194.31 22.86 0)
+	(hierarchical_label "IN"
+		(shape input)
+		(at 185.42 30.48 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right)
 		)
-		(uuid "d97c5167-fb19-41d9-bf82-78ba6c7a98f5")
-		(property "Netclass" ""
-			(at -46.99 -44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Component Class" "SINGLE_VBUF2"
-			(at 195.072 20.32 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-			)
-		)
+		(uuid "e5f272b9-391f-4577-afa5-efe08971a0ed")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -12614,7 +12590,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323F"
 			(at 219.71 36.83 0)
 			(effects
 				(font
@@ -14104,6 +14080,68 @@
 				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/f6898082-b458-49c0-a1c1-7c00e27219ca"
 					(reference "R7")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 234.95 80.01)
+		(size 19.05 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 255 194 1.0000)
+		)
+		(uuid "471e3662-c320-467d-8c91-6adc87cba0f6")
+		(property "Sheetname" "VBUF_5V"
+			(at 234.95 79.2984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "VBUF_5V.kicad_sch"
+			(at 234.95 90.7546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "IN" input
+			(at 254 82.55 0)
+			(uuid "350e26ff-9b94-4e1e-8926-a9de53444ca7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OUT" input
+			(at 254 85.09 0)
+			(uuid "ce90f111-1b43-4f69-bf8c-e8342d399274")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "MechanicalRelaySally"
+				(path "/fc3bfb83-1db4-4bd1-b480-85f699496fec/82deb2ae-220f-4425-88c6-a1e80ead50b8/c4275d10-fe67-4c10-b169-dea82861b062"
+					(page "10")
 				)
 			)
 		)
