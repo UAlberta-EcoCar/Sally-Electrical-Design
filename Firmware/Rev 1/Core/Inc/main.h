@@ -59,6 +59,18 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define RES_LOW_RLY_STATUS_Pin GPIO_PIN_13
 #define RES_LOW_RLY_STATUS_GPIO_Port GPIOC
+#define NRST_Pin GPIO_PIN_10
+#define NRST_GPIO_Port GPIOG
+#define VOLT_MEAS_BUF_FC_UP_Pin GPIO_PIN_0
+#define VOLT_MEAS_BUF_FC_UP_GPIO_Port GPIOC
+#define VOLT_MEAS_BUF_FC_OUT_Pin GPIO_PIN_1
+#define VOLT_MEAS_BUF_FC_OUT_GPIO_Port GPIOC
+#define VOLT_MEAS_BUF_CAP_Pin GPIO_PIN_2
+#define VOLT_MEAS_BUF_CAP_GPIO_Port GPIOC
+#define VOLT_MEAS_BUF_RES_HIGH_Pin GPIO_PIN_3
+#define VOLT_MEAS_BUF_RES_HIGH_GPIO_Port GPIOC
+#define VOLT_MEAS_BUF_RES_LOW_Pin GPIO_PIN_0
+#define VOLT_MEAS_BUF_RES_LOW_GPIO_Port GPIOA
 #define MTR_RLY_RELAY_EN_Pin GPIO_PIN_1
 #define MTR_RLY_RELAY_EN_GPIO_Port GPIOA
 #define MTR_RLY_COIL_CUR_Pin GPIO_PIN_2
@@ -95,6 +107,28 @@ void Error_Handler(void);
 #define TEMP_BOARD_VIN_DIODE_GPIO_Port GPIOE
 #define TEMP_BOARD_CENTER_Pin GPIO_PIN_12
 #define TEMP_BOARD_CENTER_GPIO_Port GPIOE
+#define VOLT_MEAS_BUF_MTR_OUT_Pin GPIO_PIN_13
+#define VOLT_MEAS_BUF_MTR_OUT_GPIO_Port GPIOE
+#define LED1B_Pin GPIO_PIN_14
+#define LED1B_GPIO_Port GPIOE
+#define SYS_12V_CUR_Pin GPIO_PIN_14
+#define SYS_12V_CUR_GPIO_Port GPIOB
+#define SYS_7V_CUR_Pin GPIO_PIN_15
+#define SYS_7V_CUR_GPIO_Port GPIOB
+#define FC_RLY_FC_EN_Pin GPIO_PIN_9
+#define FC_RLY_FC_EN_GPIO_Port GPIOD
+#define FC_RLY_FC_CUR_Pin GPIO_PIN_10
+#define FC_RLY_FC_CUR_GPIO_Port GPIOD
+#define GPBTN1_Pin GPIO_PIN_10
+#define GPBTN1_GPIO_Port GPIOA
+#define LED2R_Pin GPIO_PIN_15
+#define LED2R_GPIO_Port GPIOA
+#define GPBTN3_Pin GPIO_PIN_5
+#define GPBTN3_GPIO_Port GPIOB
+#define GPBTN2_Pin GPIO_PIN_6
+#define GPBTN2_GPIO_Port GPIOB
+#define BOOT0_Pin GPIO_PIN_8
+#define BOOT0_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

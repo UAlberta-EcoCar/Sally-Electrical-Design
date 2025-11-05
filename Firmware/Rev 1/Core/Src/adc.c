@@ -228,21 +228,33 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
       __HAL_RCC_ADC12_CLK_ENABLE();
     }
 
+    __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**ADC1 GPIO Configuration
+    PC0     ------> ADC1_IN6
+    PC1     ------> ADC1_IN7
+    PC2     ------> ADC1_IN8
+    PC3     ------> ADC1_IN9
+    PA0     ------> ADC1_IN1
     PA2     ------> ADC1_IN3
     PB0     ------> ADC1_IN15
+    PB14     ------> ADC1_IN5
     */
-    GPIO_InitStruct.Pin = MTR_RLY_COIL_CUR_Pin;
+    GPIO_InitStruct.Pin = VOLT_MEAS_BUF_FC_UP_Pin|VOLT_MEAS_BUF_FC_OUT_Pin|VOLT_MEAS_BUF_CAP_Pin|VOLT_MEAS_BUF_RES_HIGH_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(MTR_RLY_COIL_CUR_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = RES_LOW_RLY_COIL_CUR_Pin;
+    GPIO_InitStruct.Pin = VOLT_MEAS_BUF_RES_LOW_Pin|MTR_RLY_COIL_CUR_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(RES_LOW_RLY_COIL_CUR_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = RES_LOW_RLY_COIL_CUR_Pin|SYS_12V_CUR_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN ADC1_MspInit 1 */
 
@@ -277,6 +289,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     PA6     ------> ADC2_IN3
     PC4     ------> ADC2_IN5
     PB2     ------> ADC2_IN12
+    PB15     ------> ADC2_IN15
     */
     GPIO_InitStruct.Pin = MTR_RLY_CUR_SENSE_Pin|RES_HIGH_RLY_COIL_CUR_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
@@ -288,10 +301,10 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(RES_HIGH_RLY_CUR_SENSE_GPIO_Port, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = RES_LOW_RLY_CUR_SENSE_Pin;
+    GPIO_InitStruct.Pin = RES_LOW_RLY_CUR_SENSE_Pin|SYS_7V_CUR_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(RES_LOW_RLY_CUR_SENSE_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN ADC2_MspInit 1 */
 
@@ -317,22 +330,31 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
     /**ADC3 GPIO Configuration
     PB1     ------> ADC3_IN1
     PE8     ------> ADC3_IN6
     PE10     ------> ADC3_IN14
     PE11     ------> ADC3_IN15
     PE12     ------> ADC3_IN16
+    PE13     ------> ADC3_IN3
+    PD10     ------> ADC3_IN7
     */
     GPIO_InitStruct.Pin = RES_LOW_RLY_STATUSB1_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(RES_LOW_RLY_STATUSB1_GPIO_Port, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = CAP_RLY_COIL_CUR_Pin|CAP_RLY_CUR_SENSE_Pin|TEMP_BOARD_VIN_DIODE_Pin|TEMP_BOARD_CENTER_Pin;
+    GPIO_InitStruct.Pin = CAP_RLY_COIL_CUR_Pin|CAP_RLY_CUR_SENSE_Pin|TEMP_BOARD_VIN_DIODE_Pin|TEMP_BOARD_CENTER_Pin
+                          |VOLT_MEAS_BUF_MTR_OUT_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = FC_RLY_FC_CUR_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(FC_RLY_FC_CUR_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN ADC3_MspInit 1 */
 
@@ -355,12 +377,20 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     }
 
     /**ADC1 GPIO Configuration
+    PC0     ------> ADC1_IN6
+    PC1     ------> ADC1_IN7
+    PC2     ------> ADC1_IN8
+    PC3     ------> ADC1_IN9
+    PA0     ------> ADC1_IN1
     PA2     ------> ADC1_IN3
     PB0     ------> ADC1_IN15
+    PB14     ------> ADC1_IN5
     */
-    HAL_GPIO_DeInit(MTR_RLY_COIL_CUR_GPIO_Port, MTR_RLY_COIL_CUR_Pin);
+    HAL_GPIO_DeInit(GPIOC, VOLT_MEAS_BUF_FC_UP_Pin|VOLT_MEAS_BUF_FC_OUT_Pin|VOLT_MEAS_BUF_CAP_Pin|VOLT_MEAS_BUF_RES_HIGH_Pin);
 
-    HAL_GPIO_DeInit(RES_LOW_RLY_COIL_CUR_GPIO_Port, RES_LOW_RLY_COIL_CUR_Pin);
+    HAL_GPIO_DeInit(GPIOA, VOLT_MEAS_BUF_RES_LOW_Pin|MTR_RLY_COIL_CUR_Pin);
+
+    HAL_GPIO_DeInit(GPIOB, RES_LOW_RLY_COIL_CUR_Pin|SYS_12V_CUR_Pin);
 
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
 
@@ -382,12 +412,13 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     PA6     ------> ADC2_IN3
     PC4     ------> ADC2_IN5
     PB2     ------> ADC2_IN12
+    PB15     ------> ADC2_IN15
     */
     HAL_GPIO_DeInit(GPIOA, MTR_RLY_CUR_SENSE_Pin|RES_HIGH_RLY_COIL_CUR_Pin);
 
     HAL_GPIO_DeInit(RES_HIGH_RLY_CUR_SENSE_GPIO_Port, RES_HIGH_RLY_CUR_SENSE_Pin);
 
-    HAL_GPIO_DeInit(RES_LOW_RLY_CUR_SENSE_GPIO_Port, RES_LOW_RLY_CUR_SENSE_Pin);
+    HAL_GPIO_DeInit(GPIOB, RES_LOW_RLY_CUR_SENSE_Pin|SYS_7V_CUR_Pin);
 
   /* USER CODE BEGIN ADC2_MspDeInit 1 */
 
@@ -407,10 +438,15 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     PE10     ------> ADC3_IN14
     PE11     ------> ADC3_IN15
     PE12     ------> ADC3_IN16
+    PE13     ------> ADC3_IN3
+    PD10     ------> ADC3_IN7
     */
     HAL_GPIO_DeInit(RES_LOW_RLY_STATUSB1_GPIO_Port, RES_LOW_RLY_STATUSB1_Pin);
 
-    HAL_GPIO_DeInit(GPIOE, CAP_RLY_COIL_CUR_Pin|CAP_RLY_CUR_SENSE_Pin|TEMP_BOARD_VIN_DIODE_Pin|TEMP_BOARD_CENTER_Pin);
+    HAL_GPIO_DeInit(GPIOE, CAP_RLY_COIL_CUR_Pin|CAP_RLY_CUR_SENSE_Pin|TEMP_BOARD_VIN_DIODE_Pin|TEMP_BOARD_CENTER_Pin
+                          |VOLT_MEAS_BUF_MTR_OUT_Pin);
+
+    HAL_GPIO_DeInit(FC_RLY_FC_CUR_GPIO_Port, FC_RLY_FC_CUR_Pin);
 
   /* USER CODE BEGIN ADC3_MspDeInit 1 */
 

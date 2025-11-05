@@ -21,8 +21,6 @@
 #include "cmsis_os.h"
 #include "adc.h"
 #include "fdcan.h"
-#include "i2c.h"
-#include "i2s.h"
 #include "usb_device.h"
 #include "gpio.h"
 
@@ -94,8 +92,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_FDCAN1_Init();
-  MX_I2C1_Init();
-  MX_I2S2_Init();
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_ADC3_Init();
@@ -170,7 +166,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  HAL_RCC_MCOConfig(RCC_MCO_PG10, RCC_MCO1SOURCE_HSE, RCC_MCODIV_16);
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_16);
 }
 
 /* USER CODE BEGIN 4 */
