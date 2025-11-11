@@ -89,6 +89,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(wire
+		(pts
+			(xy 182.88 129.54) (xy 201.93 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "258dddd6-7ef8-4b49-a3bd-300a2279b3a6")
+	)
 	(bus
 		(pts
 			(xy 182.88 101.6) (xy 215.9 101.6)
@@ -111,13 +121,23 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 88.9) (xy 215.9 88.9)
+			(xy 182.88 124.46) (xy 196.85 124.46)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "31f0eefe-d844-4400-be88-b64c01ce05c3")
+		(uuid "52bc5f91-a99b-46de-9ca4-bfd7a0bf9493")
+	)
+	(wire
+		(pts
+			(xy 196.85 124.46) (xy 196.85 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e152fff-68e3-4343-8800-c2bfd641b1b2")
 	)
 	(bus
 		(pts
@@ -128,6 +148,16 @@
 			(type default)
 		)
 		(uuid "83cf0e03-7db9-4dd2-b504-01a1c5c66396")
+	)
+	(wire
+		(pts
+			(xy 196.85 104.14) (xy 215.9 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87b65d11-0770-4856-92d7-da285f999b72")
 	)
 	(bus
 		(pts
@@ -169,6 +199,16 @@
 		)
 		(uuid "d3dd7a6e-defd-448c-8bff-56f4c650d258")
 	)
+	(wire
+		(pts
+			(xy 201.93 106.68) (xy 215.9 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d5b3d35f-afa3-4886-a16b-b68f5ea2d201")
+	)
 	(bus
 		(pts
 			(xy 81.28 93.98) (xy 215.9 93.98)
@@ -178,6 +218,16 @@
 			(type default)
 		)
 		(uuid "d95f8454-b19c-4776-9222-398aa232d6c0")
+	)
+	(wire
+		(pts
+			(xy 201.93 129.54) (xy 201.93 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f4f68ff4-8b9e-490d-a506-6f84362a29c2")
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
@@ -509,16 +559,6 @@
 				(justify right)
 			)
 		)
-		(pin "TEMP_BOARD_CENTER" output
-			(at 81.28 88.9 0)
-			(uuid "76ec9346-204d-41d3-8fe6-c641c01bfe35")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "TEMP_BOARD_VIN_DIODE" output
 			(at 81.28 91.44 0)
 			(uuid "84cdc9eb-d27a-4335-a1b6-f4968effed3f")
@@ -620,7 +660,7 @@
 		)
 	)
 	(sheet
-		(at 114.3 120.65)
+		(at 114.3 121.92)
 		(size 68.58 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -636,7 +676,7 @@
 		)
 		(uuid "cc52a25b-6308-4781-87b2-35c0a3a10053")
 		(property "Sheetname" "Power Regulation"
-			(at 114.3 119.9384 0)
+			(at 114.3 121.2084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -645,7 +685,7 @@
 			)
 		)
 		(property "Sheetfile" "power_regulation.kicad_sch"
-			(at 114.3 136.4746 0)
+			(at 114.3 137.7446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -654,7 +694,7 @@
 			)
 		)
 		(pin "SYS_7V_CUR" input
-			(at 182.88 123.19 0)
+			(at 182.88 124.46 0)
 			(uuid "a6e911cd-4196-4bdd-b430-11d2cafc3df5")
 			(effects
 				(font
@@ -664,7 +704,7 @@
 			)
 		)
 		(pin "SYS_12V_CUR" input
-			(at 182.88 128.27 0)
+			(at 182.88 129.54 0)
 			(uuid "c4c43826-d70f-4765-b825-1fe3ac873799")
 			(effects
 				(font
@@ -765,16 +805,6 @@
 				(justify left)
 			)
 		)
-		(pin "TEMP_BOARD_CENTER" output
-			(at 215.9 88.9 180)
-			(uuid "b201980a-4e52-4708-a517-8b7be5b0b2d2")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "FC_RLY{FC_EN FC_CUR}" output
 			(at 215.9 93.98 180)
 			(uuid "a8e6866b-02f4-4c67-b7d4-33f1b38ba453")
@@ -788,6 +818,26 @@
 		(pin "VOLT_MEAS_BUF{FC_UP FC_OUT CAP RES_HIGH RES_LOW MTR_OUT}" output
 			(at 215.9 101.6 180)
 			(uuid "8cb4ab61-94a2-4c9c-8841-93bdd1e2e734")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SYS_7V_CUR" input
+			(at 215.9 104.14 180)
+			(uuid "cde7b7e0-c0a6-4568-b064-d2641900084b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SYS_12V_CUR" input
+			(at 215.9 106.68 180)
+			(uuid "6db38aa0-f3d6-4807-bed1-8ac13cad7a57")
 			(effects
 				(font
 					(size 1.27 1.27)
