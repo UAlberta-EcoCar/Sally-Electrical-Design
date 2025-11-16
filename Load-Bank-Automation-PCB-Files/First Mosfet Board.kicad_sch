@@ -2318,7 +2318,7 @@
 		)
 		(uuid e0387b0a-a654-48ff-8be5-045c29be8e2f)
 	)
-	(text "Vf = 0.9V\n"
+	(text "Vf = 0.75 V\n"
 		(exclude_from_sim no)
 		(at 77.47 144.272 0)
 		(effects
@@ -2465,11 +2465,12 @@
 	)
 	(text "- Not sure if I should use a film or cermaic or other type of capacitor\n- See if it's feasible to put a lower/no resistance (Check power and current)\n- See if I can use the same diode for the Snubber and Gate driver (The gate driver diode\nsays it is very high switching speed but does give it)\n- Do I need to add a resistor from 12V to the gate driver to limit current (transients)?\n- Do I need to add a capacitor at the opamp output (limiting ADC transients from MCU)?"
 		(exclude_from_sim no)
-		(at 223.774 173.482 0)
+		(at 179.324 173.228 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
+			(justify left)
 		)
 		(uuid "eabf583c-ef8f-49a9-920c-ccfdcfefc338")
 	)
@@ -4206,13 +4207,14 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 77.47 134.62 180)
+		(at 77.47 134.62 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "88e80771-53b4-4d9d-b58c-8c6e749e1788")
+		(uuid "8cfcc52c-d0c2-4fa3-a39c-e675472137a7")
 		(property "Reference" "D1"
 			(at 77.47 140.97 0)
 			(effects
@@ -4221,7 +4223,7 @@
 				)
 			)
 		)
-		(property "Value" "CDBA5200-HF"
+		(property "Value" "SBR1U200P1"
 			(at 77.47 138.43 0)
 			(effects
 				(font
@@ -4229,7 +4231,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SMA"
+		(property "Footprint" "Diode_SMD:D_PowerDI-123"
 			(at 77.47 134.62 0)
 			(effects
 				(font
@@ -4238,7 +4240,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/506/CDBA540-HF-CDBA5200-HF_RevC.pdf"
+		(property "Datasheet" "https://www.digikey.ca/en/products/detail/diodes-incorporated/SBR1U200P1-7/2414250"
 			(at 77.47 134.62 0)
 			(effects
 				(font
@@ -4275,10 +4277,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "6d089b0f-0415-4e21-84ff-b7484d7e028a")
+			(uuid "f532efca-9069-4764-aadc-1df31797ab61")
 		)
 		(pin "2"
-			(uuid "03b900ad-c000-4cbf-90fb-0e0a4deb67cf")
+			(uuid "785c2c13-e20b-4a25-9a1e-6f28bfe936f4")
 		)
 		(instances
 			(project "Main Board"
