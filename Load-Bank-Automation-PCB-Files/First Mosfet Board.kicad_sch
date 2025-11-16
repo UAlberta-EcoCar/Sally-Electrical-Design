@@ -2318,6 +2318,16 @@
 		)
 		(uuid e0387b0a-a654-48ff-8be5-045c29be8e2f)
 	)
+	(text "Vf = 0.9V\n"
+		(exclude_from_sim no)
+		(at 77.47 144.272 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "342f5ca7-7f5e-4bed-8b9e-2e1c6058bf48")
+	)
 	(text "48V * R36/(R35+R36) = 3V3"
 		(exclude_from_sim no)
 		(at 189.992 129.286 0)
@@ -2453,9 +2463,9 @@
 		)
 		(uuid "e6fc7f69-2072-4134-bbdd-00ccf1e71828")
 	)
-	(text "- Not sure if I should use a film or cermaic or other type of capacitor\n- See if it's feasible to put a lower/no resistance (Check power and current)\n- See if I can use the same diode for the Snubber and Gate driver (The gate driver diode\nsays it is very high switching speed but does give it)"
+	(text "- Not sure if I should use a film or cermaic or other type of capacitor\n- See if it's feasible to put a lower/no resistance (Check power and current)\n- See if I can use the same diode for the Snubber and Gate driver (The gate driver diode\nsays it is very high switching speed but does give it)\n- Do I need to add a resistor from 12V to the gate driver to limit current (transients)?\n- Do I need to add a capacitor at the opamp output (limiting ADC transients from MCU)?"
 		(exclude_from_sim no)
-		(at 129.794 177.8 0)
+		(at 223.774 173.482 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2540,6 +2550,10 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ce8d2f13-4cb7-4b90-989c-fb662c8b2e4f")
+	)
+	(no_connect
+		(at 250.19 54.61)
+		(uuid "14496e94-c564-4b62-9fe7-c3368fc4f44b")
 	)
 	(wire
 		(pts
@@ -3053,16 +3067,6 @@
 	)
 	(wire
 		(pts
-			(xy 245.11 54.61) (xy 250.19 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c85b018f-151e-4565-bcad-3f99b7d0e410")
-	)
-	(wire
-		(pts
 			(xy 161.29 151.13) (xy 161.29 153.67)
 		)
 		(stroke
@@ -3328,18 +3332,6 @@
 			(justify right bottom)
 		)
 		(uuid "9c2fe301-da23-42ab-ae56-237d52e95416")
-	)
-	(label "Current_ADC"
-		(at 245.11 54.61 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-			)
-			(justify right bottom)
-		)
-		(uuid "b5095e37-1db0-49e4-992b-b0e2cbde2a76")
 	)
 	(label "V_{OUT}"
 		(at 250.19 96.52 180)
