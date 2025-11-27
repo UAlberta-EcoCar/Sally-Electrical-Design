@@ -5804,6 +5804,14 @@
 		(uuid "0f9df726-a8a5-42e3-bf33-e70ec6863090")
 	)
 	(no_connect
+		(at 152.4 73.66)
+		(uuid "1911c250-d366-4b1b-85a6-61c02e7120be")
+	)
+	(no_connect
+		(at 218.44 138.43)
+		(uuid "40626713-00b2-4869-9d2c-2bbf90bfcac2")
+	)
+	(no_connect
 		(at 45.72 176.53)
 		(uuid "40e41173-6bde-463e-9430-38f0e05b6da9")
 	)
@@ -6007,16 +6015,6 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 73.66) (xy 152.4 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "239df78a-94c6-4465-9d95-ba70aee365f7")
-	)
-	(wire
-		(pts
 			(xy 113.03 76.2) (xy 109.22 76.2)
 		)
 		(stroke
@@ -6104,16 +6102,6 @@
 			(type default)
 		)
 		(uuid "2c479b6b-fb21-40ad-9a63-7490a136d49b")
-	)
-	(wire
-		(pts
-			(xy 204.47 138.43) (xy 218.44 138.43)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2cb43a77-89e1-4f8d-be2e-63df9ec1463d")
 	)
 	(wire
 		(pts
@@ -7585,26 +7573,6 @@
 		)
 		(uuid "5d419f9f-920e-46f0-8d5d-47c7421ea252")
 	)
-	(label "PIN4"
-		(at 204.47 138.43 0)
-		(effects
-			(font
-				(size 0.762 0.762)
-			)
-			(justify left bottom)
-		)
-		(uuid "5d419f9f-920e-46f0-8d5d-47c7421ea253")
-	)
-	(label "PIN4"
-		(at 143.51 73.66 0)
-		(effects
-			(font
-				(size 0.762 0.762)
-			)
-			(justify left bottom)
-		)
-		(uuid "5ed8bba3-6c2b-47e3-8dcd-04840fb205be")
-	)
 	(label "CAN_TX"
 		(at 146.05 91.44 0)
 		(effects
@@ -8234,6 +8202,73 @@
 			(project "defogger_and_wiper"
 				(path "/41c72644-20f5-42d1-bef2-b0cf00d5a631"
 					(reference "#PWR014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Open")
+		(at 118.11 161.29 180)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "071e92b8-908d-4b6b-89f1-e8d6bb9f55ba")
+		(property "Reference" "JP1"
+			(at 119.38 159.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 119.38 156.718 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ecocad_lib_footprints:J_0603_Triangular"
+			(at 118.11 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 118.11 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, open"
+			(at 118.11 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a0744c23-ee76-4db4-bd6f-8534cd903921")
+		)
+		(pin "2"
+			(uuid "83cd8e11-cea2-4819-b682-63424796838d")
+		)
+		(instances
+			(project "defogger_and_wiper"
+				(path "/41c72644-20f5-42d1-bef2-b0cf00d5a631"
+					(reference "JP1")
 					(unit 1)
 				)
 			)
@@ -11089,74 +11124,6 @@
 			(project ""
 				(path "/41c72644-20f5-42d1-bef2-b0cf00d5a631"
 					(reference "#PWR022")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:Jumper_2_Open")
-		(at 118.11 161.29 180)
-		(unit 1)
-		(exclude_from_sim yes)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "97edec10-40a8-48a1-82cd-b31a34726bed")
-		(property "Reference" "JP1"
-			(at 118.11 167.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Jumper_2_Open"
-			(at 118.11 165.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "digikey-footprints:Jumper_Micro-Miniature_P5.375mm"
-			(at 118.11 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 118.11 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Jumper, 2-pole, open"
-			(at 118.11 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7dba20bc-0f5c-43e0-a6f4-5f307a8c97fb")
-		)
-		(pin "2"
-			(uuid "fb0e0ea7-8dcc-41de-a92c-ec198427d060")
-		)
-		(instances
-			(project "defogger_and_wiper"
-				(path "/41c72644-20f5-42d1-bef2-b0cf00d5a631"
-					(reference "JP1")
 					(unit 1)
 				)
 			)
