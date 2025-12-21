@@ -1,4 +1,4 @@
-import imgui
+from imgui_bundle import imgui
 
 def draw_parsed(app):
     if not app.show_parsed_panel: return

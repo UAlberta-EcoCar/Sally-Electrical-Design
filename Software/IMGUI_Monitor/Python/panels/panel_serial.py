@@ -1,11 +1,9 @@
-import imgui
+from imgui_bundle import imgui
 
 def draw_serial_control(app):
     imgui.begin("Serial Control", True)
     imgui.text("COM port:")
-    imgui.text("COM port:")
-    imgui.text("COM port:")
-    imgui.text("COM port:")
+
     if imgui.button("Refresh"):
         app.refresh_ports()
     imgui.same_line()
@@ -26,6 +24,6 @@ def draw_serial_control(app):
         if imgui.button("Disconnect"): app.disconnect_requested = True
 
     imgui.separator()
-    imgui.text_colored(("Connected" if app.connected else "Disconnected"),
-                       0.2, 0.8 if app.connected else 0.2, 0.2, 1.0)
+    # imgui.text_colored(("Connected" if app.connected else "Disconnected"),
+    #                    0.2, 0.8 if app.connected else 0.2, 0.2, 1.0)
     imgui.end()

@@ -488,7 +488,7 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.2,
+        "clearance": 0.15,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
@@ -500,15 +500,31 @@
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.2,
-        "via_diameter": 0.6,
+        "via_diameter": 0.7,
         "via_drill": 0.3,
         "wire_width": 6
       },
       {
-        "name": "meas",
-        "pcb_color": "rgb(60, 255, 11)",
+        "name": "Power12V",
+        "pcb_color": "rgb(255, 0, 255)",
         "priority": 0,
-        "schematic_color": "rgb(0, 132, 0)"
+        "schematic_color": "rgb(255, 0, 255)"
+      },
+      {
+        "clearance": 0.15,
+        "name": "Power3V3",
+        "pcb_color": "rgb(255, 153, 0)",
+        "priority": 2,
+        "schematic_color": "rgb(255, 153, 0)",
+        "track_width": 0.25,
+        "via_diameter": 0.9,
+        "via_drill": 0.5
+      },
+      {
+        "name": "Power5V",
+        "pcb_color": "rgb(255, 229, 191)",
+        "priority": 1,
+        "schematic_color": "rgb(255, 229, 191)"
       }
     ],
     "meta": {
@@ -518,8 +534,20 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "meas",
+        "netclass": "Default",
         "pattern": "/Measurement Buffers/VOLT_MEAS.*"
+      },
+      {
+        "netclass": "Power3V3",
+        "pattern": "+3V3"
+      },
+      {
+        "netclass": "Power5V",
+        "pattern": "+5V"
+      },
+      {
+        "netclass": "Power12V",
+        "pattern": "+12V"
       }
     ]
   },
@@ -688,10 +716,6 @@
     [
       "82deb2ae-220f-4425-88c6-a1e80ead50b8",
       "Power Routing"
-    ],
-    [
-      "2413fb10-3100-4823-9733-eb09b25aaeaf",
-      "Voltage Measurement Buffers1"
     ],
     [
       "f6898082-b458-49c0-a1c1-7c00e27219ca",
