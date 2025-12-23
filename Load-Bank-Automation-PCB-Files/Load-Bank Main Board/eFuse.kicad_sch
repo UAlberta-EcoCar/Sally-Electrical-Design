@@ -865,7 +865,19 @@
 		)
 		(uuid 9a1cf5cd-f975-4d04-857c-0ed5c86e9686)
 	)
-	(text "ILM and ITIMER Pins:\n\nLet:\nI_{LIM} = 2 A\n\nR_{ILM} (Ohm) = 3334 / I_{LIM} (A) = 1667 Ohm\n\nLet: \nt_{ITIMER} = 14.1 ms\n\nC_{ITIMER} (nF) = t_{ITIMER} (ms) * I_{ITIMER} (uA) / delta V_{ITIMER} (V) = 16.81 nF\n"
+	(rectangle
+		(start 49.784 172.974)
+		(end 94.234 183.134)
+		(stroke
+			(width 0.2032)
+			(type dash)
+		)
+		(fill
+			(type none)
+		)
+		(uuid d59e6dcd-aa79-4a50-85d1-d7cebddd5375)
+	)
+	(text "ILM and ITIMER Pins:\n\nLet:\nI_{LIM} = 2 A\n\nR_{ILM} (Ohm) = 3334 / I_{LIM} (A) = 1667 Ohm\n\nLet: \nt_{ITIMER} = 5 ms\n\nC_{ITIMER} (nF) = t_{ITIMER} (ms) * I_{ITIMER} (uA) / delta V_{ITIMER} (V) = 5.96 nF\n"
 		(exclude_from_sim no)
 		(at 191.262 138.176 0)
 		(effects
@@ -875,6 +887,18 @@
 			(justify left)
 		)
 		(uuid "0371c7bf-3ddf-40b6-9662-ec971f370951")
+	)
+	(text "Notes"
+		(exclude_from_sim no)
+		(at 53.34 171.45 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+				(thickness 0.3556)
+				(bold yes)
+			)
+		)
+		(uuid "12cd042b-b754-41a3-bed2-d4d633c7ae9f")
 	)
 	(text "EN/UVLO and OVLO Pins:\n\nV_{OVLO(Rise)} = 1.2 V\nV_{UVLO(Rise)} = 1.2 V\nV_{(IN(UV)} = 14 V\nV_{IN(OV)} = 29 V\nI_{OUT_MAX} = 2 A\nt_{SS} = 25 ms\n\nLet R13 = 750k\nR_{bottom} = V_{UVLO(Rise)} * R13 / (V_{IN(UV)} - V_{UVLO(Rise)}) = 70,312.5   [EQ 1]\nR15 = 1.2 * (R13 + R_{bottom}) / V_{IN(OV)} = 33,943.97              [EQ 11]\nR14 = R_{bottom} - R15 = 36,368.53\n\nNow:\nV_{OVLO} = 1.44 V\nV_{UVLO} = 0.74 V"
 		(exclude_from_sim no)
@@ -899,9 +923,20 @@
 		)
 		(uuid "4523bb0f-ed28-4e86-9701-ee747cb11d36")
 	)
-	(text "- Is 18.2 nF too big of a value for dV/dt?\n- The soft start time for the eFuse is 141 ms, while the soft start of the buck is 25 ms,\nwould that cause an issue?"
+	(text "- Current is limited to 2A\n- Soft Start is 141 ms\n- UVLO and OVLO range is 14 < V < 29"
 		(exclude_from_sim no)
-		(at 179.832 171.196 0)
+		(at 52.07 177.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "52ff1a9a-3980-4b47-b7ed-6401d1d6ee24")
+	)
+	(text "- Is 18.2 nF too big of a value for dV/dt?\n"
+		(exclude_from_sim no)
+		(at 179.324 168.91 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2168,7 +2203,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "18.2u"
+		(property "Value" "18.2n"
 			(at 149.098 108.204 0)
 			(effects
 				(font
@@ -2238,7 +2273,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "16.81 n"
+		(property "Value" "5.96 n"
 			(at 135.89 99.0599 0)
 			(effects
 				(font
