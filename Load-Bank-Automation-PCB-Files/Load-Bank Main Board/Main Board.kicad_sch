@@ -90,10 +90,34 @@
 		)
 	)
 	(rectangle
-		(start 15.24 15.24)
-		(end 39.37 49.53)
+		(start 59.69 183.134)
+		(end 135.89 187.96)
 		(stroke
 			(width 0)
+			(type dash)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 1cd50251-9ef8-4b7e-90d4-cb129140a001)
+	)
+	(rectangle
+		(start 59.69 160.274)
+		(end 135.89 176.784)
+		(stroke
+			(width 0)
+			(type dash)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 58eb8c70-728d-450c-8ef2-14154688e171)
+	)
+	(rectangle
+		(start 29.21 160.02)
+		(end 53.34 194.31)
+		(stroke
+			(width 0.2032)
 			(type dot)
 		)
 		(fill
@@ -102,10 +126,10 @@
 		(uuid c5919ae7-b52c-40a0-af37-1b3c2dec021a)
 	)
 	(rectangle
-		(start 149.86 19.05)
-		(end 274.32 148.59)
+		(start 29.21 22.86)
+		(end 273.05 152.4)
 		(stroke
-			(width 0)
+			(width 0.2032)
 			(type dot)
 		)
 		(fill
@@ -113,9 +137,9 @@
 		)
 		(uuid e9a395b5-9331-418f-a742-05916b21fc4a)
 	)
-	(text "- The soft start time for the eFuse is 141 ms, while the soft start \nof the buck is 25 ms, would that cause an issue?\n- The Buck Was Simulated/Created Using Webench, it would be \nAwsome if you just skimmed over it. I double checked some of the \nvalues as well.\n\n\nThings To Change:\n- Uses Buses to connect schematics\\\n- connect schematics using lines instead of labels\n- Dont use global labels unless the label will be used in the same sheet\n- use 20k for leds\n- try to use avaulable LDO regulators\n- instead of using IDCs use normal pins to save space and money\n- replace block connectors with the bare metal spade connectors\n- Put large resistors the last thing before smaller resistors \n- Add cermaic decoupling caps to the eFuse output or buck\n\nThings to note:\n- You can put LDOs in parallel"
+	(text "Things To Change:\n- Uses Buses to connect schematics\n- connect schematics using lines instead of labels\n- Dont use global labels unless the label will be used in the same sheet\n- instead of using IDCs use normal pins to save space and money\n- replace block connectors with the bare metal spade connectors"
 		(exclude_from_sim no)
-		(at 27.94 70.866 0)
+		(at 60.96 168.91 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -126,7 +150,7 @@
 	)
 	(text "Mounting Holes"
 		(exclude_from_sim no)
-		(at 23.368 17.018 0)
+		(at 37.338 161.798 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -146,9 +170,45 @@
 		)
 		(uuid "d982a299-a848-440e-aa39-b4dac27d63b3")
 	)
+	(text "Questions"
+		(exclude_from_sim no)
+		(at 59.436 181.102 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "df4cee42-9292-48c5-825f-220975a83b2a")
+	)
+	(text "Notes"
+		(exclude_from_sim no)
+		(at 63.754 158.496 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "f03ffa72-7db9-4546-a80d-afc96d08deed")
+	)
+	(text "- Are the MCU VA footprints good (caps and ferrite bead)?"
+		(exclude_from_sim no)
+		(at 60.96 186.182 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ffc7f795-28d2-45c6-893d-e6c7bad1d16f")
+	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 20.32 25.4 0)
+		(at 34.29 170.18 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -157,7 +217,7 @@
 		(fields_autoplaced yes)
 		(uuid "07760b4e-85a1-4c72-a42e-7a6157dfe543")
 		(property "Reference" "H1"
-			(at 22.86 24.1299 0)
+			(at 36.83 168.9099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -166,7 +226,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 22.86 26.6699 0)
+			(at 36.83 171.4499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -175,7 +235,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 20.32 25.4 0)
+			(at 34.29 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -184,7 +244,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 20.32 25.4 0)
+			(at 34.29 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -193,7 +253,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 20.32 25.4 0)
+			(at 34.29 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -212,7 +272,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 20.32 31.75 0)
+		(at 34.29 176.53 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -221,7 +281,7 @@
 		(fields_autoplaced yes)
 		(uuid "94475623-f5fd-4412-86ee-1eb9b6b909fd")
 		(property "Reference" "H2"
-			(at 22.86 30.4799 0)
+			(at 36.83 175.2599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -230,7 +290,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 22.86 33.0199 0)
+			(at 36.83 177.7999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -239,7 +299,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 20.32 31.75 0)
+			(at 34.29 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -248,7 +308,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 20.32 31.75 0)
+			(at 34.29 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -257,7 +317,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 20.32 31.75 0)
+			(at 34.29 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -276,7 +336,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 20.32 38.1 0)
+		(at 34.29 182.88 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -285,7 +345,7 @@
 		(fields_autoplaced yes)
 		(uuid "bbd2e611-56d8-48d5-97c9-591226f24dde")
 		(property "Reference" "H3"
-			(at 22.86 36.8299 0)
+			(at 36.83 181.6099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -294,7 +354,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 22.86 39.3699 0)
+			(at 36.83 184.1499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -303,7 +363,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 20.32 38.1 0)
+			(at 34.29 182.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -312,7 +372,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 20.32 38.1 0)
+			(at 34.29 182.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -321,7 +381,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 20.32 38.1 0)
+			(at 34.29 182.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -340,7 +400,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 20.32 44.45 0)
+		(at 34.29 189.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -349,7 +409,7 @@
 		(fields_autoplaced yes)
 		(uuid "fde7cc21-62f8-4f58-92e3-d70b7c560776")
 		(property "Reference" "H4"
-			(at 22.86 43.1799 0)
+			(at 36.83 187.9599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -358,7 +418,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 22.86 45.7199 0)
+			(at 36.83 190.4999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -367,7 +427,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 20.32 44.45 0)
+			(at 34.29 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -376,7 +436,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 20.32 44.45 0)
+			(at 34.29 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -385,7 +445,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 20.32 44.45 0)
+			(at 34.29 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -403,8 +463,8 @@
 		)
 	)
 	(sheet
-		(at 153.67 91.44)
-		(size 38.1 46.99)
+		(at 226.06 27.94)
+		(size 22.86 114.3)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -415,11 +475,53 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 255 194 1.0000)
+		)
+		(uuid "06fc0479-8689-4cb4-a79c-3be1a916c977")
+		(property "Sheetname" "IDC Pin Headers"
+			(at 226.06 27.2284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Pin Headers.kicad_sch"
+			(at 226.06 142.8246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 36.83 95.25)
+		(size 50.8 48.26)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 255 255 194 1.0000)
 		)
 		(uuid "098917f9-994d-45ba-beb3-3a9b578fdb8f")
 		(property "Sheetname" "Control PCB"
-			(at 153.67 90.7284 0)
+			(at 36.83 94.5384 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -428,12 +530,32 @@
 			)
 		)
 		(property "Sheetfile" "Control PCB.kicad_sch"
-			(at 153.67 139.0146 0)
+			(at 36.83 144.0946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "OLED" input
+			(at 87.63 102.87 0)
+			(uuid "87509db8-bb17-4b27-bd4a-6d491116e486")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "Encoder" output
+			(at 87.63 114.3 0)
+			(uuid "b5dbf5ce-09ff-4381-9cf9-089a8668be8d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(instances
@@ -445,7 +567,7 @@
 		)
 	)
 	(sheet
-		(at 214.63 24.13)
+		(at 129.54 27.94)
 		(size 54.61 114.3)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -457,11 +579,11 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 255 255 194 1.0000)
 		)
 		(uuid "a4307ae8-dc68-4212-b4d2-d8b3b6e70043")
 		(property "Sheetname" "MCU"
-			(at 214.63 23.4184 0)
+			(at 129.54 27.2284 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -470,7 +592,7 @@
 			)
 		)
 		(property "Sheetfile" "MCU_USB.kicad_sch"
-			(at 214.63 139.0146 0)
+			(at 129.54 142.8246 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -487,7 +609,7 @@
 		)
 	)
 	(sheet
-		(at 153.67 24.13)
+		(at 36.83 27.94)
 		(size 50.8 59.69)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -499,11 +621,11 @@
 			(type solid)
 		)
 		(fill
-			(color 255 229 191 1.0000)
+			(color 255 255 194 1.0000)
 		)
 		(uuid "eb9b9647-818b-4f6a-aec9-7481a1a3b43c")
 		(property "Sheetname" "Main_Power"
-			(at 153.67 23.4184 0)
+			(at 36.83 27.2284 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -512,7 +634,7 @@
 			)
 		)
 		(property "Sheetfile" "Main_Power.kicad_sch"
-			(at 153.67 84.4046 0)
+			(at 36.83 88.2146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
