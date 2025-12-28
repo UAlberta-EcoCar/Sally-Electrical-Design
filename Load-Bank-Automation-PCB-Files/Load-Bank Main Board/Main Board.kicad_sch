@@ -206,24 +206,6 @@
 		)
 		(uuid "ffc7f795-28d2-45c6-893d-e6c7bad1d16f")
 	)
-	(bus_entry
-		(at 125.73 31.75)
-		(size 2.54 2.54)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "685f6d93-faae-431f-aaf9-29f4e9b392d2")
-	)
-	(bus_entry
-		(at 91.44 31.75)
-		(size -2.54 2.54)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3bd47a5-bf02-4dc4-a97c-77d81c4c8a07")
-	)
 	(bus
 		(pts
 			(xy 87.63 102.87) (xy 129.54 102.87)
@@ -233,16 +215,6 @@
 			(type default)
 		)
 		(uuid "0255297f-a3d1-45ea-b84a-399cdeff8c6a")
-	)
-	(bus
-		(pts
-			(xy 184.15 97.79) (xy 226.06 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "192be2f1-647f-4b85-a7c2-f3dab1481feb")
 	)
 	(bus
 		(pts
@@ -264,6 +236,16 @@
 		)
 		(uuid "3c10c39b-7065-41bd-a688-c964f158494a")
 	)
+	(wire
+		(pts
+			(xy 184.15 97.79) (xy 226.06 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3defd231-6a6e-4387-b8a9-0d3e4cfd915b")
+	)
 	(bus
 		(pts
 			(xy 184.15 67.31) (xy 226.06 67.31)
@@ -274,15 +256,15 @@
 		)
 		(uuid "57af5384-eea7-4ec8-a89f-b56f6eee7125")
 	)
-	(wire
+	(bus
 		(pts
-			(xy 128.27 34.29) (xy 129.54 34.29)
+			(xy 87.63 34.29) (xy 129.54 34.29)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "71e05c42-350d-423f-8114-0a52cac5e2a8")
+		(uuid "7dedadd3-8807-400c-bb28-851f85881c2a")
 	)
 	(bus
 		(pts
@@ -303,16 +285,6 @@
 			(type default)
 		)
 		(uuid "a1f99b5c-1c8b-44a4-8e74-10bc2fe87973")
-	)
-	(wire
-		(pts
-			(xy 87.63 34.29) (xy 88.9 34.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "afaa2996-c825-49c8-8e9d-0139c5ba1386")
 	)
 	(bus
 		(pts
@@ -363,16 +335,6 @@
 			(type default)
 		)
 		(uuid "f5749d85-e1ec-496a-87a4-3aa66a930b12")
-	)
-	(bus
-		(pts
-			(xy 91.44 31.75) (xy 125.73 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f91ecad0-f4f6-4b14-891a-4cec6c68809b")
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
@@ -632,7 +594,7 @@
 	)
 	(sheet
 		(at 226.06 27.94)
-		(size 22.86 114.3)
+		(size 43.18 114.3)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -664,7 +626,7 @@
 				(justify left top)
 			)
 		)
-		(pin "TIM1" input
+		(pin "TIM1{CH[1..2]}" input
 			(at 226.06 35.56 180)
 			(uuid "6bec93c3-7266-46e5-908d-ecbaad2937d2")
 			(effects
@@ -674,7 +636,7 @@
 				(justify left)
 			)
 		)
-		(pin "TIM4" input
+		(pin "TIM4{CH[1..4]}" input
 			(at 226.06 59.69 180)
 			(uuid "64524083-707b-48f1-a6c8-f7a70bad8d6c")
 			(effects
@@ -684,7 +646,7 @@
 				(justify left)
 			)
 		)
-		(pin "ADC3" output
+		(pin "ADC3.IN3" output
 			(at 226.06 97.79 180)
 			(uuid "d118260d-36cb-4dcd-95f4-b217930ade6f")
 			(effects
@@ -694,7 +656,7 @@
 				(justify left)
 			)
 		)
-		(pin "ADC2" output
+		(pin "ADC2{IN[3..4] IN9 IN[10..12] IN15 IN17}" output
 			(at 226.06 90.17 180)
 			(uuid "25e70d58-fc27-4f36-bcf7-24360d57bff2")
 			(effects
@@ -704,7 +666,7 @@
 				(justify left)
 			)
 		)
-		(pin "ADC1" output
+		(pin "ADC1{IN[1..8] IN[11..12] IN[14..15]}" output
 			(at 226.06 82.55 180)
 			(uuid "35c05ea3-71b0-4d47-a314-671934053555")
 			(effects
@@ -714,7 +676,7 @@
 				(justify left)
 			)
 		)
-		(pin "TIM8" input
+		(pin "TIM8{CH[1..4]}" input
 			(at 226.06 67.31 180)
 			(uuid "b383a32a-08aa-4ff2-9e93-55d953d8a532")
 			(effects
@@ -724,7 +686,7 @@
 				(justify left)
 			)
 		)
-		(pin "TIM2" input
+		(pin "TIM2{CH[1..4]}" input
 			(at 226.06 44.45 180)
 			(uuid "ffe2e019-b5eb-4648-bbb0-f9713dcd3d6c")
 			(effects
@@ -734,7 +696,7 @@
 				(justify left)
 			)
 		)
-		(pin "TIM15" input
+		(pin "TIM15{CH[1..2]}" input
 			(at 226.06 74.93 180)
 			(uuid "f1a80a1a-05f1-4210-8e30-db719392168f")
 			(effects
@@ -744,7 +706,7 @@
 				(justify left)
 			)
 		)
-		(pin "TIM3" input
+		(pin "TIM3{CH[1..4]}" input
 			(at 226.06 52.07 180)
 			(uuid "27779657-9032-4454-bf38-88ca4e0a1b70")
 			(effects
@@ -796,7 +758,7 @@
 				(justify left top)
 			)
 		)
-		(pin "OLED" input
+		(pin "OLED{SCL SDA}" input
 			(at 87.63 102.87 0)
 			(uuid "87509db8-bb17-4b27-bd4a-6d491116e486")
 			(effects
@@ -806,7 +768,7 @@
 				(justify right)
 			)
 		)
-		(pin "Encoder" output
+		(pin "Encoder{CLKA CLKB SW}" output
 			(at 87.63 114.3 0)
 			(uuid "b5dbf5ce-09ff-4381-9cf9-089a8668be8d")
 			(effects
@@ -858,7 +820,7 @@
 				(justify left top)
 			)
 		)
-		(pin "Encoder" input
+		(pin "Encoder{CLKA CLKB SW}" input
 			(at 129.54 114.3 180)
 			(uuid "6d8f7136-a3a0-4720-ae4d-e0aa06954f7b")
 			(effects
@@ -868,7 +830,7 @@
 				(justify left)
 			)
 		)
-		(pin "TIM1" output
+		(pin "TIM1{CH[1..2]}" output
 			(at 184.15 35.56 0)
 			(uuid "dee14d49-9673-42df-8d36-de5396d464e5")
 			(effects
@@ -878,7 +840,7 @@
 				(justify right)
 			)
 		)
-		(pin "USB" input
+		(pin "USB{D+ D-}" input
 			(at 129.54 34.29 180)
 			(uuid "a690302f-ae71-4180-aeb5-d051969b330a")
 			(effects
@@ -888,7 +850,7 @@
 				(justify left)
 			)
 		)
-		(pin "TIM15" output
+		(pin "TIM15{CH[1..2]}" output
 			(at 184.15 74.93 0)
 			(uuid "d61c16b5-5edc-46b8-a297-4186c9dd8cd0")
 			(effects
@@ -898,7 +860,7 @@
 				(justify right)
 			)
 		)
-		(pin "ADC1" input
+		(pin "ADC1{IN[1..8] IN[11..12] IN[14..15]}" input
 			(at 184.15 82.55 0)
 			(uuid "882c6614-b262-41d4-b0ea-31d82df50864")
 			(effects
@@ -908,7 +870,7 @@
 				(justify right)
 			)
 		)
-		(pin "ADC2" input
+		(pin "ADC2{IN[3..4] IN9 IN[10..12] IN15 IN17}" input
 			(at 184.15 90.17 0)
 			(uuid "d597d134-f5f6-4024-87ee-ff0a5613136f")
 			(effects
@@ -918,7 +880,7 @@
 				(justify right)
 			)
 		)
-		(pin "TIM2" output
+		(pin "TIM2{CH[1..4]}" output
 			(at 184.15 44.45 0)
 			(uuid "d66a7b22-8b87-4dce-a482-c9c788303a30")
 			(effects
@@ -928,7 +890,7 @@
 				(justify right)
 			)
 		)
-		(pin "TIM8" output
+		(pin "TIM8{CH[1..4]}" output
 			(at 184.15 67.31 0)
 			(uuid "a81e8fab-22c4-49c8-9e76-eada6465eb0f")
 			(effects
@@ -938,7 +900,7 @@
 				(justify right)
 			)
 		)
-		(pin "TIM3" output
+		(pin "TIM3{CH[1..4]}" output
 			(at 184.15 52.07 0)
 			(uuid "7e076586-2fe9-4fff-a014-4c43fee15619")
 			(effects
@@ -948,17 +910,7 @@
 				(justify right)
 			)
 		)
-		(pin "OLED" output
-			(at 129.54 102.87 180)
-			(uuid "3bd7729f-8ad9-4b08-821c-6bb4b19556f4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "ADC3" input
+		(pin "ADC3.IN3" input
 			(at 184.15 97.79 0)
 			(uuid "123cb073-52fb-45d3-a4e2-7f9cbd7f3916")
 			(effects
@@ -968,7 +920,7 @@
 				(justify right)
 			)
 		)
-		(pin "TIM4" output
+		(pin "TIM4{CH[1..4]}" output
 			(at 184.15 59.69 0)
 			(uuid "55061259-d02b-4e09-b2ff-818f91db88f8")
 			(effects
@@ -978,9 +930,19 @@
 				(justify right)
 			)
 		)
-		(pin "FUSE" input
+		(pin "FUSE{AUXOFF ~{FLT}}" input
 			(at 129.54 43.18 180)
 			(uuid "4f3dc5ec-6109-481a-bbbb-d69a80449ad6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "OLED{SCL SDA}" output
+			(at 129.54 102.87 180)
+			(uuid "124becb6-a0cc-4e3e-ad72-803572cdf1e8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1030,7 +992,7 @@
 				(justify left top)
 			)
 		)
-		(pin "USB" output
+		(pin "USB{D+ D-}" output
 			(at 87.63 34.29 0)
 			(uuid "d3f485c9-28b6-4c7b-a57f-290410f803b0")
 			(effects
@@ -1040,7 +1002,7 @@
 				(justify right)
 			)
 		)
-		(pin "FUSE" output
+		(pin "FUSE{AUXOFF ~{FLT}}" output
 			(at 87.63 43.18 0)
 			(uuid "94d22526-d23f-491a-8290-ceec8c3cfc1e")
 			(effects
