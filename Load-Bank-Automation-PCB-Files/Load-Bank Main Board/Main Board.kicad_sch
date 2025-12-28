@@ -90,8 +90,8 @@
 		)
 	)
 	(rectangle
-		(start 59.69 183.134)
-		(end 135.89 187.96)
+		(start 59.69 174.752)
+		(end 135.89 180.34)
 		(stroke
 			(width 0)
 			(type dash)
@@ -103,7 +103,7 @@
 	)
 	(rectangle
 		(start 59.69 160.274)
-		(end 135.89 176.784)
+		(end 135.89 168.91)
 		(stroke
 			(width 0)
 			(type dash)
@@ -137,9 +137,9 @@
 		)
 		(uuid e9a395b5-9331-418f-a742-05916b21fc4a)
 	)
-	(text "Things To Change:\n- Uses Buses to connect schematics\n- connect schematics using lines instead of labels\n- Dont use global labels unless the label will be used in the same sheet\n- instead of using IDCs use normal pins to save space and money\n- replace block connectors with the bare metal spade connectors"
+	(text "- I will use IDC pins as normal ones. Kept the IDC pin layout\nbecause every board will need its own power and ground while\nminimizing noise"
 		(exclude_from_sim no)
-		(at 60.96 168.91 0)
+		(at 60.706 164.846 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -172,7 +172,7 @@
 	)
 	(text "Questions"
 		(exclude_from_sim no)
-		(at 59.436 181.102 0)
+		(at 59.436 172.72 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -195,9 +195,9 @@
 		)
 		(uuid "f03ffa72-7db9-4546-a80d-afc96d08deed")
 	)
-	(text "- Are the MCU VA footprints good (caps and ferrite bead)?"
+	(text "- Are the MCU VA footprints good (caps and ferrite bead)?\n- Are there more test points needed?"
 		(exclude_from_sim no)
-		(at 60.96 186.182 0)
+		(at 60.96 177.8 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -205,6 +205,174 @@
 			(justify left)
 		)
 		(uuid "ffc7f795-28d2-45c6-893d-e6c7bad1d16f")
+	)
+	(bus_entry
+		(at 125.73 31.75)
+		(size 2.54 2.54)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "685f6d93-faae-431f-aaf9-29f4e9b392d2")
+	)
+	(bus_entry
+		(at 91.44 31.75)
+		(size -2.54 2.54)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3bd47a5-bf02-4dc4-a97c-77d81c4c8a07")
+	)
+	(bus
+		(pts
+			(xy 87.63 102.87) (xy 129.54 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0255297f-a3d1-45ea-b84a-399cdeff8c6a")
+	)
+	(bus
+		(pts
+			(xy 184.15 97.79) (xy 226.06 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "192be2f1-647f-4b85-a7c2-f3dab1481feb")
+	)
+	(bus
+		(pts
+			(xy 87.63 114.3) (xy 129.54 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b5182a7-7d37-428a-9bb7-900e6a8636a3")
+	)
+	(bus
+		(pts
+			(xy 184.15 82.55) (xy 226.06 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3c10c39b-7065-41bd-a688-c964f158494a")
+	)
+	(bus
+		(pts
+			(xy 184.15 67.31) (xy 226.06 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57af5384-eea7-4ec8-a89f-b56f6eee7125")
+	)
+	(wire
+		(pts
+			(xy 128.27 34.29) (xy 129.54 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71e05c42-350d-423f-8114-0a52cac5e2a8")
+	)
+	(bus
+		(pts
+			(xy 184.15 44.45) (xy 226.06 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8386b7f2-9f35-44b4-b971-42b34bf54621")
+	)
+	(bus
+		(pts
+			(xy 184.15 74.93) (xy 226.06 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1f99b5c-1c8b-44a4-8e74-10bc2fe87973")
+	)
+	(wire
+		(pts
+			(xy 87.63 34.29) (xy 88.9 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "afaa2996-c825-49c8-8e9d-0139c5ba1386")
+	)
+	(bus
+		(pts
+			(xy 184.15 90.17) (xy 226.06 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be233a17-69f5-4368-8198-b580fc59e1aa")
+	)
+	(bus
+		(pts
+			(xy 184.15 59.69) (xy 226.06 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dff571cf-9ac4-41fa-8fab-00cd930c11b3")
+	)
+	(bus
+		(pts
+			(xy 184.15 52.07) (xy 226.06 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e207dc2c-09a9-4507-9f0e-43f674dcfbe0")
+	)
+	(bus
+		(pts
+			(xy 87.63 43.18) (xy 129.54 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0699cd0-f012-4dc6-b363-82cf4ff5e22a")
+	)
+	(bus
+		(pts
+			(xy 184.15 35.56) (xy 226.06 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f5749d85-e1ec-496a-87a4-3aa66a930b12")
+	)
+	(bus
+		(pts
+			(xy 91.44 31.75) (xy 125.73 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f91ecad0-f4f6-4b14-891a-4cec6c68809b")
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
@@ -496,6 +664,96 @@
 				(justify left top)
 			)
 		)
+		(pin "TIM1" input
+			(at 226.06 35.56 180)
+			(uuid "6bec93c3-7266-46e5-908d-ecbaad2937d2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TIM4" input
+			(at 226.06 59.69 180)
+			(uuid "64524083-707b-48f1-a6c8-f7a70bad8d6c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ADC3" output
+			(at 226.06 97.79 180)
+			(uuid "d118260d-36cb-4dcd-95f4-b217930ade6f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ADC2" output
+			(at 226.06 90.17 180)
+			(uuid "25e70d58-fc27-4f36-bcf7-24360d57bff2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ADC1" output
+			(at 226.06 82.55 180)
+			(uuid "35c05ea3-71b0-4d47-a314-671934053555")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TIM8" input
+			(at 226.06 67.31 180)
+			(uuid "b383a32a-08aa-4ff2-9e93-55d953d8a532")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TIM2" input
+			(at 226.06 44.45 180)
+			(uuid "ffe2e019-b5eb-4648-bbb0-f9713dcd3d6c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TIM15" input
+			(at 226.06 74.93 180)
+			(uuid "f1a80a1a-05f1-4210-8e30-db719392168f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TIM3" input
+			(at 226.06 52.07 180)
+			(uuid "27779657-9032-4454-bf38-88ca4e0a1b70")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da"
@@ -600,6 +858,136 @@
 				(justify left top)
 			)
 		)
+		(pin "Encoder" input
+			(at 129.54 114.3 180)
+			(uuid "6d8f7136-a3a0-4720-ae4d-e0aa06954f7b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TIM1" output
+			(at 184.15 35.56 0)
+			(uuid "dee14d49-9673-42df-8d36-de5396d464e5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB" input
+			(at 129.54 34.29 180)
+			(uuid "a690302f-ae71-4180-aeb5-d051969b330a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TIM15" output
+			(at 184.15 74.93 0)
+			(uuid "d61c16b5-5edc-46b8-a297-4186c9dd8cd0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ADC1" input
+			(at 184.15 82.55 0)
+			(uuid "882c6614-b262-41d4-b0ea-31d82df50864")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ADC2" input
+			(at 184.15 90.17 0)
+			(uuid "d597d134-f5f6-4024-87ee-ff0a5613136f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TIM2" output
+			(at 184.15 44.45 0)
+			(uuid "d66a7b22-8b87-4dce-a482-c9c788303a30")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TIM8" output
+			(at 184.15 67.31 0)
+			(uuid "a81e8fab-22c4-49c8-9e76-eada6465eb0f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TIM3" output
+			(at 184.15 52.07 0)
+			(uuid "7e076586-2fe9-4fff-a014-4c43fee15619")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OLED" output
+			(at 129.54 102.87 180)
+			(uuid "3bd7729f-8ad9-4b08-821c-6bb4b19556f4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ADC3" input
+			(at 184.15 97.79 0)
+			(uuid "123cb073-52fb-45d3-a4e2-7f9cbd7f3916")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TIM4" output
+			(at 184.15 59.69 0)
+			(uuid "55061259-d02b-4e09-b2ff-818f91db88f8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "FUSE" input
+			(at 129.54 43.18 180)
+			(uuid "4f3dc5ec-6109-481a-bbbb-d69a80449ad6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da"
@@ -640,6 +1028,26 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "USB" output
+			(at 87.63 34.29 0)
+			(uuid "d3f485c9-28b6-4c7b-a57f-290410f803b0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "FUSE" output
+			(at 87.63 43.18 0)
+			(uuid "94d22526-d23f-491a-8290-ceec8c3cfc1e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(instances
