@@ -56,6 +56,11 @@
           "gap": 0.0,
           "via_gap": 0.0,
           "width": 0.0
+        },
+        {
+          "gap": 0.3,
+          "via_gap": 0.5,
+          "width": 0.3
         }
       ],
       "drc_exclusions": [],
@@ -123,8 +128,8 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.15,
-        "min_connection": 0.1,
+        "min_clearance": 0.13,
+        "min_connection": 0.13,
         "min_copper_edge_clearance": 0.5,
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.15,
@@ -133,12 +138,12 @@
         "min_microvia_drill": 0.1,
         "min_resolved_spokes": 2,
         "min_silk_clearance": 0.0,
-        "min_text_height": 0.8,
+        "min_text_height": 0.9,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.15,
-        "min_track_width": 0.15,
-        "min_via_annular_width": 0.15,
-        "min_via_diameter": 0.3,
+        "min_through_hole_diameter": 0.18,
+        "min_track_width": 0.13,
+        "min_via_annular_width": 0.18,
+        "min_via_diameter": 0.36,
         "solder_mask_to_copper_clearance": 0.0,
         "use_height_for_length_calcs": true
       },
@@ -188,10 +193,10 @@
       ],
       "track_widths": [
         0.0,
-        0.1,
         0.2,
         0.3,
-        0.4
+        0.4,
+        0.5
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
@@ -223,6 +228,14 @@
         {
           "diameter": 0.0,
           "drill": 0.0
+        },
+        {
+          "diameter": 0.36,
+          "drill": 0.18
+        },
+        {
+          "diameter": 0.5,
+          "drill": 0.2
         },
         {
           "diameter": 0.7,
@@ -704,7 +717,7 @@
     ],
     [
       "36fe7d56-cf73-41f9-a092-e3a444c4baa1",
-      "DC-DC Buck"
+      "DC-DC Buck 12V"
     ],
     [
       "4e0619fb-b7ea-493d-b159-72357478fd6a",
@@ -717,6 +730,10 @@
     [
       "06fc0479-8689-4cb4-a79c-3be1a916c977",
       "IDC Pin Headers"
+    ],
+    [
+      "60730f3c-4c31-4453-b3b1-4c8eaf1dfd2c",
+      "DC-DC Buck 5V"
     ]
   ],
   "text_variables": {}

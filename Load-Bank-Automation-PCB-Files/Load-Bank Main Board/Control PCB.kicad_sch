@@ -349,7 +349,7 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -360,14 +360,14 @@
 				(pin input line
 					(at 12.7 2.54 180)
 					(length 2.54)
-					(name "SCL"
+					(name "SDA"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "2"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -378,7 +378,7 @@
 				(pin input line
 					(at 12.7 -2.54 180)
 					(length 2.54)
-					(name "SDA"
+					(name "SCL"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1557,7 +1557,7 @@
 		)
 		(uuid "4825c3ca-4e74-4e3b-8e9f-595526dfda6d")
 	)
-	(label "OLED.SCL"
+	(label "OLED.SDA"
 		(at 243.84 92.71 0)
 		(effects
 			(font
@@ -1605,7 +1605,7 @@
 		)
 		(uuid "99d03a97-7b27-4a2a-b279-1deebd0b2cc9")
 	)
-	(label "OLED.SDA"
+	(label "OLED.SCL"
 		(at 264.16 97.79 0)
 		(effects
 			(font
@@ -1820,75 +1820,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 161.29 96.52 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "2fdc040d-1b0b-490d-9dd5-b9d9a404fca7")
-		(property "Reference" "C36"
-			(at 163.83 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100n"
-			(at 163.83 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
-			(at 162.2552 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.digikey.ca/en/products/detail/kemet/C1206C104K5RACAUTO/3315001"
-			(at 161.29 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 161.29 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "71aa9d4d-a5e2-4222-959e-e44a023852f8")
-		)
-		(pin "2"
-			(uuid "3ac8b2f1-6f69-46fe-9ba9-c4b9f22fb797")
-		)
-		(instances
-			(project "Main Board"
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/098917f9-994d-45ba-beb3-3a9b578fdb8f"
-					(reference "C36")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Display_Graphic:1306_OLED_Display")
 		(at 217.17 95.25 0)
 		(unit 1)
@@ -1950,7 +1881,7 @@
 		(pin "3"
 			(uuid "b0ac4294-be67-49f5-a218-79b13fb4f789")
 		)
-		(pin "1"
+		(pin "4"
 			(uuid "5cce7530-5a3a-4aa4-ac68-8f8dbf5b5ba4")
 		)
 		(instances
@@ -2824,6 +2755,75 @@
 			(project ""
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/098917f9-994d-45ba-beb3-3a9b578fdb8f"
 					(reference "#PWR072")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 161.29 96.52 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ff728f50-c0d5-4555-bce1-7f9b7de6c53c")
+		(property "Reference" "C36"
+			(at 163.83 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 163.83 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 162.2552 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 161.29 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 161.29 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "66da7e41-f72b-437b-a550-958a2d3ee420")
+		)
+		(pin "2"
+			(uuid "c26537c7-7cd7-4ba4-a742-1d10b0cd468d")
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/098917f9-994d-45ba-beb3-3a9b578fdb8f"
+					(reference "C36")
 					(unit 1)
 				)
 			)
