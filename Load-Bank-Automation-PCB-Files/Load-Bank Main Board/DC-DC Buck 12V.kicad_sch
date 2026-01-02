@@ -1252,6 +1252,16 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 66.04) (xy 106.68 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1a38612f-6afd-4d2c-b7ae-3ea2802e03c7")
+	)
+	(wire
+		(pts
 			(xy 147.32 52.07) (xy 127 52.07)
 		)
 		(stroke
@@ -1299,16 +1309,6 @@
 			(type default)
 		)
 		(uuid "2402ce9d-ca9e-4dcc-a64d-398c9834af5e")
-	)
-	(wire
-		(pts
-			(xy 106.68 67.31) (xy 106.68 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "24f7e3d6-f139-4ea9-8f50-267ce00fa529")
 	)
 	(wire
 		(pts
@@ -1469,6 +1469,16 @@
 			(type default)
 		)
 		(uuid "604a561f-195b-4cd9-a603-c26eb1c4012b")
+	)
+	(wire
+		(pts
+			(xy 106.68 73.66) (xy 106.68 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "635c7bf1-1858-4cf4-b5d1-a46acc01d17e")
 	)
 	(wire
 		(pts
@@ -1859,16 +1869,6 @@
 			(type default)
 		)
 		(uuid "f1feaa13-a849-43a7-a54a-4b5253a8959b")
-	)
-	(wire
-		(pts
-			(xy 106.68 72.39) (xy 106.68 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f4e9241f-ea21-4876-8568-a2d043504a58")
 	)
 	(wire
 		(pts
@@ -2750,6 +2750,76 @@
 	)
 	(symbol
 		(lib_id "Device:C")
+		(at 106.68 69.85 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5c2c6039-1def-4eff-953e-2ceff4c458b6")
+		(property "Reference" "C4"
+			(at 104.14 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 104.14 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 105.7148 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 106.68 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 106.68 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b5184f79-4156-464f-9c81-e7fffd94a832")
+		)
+		(pin "2"
+			(uuid "bfc9ee1a-0633-4a19-8a9b-6d78247bdb2f")
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/36fe7d56-cf73-41f9-a092-e3a444c4baa1"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
 		(at 173.99 52.07 0)
 		(mirror y)
 		(unit 1)
@@ -3086,77 +3156,6 @@
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/36fe7d56-cf73-41f9-a092-e3a444c4baa1"
 					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Small")
-		(at 106.68 69.85 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fd96bcb1-da38-4efe-8f3e-2332b42a5212")
-		(property "Reference" "C4"
-			(at 104.14 68.5862 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100n"
-			(at 104.14 71.1262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
-			(at 106.68 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.digikey.ca/en/products/detail/kemet/C1206C104K5RACAUTO/3315001"
-			(at 106.68 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 106.68 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "752a3ad2-c356-46ac-a88e-caab96321a2f")
-		)
-		(pin "1"
-			(uuid "8dd53e11-d01c-419e-ae1a-a31d86632ba3")
-		)
-		(instances
-			(project "Main Board"
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/36fe7d56-cf73-41f9-a092-e3a444c4baa1"
-					(reference "C4")
 					(unit 1)
 				)
 			)

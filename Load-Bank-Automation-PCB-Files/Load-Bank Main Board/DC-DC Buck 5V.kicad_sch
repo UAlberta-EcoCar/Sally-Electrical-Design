@@ -1264,16 +1264,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 67.31) (xy 106.68 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "24f7e3d6-f139-4ea9-8f50-267ce00fa529")
-	)
-	(wire
-		(pts
 			(xy 187.96 67.31) (xy 187.96 68.58)
 		)
 		(stroke
@@ -1444,6 +1434,16 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 66.04) (xy 106.68 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "798b1825-b919-447f-8d8d-cabea9c075bc")
+	)
+	(wire
+		(pts
 			(xy 162.56 48.26) (xy 173.99 48.26)
 		)
 		(stroke
@@ -1551,6 +1551,16 @@
 			(type default)
 		)
 		(uuid "a0334a22-ff36-417e-a368-94c1974b86e1")
+	)
+	(wire
+		(pts
+			(xy 106.68 73.66) (xy 106.68 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1d9655d-56c0-4745-940c-70b2579e176a")
 	)
 	(wire
 		(pts
@@ -1731,16 +1741,6 @@
 			(type default)
 		)
 		(uuid "f1feaa13-a849-43a7-a54a-4b5253a8959b")
-	)
-	(wire
-		(pts
-			(xy 106.68 72.39) (xy 106.68 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f4e9241f-ea21-4876-8568-a2d043504a58")
 	)
 	(wire
 		(pts
@@ -2251,6 +2251,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 106.68 69.85 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "82507b30-1e11-43f5-ad9a-ceaec60666d9")
+		(property "Reference" "C21"
+			(at 104.14 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 104.14 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 105.7148 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 106.68 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 106.68 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "64d3b13b-cbdc-423b-a0d1-b4f252a2f546")
+		)
+		(pin "2"
+			(uuid "e1ee3314-ff59-4523-a59b-b481ee89a4cf")
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/60730f3c-4c31-4453-b3b1-4c8eaf1dfd2c"
+					(reference "C21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 116.84 55.88 0)
 		(mirror y)
@@ -2541,77 +2611,6 @@
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/60730f3c-4c31-4453-b3b1-4c8eaf1dfd2c"
 					(reference "C37")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Small")
-		(at 106.68 69.85 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bf3d3c26-6737-40ba-a943-a8dcda4ace4d")
-		(property "Reference" "C38"
-			(at 104.14 68.5862 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100n"
-			(at 104.14 71.1262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
-			(at 106.68 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.digikey.ca/en/products/detail/kemet/C1206C104K5RACAUTO/3315001"
-			(at 106.68 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 106.68 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "c7425780-6c93-4e38-8439-1dad26498c2f")
-		)
-		(pin "1"
-			(uuid "d7c621ea-ee96-48bb-a401-256beb004e19")
-		)
-		(instances
-			(project "Main Board"
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/60730f3c-4c31-4453-b3b1-4c8eaf1dfd2c"
-					(reference "C38")
 					(unit 1)
 				)
 			)
