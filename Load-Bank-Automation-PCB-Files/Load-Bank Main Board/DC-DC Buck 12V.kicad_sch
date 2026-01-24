@@ -677,7 +677,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Regulator_Switching:TPS62933F"
+		(symbol "Regulator_Switching:TPS62933"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -689,7 +689,7 @@
 					)
 				)
 			)
-			(property "Value" "TPS62933F"
+			(property "Value" "TPS62933"
 				(at 0 11.43 0)
 				(effects
 					(font
@@ -715,7 +715,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "3.8-30V, 3A Synchronous Buck Converters with forced continuous conduction mode (FCCM), SOT583-8"
+			(property "Description" "3.8-30V, 3A Synchronous Buck Converters with pulse frequency modulation (PFM), SOT583-8"
 				(at 0 0 0)
 				(effects
 					(font
@@ -724,7 +724,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "synchronous buck converter forced continuous conduction mode"
+			(property "ki_keywords" "synchronous buck converter pulse frequency modulation"
 				(at 0 0 0)
 				(effects
 					(font
@@ -742,7 +742,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "TPS62933F_0_1"
+			(symbol "TPS62933_0_1"
 				(rectangle
 					(start -5.08 10.16)
 					(end 5.08 -10.16)
@@ -755,7 +755,7 @@
 					)
 				)
 			)
-			(symbol "TPS62933F_1_1"
+			(symbol "TPS62933_1_1"
 				(pin power_in line
 					(at -7.62 7.62 0)
 					(length 2.54)
@@ -1039,7 +1039,7 @@
 		)
 		(uuid "23c25bba-b942-48f2-810a-08c745c7d792")
 	)
-	(text "V_{IN_MAX} = 30 V\nV_{UVLO(Rise)} = 15 V\nI_{OUT_MAX} = 2.5 A\nt_{SS} = 26.1 ms\nf_{sw} = 389 KHz\n"
+	(text "V_{IN_MAX} = 28 V\nV_{UVLO(Rise)} = 15 V\nI_{OUT_MAX} = 2 A\nt_{SS} = 32 ms\nf_{sw} = 1761.45 KHz\n"
 		(exclude_from_sim no)
 		(at 78.232 111.506 0)
 		(effects
@@ -1071,16 +1071,6 @@
 			)
 		)
 		(uuid "556cee29-8d03-474c-aed3-496457111892")
-	)
-	(text "Link 2: https://webench.ti.com/appinfo/webench/scripts/SDP.cgi?ID=E552D0ADE2C151FA"
-		(exclude_from_sim no)
-		(at 120.65 125.222 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "6ffda50a-33df-429b-848c-c58b76d83b69")
 	)
 	(text "Notes"
 		(exclude_from_sim no)
@@ -1910,7 +1900,7 @@
 		)
 		(uuid "ff031c21-c18e-4806-806a-0cbc083520af")
 	)
-	(hierarchical_label "Protected_18V"
+	(hierarchical_label "Protected_19V"
 		(shape input)
 		(at 92.71 49.53 180)
 		(effects
@@ -2145,7 +2135,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "180n"
+		(property "Value" "220n"
 			(at 127 71.1199 0)
 			(effects
 				(font
@@ -2215,7 +2205,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "56.2k"
+		(property "Value" "11.3k"
 			(at 146.05 71.1199 0)
 			(effects
 				(font
@@ -2284,7 +2274,7 @@
 				)
 			)
 		)
-		(property "Value" "15u"
+		(property "Value" "3u3"
 			(at 181.61 54.61 90)
 			(effects
 				(font
@@ -2329,6 +2319,92 @@
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/36fe7d56-cf73-41f9-a092-e3a444c4baa1"
 					(reference "L1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Regulator_Switching:TPS62933")
+		(at 154.94 57.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3989ad6c-fc91-4806-bbbc-26725adc5314")
+		(property "Reference" "U9"
+			(at 154.94 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TPS62933"
+			(at 154.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-583-8"
+			(at 154.94 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps62933.pdf"
+			(at 154.94 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "3.8-30V, 3A Synchronous Buck Converters with pulse frequency modulation (PFM), SOT583-8"
+			(at 154.94 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "3c4457f3-b1d1-4f50-9f2f-0b071a2347d5")
+		)
+		(pin "3"
+			(uuid "b5e2ddec-d15e-4e87-b3b1-bdc6ebb332c8")
+		)
+		(pin "4"
+			(uuid "2945eafc-3f6e-4156-bf70-4f314b437893")
+		)
+		(pin "1"
+			(uuid "1ac64fa7-f45f-4c51-ac9f-b58ea1b5f51f")
+		)
+		(pin "5"
+			(uuid "84e959f8-5dfb-40ca-b7c0-faaa33121d1f")
+		)
+		(pin "8"
+			(uuid "78b21548-1217-4dc3-ade1-23ae72626a74")
+		)
+		(pin "7"
+			(uuid "81619440-34d9-4ec8-b1b2-71f8198f77dd")
+		)
+		(pin "2"
+			(uuid "27c2955d-03de-4e21-a3b6-b4946eddf5ed")
+		)
+		(instances
+			(project ""
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/36fe7d56-cf73-41f9-a092-e3a444c4baa1"
+					(reference "U9")
 					(unit 1)
 				)
 			)
@@ -2423,7 +2499,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "60.4k"
+		(property "Value" "30.1k"
 			(at 114.3 72.3899 0)
 			(effects
 				(font
@@ -2673,92 +2749,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Switching:TPS62933F")
-		(at 154.94 57.15 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4c857716-3a20-48f4-b2f3-c62629843691")
-		(property "Reference" "U6"
-			(at 154.94 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TPS62933F"
-			(at 154.94 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-583-8"
-			(at 154.94 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps62933.pdf"
-			(at 154.94 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "3.8-30V, 3A Synchronous Buck Converters with forced continuous conduction mode (FCCM), SOT583-8"
-			(at 154.94 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "37bcfd97-29b1-4597-ab3d-ca331be11ade")
-		)
-		(pin "4"
-			(uuid "305d97c4-a6f1-4780-8ac3-2a23554ce05c")
-		)
-		(pin "7"
-			(uuid "a4e4f2bf-c821-475c-9e29-2386c1ae28dd")
-		)
-		(pin "5"
-			(uuid "c69b0707-75cb-4bcf-8dca-c9ed7db627cb")
-		)
-		(pin "3"
-			(uuid "1c6144b3-f20a-4661-8031-acb8d32f1c00")
-		)
-		(pin "6"
-			(uuid "6683e5c6-ddb5-4a78-a950-83f1ce18223c")
-		)
-		(pin "8"
-			(uuid "a97785c3-92fc-47fc-a834-467eacbbbef1")
-		)
-		(pin "1"
-			(uuid "ec3e960a-a1fb-4b50-8ef0-a20502c229e3")
-		)
-		(instances
-			(project "Main Board"
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/36fe7d56-cf73-41f9-a092-e3a444c4baa1"
-					(reference "U6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 106.68 69.85 0)
 		(mirror y)
@@ -2987,7 +2977,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "698k"
+		(property "Value" "348k"
 			(at 114.3 57.1499 0)
 			(effects
 				(font
