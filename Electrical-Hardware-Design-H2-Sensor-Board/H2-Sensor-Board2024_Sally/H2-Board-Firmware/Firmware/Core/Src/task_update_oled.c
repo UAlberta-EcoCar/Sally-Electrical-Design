@@ -115,7 +115,7 @@ void StartUpdateOLEDTask(void *argument) {
 			break;
 		}
 
-		ssd1306_WriteString(screen_text, Font_7x10, current_color);
+		ssd1306_WriteString(screen_text, Font_6x8, current_color);
 
 		ssd1306_UpdateScreen();
 
