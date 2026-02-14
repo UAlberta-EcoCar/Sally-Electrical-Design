@@ -69,8 +69,8 @@ all: main-build
 main-build: FirmwareRBT.elf secondary-outputs
 
 # Tool invocations
-FirmwareRBT.elf FirmwareRBT.map: $(OBJS) $(USER_OBJS) C:\Users\abina\Desktop\side\EcoCar\H2BoardSally\Electrical-Hardware-Design-H2-Sensor-Board\H2-Sensor-Board2024_Sally\H2-Board-Firmware\FirmwareRBT\STM32G474RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "FirmwareRBT.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\abina\Desktop\side\EcoCar\H2BoardSally\Electrical-Hardware-Design-H2-Sensor-Board\H2-Sensor-Board2024_Sally\H2-Board-Firmware\FirmwareRBT\STM32G474RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FirmwareRBT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+FirmwareRBT.elf FirmwareRBT.map: $(OBJS) $(USER_OBJS) F:\EcoCar\H2-Sensor-Sally\Electrical-Hardware-Design-H2-Sensor-Board\H2-Sensor-Board2024_Sally\H2-Board-Firmware\FirmwareRBT\STM32G474RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "FirmwareRBT.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\EcoCar\H2-Sensor-Sally\Electrical-Hardware-Design-H2-Sensor-Board\H2-Sensor-Board2024_Sally\H2-Board-Firmware\FirmwareRBT\STM32G474RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FirmwareRBT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

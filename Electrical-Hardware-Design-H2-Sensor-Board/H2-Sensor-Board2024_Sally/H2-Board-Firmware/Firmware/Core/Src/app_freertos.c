@@ -322,16 +322,16 @@ __weak void StartLeakWatchdogTask(void *argument)
 * @retval None
 */
 /* USER CODE END Header_StartCANTransmitTask */
-//__weak void StartCANTransmitTask(void *argument)
-//{
-//  /* USER CODE BEGIN StartCANTransmitTask */
+__weak void StartCANTransmitTask(void *argument)
+{
+  /* USER CODE BEGIN StartCANTransmitTask */
 //  /* Infinite loop */
 //  for(;;)
 //  {
 //    osDelay(1);
 //  }
-//  /* USER CODE END StartCANTransmitTask */
-//}
+  /* USER CODE END StartCANTransmitTask */
+}
 
 /* USER CODE BEGIN Header_StartCANRecieve */
 /**
