@@ -1,21 +1,21 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.h
+ * @brief          : Header for main.c file.
+ *                   This file contains the common defines of the application.
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -31,11 +31,50 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <FreeRTOS.h>
 
+#include "cmsis_os.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+
+typedef struct {
+	uint16_t h2_sense1_ppm;
+	uint16_t h2_sense2_ppm;
+	uint16_t h2_sense3_ppm;
+	uint16_t h2_sense4_ppm;
+
+	uint16_t h2_sense1_mV;
+	uint16_t h2_sense2_mV;
+	uint16_t h2_sense3_mV;
+	uint16_t h2_sense4_mV;
+
+	uint16_t IMON_7V_mA;
+	uint16_t IMON_12V_mA;
+
+	uint16_t humidity_per;
+	uint16_t temprature_C;
+	uint16_t pressure_hPa;
+
+	uint16_t mcu_temp_C;
+	uint16_t vbat_mV;
+	uint16_t vref_mV;
+} Sensor_Data_t;
+
+extern Sensor_Data_t sensor_data;
+
+typedef enum {
+	H2_ALARM_TRIGGERED,
+	H2_ALARM_ARMED,
+	H2_ALARM_DISARMED,
+	H2_ALARM_TRIGGERED_SILENT,
+	H2_ALARM_TEST
+} H2_Alarm_State_t;
+
+extern H2_Alarm_State_t alarm_state;
+
+extern osSemaphoreId_t H2AlarmSemHandle;
 
 /* USER CODE END ET */
 
@@ -118,6 +157,8 @@ void Error_Handler(void);
 #define PD2_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
+
+#define HARDFAULT_TIMER 500000
 
 /* USER CODE END Private defines */
 

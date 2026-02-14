@@ -9,15 +9,15 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include lib/EcoLib/ecocan/subdir.mk
+-include lib/EcoLib/drivers/ssd1306/src/subdir.mk
+-include lib/EcoLib/drivers/bme280/subdir.mk
+-include lib/EcoLib/drivers/MQ8/subdir.mk
+-include lib/EcoLib/drivers/EEPROM-Emulator/Src/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
--include EcoLib/ecocan/subdir.mk
--include EcoLib/drivers/ssd1306/src/subdir.mk
--include EcoLib/drivers/bme280/subdir.mk
--include EcoLib/drivers/MQ8/subdir.mk
--include EcoLib/drivers/EEPROM-Emulator/Src/subdir.mk
 -include Drivers/STM32G4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk

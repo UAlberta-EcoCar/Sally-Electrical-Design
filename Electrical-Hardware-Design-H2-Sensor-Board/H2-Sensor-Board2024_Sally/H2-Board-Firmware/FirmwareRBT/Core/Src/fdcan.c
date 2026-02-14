@@ -1,21 +1,21 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file    fdcan.c
-  * @brief   This file provides code for the configuration
-  *          of the FDCAN instances.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    fdcan.c
+ * @brief   This file provides code for the configuration
+ *          of the FDCAN instances.
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2026 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "fdcan.h"
@@ -60,7 +60,68 @@ void MX_FDCAN2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN FDCAN2_Init 2 */
+	// Setup filters
+	FDCAN_FilterTypeDef sFilterConfig;
 
+	// Accept high priority messages
+	sFilterConfig.IdType = FDCAN_STANDARD_ID;
+	sFilterConfig.FilterIndex = 0;
+	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+	sFilterConfig.FilterID1 = 0x00F; // 0b00000000000
+	sFilterConfig.FilterID2 = 0x7FF; // 0b11111110000
+	if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+		/* Filter configuration Error */
+		Error_Handler();
+	}
+
+	// Accept messages from Fuel Cell Controller
+	//	sFilterConfig.IdType = FDCAN_STANDARD_ID;
+	//	sFilterConfig.FilterIndex = 1;
+	//	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+	//	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+	//	sFilterConfig.FilterID1 = 0x020; // 0b00000100000
+	//	sFilterConfig.FilterID2 = 0x7F0; // 0b11111110000
+	//	if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+	//		/* Filter configuration Error */
+	//		Error_Handler();
+	//	}
+
+	// Accept messages from Fuel Cell Controller
+	sFilterConfig.IdType = FDCAN_STANDARD_ID;
+	sFilterConfig.FilterIndex = 0;
+	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+	sFilterConfig.FilterID1 = 0x000; // 0b00000100000
+	sFilterConfig.FilterID2 = 0x000; // 0b11111110000
+	if (HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig) != HAL_OK) {
+		/* Filter configuration Error */
+		Error_Handler();
+	}
+
+	if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT,
+	FDCAN_REJECT, FDCAN_REJECT) != HAL_OK) {
+		Error_Handler();
+	}
+
+	if (HAL_FDCAN_ConfigTxDelayCompensation(&hfdcan2,
+			hfdcan2.Init.DataTimeSeg1 * hfdcan2.Init.DataPrescaler, 0)
+			!= HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_FDCAN_EnableTxDelayCompensation(&hfdcan2) != HAL_OK) {
+		Error_Handler();
+	}
+
+	/* START FDCAN PERIPHERAL */
+	if (HAL_FDCAN_Start(&hfdcan2) != HAL_OK) {
+		Error_Handler();
+	}
+
+	if (HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
+			0) != HAL_OK) {
+		Error_Handler();
+	}
   /* USER CODE END FDCAN2_Init 2 */
 
 }
@@ -79,7 +140,7 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
   /** Initializes the peripherals clocks
   */
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_FDCAN;
-    PeriphClkInit.FdcanClockSelection = RCC_FDCANCLKSOURCE_PCLK1;
+    PeriphClkInit.FdcanClockSelection = RCC_FDCANCLKSOURCE_HSE;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
     {
       Error_Handler();

@@ -25,13 +25,13 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Drivers/STM32G4xx_HAL_Driver/Src \
-EcoLib/drivers/EEPROM-Emulator/Src \
-EcoLib/drivers/MQ8 \
-EcoLib/drivers/bme280 \
-EcoLib/drivers/ssd1306/src \
-EcoLib/ecocan \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
 Middlewares/Third_Party/FreeRTOS/Source \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang \
+lib/EcoLib/drivers/EEPROM-Emulator/Src \
+lib/EcoLib/drivers/MQ8 \
+lib/EcoLib/drivers/bme280 \
+lib/EcoLib/drivers/ssd1306/src \
+lib/EcoLib/ecocan \
 

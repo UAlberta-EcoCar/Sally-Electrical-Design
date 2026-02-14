@@ -38,10 +38,6 @@
         * Output
         * EVENT_OUT
         * EXTI
-     PA1   ------> COMP1_INP
-     PA7   ------> COMP2_INP
-     PB11   ------> COMP6_INP
-     PB14   ------> COMP7_INP
 */
 void MX_GPIO_Init(void)
 {
@@ -92,18 +88,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPLED3_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : H2_COMP4_Pin H2_COMP2_Pin */
-  GPIO_InitStruct.Pin = H2_COMP4_Pin|H2_COMP2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : H2_COMP1_Pin H2_COMP3_Pin */
-  GPIO_InitStruct.Pin = H2_COMP1_Pin|H2_COMP3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : H2_TARE_Pin GPBTN2_Pin */
   GPIO_InitStruct.Pin = H2_TARE_Pin|GPBTN2_Pin;
