@@ -285,6 +285,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 			// Trigger a FET state change
 			SET_BIT(button_flags, 0x01);
 		}
+		break;
 	case BTN1_Pin: // GPA
 		ticks = osKernelGetTickCount();
 		if (ticks - lastTicks >= 1000) {
@@ -314,7 +315,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 		} //"confirms" the purge timers
 
-		break;
+		break; // Changed by abi, cuz this wasnt documented why it was missing.
 	case FCPurge_Pin: // GPB
 		ticks_boot = osKernelGetTickCount();
 		if (ticks_boot - lastTicks_boot >= 1000) {
