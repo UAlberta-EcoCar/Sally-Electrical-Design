@@ -1,4 +1,20 @@
-# EcoCar Sally Prototype
-***This is the official repository for the 2024-2025 EcoCar prototype, Sally***
+# Branch for the original FOC-BOARD
 
-Much of the systems of this vehicle will build on the innovations implemented in Lucy. Utilizing CANbus, we can easily add more modules to our overall system. We will also be employing power distribution networks alongside CANbus as to create a more intensively modular system.
+Source code is located inside V1/FOC_SRC_V1
+
+
+Requires an old version of the EcoLib library, commit 94ffce4bc8a825c5a0118c5b93ddb2c2b792317b.
+## Setup
+1. Move inside V1/FOC_SRC_V1
+```bash
+cd V1/FOC_SRC_V1
+```
+2. Run the setup script
+```bash
+bash setup.sh
+```
+3. Run makefile to flash to device
+```bash
+make all
+make flash
+```
