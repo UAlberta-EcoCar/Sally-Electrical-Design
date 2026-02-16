@@ -63,6 +63,10 @@ void Error_Handler(void);
 #define CAN_SYNC_GPIO_Port GPIOA
 #define ADC_VA_Pin GPIO_PIN_3
 #define ADC_VA_GPIO_Port GPIOA
+#define PIN1_Pin GPIO_PIN_4
+#define PIN1_GPIO_Port GPIOA
+#define PIN2_Pin GPIO_PIN_5
+#define PIN2_GPIO_Port GPIOA
 #define PWM1A_Pin GPIO_PIN_6
 #define PWM1A_GPIO_Port GPIOA
 #define PWM1B_Pin GPIO_PIN_7
@@ -75,6 +79,8 @@ void Error_Handler(void);
 #define PHB_GPIO_Port GPIOA
 #define NSTBY_Pin GPIO_PIN_10
 #define NSTBY_GPIO_Port GPIOA
+#define PIN3_Pin GPIO_PIN_15
+#define PIN3_GPIO_Port GPIOA
 #define ENB_Pin GPIO_PIN_3
 #define ENB_GPIO_Port GPIOB
 #define ENA_Pin GPIO_PIN_4
