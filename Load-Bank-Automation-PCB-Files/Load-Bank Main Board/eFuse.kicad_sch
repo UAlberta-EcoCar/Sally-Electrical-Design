@@ -998,7 +998,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "11"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1545,6 +1545,12 @@
 		(uuid "cf1b255e-efc7-4a2f-8aed-608906566066")
 	)
 	(junction
+		(at 81.28 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d36f1c9e-e7b4-47fd-88f1-6fa0cc61299f")
+	)
+	(junction
 		(at 92.71 50.8)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1573,6 +1579,16 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fddaa3e9-24d3-4b04-b2e6-de20c10784e9")
+	)
+	(wire
+		(pts
+			(xy 81.28 72.39) (xy 81.28 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "01af6764-c4df-4127-b64f-8153bdd2134b")
 	)
 	(wire
 		(pts
@@ -1673,6 +1689,16 @@
 			(type default)
 		)
 		(uuid "2800b4f8-54ab-43a1-bb6e-478faa1bd444")
+	)
+	(wire
+		(pts
+			(xy 76.2 72.39) (xy 81.28 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29bfdfb9-044f-4a75-9f4e-e46df693212a")
 	)
 	(wire
 		(pts
@@ -2266,7 +2292,7 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 66.04) (xy 81.28 85.09)
+			(xy 81.28 66.04) (xy 81.28 72.39)
 		)
 		(stroke
 			(width 0)
@@ -3016,7 +3042,7 @@
 		(pin "10"
 			(uuid "2fb548b8-7f56-48e7-9e20-6c42fcd57f8d")
 		)
-		(pin ""
+		(pin "11"
 			(uuid "95f9eb82-9725-4a32-85dd-42629905e9aa")
 		)
 		(pin "6"
@@ -3191,7 +3217,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "301e535a-e695-4d1a-bab8-69bf03085f3f")
-		(property "Reference" "TP2"
+		(property "Reference" "TP5"
 			(at 151.13 45.7199 90)
 			(effects
 				(font
@@ -3242,7 +3268,7 @@
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
-					(reference "TP2")
+					(reference "TP5")
 					(unit 1)
 				)
 			)
@@ -3308,6 +3334,71 @@
 			(project ""
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
 					(reference "#PWR046")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 76.2 72.39 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3d59523c-cab5-42c1-9e20-e417ea148fa2")
+		(property "Reference" "TP2"
+			(at 74.168 70.612 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 66.802 72.644 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 76.2 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 76.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ea374c7c-2918-445f-ab68-3570900f4f17")
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -3458,7 +3549,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4d315722-3ffd-4719-9fb7-2b1d89b77cb9")
-		(property "Reference" "TP6"
+		(property "Reference" "TP4"
 			(at 96.012 79.756 90)
 			(effects
 				(font
@@ -3508,7 +3599,7 @@
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
-					(reference "TP6")
+					(reference "TP4")
 					(unit 1)
 				)
 			)
@@ -3664,7 +3755,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "679acff0-c7bf-42fd-bb60-32c5f6cd68a2")
-		(property "Reference" "TP4"
+		(property "Reference" "TP6"
 			(at 151.13 54.6099 90)
 			(effects
 				(font
@@ -3715,7 +3806,7 @@
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
-					(reference "TP4")
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -3936,7 +4027,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "90e80649-42bc-491e-a7f1-2082940cbcff")
-		(property "Reference" "TP5"
+		(property "Reference" "TP3"
 			(at 85.598 68.072 90)
 			(effects
 				(font
@@ -3986,7 +4077,7 @@
 		(instances
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/4e0619fb-b7ea-493d-b159-72357478fd6a"
-					(reference "TP5")
+					(reference "TP3")
 					(unit 1)
 				)
 			)
