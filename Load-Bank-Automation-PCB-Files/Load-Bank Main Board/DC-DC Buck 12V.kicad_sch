@@ -541,22 +541,20 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
-				(at -7.62 6.35 0)
+			(property "Reference" "U6"
+				(at 0 10.16 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "TPS56339DDC"
-				(at -2.54 6.35 0)
+			(property "Value" "TPS560430YQDBVRQ1"
+				(at 0 7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
@@ -569,7 +567,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps56339.pdf"
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps560430-q1.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1769650355380&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Ftps560430-q1"
 				(at 0 0 0)
 				(effects
 					(font
@@ -578,7 +576,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "4.5V to 24V Input, 3-A Output Synchronous Buck Converter, SOT-23-6"
+			(property "Description" "4V to 36V Input, 600-mA Output Synchronous Buck Converter, SOT-23-6"
 				(at 0 0 0)
 				(effects
 					(font
@@ -629,7 +627,7 @@
 							)
 						)
 					)
-					(number "3"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -647,7 +645,7 @@
 							)
 						)
 					)
-					(number "5"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -665,7 +663,7 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -683,7 +681,7 @@
 							)
 						)
 					)
-					(number "2"
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -694,14 +692,14 @@
 				(pin passive line
 					(at 10.16 0 180)
 					(length 2.54)
-					(name "BOOT"
+					(name "CB"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -719,7 +717,7 @@
 							)
 						)
 					)
-					(number "4"
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1012,10 +1010,10 @@
 		(uuid "cec7465d-0460-422e-8d33-4f44f9212baf")
 	)
 	(junction
-		(at 110.49 49.53)
+		(at 127 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "fbc68a21-699c-4dff-ab4b-cff70ba9391a")
+		(uuid "eb63aaeb-e392-4a1f-ad5d-6fa32fc5dc26")
 	)
 	(wire
 		(pts
@@ -1059,6 +1057,16 @@
 	)
 	(wire
 		(pts
+			(xy 127 69.85) (xy 129.54 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cb710e2-50ce-4756-bbce-c327bde581af")
+	)
+	(wire
+		(pts
 			(xy 92.71 49.53) (xy 95.25 49.53)
 		)
 		(stroke
@@ -1076,16 +1084,6 @@
 			(type default)
 		)
 		(uuid "20ca1edb-017f-41e7-889d-6bc3cfcedf9f")
-	)
-	(wire
-		(pts
-			(xy 111.76 44.45) (xy 110.49 44.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "20effccc-01de-47c0-a0e2-67cf531e486d")
 	)
 	(wire
 		(pts
@@ -1116,6 +1114,16 @@
 			(type default)
 		)
 		(uuid "3919f992-564f-4744-9427-27f11059f2ca")
+	)
+	(wire
+		(pts
+			(xy 127 63.5) (xy 127 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d82ff4b-8f38-47ae-ba2c-43b47371e58d")
 	)
 	(wire
 		(pts
@@ -1179,7 +1187,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 49.53) (xy 110.49 49.53)
+			(xy 106.68 49.53) (xy 116.84 49.53)
 		)
 		(stroke
 			(width 0)
@@ -1359,16 +1367,6 @@
 	)
 	(wire
 		(pts
-			(xy 110.49 49.53) (xy 116.84 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d99996d2-22ba-4bfe-b1f8-0da7ffa019c4")
-	)
-	(wire
-		(pts
 			(xy 116.84 77.47) (xy 151.13 77.47)
 		)
 		(stroke
@@ -1446,16 +1444,6 @@
 			(type default)
 		)
 		(uuid "f1feaa13-a849-43a7-a54a-4b5253a8959b")
-	)
-	(wire
-		(pts
-			(xy 110.49 44.45) (xy 110.49 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f7661dd9-848f-400b-8805-5f4f60f9c1eb")
 	)
 	(wire
 		(pts
@@ -1769,15 +1757,15 @@
 	(symbol
 		(lib_id "Device:R")
 		(at 187.96 58.42 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "430bc853-eff7-4993-b999-b6dae97dbd11")
 		(property "Reference" "R5"
-			(at 190.5 57.1499 0)
+			(at 185.42 57.1499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1786,7 +1774,7 @@
 			)
 		)
 		(property "Value" "243k"
-			(at 190.5 59.6899 0)
+			(at 185.42 59.6899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1795,7 +1783,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric_Pad0.72x0.64mm_HandSolder"
-			(at 186.182 58.42 90)
+			(at 189.738 58.42 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1908,15 +1896,15 @@
 	(symbol
 		(lib_id "Device:R")
 		(at 187.96 71.12 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "4914469d-3190-4f37-806e-146c7f091201")
 		(property "Reference" "R6"
-			(at 190.5 69.8499 0)
+			(at 185.42 69.8499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1925,7 +1913,7 @@
 			)
 		)
 		(property "Value" "22.1k"
-			(at 190.5 72.3899 0)
+			(at 185.42 72.3899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1934,7 +1922,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric_Pad0.72x0.64mm_HandSolder"
-			(at 186.182 71.12 90)
+			(at 189.738 71.12 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2256,7 +2244,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 111.76 44.45 270)
+		(at 129.54 69.85 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2264,7 +2252,7 @@
 		(dnp no)
 		(uuid "dc70203c-1f05-4292-8bd9-97f983f7f67b")
 		(property "Reference" "TP7"
-			(at 118.364 42.926 90)
+			(at 136.144 68.326 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2272,7 +2260,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 120.904 44.704 90)
+			(at 138.684 70.104 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2280,7 +2268,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
-			(at 111.76 49.53 0)
+			(at 129.54 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2289,7 +2277,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 111.76 49.53 0)
+			(at 129.54 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2298,7 +2286,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 111.76 44.45 0)
+			(at 129.54 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)

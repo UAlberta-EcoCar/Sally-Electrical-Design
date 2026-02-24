@@ -541,22 +541,20 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
-				(at -7.62 6.35 0)
+			(property "Reference" "U6"
+				(at 0 10.16 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "TPS56339DDC"
-				(at -2.54 6.35 0)
+			(property "Value" "TPS560430YQDBVRQ1"
+				(at 0 7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
@@ -569,7 +567,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps56339.pdf"
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps560430-q1.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1769650355380&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Ftps560430-q1"
 				(at 0 0 0)
 				(effects
 					(font
@@ -578,7 +576,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "4.5V to 24V Input, 3-A Output Synchronous Buck Converter, SOT-23-6"
+			(property "Description" "4V to 36V Input, 600-mA Output Synchronous Buck Converter, SOT-23-6"
 				(at 0 0 0)
 				(effects
 					(font
@@ -629,7 +627,7 @@
 							)
 						)
 					)
-					(number "3"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -647,7 +645,7 @@
 							)
 						)
 					)
-					(number "5"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -665,7 +663,7 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -683,7 +681,7 @@
 							)
 						)
 					)
-					(number "2"
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -694,14 +692,14 @@
 				(pin passive line
 					(at 10.16 0 180)
 					(length 2.54)
-					(name "BOOT"
+					(name "CB"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -719,7 +717,7 @@
 							)
 						)
 					)
-					(number "4"
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1564,6 +1562,87 @@
 		)
 	)
 	(symbol
+		(lib_id "Regulator_Switching:TPS56339DDC")
+		(at 154.94 53.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1422a02c-a698-424c-a10e-b29bd28498c4")
+		(property "Reference" "U4"
+			(at 154.94 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TPS560430YQDBVRQ1"
+			(at 154.94 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 156.21 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps560430-q1.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1769650355380&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Ftps560430-q1"
+			(at 154.94 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4V to 36V Input, 600-mA Output Synchronous Buck Converter, SOT-23-6"
+			(at 154.94 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "c8ea3d67-777e-481e-93ef-ee376c4d38a2")
+		)
+		(pin "2"
+			(uuid "10c34de4-82f7-4e6e-b46d-0bc5fac785cc")
+		)
+		(pin "6"
+			(uuid "4cfb8664-770b-46e5-a3be-d926c377e5ff")
+		)
+		(pin "3"
+			(uuid "f606a197-d99a-463d-8b79-dd3c0b93d4b7")
+		)
+		(pin "1"
+			(uuid "2a9e469a-6603-4778-b9a7-363e93a7509c")
+		)
+		(pin "4"
+			(uuid "1373c1ec-2a7e-4592-838d-e71b518136b2")
+		)
+		(instances
+			(project "Main Board"
+				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/60730f3c-4c31-4453-b3b1-4c8eaf1dfd2c"
+					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 115.57 45.72 270)
 		(unit 1)
@@ -2168,87 +2247,6 @@
 			(project "Main Board"
 				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/60730f3c-4c31-4453-b3b1-4c8eaf1dfd2c"
 					(reference "L2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Regulator_Switching:TPS56339DDC")
-		(at 154.94 53.34 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "aca4c684-f076-4b9c-825d-c32f134efb45")
-		(property "Reference" "U4"
-			(at 154.94 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TPS560430YQDBVRQ1"
-			(at 154.94 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
-			(at 156.21 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps560430-q1.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1769650355380&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Ftps560430-q1"
-			(at 154.94 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "4V to 36V Input, 600-mA Output Synchronous Buck Converter, SOT-23-6"
-			(at 154.94 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "5"
-			(uuid "7fae3b65-9e8d-4f57-b6fe-34d7e3b50e70")
-		)
-		(pin "2"
-			(uuid "0cbe7059-2b2a-4a62-b259-ad088752b732")
-		)
-		(pin "6"
-			(uuid "ecaaa520-d387-4d58-aabc-59c889eeb931")
-		)
-		(pin "3"
-			(uuid "ea2677af-55fe-4e9d-8b93-b45ecf932063")
-		)
-		(pin "1"
-			(uuid "d8f30886-5ec6-4f7b-bc45-273ebd5b5112")
-		)
-		(pin "4"
-			(uuid "c1dd62da-1ba4-4c8f-b842-87dca9797917")
-		)
-		(instances
-			(project "Main Board"
-				(path "/c82c4769-33eb-46b7-8d07-39045014a3da/eb9b9647-818b-4f6a-aec9-7481a1a3b43c/60730f3c-4c31-4453-b3b1-4c8eaf1dfd2c"
-					(reference "U4")
 					(unit 1)
 				)
 			)
