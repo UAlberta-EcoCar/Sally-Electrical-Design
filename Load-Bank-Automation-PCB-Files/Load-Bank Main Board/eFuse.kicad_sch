@@ -1328,7 +1328,7 @@
 	)
 	(text "PLIM and PDLY Pins:\n\nLet:\nI_{LIM} = 2 A\n\nR_{ILM} (Ohm) = 3334 / I_{LIM} (A) = 1667 Ohm\n\nLet: \nt_{ITIMER} = 5 ms\n\nC_{ITIMER} (nF) = t_{ITIMER} (ms) * I_{ITIMER} (uA) / delta V_{ITIMER} (V) = 5.96 nF\n"
 		(exclude_from_sim no)
-		(at 196.342 122.936 0)
+		(at 182.88 124.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1349,9 +1349,9 @@
 		)
 		(uuid "12cd042b-b754-41a3-bed2-d4d633c7ae9f")
 	)
-	(text "EN/UVLO and OVLO Pins:\n\nV_{OVLO(Rise)} = 1.2 V\nV_{UVLO(Rise)} = 1.2 V\nV_{(IN(UV)} = 16 V\nV_{IN(OV)} = 30 V\nP_{OUT_MAX} = 7.5 W\nt_{SS} = 25 ms\n\nLet R13 = 750k\nR_{bottom} = V_{UVLO(Rise)} * R13 / (V_{IN(UV)} - V_{UVLO(Rise)}) = 70,312.5   [EQ 1]\nR15 = 1.2 * (R13 + R_{bottom}) / V_{IN(OV)} = 33,943.97              [EQ 11]\nR14 = R_{bottom} - R15 = 36,368.53\n\nNow:\nV_{OVLO} = 1.44 V\nV_{UVLO} = 0.74 V"
+	(text "EN/UVLO and OVLO Pins:\n\nV_{OVLO(Rise)} = 1.2 V\nV_{UVLO(Rise)} = 1.2 V\nV_{(IN(UV)} = 16 V\nV_{IN(OV)} = 30 V\nP_{OUT_MAX} = 7.5 W\nt_{SS} = 25 ms\n\nLet R13 = 130k\n// R_{bottom} = V_{UVLO(Rise)} * R13 / (V_{IN(UV)} - V_{UVLO(Rise)}) = 10.54k   [EQ 1]\nR15 = 1.2 * (R13) / V_{IN(OV)} = 5416.6 ~~5k36\nR14 = R_{bottom} - R15 = 4.92k\n\nNow:\nV_{OVLO} = 1.44 V\nV_{UVLO} = 0.74 V"
 		(exclude_from_sim no)
-		(at 58.674 129.54 0)
+		(at 29.21 125.095 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1397,7 +1397,7 @@
 	)
 	(text "dV/dt pin and C_{out}:\n\nLet:\nI_{inrush} = 100 mA\nI_{dVdT} = 2.23 uA\nG_{dVdT} = 50 V/V\nC_{out} = 470 uF\n\nSlew Rate (V/ms) = I_{inrush} (mA) / C_{out} (uF) = 0.213 V/ms\n\nC_{32} (pF) = I_{dVdT} * G_{dVdT} / Slew Rate (V/ms) = 524 nF\n\nt_{Rise} (ms) = V_{in} (V) / Slew Rate (V/ms) = 89.3 ms"
 		(exclude_from_sim no)
-		(at 134.874 126.238 0)
+		(at 112.395 127.635 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3268,7 +3268,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "133k"
+		(property "Value" "130k"
 			(at 95.25 64.7699 0)
 			(effects
 				(font
@@ -4034,7 +4034,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "866k"
+		(property "Value" "820k"
 			(at 78.74 63.4999 0)
 			(effects
 				(font
@@ -4669,7 +4669,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "51k1"
+		(property "Value" "5k36"
 			(at 90.17 76.1999 0)
 			(effects
 				(font
@@ -4765,7 +4765,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "20k"
+		(property "Value" "22k"
 			(at 255.778 59.69 0)
 			(effects
 				(font
@@ -5131,7 +5131,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "41k2"
+		(property "Value" "39k"
 			(at 163.83 66.0399 0)
 			(effects
 				(font
@@ -5325,7 +5325,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "45k3"
+		(property "Value" "47k"
 			(at 154.94 74.9299 0)
 			(effects
 				(font
