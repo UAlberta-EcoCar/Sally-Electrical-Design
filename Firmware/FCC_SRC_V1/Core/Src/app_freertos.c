@@ -306,9 +306,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 //				}
 //
 //			} else {
-//			purgeDelay_ms = (uint32_t) pdelay_unconfirmed;
-//			purgeTime_ms = (uint32_t) ptime_unconfirmed;
-//			purge_timer_flag = 1;
+			purgeDelay_ms = (uint32_t) pdelay_unconfirmed;
+			purgeTime_ms = (uint32_t) ptime_unconfirmed;
+			purge_timer_flag = 1;
 
 //			}
 			fan_toggle ^= (0x01);
