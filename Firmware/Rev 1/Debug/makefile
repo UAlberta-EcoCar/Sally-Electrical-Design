@@ -9,25 +9,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include USB_Device/Target/subdir.mk
--include USB_Device/App/subdir.mk
--include STM32CubeIDE/Application/User/Startup/subdir.mk
--include STM32CubeIDE/Application/User/Core/subdir.mk
--include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
--include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
--include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
--include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
--include Middlewares/ST/STM32_USB_Device_Library/Core/Src/subdir.mk
--include Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk
 -include Drivers/STM32G4xx_HAL_Driver/Src/subdir.mk
--include Drivers/STM32G4xx_HAL_Driver/subdir.mk
--include Drivers/CMSIS/subdir.mk
 -include Core/Src/subdir.mk
--include Application/User/USB_Device/Target/subdir.mk
--include Application/User/USB_Device/App/subdir.mk
--include Application/User/Startup/subdir.mk
--include Application/User/Core/subdir.mk
--include subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -76,8 +59,8 @@ all: main-build
 main-build: MechanicalRelaySallyFirmware.elf secondary-outputs
 
 # Tool invocations
-MechanicalRelaySallyFirmware.elf MechanicalRelaySallyFirmware.map: $(OBJS) $(USER_OBJS) /home/abinash/EcoCar/MechanicalRelaySally/Firmware/Rev\ 1/STM32G491METX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "MechanicalRelaySallyFirmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/abinash/EcoCar/MechanicalRelaySally/Firmware/Rev 1/STM32G491METX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MechanicalRelaySallyFirmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MechanicalRelaySallyFirmware.elf MechanicalRelaySallyFirmware.map: $(OBJS) $(USER_OBJS) C:\Users\abina\Desktop\side\EcoCar\MechanicalRelaySally\Firmware\Rev\ 1\STM32G491METX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "MechanicalRelaySallyFirmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\abina\Desktop\side\EcoCar\MechanicalRelaySally\Firmware\Rev 1\STM32G491METX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MechanicalRelaySallyFirmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

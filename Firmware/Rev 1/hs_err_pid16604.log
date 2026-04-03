@@ -1,0 +1,264 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 130023424 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3713), pid=16604, tid=13352
+#
+# JRE version:  (21.0.8+9) (build )
+# Java VM: OpenJDK 64-Bit Server VM (21.0.8+9-LTS, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: 
+
+Host: 12th Gen Intel(R) Core(TM) i5-1235U, 12 cores, 7G,  Windows 11 , 64 bit Build 26100 (10.0.26100.7920)
+Time: Tue Mar 31 12:40:35 2026 Mountain Daylight Time elapsed time: 1.058013 seconds (0d 0h 0m 1s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001b68b346530):  JavaThread "Unknown thread" [_thread_in_vm, id=13352, stack(0x0000009f59ce0000,0x0000009f59de0000) (1024K)]
+
+Stack: [0x0000009f59ce0000,0x0000009f59de0000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6d2449]
+V  [jvm.dll+0x8ae341]
+V  [jvm.dll+0x8b08be]
+V  [jvm.dll+0x8b0fa3]
+V  [jvm.dll+0x280c96]
+V  [jvm.dll+0x6cec15]
+V  [jvm.dll+0x6c2c3a]
+V  [jvm.dll+0x35867a]
+V  [jvm.dll+0x360246]
+V  [jvm.dll+0x3b1f9e]
+V  [jvm.dll+0x3b2248]
+V  [jvm.dll+0x32c8fc]
+V  [jvm.dll+0x32d45b]
+V  [jvm.dll+0x8775d9]
+V  [jvm.dll+0x3bed71]
+V  [jvm.dll+0x8605d3]
+V  [jvm.dll+0x4530ee]
+V  [jvm.dll+0x454d31]
+C  [eclipse_11904.dll+0x74c2]
+C  [eclipse_11904.dll+0x42ea]
+C  [eclipsec.exe+0x1fdc]
+C  [eclipsec.exe+0x3cb4]
+C  [KERNEL32.DLL+0x2e8d7]
+C  [ntdll.dll+0x8c48c]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffb584411c8, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+  0x000001b68dc00b00 WorkerThread "GC Thread#0"                     [id=2876, stack(0x0000009f5a300000,0x0000009f5a400000) (1024K)]
+  0x000001b68dc121f0 ConcurrentGCThread "G1 Main Marker"            [id=1604, stack(0x0000009f5a400000,0x0000009f5a500000) (1024K)]
+  0x000001b68dc15d70 WorkerThread "G1 Conc#0"                       [id=10040, stack(0x0000009f5a500000,0x0000009f5a600000) (1024K)]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffb57b3f137]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007ffb584b5558] Heap_lock - owner thread: 0x000001b68b346530
+
+Heap address: 0x0000000084800000, size: 1976 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 5 size 8 Array Of Cards #cards 12 size 40 Howl #buckets 4 coarsen threshold 1843 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 2048
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000084800000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffb57f2bba9]
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.027 Loaded shared library C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\jre\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff63e850000 - 0x00007ff63e890000 	C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\third_parties_plugins\binaries\STM32CubeIDE-MX-services\revA\win32\win32\x86_64\eclipsec.exe
+0x00007ffbd9de0000 - 0x00007ffbda047000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffbd8950000 - 0x00007ffbd8a19000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffbd7260000 - 0x00007ffbd7651000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffbd0b30000 - 0x00007ffbd0bcf000 	C:\WINDOWS\SYSTEM32\apphelp.dll
+0x00007ffbd9bd0000 - 0x00007ffbd9d95000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffbd7920000 - 0x00007ffbd7947000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffbd99f0000 - 0x00007ffbd9a1b000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffbd6f30000 - 0x00007ffbd705b000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffbd7060000 - 0x00007ffbd7103000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffbd7110000 - 0x00007ffbd725b000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffb82670000 - 0x00007ffb82724000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.26100.8037_none_87ebc5097a2f9e52\COMCTL32.dll
+0x00007ffbd9b00000 - 0x00007ffbd9bbb000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffbd7d60000 - 0x00007ffbd7e09000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffbd8480000 - 0x00007ffbd8527000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffbd8790000 - 0x00007ffbd88a8000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffbd94a0000 - 0x00007ffbd94d1000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffbbd950000 - 0x00007ffbbd995000 	C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\third_parties_plugins\binaries\STM32CubeIDE-MX-services\revA\pool\plugins\org.eclipse.equinox.launcher.win32.win32.x86_64_1.2.1100.v20240722-2106\eclipse_11904.dll
+0x00007ffbd9300000 - 0x00007ffbd9495000 	C:\WINDOWS\System32\ole32.dll
+0x00007ffbd94f0000 - 0x00007ffbd9872000 	C:\WINDOWS\System32\combase.dll
+0x00007ffbc43b0000 - 0x00007ffbc43bb000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffb57800000 - 0x00007ffb58597000 	C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\jre\bin\server\jvm.dll
+0x00007ffbd9a70000 - 0x00007ffbd9ae4000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffbd6540000 - 0x00007ffbd659e000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffbd13e0000 - 0x00007ffbd1415000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffbab350000 - 0x00007ffbab36e000 	C:\WINDOWS\SYSTEM32\VCRUNTIME140.dll
+0x00007ffbab370000 - 0x00007ffbab37c000 	C:\WINDOWS\SYSTEM32\VCRUNTIME140_1.dll
+0x00007ffbd6520000 - 0x00007ffbd6534000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffb98a30000 - 0x00007ffb98a3a000 	C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\jre\bin\jimage.dll
+0x00007ffbd47b0000 - 0x00007ffbd49f2000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffbd9220000 - 0x00007ffbd92f7000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffbb5db0000 - 0x00007ffbb5deb000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffbd76f0000 - 0x00007ffbd7795000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffb86580000 - 0x00007ffb8659f000 	C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\jre\bin\java.dll
+0x00007ffbd5450000 - 0x00007ffbd546b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+
+JVMTI agents: none
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\third_parties_plugins\binaries\STM32CubeIDE-MX-services\revA\win32\win32\x86_64;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.26100.8037_none_87ebc5097a2f9e52;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\third_parties_plugins\binaries\STM32CubeIDE-MX-services\revA\pool\plugins\org.eclipse.equinox.launcher.win32.win32.x86_64_1.2.1100.v20240722-2106;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\jre\bin\server;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\jre\bin
+
+VM Arguments:
+java_command: <unknown>
+java_class_path (initial): C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\third_parties_plugins\binaries\STM32CubeIDE-MX-services\revA\win32\win32\x86_64\\../../../pool/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar
+Launcher Type: generic
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 10                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 130023424                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2071986176                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 2071986176                             {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+PATH=C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\;C:/ST/STM32CubeIDE_2.0.0/STM32CubeIDE//plugins/com.st.stm32cube.ide.jre.win64_3.4.100.202508201254/jre/bin/server;C:/ST/STM32CubeIDE_2.0.0/STM32CubeIDE//plugins/com.st.stm32cube.ide.jre.win64_3.4.100.202508201254/jre/bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\PuTTY\;C:\Program Files\Microchip\xc8\v2.45\bin;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\Program Files\PowerShell\7\;C:\Users\abina\AppData\Local\Microsoft\WindowsApps;C:\Users\abina\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\abina\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\abina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts;C:\Program Files\Neovim\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;C:\Users\abina\Desktop\side\EcoCar\MechanicalRelaySally\Firmware\Rev 1;;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\.\jre\\bin
+USERNAME=abina
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 154 Stepping 4, GenuineIntel
+TMP=C:\Users\abina\AppData\Local\Temp
+TEMP=C:\Users\abina\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.7920)
+OS uptime: 0 days 0:20 hours
+Hyper-V role detected
+
+CPU: total 12 (initial active 12) (6 cores per cpu, 2 threads per core) family 6 model 154 stepping 4 microcode 0x432, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, clwb, hv, serialize, rdtscp, rdpid, fsrm, f16c, cet_ibt, cet_ss
+Processor Information for processor 0
+  Max Mhz: 1300, Current Mhz: 1300, Mhz Limit: 1300
+Processor Information for processor 1
+  Max Mhz: 1300, Current Mhz: 1300, Mhz Limit: 1300
+Processor Information for processor 2
+  Max Mhz: 1300, Current Mhz: 1300, Mhz Limit: 1300
+Processor Information for processor 3
+  Max Mhz: 1300, Current Mhz: 1300, Mhz Limit: 1300
+Processor Information for processor 4
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+Processor Information for processor 5
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+Processor Information for processor 6
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+Processor Information for processor 7
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+Processor Information for processor 8
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+Processor Information for processor 9
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+Processor Information for processor 10
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+Processor Information for processor 11
+  Max Mhz: 1300, Current Mhz: 900, Mhz Limit: 897
+
+Memory: 4k page, system-wide physical 7903M (935M free)
+TotalPageFile size 13903M (AvailPageFile size 109M)
+current process WorkingSet (physical memory assigned to process): 13M, peak: 13M
+current process commit charge ("private bytes"): 64M, peak: 188M
+
+vm_info: OpenJDK 64-Bit Server VM (21.0.8+9-LTS) for windows-amd64 JRE (21.0.8+9-LTS), built on 2025-07-15T00:00:00Z by "admin" with MS VC++ 17.7 (VS2022)
+
+END.

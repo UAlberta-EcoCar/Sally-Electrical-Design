@@ -55,10 +55,10 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, MTR_RLY_RELAY_EN_Pin|RES_HIGH_RLY_RELAY_EN_Pin|LED2R_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14|GPIO_PIN_15|RES_LOW_RLY_RELAY_EN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(RES_LOW_RLY_RELAY_EN_GPIO_Port, RES_LOW_RLY_RELAY_EN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, MTR_RLY_RELAY_EN_Pin|RES_HIGH_RLY_RELAY_EN_Pin|LED2R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, CAP_RLY_RELAY_EN_Pin|LED1B_Pin, GPIO_PIN_RESET);
@@ -66,11 +66,12 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(FC_RLY_FC_EN_GPIO_Port, FC_RLY_FC_EN_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : RES_LOW_RLY_STATUS_Pin */
-  GPIO_InitStruct.Pin = RES_LOW_RLY_STATUS_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  /*Configure GPIO pins : PC14 PC15 RES_LOW_RLY_RELAY_EN_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_15|RES_LOW_RLY_RELAY_EN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(RES_LOW_RLY_STATUS_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : NRST_Pin */
   GPIO_InitStruct.Pin = NRST_Pin;
@@ -90,13 +91,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : RES_LOW_RLY_RELAY_EN_Pin */
-  GPIO_InitStruct.Pin = RES_LOW_RLY_RELAY_EN_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(RES_LOW_RLY_RELAY_EN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CAP_RLY_RELAY_EN_Pin LED1B_Pin */
   GPIO_InitStruct.Pin = CAP_RLY_RELAY_EN_Pin|LED1B_Pin;

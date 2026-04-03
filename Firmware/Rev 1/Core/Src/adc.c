@@ -46,7 +46,7 @@ void MX_ADC1_Init(void)
   /** Common config
   */
   hadc1.Instance = ADC1;
-  hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.GainCompensation = 0;
@@ -108,7 +108,7 @@ void MX_ADC2_Init(void)
   /** Common config
   */
   hadc2.Instance = ADC2;
-  hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc2.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc2.Init.Resolution = ADC_RESOLUTION_12B;
   hadc2.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc2.Init.GainCompensation = 0;
@@ -162,7 +162,7 @@ void MX_ADC3_Init(void)
   /** Common config
   */
   hadc3.Instance = ADC3;
-  hadc3.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc3.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc3.Init.Resolution = ADC_RESOLUTION_12B;
   hadc3.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc3.Init.GainCompensation = 0;
@@ -239,6 +239,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     PA0     ------> ADC1_IN1
     PA2     ------> ADC1_IN3
     PB0     ------> ADC1_IN15
+    PB12     ------> ADC1_IN11
     PB14     ------> ADC1_IN5
     */
     GPIO_InitStruct.Pin = VOLT_MEAS_BUF_FC_UP_Pin|VOLT_MEAS_BUF_FC_OUT_Pin|VOLT_MEAS_BUF_CAP_Pin|VOLT_MEAS_BUF_RES_HIGH_Pin;
@@ -251,7 +252,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = RES_LOW_RLY_COIL_CUR_Pin|SYS_12V_CUR_Pin;
+    GPIO_InitStruct.Pin = RES_LOW_RLY_COIL_CUR_Pin|SYS_7V_VOLT_Pin|SYS_12V_CUR_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -338,12 +339,13 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     PE11     ------> ADC3_IN15
     PE12     ------> ADC3_IN16
     PE13     ------> ADC3_IN3
+    PB13     ------> ADC3_IN5
     PD10     ------> ADC3_IN7
     */
-    GPIO_InitStruct.Pin = RES_LOW_RLY_STATUSB1_Pin;
+    GPIO_InitStruct.Pin = RES_LOW_RLY_STATUS_Pin|SYS_12V_VOLT_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(RES_LOW_RLY_STATUSB1_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = CAP_RLY_COIL_CUR_Pin|CAP_RLY_CUR_SENSE_Pin|TEMP_BOARD_VIN_DIODE_Pin|TEMP_BOARD_CENTER_Pin
                           |VOLT_MEAS_BUF_MTR_OUT_Pin;
@@ -384,13 +386,14 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     PA0     ------> ADC1_IN1
     PA2     ------> ADC1_IN3
     PB0     ------> ADC1_IN15
+    PB12     ------> ADC1_IN11
     PB14     ------> ADC1_IN5
     */
     HAL_GPIO_DeInit(GPIOC, VOLT_MEAS_BUF_FC_UP_Pin|VOLT_MEAS_BUF_FC_OUT_Pin|VOLT_MEAS_BUF_CAP_Pin|VOLT_MEAS_BUF_RES_HIGH_Pin);
 
     HAL_GPIO_DeInit(GPIOA, VOLT_MEAS_BUF_RES_LOW_Pin|MTR_RLY_COIL_CUR_Pin);
 
-    HAL_GPIO_DeInit(GPIOB, RES_LOW_RLY_COIL_CUR_Pin|SYS_12V_CUR_Pin);
+    HAL_GPIO_DeInit(GPIOB, RES_LOW_RLY_COIL_CUR_Pin|SYS_7V_VOLT_Pin|SYS_12V_CUR_Pin);
 
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
 
@@ -439,9 +442,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     PE11     ------> ADC3_IN15
     PE12     ------> ADC3_IN16
     PE13     ------> ADC3_IN3
+    PB13     ------> ADC3_IN5
     PD10     ------> ADC3_IN7
     */
-    HAL_GPIO_DeInit(RES_LOW_RLY_STATUSB1_GPIO_Port, RES_LOW_RLY_STATUSB1_Pin);
+    HAL_GPIO_DeInit(GPIOB, RES_LOW_RLY_STATUS_Pin|SYS_12V_VOLT_Pin);
 
     HAL_GPIO_DeInit(GPIOE, CAP_RLY_COIL_CUR_Pin|CAP_RLY_CUR_SENSE_Pin|TEMP_BOARD_VIN_DIODE_Pin|TEMP_BOARD_CENTER_Pin
                           |VOLT_MEAS_BUF_MTR_OUT_Pin);
