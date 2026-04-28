@@ -2837,6 +2837,32 @@
 		)
 		(uuid "35ded252-45e8-4e01-a45a-c0fe05faefa0")
 	)
+	(text "SUBSTITUDED 0 OHM DEFAULT VALUE OF 50 mA ENOUGH"
+		(exclude_from_sim no)
+		(at 85.598 138.938 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+				(color 255 0 0 1)
+			)
+		)
+		(uuid "5d823a43-cc95-4cb6-8ed4-d28dec697616")
+	)
+	(text "SUBS 330nF"
+		(exclude_from_sim no)
+		(at 69.596 164.084 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+				(color 255 0 0 1)
+			)
+		)
+		(uuid "5f4047c8-a867-4547-ae09-77d80f8da043")
+	)
 	(text "Min OSC Freq needs to be higher than audible ~= 25kHz\nf_{PWM} = 60 kHz / R_{OSC} * 66.67 kOhms; 160kOhms < R_{OSC} < 2 MOhms\nf_{PWM} = 22 kHz\nR_{OSC} = 181k ~= 182k"
 		(exclude_from_sim no)
 		(at 146.304 130.302 0)
@@ -2848,27 +2874,29 @@
 		)
 		(uuid "7344343e-9db4-4fca-a499-f0eb31d24ae5")
 	)
-	(text "Substituted 200k"
+	(text "Substituted 200k\nCAUSING RINGGING NEED 170k"
 		(exclude_from_sim no)
-		(at 72.39 138.176 0)
+		(at 157.226 138.176 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
 				(color 255 0 0 1)
 			)
 		)
-		(uuid "99efaf1f-f770-4535-9d33-8346190f88c4")
+		(uuid "8dbfa7dc-9fb5-4d37-abe4-217b515d799a")
 	)
-	(text "Substituted 68k"
+	(text "SUBS 0 OHM DEFAULT 200mA ENOUGH"
 		(exclude_from_sim no)
-		(at 157.734 163.322 0)
+		(at 162.814 162.052 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 				(color 255 0 0 1)
 			)
 		)
-		(uuid "c4de7cc5-d407-4f7e-af5a-9b4d7de543f1")
+		(uuid "955ae6f9-e15d-4a36-a940-28778276f625")
 	)
 	(text "SHORT DNP, BAD DESIGN IDK WHAT I WAS THINKING"
 		(exclude_from_sim no)
@@ -2883,16 +2911,18 @@
 		)
 		(uuid "cecfd1be-3b4f-4085-8ccb-d01c687698d9")
 	)
-	(text "Substituted 100n"
+	(text "REPLACED TVS DIODE WITH 47uF 1210\n Ceramic CAP FOR MISSING LOCAL DECOUPLING"
 		(exclude_from_sim no)
-		(at 70.866 162.56 0)
+		(at 71.882 69.85 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
 				(color 255 0 0 1)
 			)
 		)
-		(uuid "e6536245-6244-47b6-8a36-4c9714831fd6")
+		(uuid "f12dbbc5-1eac-4136-ae1b-0ea4c74eb0cd")
 	)
 	(text "t_{KEEP} = 0.5 (Can be changed later)\nC_{KEEP} = 6.66.. uF ~= 6.7uF"
 		(exclude_from_sim no)
@@ -2904,17 +2934,6 @@
 			(justify left)
 		)
 		(uuid "f186d73b-a6b4-4569-9034-f55be6641a6d")
-	)
-	(text "Substituted 200k"
-		(exclude_from_sim no)
-		(at 153.416 138.684 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 255 0 0 1)
-			)
-		)
-		(uuid "f5385e62-da79-410f-bfd2-96f036e19763")
 	)
 	(text "Footprint for SPDT is wrong the 1 and 2 pins are switched, 1 being 86 and 2 being 85.\n\nThe diode shorts 12 volts directly to driver and causes heating and failiure. \n"
 		(exclude_from_sim no)
