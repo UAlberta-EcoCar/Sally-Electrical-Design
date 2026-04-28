@@ -108,7 +108,20 @@ int main(void)
 		HAL_GPIO_TogglePin(RES_LOW_RLY_RELAY_EN_GPIO_Port,
 				RES_LOW_RLY_RELAY_EN_Pin);
 
-		HAL_Delay(1000);
+		HAL_GPIO_TogglePin(RES_HIGH_RLY_RELAY_EN_GPIO_Port,
+						RES_HIGH_RLY_RELAY_EN_Pin);
+
+
+		HAL_GPIO_TogglePin(MTR_RLY_RELAY_EN_GPIO_Port,
+						MTR_RLY_RELAY_EN_Pin);
+
+		HAL_GPIO_TogglePin(CAP_RLY_RELAY_EN_GPIO_Port,
+						CAP_RLY_RELAY_EN_Pin);
+
+		HAL_GPIO_TogglePin(FC_RLY_FC_EN_GPIO_Port,
+						FC_RLY_FC_EN_Pin);
+
+		HAL_Delay(5000);
 
 	}
   /* USER CODE END 3 */
