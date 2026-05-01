@@ -18,14 +18,16 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "adc.h"
+#include "dma.h"
 #include "fdcan.h"
-#include "usb.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "usbd_cdc_if.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,7 +37,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define BUTTON_DEBOUNCE 100
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,13 +53,48 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int _write(int file, char *ptr, int len) {
+	(void) file;
+	CDC_Transmit_FS(ptr, len);
+	return len;
+}
+/**
+ * @brief  EXTI line detection callback.
+ * @param  GPIO_Pin: Specifies the port pin connected to corresponding EXTI line.
+ * @retval None
+ */
+uint32_t debounce_GPBTN1 = 0;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
+	switch (GPIO_Pin) {
+	case GPBTN1_Pin:
+		if (BUTTON_DEBOUNCE < (HAL_GetTick() - debounce_GPBTN1)) {
+			HAL_GPIO_TogglePin(RES_LOW_RLY_RELAY_EN_GPIO_Port,
+			RES_LOW_RLY_RELAY_EN_Pin);
+
+			HAL_GPIO_TogglePin(RES_HIGH_RLY_RELAY_EN_GPIO_Port,
+			RES_HIGH_RLY_RELAY_EN_Pin);
+
+			HAL_GPIO_TogglePin(MTR_RLY_RELAY_EN_GPIO_Port,
+			MTR_RLY_RELAY_EN_Pin);
+
+			HAL_GPIO_TogglePin(CAP_RLY_RELAY_EN_GPIO_Port,
+			CAP_RLY_RELAY_EN_Pin);
+
+			HAL_GPIO_TogglePin(FC_RLY_FC_EN_GPIO_Port,
+			FC_RLY_FC_EN_Pin);
+		}
+		debounce_GPBTN1 += HAL_GetTick();
+		break;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -89,14 +126,23 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_ADC3_Init();
   MX_FDCAN1_Init();
-  MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
+
+  /* Init scheduler */
+  osKernelInitialize();  /* Call init function for freertos objects (in cmsis_os2.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -104,24 +150,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-		HAL_GPIO_TogglePin(RES_LOW_RLY_RELAY_EN_GPIO_Port,
-				RES_LOW_RLY_RELAY_EN_Pin);
-
-		HAL_GPIO_TogglePin(RES_HIGH_RLY_RELAY_EN_GPIO_Port,
-						RES_HIGH_RLY_RELAY_EN_Pin);
-
-
-		HAL_GPIO_TogglePin(MTR_RLY_RELAY_EN_GPIO_Port,
-						MTR_RLY_RELAY_EN_Pin);
-
-		HAL_GPIO_TogglePin(CAP_RLY_RELAY_EN_GPIO_Port,
-						CAP_RLY_RELAY_EN_Pin);
-
-		HAL_GPIO_TogglePin(FC_RLY_FC_EN_GPIO_Port,
-						FC_RLY_FC_EN_Pin);
-
-		HAL_Delay(5000);
+		printf("Starting RELAY\r\n");
+//		HAL_GPIO_TogglePin(RES_LOW_RLY_RELAY_EN_GPIO_Port,
+//		RES_LOW_RLY_RELAY_EN_Pin);
+//
+//		HAL_GPIO_TogglePin(RES_HIGH_RLY_RELAY_EN_GPIO_Port,
+//		RES_HIGH_RLY_RELAY_EN_Pin);
+//
+//		HAL_GPIO_TogglePin(MTR_RLY_RELAY_EN_GPIO_Port,
+//		MTR_RLY_RELAY_EN_Pin);
+//
+//		HAL_GPIO_TogglePin(CAP_RLY_RELAY_EN_GPIO_Port,
+//		CAP_RLY_RELAY_EN_Pin);
+//
+//		HAL_GPIO_TogglePin(FC_RLY_FC_EN_GPIO_Port,
+//		FC_RLY_FC_EN_Pin);
+		HAL_Delay(200);
 
 	}
   /* USER CODE END 3 */
@@ -138,18 +182,19 @@ void SystemClock_Config(void)
 
   /** Configure the main internal regulator output voltage
   */
-  HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
+  HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1_BOOST);
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI48;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
-  RCC_OscInitStruct.PLL.PLLN = 12;
+  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV4;
+  RCC_OscInitStruct.PLL.PLLN = 85;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV4;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -162,21 +207,43 @@ void SystemClock_Config(void)
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
   {
     Error_Handler();
   }
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSI, RCC_MCODIV_1);
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1);
 }
 
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1)
+  {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

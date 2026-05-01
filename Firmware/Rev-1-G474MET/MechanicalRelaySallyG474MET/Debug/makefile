@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (13.3.rel1)
+# Toolchain: GNU Tools for STM32 (14.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -9,6 +9,15 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include USB_Device/Target/subdir.mk
+-include USB_Device/App/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
+-include Middlewares/ST/STM32_USB_Device_Library/Core/Src/subdir.mk
+-include Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk
+-include EcoLib/ecocan/subdir.mk
 -include Drivers/STM32G4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -60,8 +69,8 @@ all: main-build
 main-build: MechanicalRelaySallyG474MET.elf secondary-outputs
 
 # Tool invocations
-MechanicalRelaySallyG474MET.elf MechanicalRelaySallyG474MET.map: $(OBJS) $(USER_OBJS) C:\Users\abina\Desktop\side\EcoCar\MechanicalRelaySally\Firmware\Rev-1-G474MET\MechanicalRelaySallyG474MET\STM32G474METX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "MechanicalRelaySallyG474MET.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\abina\Desktop\side\EcoCar\MechanicalRelaySally\Firmware\Rev-1-G474MET\MechanicalRelaySallyG474MET\STM32G474METX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MechanicalRelaySallyG474MET.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MechanicalRelaySallyG474MET.elf MechanicalRelaySallyG474MET.map: $(OBJS) $(USER_OBJS) F:\EcoCar\Relay-Board\Firmware\Rev-1-G474MET\MechanicalRelaySallyG474MET\STM32G474METX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "MechanicalRelaySallyG474MET.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\EcoCar\Relay-Board\Firmware\Rev-1-G474MET\MechanicalRelaySallyG474MET\STM32G474METX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MechanicalRelaySallyG474MET.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
