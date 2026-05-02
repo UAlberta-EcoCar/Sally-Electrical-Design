@@ -3,4 +3,4 @@
 
 Much of the systems of this vehicle will build on the innovations implemented in Lucy. Utilizing CANbus, we can easily add more modules to our overall system. We will also be employing power distribution networks alongside CANbus as to create a more intensively modular system.
 
-Current firmware in RF-Board-V2-2026-Firmware
+Current firmware in `RF-Board-V1-2024-Firmware`
