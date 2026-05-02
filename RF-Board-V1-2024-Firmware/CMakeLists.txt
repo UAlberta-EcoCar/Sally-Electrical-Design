@@ -31,9 +31,13 @@ target_link_options(${BUILD_UNIT_0_NAME} PRIVATE
 # Add sources to executable/library
 target_sources(${BUILD_UNIT_0_NAME} PRIVATE
   # User defined sources
+  EcoLib/drivers/semtech/hoperf/rfm95/src/rf-rfm95.c
+  EcoLib/ecocan/ecocar_can.c
 )
 
 # Add include directories
 target_include_directories(${BUILD_UNIT_0_NAME} PRIVATE
   # User defined include directories
+  EcoLib/drivers/semtech/hoperf/rfm95/inc
+  EcoLib/ecocan
 )
