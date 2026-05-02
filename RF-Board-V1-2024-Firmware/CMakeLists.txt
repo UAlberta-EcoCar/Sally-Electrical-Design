@@ -40,4 +40,5 @@ target_include_directories(${BUILD_UNIT_0_NAME} PRIVATE
   # User defined include directories
   EcoLib/drivers/semtech/hoperf/rfm95/inc
   EcoLib/ecocan
+  EcoLib/util/typedef
 )

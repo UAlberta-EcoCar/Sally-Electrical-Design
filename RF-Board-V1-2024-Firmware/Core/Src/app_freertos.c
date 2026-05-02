@@ -30,6 +30,8 @@
 #include "ecocar_can.h"
 #include "fdcan.h"
 #include "usart.h"
+#include <string.h>
+#include "exported_typedef.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,6 +54,17 @@ typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+FDCAN_FccPack1_t fcc1_data;
+FDCAN_FccPack2_t fcc2_data;
+FDCAN_FccPack3_t fcc3_data;
+
+FDCAN_FetPack_t fet_data;
+
+FDCAN_BOOSTPack_t boost1_data;
+FDCAN_BOOSTPack2_t boost2_data;
+FDCAN_BOOSTPack3_t boost3_data;
+
+rbState_t relay_state = RELAY_STBY;
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -123,22 +136,19 @@ const osSemaphoreAttr_t RxAvail_attributes = {
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs) {
 	FDCAN_RxHeaderTypeDef RxHeader;
 	uint8_t RxData[64];
+
 	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
 		/* Retrieve Rx messages from RX FIFO0 */
-		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData)
-				!= HAL_OK) {
+		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK) {
 			/* Reception Error */
 			Error_Handler();
 		}
-		if (osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0)
-				!= osOK
-				|| osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength,
-						0, 0) != osOK) {
+		if (osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.Identifier, 0, 0) != osOK
+				|| osMessageQueuePut(canQueRxHeaderHandle, &RxHeader.DataLength, 0, 0) != osOK) {
 			Error_Handler();
 		}
 		for (uint32_t i = 0; i < mapDlcToBytes(RxHeader.DataLength); i++) {
-			if (osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0)
-					!= osOK) {
+			if (osMessageQueuePut(canQueRxDataHandle, &RxData[i], 0, 0) != osOK) {
 				Error_Handler();
 			}
 		}
@@ -155,7 +165,7 @@ int _write(int file, char *ptr, int len) {
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
-void StartCanTask(void *argument);
+void StartCanRxTask(void *argument);
 void StartAUXTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -203,7 +213,7 @@ void MX_FREERTOS_Init(void) {
 			&defaultTask_attributes);
 
   /* creation of TaskCan */
-  TaskCanHandle = osThreadNew(StartCanTask, NULL, &TaskCan_attributes);
+  TaskCanHandle = osThreadNew(StartCanRxTask, NULL, &TaskCan_attributes);
 
   /* creation of TaskAUX */
   TaskAUXHandle = osThreadNew(StartAUXTask, NULL, &TaskAUX_attributes);
@@ -341,7 +351,7 @@ void StartDefaultTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartCanTask */
-void StartCanTask(void *argument) {
+void StartCanRxTask(void *argument) {
 	/* USER CODE BEGIN StartCanTask */
 	/* Infinite loop */
 	for (;;) {
@@ -358,6 +368,63 @@ void StartCanTask(void *argument) {
 		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
 
+		FDCAN_RxHeaderTypeDef localRxHeader = {0};
+  		uint8_t ret[64] = {0};
+		uint8_t can_sync_led = 0;
+		UNUSED(can_sync_led);
+
+		 /* Infinite loop */
+		if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.Identifier, 0, osWaitForever) == osOK)
+		{
+			if (osMessageQueueGet(canQueRxHeaderHandle, &localRxHeader.DataLength, 0, 0) != osOK)
+			{
+				Error_Handler();
+			}
+			for (uint8_t i = 0; i < mapDlcToBytes(localRxHeader.DataLength); i++)
+			{
+				if (osMessageQueueGet(canQueRxDataHandle, &ret[i], 0, 0) != osOK)
+				{
+					Error_Handler();
+				}
+			}
+			switch (localRxHeader.Identifier)
+			{
+				case FDCAN_H2ALARM_ID:
+					// H2 ALARM
+					if (ret[0] == 1)
+					{
+						// TODO: do something
+					}
+					break;
+				case FDCAN_SYNCLED_ID:
+					can_sync_led = ret[0];
+					break;
+				case FDCAN_FCCPACK1_ID:
+					memcpy(&fcc1_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_FCCPACK2_ID:
+					memcpy(&fcc2_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_FCCPACK3_ID:
+					memcpy(&fcc3_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_FETPACK_ID:
+					memcpy(&fet_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_BOOSTPACK_ID:
+					memcpy(&boost1_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_BOOSTPACK2_ID:
+					memcpy(&boost2_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_BOOSTPACK3_ID:
+					memcpy(&boost3_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_RELSTATE_ID:
+					relay_state = (rbState_t) ret[0];
+					break;
+			}
+		}
 	}
 	/* USER CODE END StartCanTask */
 }
@@ -373,19 +440,19 @@ void StartAUXTask(void *argument)
 {
   /* USER CODE BEGIN StartAUXTask */
   /* Infinite loop */
-char char_to_send = 'a';
-  for(;;)
-  {
-		  osDelay(100);
-		  HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, GPIO_PIN_RESET);
-		  if (HAL_UART_Transmit(&huart1, &char_to_send, 1, 100) != HAL_OK){
-			  Error_Handler();
-		  }
+	char char_to_send = 'a';
+	for(;;)
+	{
+			osDelay(100);
+			HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, GPIO_PIN_RESET);
+			if (HAL_UART_Transmit(&huart1, &char_to_send, 1, 100) != HAL_OK){
+				Error_Handler();
+			}
 
-		  osDelay(100);
-		  HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, GPIO_PIN_SET);
-  }
-  /* USER CODE END StartAUXTask */
+			osDelay(100);
+			HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, GPIO_PIN_SET);
+	}
+	/* USER CODE END StartAUXTask */
 }
 
 /* Private application code --------------------------------------------------*/
