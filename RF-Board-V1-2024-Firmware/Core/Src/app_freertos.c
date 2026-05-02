@@ -218,6 +218,18 @@ void MX_FREERTOS_Init(void) {
 
 }
 
+/* USER CODE BEGIN  */
+/**
+ * @brief  Wrapper function around OS_DELAY, doesn't return anything
+ * @param  delay - Delay in milliseconds
+ * @retval None
+ */
+void void_os_delay(uint32_t delay) {
+	osDelay(delay);
+}
+/* USER CODE END */
+
+
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
  * @brief  Function implementing the defaultTask thread.
@@ -228,95 +240,95 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-//	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-//
-//	HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(NSS_915_GPIO_Port, NSS_915_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(NSS_868_GPIO_Port, NSS_868_Pin, GPIO_PIN_SET);
-//
-//	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
-//
-//	HAL_GPIO_WritePin(RST_868_GPIO_Port, RST_868_Pin, GPIO_PIN_SET);
-//
-//	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-//	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-//
-//	//	HAL_GPIO_WritePin(RST_915_GPIO_Port, RST_915_Pin, GPIO_PIN_SET);
-//	//
-//	//	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
-//
-//	rf_handle_t rfm95_868 = { .rf_nreset_port = RST_868_GPIO_Port,
-//			.rf_nreset_pin = RST_868_Pin, .rf_nss_port = NSS_868_GPIO_Port,
-//			.rf_nss_pin = NSS_868_Pin, .rf_spi_handle = &hspi1, .rf_delay_func =
-//					osDelay, .rf_spi_timeout = HAL_MAX_DELAY,
-//			.rf_carrier_frequency = 868000000 };
-//
-//	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
-//			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
-//			.rf_nss_pin = NSS_915_Pin, .rf_spi_handle = &hspi1, .rf_delay_func =
-//					osDelay, .rf_spi_timeout = 100, .rf_carrier_frequency =
-//					915000000 };
-//
-//	rf_initialize_radio(&rfm95_868);
-//
-//	rf_initialize_radio(&rfm95_915);
-//
-//	rf_set_frequency(&rfm95_868, 868000000);
-//
-//	rf_set_frequency(&rfm95_915, 915000000);
-//
-//	uint8_t data[] = "hello";
-//	uint8_t rdata[6] = { 0 };
-//	uint8_t rdata2[6] = { 0 };
-//	uint8_t rec_legth = 0;
-//	uint8_t rec_legth2 = 0;
-//
-//	FDCAN_TxHeaderTypeDef loctx = {0};
-//	loctx.BitRateSwitch = FDCAN_BRS_ON;
-//	loctx.DataLength = 6;
-//	loctx.FDFormat = FDCAN_FRAME_FD_BRS;
-//	loctx.IdType = FDCAN_STANDARD_ID;
-//	loctx.Identifier = 0x020;
-//	loctx.TxFrameType = FDCAN_DATA_FRAME;
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(NSS_24_GPIO_Port, NSS_24_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(NSS_915_GPIO_Port, NSS_915_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(NSS_868_GPIO_Port, NSS_868_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(RST_868_GPIO_Port, RST_868_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
+	HAL_GPIO_WritePin(RST_915_GPIO_Port, RST_915_Pin, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(SPI2_NSS_GPIO_Port, SPI2_NSS_Pin, GPIO_PIN_SET);
+
+	rf_handle_t rfm95_868 = { .rf_nreset_port = RST_868_GPIO_Port,
+			.rf_nreset_pin = RST_868_Pin, .rf_nss_port = NSS_868_GPIO_Port,
+			.rf_nss_pin = NSS_868_Pin, .rf_spi_handle = &hspi1, 
+			.rf_delay_func = void_os_delay, .rf_spi_timeout = HAL_MAX_DELAY,
+			.rf_carrier_frequency = 868000000 };
+
+	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
+			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
+			.rf_nss_pin = NSS_915_Pin, .rf_spi_handle = &hspi1, 
+			.rf_delay_func = void_os_delay, .rf_spi_timeout = 100, 
+			.rf_carrier_frequency = 915000000 };
+
+	rf_initialize_radio(&rfm95_868);
+
+	rf_initialize_radio(&rfm95_915);
+
+	rf_set_frequency(&rfm95_868, 868000000);
+
+	rf_set_frequency(&rfm95_915, 915000000);
+
+	uint8_t data[] = "hello";
+	uint8_t rdata[6] = { 0 };
+	uint8_t rdata2[6] = { 0 };
+	uint8_t rec_legth = 0;
+	uint8_t rec_legth2 = 0;
+
+	FDCAN_TxHeaderTypeDef loctx = {0};
+	loctx.BitRateSwitch = FDCAN_BRS_ON;
+	loctx.DataLength = 6;
+	loctx.FDFormat = FDCAN_FRAME_FD_BRS;
+	loctx.IdType = FDCAN_STANDARD_ID;
+	loctx.Identifier = 0x020;
+	loctx.TxFrameType = FDCAN_DATA_FRAME;
 
 
 	/* Infinite loop */
 	for (;;) {
 
-//
-//		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
-//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-//			rf_send(&rfm95_868, data, 5);
-//			rf_send(&rfm95_915, data, 5);
-//			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-//		}
-//		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
-//			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-//			while (0 == rec_legth) {
-//				rf_recieve_single(&rfm95_868, &rec_legth);
-//				osDelay(10);
-//			}
-//			if (rec_legth > 0) {
-//				rf_read_packet(&rfm95_868, rec_legth, rdata);
-//				rec_legth = 0;
-//			}
-//
-//			while (0 == rec_legth2) {
-//				rf_recieve_single(&rfm95_915, &rec_legth2);
-//				//osDelay(10);
-//			}
-//			if (rec_legth2 > 0) {
-//				rf_read_packet(&rfm95_915, rec_legth2, rdata2);
-//				rec_legth2 = 0;
-//			}
-//			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-//		}
-//
-//		if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
-//			if (HAL_OK == HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &loctx, &data)) {
-//				HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
-//			}
-//		}
+
+		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT1_GPIO_Port, SWT1_Pin)) {
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+			rf_send(&rfm95_868, data, 5);
+			rf_send(&rfm95_915, data, 5);
+			HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+		}
+		if (GPIO_PIN_SET == HAL_GPIO_ReadPin(SWT2_GPIO_Port, SWT2_Pin)) {
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+			while (0 == rec_legth) {
+				rf_recieve_single(&rfm95_868, &rec_legth);
+				osDelay(10);
+			}
+			if (rec_legth > 0) {
+				rf_read_packet(&rfm95_868, rec_legth, rdata);
+				rec_legth = 0;
+			}
+
+			while (0 == rec_legth2) {
+				rf_recieve_single(&rfm95_915, &rec_legth2);
+				//osDelay(10);
+			}
+			if (rec_legth2 > 0) {
+				rf_read_packet(&rfm95_915, rec_legth2, rdata2);
+				rec_legth2 = 0;
+			}
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+		}
+
+		if (0 != HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan2)) {
+			if (HAL_OK == HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &loctx, data)) {
+				HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
+			}
+		}
 		osDelay(100);
 	}
 	/* USER CODE END StartDefaultTask */
