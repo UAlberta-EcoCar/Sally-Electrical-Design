@@ -19,6 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
+#include "stm32g484xx.h"
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
@@ -65,6 +66,21 @@ FDCAN_BOOSTPack2_t boost2_data;
 FDCAN_BOOSTPack3_t boost3_data;
 
 rbState_t relay_state = RELAY_STBY;
+
+
+// --- NEW VARIABLES ADDED BELOW ---
+ECOCAN_RelPackChrg_t rel_chrg_data;
+FDCAN_RelPackNrg_t rel_nrg_data;
+FDCAN_RelPackMtr_t rel_mtr_data;
+FDCAN_RelPackCap_t rel_cap_data;
+FDCAN_RelPackFc_t rel_fc_data;
+
+ECOCAN_H2Pack1_t h2_pack1_data;
+ECOCAN_H2Pack2_t h2_pack2_data;
+ECOCAN_H2_ARM_ALARM_t h2_arm_data;
+
+FDCAN_BATTPack2_t batt_data;
+
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -399,6 +415,31 @@ void StartCanRxTask(void *argument) {
 				case FDCAN_SYNCLED_ID:
 					can_sync_led = ret[0];
 					break;
+				case FDCAN_FETPACK_ID:
+					memcpy(&fet_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case ECOCAN_RELPACKCHARGE_ID:
+					memcpy(&rel_chrg_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+                    break;
+				case FDCAN_RELPACKENERGY_ID:
+					memcpy(&rel_nrg_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+                    break;
+				case FDCAN_RELPACKMTR_ID:
+					memcpy(&rel_mtr_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_RELPACKCAP_ID:
+					memcpy(&rel_cap_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+					break;
+				case FDCAN_RELPACKFC_ID:
+                    memcpy(&rel_fc_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+                    break;
+                case FDCAN_RELSTATE_ID:
+                    relay_state = (rbState_t) ret[0];
+                    break;
+
+
+
+				
 				case FDCAN_FCCPACK1_ID:
 					memcpy(&fcc1_data, ret, mapDlcToBytes(localRxHeader.DataLength));
 					break;
@@ -408,9 +449,26 @@ void StartCanRxTask(void *argument) {
 				case FDCAN_FCCPACK3_ID:
 					memcpy(&fcc3_data, ret, mapDlcToBytes(localRxHeader.DataLength));
 					break;
-				case FDCAN_FETPACK_ID:
-					memcpy(&fet_data, ret, mapDlcToBytes(localRxHeader.DataLength));
-					break;
+				// case FDCAN_FETPACK_ID:
+				// 	memcpy(&fet_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+				// 	break;
+
+
+
+				
+				case ECOCAN_H2_PACK1_ID:
+                    memcpy(&h2_pack1_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+                    break;
+                case ECOCAN_H2_PACK2_ID:
+                    memcpy(&h2_pack2_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+                    break;
+                case ECOCAN_H2_ARM_ALARM_ID:
+                    memcpy(&h2_arm_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+                    break;
+
+
+
+
 				case FDCAN_BOOSTPACK_ID:
 					memcpy(&boost1_data, ret, mapDlcToBytes(localRxHeader.DataLength));
 					break;
@@ -420,9 +478,13 @@ void StartCanRxTask(void *argument) {
 				case FDCAN_BOOSTPACK3_ID:
 					memcpy(&boost3_data, ret, mapDlcToBytes(localRxHeader.DataLength));
 					break;
-				case FDCAN_RELSTATE_ID:
-					relay_state = (rbState_t) ret[0];
-					break;
+				// case FDCAN_RELSTATE_ID:
+				// 	relay_state = (rbState_t) ret[0];
+				// 	break;
+
+				case FDCAN_BATTPACK_ID:
+                    memcpy(&batt_data, ret, mapDlcToBytes(localRxHeader.DataLength));
+                    break;
 			}
 		}
 	}
