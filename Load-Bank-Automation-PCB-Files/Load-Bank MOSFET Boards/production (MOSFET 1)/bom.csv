@@ -1,18 +1,18 @@
-﻿Designator,Footprint,Quantity,Value,LCSC Part #
-C10,1206,1,68n,
-"C2, C8",0603,2,100n,
-C7,1210,1,4.7u,
-"D1, D47",D_SMB_Handsoldering,2,SBR1U200P1,
-D3,0603,1,LED,
-"J2, J22",IDC_PinHeader_1x03_P1.00mm_Vertical,2,Conn_01x03,
-"Q22, Q3",Goodarksemiconductor_PPAK_3x3,2,GSGN0648,
-R12,1210,1,10k,
-R16,R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal,1,13k,
-R17,1206,1,39,
-R18,1210,1,20k,
-"R31, R84",1206,2,27k4,
-R32,1206,1,390k,
-R83,1206,1,357k,
-U10,SOT-23-5,1,MCP6006-OTVAO,
-U3,Allegro_QFN-12-10-1EP_3x3mm_P0.5mm,1,ACS711xEXLT-31AB,
-U8,SOT-23-6,1,IRS10752LTRPBF,
+Ref Des,Qty,Value / Description,Package / Footprint,Mfr Part #,DigiKey Search Term,DigiKey Category,Suggested Spec,Notes
+C2 C8,2,100nF / 0.1µF,0603 SMD,GRM188R71H104KA93D,100nF 0603 50V X7R,Capacitors,50V X7R ±10%,Decoupling caps
+C7,1,4.7µF,1210 SMD,GRM32ER61A475KA87L,4.7uF 1210 10V X5R,Capacitors,10V+ X5R/X7R ±10%,Bulk bypass
+C10,1,68nF,1206 SMD,C3216X7R1H683K160AB,68nF 1206 50V X7R,Capacitors,50V X7R ±10%,Filter cap
+D1 D47,2,SBR1U200P1,SMB (DO-214AA),SBR1U200P1-7,SBR1U200P1 Diodes Inc,Diodes,200V 1A Schottky,Gate clamp / freewheel
+D3,1,LED (Green rec.),0603 SMD,LTST-C190GKT,LED 0603 green SMD,LEDs,Vf ~2.1V If 20mA,Status indicator — colour not specified in schematic
+J2 J22,2,3-pin 2.54mm IDC Header,1x3 2.54mm Vertical,61300311121,IDC header 1x3 2.54mm,Connectors,Through-hole 2.54mm pitch,Signal/control headers
+Q3 Q22,2,GSGN0648 N-ch MOSFET,PPAK 3x3 (SO-8EP),GSGN0648,GSGN0648,MOSFETs,See datasheet,Verify DigiKey stock — alt: 60V N-ch MOSFET in PPAK 3x3
+R17,1,39Ω,1206 SMD,RC1206FR-0739RL,39 ohm 1206 1% 1/4W,Resistors,1% 1/4W ±100ppm/°C,Gate resistor
+R31 R84,2,27.4kΩ,1206 SMD,RC1206FR-0727K4L,27.4k 1206 1%,Resistors,1% 1/4W,Voltage divider
+R32,1,390kΩ,1206 SMD,RC1206FR-07390KL,390k 1206 1%,Resistors,1% 1/4W,Bias/divider
+R83,1,357kΩ,1206 SMD,RC1206FR-07357KL,357k 1206 1%,Resistors,1% 1/4W,Bias/divider
+R12,1,10kΩ,1210 SMD,RC1210FR-0710KL,10k 1210 1%,Resistors,1% 1/2W,Pull-up/divider — 1210 for power rating
+R18,1,20kΩ,1210 SMD,RC1210FR-0720KL,20k 1210 1%,Resistors,1% 1/2W,Voltage divider
+R16,1,13kΩ,THT Axial 7.62mm pitch,CFR-25JB-52-13K,13k axial THT 1/4W,Resistors,5% or 1% 1/4W,Only THT part on board — verify 7.62mm hole pitch
+U3,1,ACS711xEXLT-31AB,QFN-12 3x3mm,ACS711EEXLT-31AB-T,ACS711EEXLT-31AB,Current Sensors,±31A 3.3V supply FAULT pin,Hall-effect current sensor
+U8,1,IRS10752LTRPBF,SOT-23-6,IRS10752LTRPBF,IRS10752LTRPBF,Gate Drivers,Low-side MOSFET driver,Infineon gate driver
+U10,1,MCP6006-OTVAO / MCP6001-OT,SOT-23-5,MCP6001T-I/OT,MCP6001 SOT-23-5,Op-Amps,1MHz GBW 1.8–5.5V,Schematic shows MCP6006-OTVAO — confirm variant; MCP6001T-I/OT is standard alt
