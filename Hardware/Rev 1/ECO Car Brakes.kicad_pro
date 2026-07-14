@@ -3,6 +3,8 @@
     "3dviewports": [],
     "design_settings": {
       "defaults": {
+        "apply_defaults_to_fp_barcodes": false,
+        "apply_defaults_to_fp_dimensions": false,
         "apply_defaults_to_fp_fields": false,
         "apply_defaults_to_fp_shapes": false,
         "apply_defaults_to_fp_text": false,
@@ -37,9 +39,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.0,
-          "height": 1.55,
-          "width": 0.3
+          "drill": 3.2,
+          "height": 6.4,
+          "width": 6.4
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -48,7 +50,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.18
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [
@@ -65,59 +67,7 @@
       ],
       "drc_exclusions": [
         [
-          "malformed_courtyard|125117000|130756000|73fd1b7f-1100-4bf5-be3f-4bfbcab9a211|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|141230537|132795250|3f41dd64-5746-4f25-8c3d-1743f5c06acd|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|171666886|55718992|0c57cb00-26eb-4f0e-8c9c-2c97a44f9d6b|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_overlap|136915000|79840000|0c3abe84-4fc5-4ee2-b74f-6b512e6161a8|964b24f4-dc89-4816-aeab-cf9631e529e1",
-          ""
-        ],
-        [
-          "silk_overlap|136915000|79840000|366e5ded-e6e1-4beb-81ee-994a7a6b9cec|94c8a1d9-2662-4ec5-a459-0c6ee052f297",
-          ""
-        ],
-        [
-          "silk_overlap|136915000|79840000|366e5ded-e6e1-4beb-81ee-994a7a6b9cec|964b24f4-dc89-4816-aeab-cf9631e529e1",
-          ""
-        ],
-        [
-          "silk_overlap|139600000|79840000|0c3abe84-4fc5-4ee2-b74f-6b512e6161a8|94c8a1d9-2662-4ec5-a459-0c6ee052f297",
-          ""
-        ],
-        [
-          "silk_overlap|154352500|102816250|1ec1aac1-3f0f-4af4-838f-c6ca5d543d88|7e5e9358-7660-4818-b044-16bd2c657bad",
-          ""
-        ],
-        [
-          "silk_overlap|154352500|103583750|0ea45850-d76a-4afb-a141-ddd267f7ea8b|7e5e9358-7660-4818-b044-16bd2c657bad",
-          ""
-        ],
-        [
-          "silk_overlap|171500000|47993356|1098a37a-4e76-4630-bb6a-c3252c9d8975|d7b8fba0-8ce2-409c-b1f3-d6b72faeed97",
-          ""
-        ],
-        [
-          "silk_overlap|177625000|142250000|9b9a2339-73f2-4e4b-9d82-59671ece82d9|fb16af4e-c527-4f3d-851a-d9eb48537451",
-          ""
-        ],
-        [
-          "silk_overlap|180900000|47999166|1098a37a-4e76-4630-bb6a-c3252c9d8975|69f35552-eb77-47e8-99ef-2611b3cf3270",
-          ""
-        ],
-        [
-          "silk_overlap|183003217|142250000|61f74a93-dccb-4d16-a219-98305f2b4d8a|fb16af4e-c527-4f3d-851a-d9eb48537451",
-          ""
-        ],
-        [
-          "silk_overlap|184828827|142250000|73ca3258-1c1c-4690-9975-d16b42a79eb8|fb16af4e-c527-4f3d-851a-d9eb48537451",
+          "malformed_courtyard|125117000|130818000|73fd1b7f-1100-4bf5-be3f-4bfbcab9a211|00000000-0000-0000-0000-000000000000",
           ""
         ]
       ],
@@ -139,6 +89,7 @@
         "extra_footprint": "warning",
         "footprint": "error",
         "footprint_filters_mismatch": "ignore",
+        "footprint_symbol_field_mismatch": "warning",
         "footprint_symbol_mismatch": "warning",
         "footprint_type_mismatch": "ignore",
         "hole_clearance": "error",
@@ -157,6 +108,7 @@
         "mirrored_text_on_front_layer": "warning",
         "missing_courtyard": "ignore",
         "missing_footprint": "warning",
+        "missing_tuning_profile": "warning",
         "net_conflict": "warning",
         "nonmirrored_text_on_back_layer": "warning",
         "npth_inside_courtyard": "ignore",
@@ -176,9 +128,12 @@
         "too_many_vias": "error",
         "track_angle": "error",
         "track_dangling": "warning",
+        "track_not_centered_on_via": "ignore",
+        "track_on_post_machined_layer": "error",
         "track_segment_length": "error",
         "track_width": "error",
         "tracks_crossing": "error",
+        "tuning_profile_track_geometries": "ignore",
         "unconnected_items": "error",
         "unresolved_variable": "error",
         "via_dangling": "warning",
@@ -187,7 +142,7 @@
       "rules": {
         "max_error": 0.005,
         "min_clearance": 0.152,
-        "min_connection": 0.152,
+        "min_connection": 0.02,
         "min_copper_edge_clearance": 0.5,
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.254,
@@ -252,6 +207,7 @@
       "track_widths": [
         0.0,
         0.18,
+        0.2,
         0.3,
         0.5
       ],
@@ -294,17 +250,28 @@
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
+      "bom_rev": "",
       "dist": "",
       "distpn": "",
       "internal_id": "",
       "mfg": "",
-      "mpn": ""
+      "mpn": "",
+      "sch_revision": "1.1"
     },
     "layer_pairs": [],
     "layer_presets": [],
     "viewports": []
   },
   "boards": [],
+  "component_class_settings": {
+    "assignments": [],
+    "meta": {
+      "version": 0
+    },
+    "sheet_component_classes": {
+      "enabled": false
+    }
+  },
   "cvpcb": {
     "equivalence_files": []
   },
@@ -495,11 +462,14 @@
       "duplicate_sheet_names": "error",
       "endpoint_off_grid": "warning",
       "extra_units": "error",
+      "field_name_whitespace": "warning",
       "footprint_filter": "ignore",
       "footprint_link_issues": "warning",
       "four_way_junction": "ignore",
       "global_label_dangling": "warning",
+      "ground_pin_not_ground": "warning",
       "hier_label_mismatch": "error",
+      "isolated_pin_label": "warning",
       "label_dangling": "error",
       "label_multiple_wires": "warning",
       "lib_symbol_issues": "warning",
@@ -522,6 +492,7 @@
       "similar_power": "warning",
       "simulation_model_issue": "ignore",
       "single_global_label": "ignore",
+      "stacked_pin_name": "warning",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
       "undefined_netclass": "error",
@@ -556,13 +527,14 @@
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.2,
+        "tuning_profile": "",
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
       }
     ],
     "meta": {
-      "version": 4
+      "version": 5
     },
     "net_colors": {
       "+3V3": "rgb(0, 194, 194)",
@@ -594,6 +566,10 @@
   },
   "schematic": {
     "annotate_start_num": 0,
+    "annotation": {
+      "method": 0,
+      "sort_order": 0
+    },
     "bom_export_filename": "C:\\Users\\Emily\\Downloads\\EcoCar\\ECO Light Board.csv",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
@@ -737,6 +713,7 @@
       "sort_asc": true,
       "sort_field": "Reference"
     },
+    "bus_aliases": {},
     "connection_grid_size": 50.0,
     "drawing": {
       "dashed_lines_dash_length_ratio": 12.0,
@@ -744,6 +721,7 @@
       "default_line_thickness": 6.0,
       "default_text_size": 50.0,
       "field_names": [],
+      "hop_over_size_choice": 0,
       "intersheets_ref_own_page": false,
       "intersheets_ref_prefix": "",
       "intersheets_ref_short": false,
@@ -767,6 +745,7 @@
     "net_format_name": "",
     "page_layout_descr_file": "kicad-embed://ecocad_drawing_sheet.kicad_wks",
     "plot_directory": "",
+    "reuse_designators": true,
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
@@ -775,12 +754,21 @@
     "spice_save_all_dissipations": false,
     "spice_save_all_voltages": false,
     "subpart_first_id": 65,
-    "subpart_id_separator": 0
+    "subpart_id_separator": 0,
+    "top_level_sheets": [
+      {
+        "filename": "ECO Car Brakes.kicad_sch",
+        "name": "ECO Car Brakes",
+        "uuid": "d9fbd862-66a5-4e43-a246-f73155fa8252"
+      }
+    ],
+    "used_designators": "",
+    "variants": []
   },
   "sheets": [
     [
       "d9fbd862-66a5-4e43-a246-f73155fa8252",
-      "Root"
+      "ECO Car Brakes"
     ],
     [
       "7ae4fa1e-52f5-45b4-8e67-80fad007f565",
@@ -823,5 +811,11 @@
       "PanelPower4"
     ]
   ],
-  "text_variables": {}
+  "text_variables": {},
+  "tuning_profiles": {
+    "meta": {
+      "version": 0
+    },
+    "tuning_profiles_impedance_geometric": []
+  }
 }
