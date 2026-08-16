@@ -285,14 +285,14 @@ void StartDefaultTask(void *argument)
 
 	rf_handle_t rfm95_868 = { .rf_nreset_port = RST_868_GPIO_Port,
 			.rf_nreset_pin = RST_868_Pin, .rf_nss_port = NSS_868_GPIO_Port,
-			.rf_nss_pin = NSS_868_Pin, .rf_spi_handle = &hspi1, 
+			.rf_nss_pin = NSS_868_Pin, .rf_spi_handle = &hspi1,
 			.rf_delay_func = void_os_delay, .rf_spi_timeout = HAL_MAX_DELAY,
 			.rf_carrier_frequency = 868000000 };
 
 	rf_handle_t rfm95_915 = { .rf_nreset_port = RST_915_GPIO_Port,
 			.rf_nreset_pin = RST_915_Pin, .rf_nss_port = NSS_915_GPIO_Port,
-			.rf_nss_pin = NSS_915_Pin, .rf_spi_handle = &hspi1, 
-			.rf_delay_func = void_os_delay, .rf_spi_timeout = 100, 
+			.rf_nss_pin = NSS_915_Pin, .rf_spi_handle = &hspi1,
+			.rf_delay_func = void_os_delay, .rf_spi_timeout = 100,
 			.rf_carrier_frequency = 915000000 };
 
 	rf_initialize_radio(&rfm95_868);
