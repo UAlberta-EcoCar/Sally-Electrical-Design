@@ -27,12 +27,12 @@ include("cmake/gcc-arm-none-eabi.cmake")
 # Enable compile command to ease indexing with e.g. clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
-# Enable CMake support for ASM and C languages
-enable_language(C ASM)
-
 # Core project settings
 project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})
+
+# Enable CMake support for ASM and C languages
+enable_language(C ASM)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
@@ -45,18 +45,39 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined library search paths
 )
 
+# Include external Libraries
+# FetchContent Documentation: https://cmake.org/cmake/help/latest/module/FetchContent.html
+include(FetchContent)
+
+# Import repository into the Modules folder
+set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/Modules)
+
+FetchContent_Declare(
+    # FetchContent Name is case-insensitive
+    ecolib
+    GIT_REPOSITORY git@github.com:UAlberta-EcoCar/EcoLib.git
+    GIT_TAG v0.1
+    GIT_SHALLOW TRUE
+    GIT_PROGRESS ON
+    SYSTEM
+)
+# more `FetchContent_Declare`s (if any). They should all be declared
+# before any calls to FetchContent_Make_available (see docs for why).
+
+FetchContent_MakeAvailable(EcoLib)
+
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Core/Src/ws2812.c
-    EcoLib/ecocan/ecocar_can.c
+    Modules/ecolib-src/ecocan/ecocar_can.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-    EcoLib/ecocan 
-    EcoLib/util/typedef
+    Modules/ecolib-src/ecocan 
+    Modules/ecolib-src/util/typedef
 )
 
 # Add project symbols (macros)
